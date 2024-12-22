@@ -1,0 +1,79 @@
+# Flutter and Dart specific files
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.dart_tool/
+.pub-cache/
+.pub/
+.flutter-plugins-dependencies
+
+# Generated files
+*.class
+*.lock
+*.log
+*.pyc
+*.pyo
+*.swp
+*.DS_Store
+
+# macOS
+.DS_Store
+
+# iOS
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework/
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/App.framework/
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+
+# Android
+**/android/.gradle/
+**/android/app/build/
+**/android/local.properties
+**/android/.idea/
+**/android/app/.cxx/
+
+# VS Code
+.vscode/
+
+# IntelliJ IDEA / Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Build output directories
+build/
+
+# Coverage output
+coverage/
+
+# Firebase configuration
+google-services.json
+GoogleService-Info.plist
+
+# Misc
+*.key
+*.jks
+*.keystore
+
+# Build ve derleme dosyalarını hariç tut
+build/
+*.apk
+*.bin
+*.lock
+*.json
+*.properties
+*.xml
+*.jar
+*.dex
+*.log
+*.txt
+
+# Android geçici dosyaları
+**/intermediates/
+**/outputs/
+**/incremental/
