@@ -1,3 +1,3 @@
-# teneffus
+# Teneffüs
 
-A new Flutter project.
+Liseli öğrenciler için Arapça öğrenme uygulaması.
