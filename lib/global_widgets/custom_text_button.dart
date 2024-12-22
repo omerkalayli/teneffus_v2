@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:teneffus/global_entities/button_type.dart';
+import 'package:teneffus/global_widgets/custom_button.dart';
+import 'package:teneffus/global_widgets/stroked_text.dart';
+
+/// [CustomTextButton], is a customized text button with a pressing effect.
+/// This button uses [CustomButton] as a base.
+///
+/// Parameters:
+/// - [text]: The text to be displayed inside the button.
+/// - [onPressed]: The function to be called when the button is pressed.
+/// - [borderWidth]: The width of the button border. The default value is located in the [CustomButton].
+/// - [buttonBackgroundAndForegroundBorderRadius]: The border radius of the button background and foreground. The default value is located in the [CustomButton].
+/// - [buttonOnPressedShadowBorderRadius]: The border radius of the button shadow when pressed. The default value is located in the [CustomButton].
+/// - [buttonStrokeBorderRadius]: The border radius of the button stroke. The default value is located in the [CustomButton].
+/// - [buttonPalette]: The type of the button. The default value is located in the [CustomButton].
+/// - [duration]: The duration of the button animation. The default value is located in the [CustomButton].
+
+class CustomTextButton extends StatelessWidget {
+  const CustomTextButton({
+    required this.text,
+    required this.onPressed,
+    this.borderWidth,
+    this.buttonBackgroundAndForegroundBorderRadius,
+    this.buttonOnPressedShadowBorderRadius,
+    this.buttonStrokeBorderRadius,
+    this.buttonPalette,
+    this.duration,
+    super.key,
+  });
+
+  final double? borderWidth;
+  final BorderRadius? buttonBackgroundAndForegroundBorderRadius;
+  final BorderRadius? buttonOnPressedShadowBorderRadius;
+  final BorderRadius? buttonStrokeBorderRadius;
+  final ButtonPalette? buttonPalette;
+  final Duration? duration;
+
+  final String text;
+  final Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomButton(
+      borderWidth: borderWidth,
+      backgroundAndForegroundBorderRadius:
+          buttonBackgroundAndForegroundBorderRadius,
+      onPressedShadowBorderRadius: buttonOnPressedShadowBorderRadius,
+      strokeBorderRadius: buttonStrokeBorderRadius,
+      buttonPalette: buttonPalette,
+      duration: duration,
+      child: StrokedText(
+        text,
+        strokeWidth: 2,
+        style: Theme.of(context)
+            .textTheme
+            .bodyLarge!
+            .copyWith(color: Colors.white),
+      ),
+      onPressed: () {},
+    );
+  }
+}
