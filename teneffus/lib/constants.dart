@@ -10,7 +10,7 @@ const Shadow textShadowSmall =
 
 const Curve slideAnimationCurve = Curves.linearToEaseOut;
 
-/// ButtonPalette colors
+/// BUTTONPALETTE COLORS
 const Color buttonBackgroundColorOrange = Color(0xffC26649);
 const Color buttonForegroundColorOrange = Color(0xffFF8A65);
 
@@ -20,16 +20,29 @@ const Color buttonForegroundColorWhite = Colors.white;
 const Color buttonBackgroundColorBlue = Color(0xff4581B2);
 const Color buttonForegroundColorBlue = Color(0xff64B5F6);
 
-// TODO: there two must be specified
+// TODO: these two must be specified
 const Color buttonBackgroundColorRed = Color(0xffC26649);
 const Color buttonForegroundColorRed = Color(0xffFF8A65);
 
 const Color buttonBackgroundColorGreen = Color(0xffC26649);
 const Color buttonForegroundColorGreen = Color(0xffFF8A65);
 
-/// Textfield colors
+/// TEXTFIELD CONSTANTS
 const Color textFieldTextColor = Color(0xff333333);
 const Color textFieldEnabledBorderColor = Color(0xff058595);
 const Color textFieldErrorBorderColor = Color(0xFFE57373);
 const Color textFieldFocusedBorderColor = Color(0xff333333);
 const Color textFieldColor = Color(0xffADE8F4);
+const BorderRadius textFieldBorderRadius =
+    BorderRadius.all(Radius.circular(12));
+const double textFieldStrokeWidth = 2;
+
+/// TEXTBUTTON CONSTANTS
+const Duration buttonAnimationDuration = Duration(milliseconds: 200);
+const BorderRadius buttonStrokeBorderRadius =
+    BorderRadius.all(Radius.circular(10));
+const BorderRadius buttonBackgroundAndForegroundBorderRadius =
+    BorderRadius.all(Radius.circular(7));
+const BorderRadius buttonOnPressedShadowBorderRadius =
+    BorderRadius.all(Radius.circular(8));
+const double buttonBorderWidth = 2;

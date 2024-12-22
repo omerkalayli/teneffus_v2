@@ -12,6 +12,9 @@ import 'package:teneffus/global_widgets/stroked_text.dart';
 /// - [borderWidth]: The width of the button border. The default value is located in the [CustomButton].
 /// - [buttonBackgroundAndForegroundBorderRadius]: The border radius of the button background and foreground. The default value is located in the [CustomButton].
 /// - [buttonOnPressedShadowBorderRadius]: The border radius of the button shadow when pressed. The default value is located in the [CustomButton].
+/// - [buttonStrokeBorderRadius]: The border radius of the button stroke. The default value is located in the [CustomButton].
+/// - [buttonPalette]: The type of the button. The default value is located in the [CustomButton].
+/// - [duration]: The duration of the button animation. The default value is located in the [CustomButton].
 
 class CustomTextButton extends StatelessWidget {
   const CustomTextButton({
@@ -40,10 +43,10 @@ class CustomTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomButton(
       borderWidth: borderWidth,
-      buttonBackgroundAndForegroundBorderRadius:
+      backgroundAndForegroundBorderRadius:
           buttonBackgroundAndForegroundBorderRadius,
-      buttonOnPressedShadowBorderRadius: buttonOnPressedShadowBorderRadius,
-      buttonStrokeBorderRadius: buttonStrokeBorderRadius,
+      onPressedShadowBorderRadius: buttonOnPressedShadowBorderRadius,
+      strokeBorderRadius: buttonStrokeBorderRadius,
       buttonPalette: buttonPalette,
       duration: duration,
       child: StrokedText(

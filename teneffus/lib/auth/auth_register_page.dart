@@ -43,7 +43,7 @@ class AuthRegisterPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 60, child: CustomTextField()),
+                const SizedBox(height: 60, child: CustomTextField()),
                 const Gap(32),
                 Padding(
                   padding: const EdgeInsets.only(left: 4.0),

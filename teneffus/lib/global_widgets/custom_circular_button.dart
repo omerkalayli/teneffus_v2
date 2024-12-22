@@ -18,11 +18,9 @@ part 'custom_circular_button_methods.dart';
 /// - [borderWidth]: The width of the button border. Default: 2.
 /// - [duration]: The duration of the button animation. Default: 200 milliseconds.
 /// - [buttonPalette]: The type of the button. Default: orange.
-/// - [buttonStrokeBorderRadius]: The border radius of the button stroke. Default: 10.
-/// - [buttonBackgroundAndForegroundBorderRadius]: The border radius of the button background and foreground. Default: 7.
-/// - [buttonOnPressedShadowBorderRadius]: The border radius of the button shadow when pressed. Default: 8.
 /// - [showForegroundInnerShadow]: Whether to show the inner shadow on unpressed state as well. Default: false.
 /// - [isSticky]: Whether the button should stay pressed until pressed again. Default: false.
+/// - [value]: The value to be used in the [isSticky] mode. Default: false.
 
 class CustomCircularButton extends HookConsumerWidget {
   const CustomCircularButton({
@@ -54,9 +52,9 @@ class CustomCircularButton extends HookConsumerWidget {
           backgroundColor: Colors.black,
           foregroundColor: _getButtonForegroundColor(buttonPalette),
         ),
-        buttonBackgroundAndForegroundBorderRadius: BorderRadius.circular(30),
-        buttonStrokeBorderRadius: BorderRadius.circular(30),
-        buttonOnPressedShadowBorderRadius: BorderRadius.circular(99),
+        backgroundAndForegroundBorderRadius: BorderRadius.circular(30),
+        strokeBorderRadius: BorderRadius.circular(30),
+        onPressedShadowBorderRadius: BorderRadius.circular(99),
         onPressed: onPressed,
         showForegroundInnerShadow: showForegroundInnerShadow,
         isSticky: isSticky,
