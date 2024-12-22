@@ -10,7 +10,7 @@ import 'package:teneffus/global_widgets/custom_circular_button.dart';
 /// - [labels]: The list of items to be displayed.
 /// - [onSelected]: The function to be called when an item is selected.
 /// - [defaultIndex]: The index of the item to be selected by default. Default: null.
-/// - [buttonPalette]: The type of the button. Default: blue.
+/// - [buttonPalette]: The type of the button. Default: [ButtonPalette.blue].
 
 class CustomPicker extends HookConsumerWidget {
   CustomPicker({

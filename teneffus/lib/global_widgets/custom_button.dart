@@ -11,12 +11,12 @@ part 'custom_button_methods.dart';
 /// ### Parameters
 /// - [onPressed]: The function to be called when the button is pressed.
 /// - [child]: The widget to be displayed inside the button.
-/// - [borderWidth]: The width of the button border. Default: 2.
-/// - [duration]: The duration of the button animation. Default: 200 milliseconds.
-/// - [buttonPalette]: The type of the button. Default: orange.
-/// - [buttonStrokeBorderRadius]: The border radius of the button stroke. Default: 10.
-/// - [buttonBackgroundAndForegroundBorderRadius]: The border radius of the button background and foreground. Default: 7.
-/// - [buttonOnPressedShadowBorderRadius]: The border radius of the button shadow when pressed. Default: 8.
+/// - [borderWidth]: The width of the button border. Default: [buttonBorderWidth].
+/// - [duration]: The duration of the button animation. Default: [buttonAnimationDuration].
+/// - [buttonPalette]: The type of the button. Default: [ButtonPalette.orange].
+/// - [strokeBorderRadius]: The border radius of the button stroke. Default: [buttonStrokeBorderRadius].
+/// - [backgroundAndForegroundBorderRadius]: The border radius of the button background and foreground. Default: [buttonBackgroundAndForegroundBorderRadius].
+/// - [onPressedShadowBorderRadius]: The border radius of the button shadow when pressed. Default: [buttonOnPressedShadowBorderRadius].
 /// - [showForegroundInnerShadow]: Whether to show the inner shadow on unpressed state as well. Default: false.
 /// - [isSticky]: Whether the button should stay pressed until pressed again. Default: false.
 
@@ -27,32 +27,31 @@ class CustomButton extends HookConsumerWidget {
     Duration? duration,
     double? borderWidth,
     ButtonPalette? buttonPalette,
-    BorderRadius? buttonStrokeBorderRadius,
-    BorderRadius? buttonBackgroundAndForegroundBorderRadius,
-    BorderRadius? buttonOnPressedShadowBorderRadius,
+    BorderRadius? strokeBorderRadius,
+    BorderRadius? backgroundAndForegroundBorderRadius,
+    BorderRadius? onPressedShadowBorderRadius,
     bool? showForegroundInnerShadow,
     bool? isSticky,
     this.value,
     super.key,
-  })  : borderWidth = borderWidth ?? 2,
-        duration = duration ?? const Duration(milliseconds: 200),
+  })  : borderWidth = borderWidth ?? buttonBorderWidth,
+        duration = duration ?? buttonAnimationDuration,
         buttonPalette = buttonPalette ?? ButtonPalette.orange(),
-        buttonStrokeBorderRadius =
-            buttonStrokeBorderRadius ?? BorderRadius.circular(10),
-        buttonBackgroundAndForegroundBorderRadius =
-            buttonBackgroundAndForegroundBorderRadius ??
-                BorderRadius.circular(7),
-        buttonOnPressedShadowBorderRadius =
-            buttonOnPressedShadowBorderRadius ?? BorderRadius.circular(8),
+        strokeBorderRadius = strokeBorderRadius ?? buttonStrokeBorderRadius,
+        backgroundAndForegroundBorderRadius =
+            backgroundAndForegroundBorderRadius ??
+                buttonBackgroundAndForegroundBorderRadius,
+        onPressedShadowBorderRadius =
+            onPressedShadowBorderRadius ?? buttonOnPressedShadowBorderRadius,
         showForegroundInnerShadow = showForegroundInnerShadow ?? false,
         isSticky = isSticky ?? false;
 
   final Widget child;
   final Duration duration;
   final ButtonPalette buttonPalette;
-  final BorderRadius buttonBackgroundAndForegroundBorderRadius;
-  final BorderRadius buttonOnPressedShadowBorderRadius;
-  final BorderRadius buttonStrokeBorderRadius;
+  final BorderRadius backgroundAndForegroundBorderRadius;
+  final BorderRadius onPressedShadowBorderRadius;
+  final BorderRadius strokeBorderRadius;
   final double borderWidth;
   final bool showForegroundInnerShadow;
   final bool isSticky;
@@ -112,7 +111,7 @@ class CustomButton extends HookConsumerWidget {
                               color: Colors.black.withValues(alpha: 0.3))
                         ]
                       : null,
-                  borderRadius: buttonStrokeBorderRadius,
+                  borderRadius: strokeBorderRadius,
                   border: Border.all(width: borderWidth, color: Colors.black)),
               child: AnimatedContainer(
                 /// Background layer of the button
@@ -123,7 +122,7 @@ class CustomButton extends HookConsumerWidget {
                   bottom: isPressed.value ? borderWidth + 2 : 0,
                 ),
                 decoration: BoxDecoration(
-                  borderRadius: buttonBackgroundAndForegroundBorderRadius,
+                  borderRadius: backgroundAndForegroundBorderRadius,
                   color: _getButtonBackgroundColor(buttonPalette),
                 ),
               ),
@@ -139,7 +138,7 @@ class CustomButton extends HookConsumerWidget {
                 bottom: isPressed.value ? borderWidth : 8,
                 top: isPressed.value ? borderWidth + 8 : borderWidth),
             decoration: BoxDecoration(
-              borderRadius: buttonBackgroundAndForegroundBorderRadius,
+              borderRadius: backgroundAndForegroundBorderRadius,
               color: _getButtonForegroundColor(buttonPalette),
             ),
             child: AnimatedContainer(
@@ -148,7 +147,7 @@ class CustomButton extends HookConsumerWidget {
                 margin: EdgeInsets.all(borderWidth + 2),
                 duration: duration,
                 decoration: BoxDecoration(
-                    borderRadius: buttonOnPressedShadowBorderRadius,
+                    borderRadius: onPressedShadowBorderRadius,
                     color: isPressed.value || showForegroundInnerShadow
                         ? Colors.black.withValues(alpha: 0.2)
                         : Colors.transparent),

@@ -5,16 +5,16 @@ import 'package:teneffus/constants.dart';
 /// A custom text field with custom border colors and border radius.
 ///
 /// ### Parameters
-/// - [borderRadius]: The border radius of the text field. Default: 12.
+/// - [borderRadius]: The border radius of the text field. Default: [textFieldBorderRadius].
 /// - [color]: The color of the text field. Default: [textFieldColor].
 /// - [enabledBorderColor]: The color of the text field border when enabled. Default: [textFieldEnabledBorderColor].
 /// - [errorBorderColor]: The color of the text field border when an error occurs. Default: [textFieldErrorBorderColor].
 /// - [focusedBorderColor]: The color of the text field border when focused. Default: [textFieldFocusedBorderColor].
 /// - [textColor]: The color of the text field text. Default: [textFieldTextColor].
-/// - [borderWidth]: The width of the text field border. Default: 2.
+/// - [borderWidth]: The width of the text field border. Default: [textFieldStrokeWidth].
 
 class CustomTextField extends StatelessWidget {
-  CustomTextField({
+  const CustomTextField({
     BorderRadius? borderRadius,
     Color? color,
     Color? enabledBorderColor,
@@ -23,13 +23,13 @@ class CustomTextField extends StatelessWidget {
     Color? textColor,
     double? borderWidth,
     super.key,
-  })  : borderRadius = borderRadius ?? BorderRadius.circular(12),
+  })  : borderRadius = borderRadius ?? textFieldBorderRadius,
         color = color ?? textFieldColor,
         enabledBorderColor = enabledBorderColor ?? textFieldEnabledBorderColor,
         errorBorderColor = errorBorderColor ?? textFieldErrorBorderColor,
         focusedBorderColor = focusedBorderColor ?? textFieldFocusedBorderColor,
         textColor = textColor ?? textFieldTextColor,
-        borderWidth = borderWidth ?? 2;
+        borderWidth = borderWidth ?? textFieldStrokeWidth;
 
   final BorderRadius borderRadius;
   final Color color;
