@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "943116106298",
+    "project_id": "teneffus-cec41",
+    "storage_bucket": "teneffus-cec41.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943116106298:android:b7e5dab0ca2b0628add303",
+        "android_client_info": {
+          "package_name": "com.omerkalayli.teneffus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCffKKNjgsSFUU7flsTEtffhCwxL79RjNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943116106298:android:e9e3685b7ab6b28cadd303",
+        "android_client_info": {
+          "package_name": "com.teneffus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCffKKNjgsSFUU7flsTEtffhCwxL79RjNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

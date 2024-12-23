@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:teneffus/auth/auth_initial_page.dart';
-import 'package:teneffus/auth/auth_login_page.dart';
-import 'package:teneffus/auth/auth_register_page.dart';
+import 'package:teneffus/auth/presentation/pages/auth_initial_page.dart';
+import 'package:teneffus/auth/presentation/pages/auth_login_page.dart';
+import 'package:teneffus/auth/presentation/pages/auth_register_page.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/global_widgets/stroked_text.dart';
 

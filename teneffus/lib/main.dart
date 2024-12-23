@@ -3,8 +3,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/app_router.dart';
 import 'package:teneffus/app_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:teneffus/firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(ProviderScope(child: MainApp()));
 }
 
