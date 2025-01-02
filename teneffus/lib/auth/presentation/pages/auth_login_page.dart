@@ -1,27 +1,43 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:teneffus/auth/presentation/auth_notifier.dart';
+import 'package:teneffus/auth/presentation/pages/auth_page.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/gen/assets.gen.dart';
 import 'package:teneffus/global_entities/button_type.dart';
+import 'package:teneffus/global_entities/snackbar_type.dart';
 import 'package:teneffus/global_widgets/custom_button.dart';
+import 'package:teneffus/global_widgets/custom_snackbar.dart';
 import 'package:teneffus/global_widgets/custom_text_button.dart';
 import 'package:teneffus/global_widgets/custom_text_field.dart';
 import 'package:teneffus/global_widgets/stroked_text.dart';
+import 'package:teneffus/validator.dart';
 
 /// [AuthLoginPage] is the page where users can login to the app.
 
-class AuthLoginPage extends StatelessWidget {
+class AuthLoginPage extends HookConsumerWidget {
   const AuthLoginPage({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final emailTextEditingController = useTextEditingController(
+        text: kDebugMode ? "omerkalayli.4@gmail.com" : "");
+    final passwordTextEditingController = useTextEditingController();
+    double textFieldHeight = 60;
+    double iconButtonSize = 60;
+    double registerContainerHeight = 72;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Center(
               child: StrokedText(
@@ -33,6 +49,7 @@ class AuthLoginPage extends StatelessWidget {
                     .copyWith(shadows: [textShadowSmall]),
               ),
             ),
+            const Gap(16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -47,7 +64,11 @@ class AuthLoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 60, child: CustomTextField()),
+                SizedBox(
+                    height: textFieldHeight,
+                    child: CustomTextField(
+                      controller: emailTextEditingController,
+                    )),
                 const Gap(32),
                 Padding(
                   padding: const EdgeInsets.only(left: 4.0),
@@ -60,73 +81,157 @@ class AuthLoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 60, child: CustomTextField()),
+                SizedBox(
+                    height: textFieldHeight,
+                    child: CustomTextField(
+                      obscureText: true,
+                      controller: passwordTextEditingController,
+                    )),
                 const Gap(4),
                 InkWell(
-                  onTap: () {},
-                  child: const Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                          style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.white,
-                              decorationThickness: 2),
-                          "Şifremi unuttum!")),
+                  onTap: () async {
+                    bool isValid = EmailValidator.validate(
+                        emailTextEditingController.text);
+
+                    if (!isValid) {
+                      CustomSnackbar.show(
+                          type: SnackbarType.error(),
+                          message: "Bu mail adresi geçerli değil.",
+                          context: context);
+                    } else {
+                      var res = await ref
+                          .read(authNotifierProvider.notifier)
+                          .sendResetPasswordEmail(
+                              email: emailTextEditingController.text);
+
+                      res.fold(
+                          (l) => CustomSnackbar.show(
+                              context: context,
+                              message: Validator.validateErrorMessage(
+                                  errorMessage: l.message),
+                              type: SnackbarType.error()),
+                          (r) => CustomSnackbar.show(
+                              context: context,
+                              message:
+                                  "Şifre sıfırlama mailini gönderdik. Şifreni maildeki link üzerinden sıfırlayabilirsin.",
+                              type: SnackbarType.success()));
+                    }
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 4),
+                    child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                decorationColor: Colors.white,
+                                decorationThickness: 2),
+                            "Şifremi unuttum!")),
+                  ),
                 ),
               ],
             ),
+            const Gap(32),
             SizedBox(
               height: 60,
               width: 200,
               child: CustomTextButton(
                 text: "Giriş Yap",
-                onPressed: () {},
+                onPressed: () async {
+                  await _signInWithEmail(emailTextEditingController,
+                      passwordTextEditingController, context, ref);
+                },
               ),
             ),
-            Row(
+            const Gap(16),
+            Column(
               children: [
-                Expanded(
-                  child: Container(
-                    height: 1,
-                    width: double.maxFinite,
-                    color: Colors.black,
-                  ),
-                ),
-                const Gap(8),
-                const StrokedText("Diğer Giriş Seçenekleri", strokeWidth: 1.5),
-                const Gap(8),
-                Expanded(
-                  child: Container(
-                    height: 1,
-                    width: double.maxFinite,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 60,
-                  width: 60,
-                  child: CustomButton(
-                    buttonPalette: ButtonPalette.white(),
-                    onPressed: () {},
-                    child: const Icon(
-                      Icons.apple,
-                      size: 40,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 1,
+                        width: double.maxFinite,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
+                    const Gap(8),
+                    const StrokedText("Diğer Giriş Seçenekleri",
+                        strokeWidth: 1.5),
+                    const Gap(8),
+                    Expanded(
+                      child: Container(
+                        height: 1,
+                        width: double.maxFinite,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
-                const Gap(24),
-                SizedBox(
-                  height: 60,
-                  width: 60,
-                  child: CustomButton(
-                    buttonPalette: ButtonPalette.white(),
-                    onPressed: () {},
-                    child: Assets.images.google.image(width: 32, height: 32),
+                const Gap(16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: iconButtonSize,
+                      width: iconButtonSize,
+                      child: CustomButton(
+                        buttonPalette: ButtonPalette.white(),
+                        onPressed: () {},
+                        child: Icon(
+                          Icons.apple,
+                          size: iconButtonSize - 20,
+                        ),
+                      ),
+                    ),
+                    const Gap(24),
+                    SizedBox(
+                      height: iconButtonSize,
+                      width: iconButtonSize,
+                      child: CustomButton(
+                        buttonPalette: ButtonPalette.white(),
+                        onPressed: () async {
+                          await ref
+                              .read(authNotifierProvider.notifier)
+                              .signInWithGoogle();
+                        },
+                        child: Assets.images.google.image(
+                            width: iconButtonSize * .53,
+                            height: iconButtonSize * .53),
+                      ),
+                    ),
+                  ],
+                ),
+                const Gap(32),
+                Container(
+                  height: registerContainerHeight,
+                  decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(width: 2, color: Colors.white)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Text(
+                        "Buralarda yeni misin?",
+                        style: TextStyle(shadows: [textShadowSmall]),
+                      ),
+                      SizedBox(
+                        height: 48,
+                        child: CustomTextButton(
+                            fontSize: 16,
+                            buttonPalette: ButtonPalette.blue(),
+                            text: "Kayıt Ol",
+                            onPressed: () async {
+                              await ref
+                                  .read(carouselControllerProvider)
+                                  .nextPage();
+                              await ref
+                                  .read(authNotifierProvider.notifier)
+                                  .redirectToRegister();
+                            }),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -135,5 +240,28 @@ class AuthLoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _signInWithEmail(
+      TextEditingController emailTextEditingController,
+      TextEditingController passwordTextEditingController,
+      BuildContext context,
+      WidgetRef ref) async {
+    bool isValid = EmailValidator.validate(emailTextEditingController.text);
+    if (passwordTextEditingController.text.isEmpty) {
+      CustomSnackbar.show(
+          type: SnackbarType.error(),
+          message: "Şifreni girmelisin.",
+          context: context);
+    } else if (isValid) {
+      await ref.read(authNotifierProvider.notifier).signInWithEmail(
+          email: emailTextEditingController.text,
+          password: passwordTextEditingController.text);
+    } else {
+      CustomSnackbar.show(
+          type: SnackbarType.error(),
+          message: "Bu mail adresi geçerli değil.",
+          context: context);
+    }
   }
 }

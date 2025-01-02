@@ -20,7 +20,7 @@ const Color buttonForegroundColorWhite = Colors.white;
 const Color buttonBackgroundColorBlue = Color(0xff4581B2);
 const Color buttonForegroundColorBlue = Color(0xff64B5F6);
 
-// TODO: there two must be specified
+// TODO: these two must be specified
 const Color buttonBackgroundColorRed = Color(0xffC26649);
 const Color buttonForegroundColorRed = Color(0xffFF8A65);
 
@@ -33,3 +33,9 @@ const Color textFieldEnabledBorderColor = Color(0xff058595);
 const Color textFieldErrorBorderColor = Color(0xFFE57373);
 const Color textFieldFocusedBorderColor = Color(0xff333333);
 const Color textFieldColor = Color(0xffADE8F4);
+
+// Snackbar colors
+
+const Color snackbarErrorColor = Colors.redAccent;
+const Color snackbarSuccessColor = Colors.green;
+const Color snackbarInfoColor = Colors.blue;

@@ -145,7 +145,7 @@ class CustomButton extends HookConsumerWidget {
             child: AnimatedContainer(
 
                 /// Child layer of the button
-                margin: EdgeInsets.all(borderWidth + 2),
+                margin: EdgeInsets.all(borderWidth + 4),
                 duration: duration,
                 decoration: BoxDecoration(
                     borderRadius: buttonOnPressedShadowBorderRadius,

@@ -12,7 +12,20 @@
           "package_name": "com.omerkalayli.teneffus"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "943116106298-80cm1hmfm3rhaenhcs2pgnbe3epkv20m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.omerkalayli.teneffus",
+            "certificate_hash": "1a46f12ac3937f8780944471dddb4d94b5abb395"
+          }
+        },
+        {
+          "client_id": "943116106298-3gc2m7gpoht9vmg7cu3vpmf3nigcch7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCffKKNjgsSFUU7flsTEtffhCwxL79RjNQ"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943116106298-3gc2m7gpoht9vmg7cu3vpmf3nigcch7t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "943116106298-9slps5sql617bb42di1v254k86o497ft.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.teneffus"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +56,12 @@
           "package_name": "com.teneffus"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "943116106298-3gc2m7gpoht9vmg7cu3vpmf3nigcch7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCffKKNjgsSFUU7flsTEtffhCwxL79RjNQ"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943116106298-3gc2m7gpoht9vmg7cu3vpmf3nigcch7t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "943116106298-9slps5sql617bb42di1v254k86o497ft.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.teneffus"
+              }
+            }
+          ]
         }
       }
     }

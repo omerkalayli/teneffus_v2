@@ -1,15 +1,36 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/constants.dart';
+import 'package:teneffus/global_widgets/custom_text_button.dart';
 
-class MainLayout extends HookConsumerWidget {
-  const MainLayout({super.key});
+@RoutePage()
+class MainLayoutPage extends HookConsumerWidget {
+  const MainLayoutPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userInfo = ref.watch(authNotifierProvider.notifier).userInformation;
     var index = useState(1);
     return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            Text(userInfo!.email),
+            Text(userInfo.name),
+            Text(userInfo.surname),
+            Text(userInfo.grade.toString()),
+            Text(userInfo.uid),
+            CustomTextButton(
+                text: "Sign out",
+                onPressed: () async {
+                  await ref.read(authNotifierProvider.notifier).signOut();
+                }),
+          ],
+        ),
+      ),
       bottomNavigationBar: Stack(
         alignment: Alignment.bottomCenter,
         children: [

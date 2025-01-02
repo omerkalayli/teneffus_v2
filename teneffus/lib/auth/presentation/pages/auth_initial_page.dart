@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:teneffus/auth/auth_page.dart';
+import 'package:teneffus/auth/presentation/auth_notifier.dart';
+import 'package:teneffus/auth/presentation/pages/auth_page.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/global_widgets/stroked_text.dart';
 
@@ -41,10 +42,9 @@ class AuthInitialPage extends HookConsumerWidget {
                 const Gap(8),
                 InkWell(
                   onTap: () async {
-                    ref
+                    await ref
                         .read(carouselControllerProvider)
                         .animateToPage(curve: slideAnimationCurve, 1);
-                    ref.read(pageIndexProvder.notifier).state = 1;
                   },
                   overlayColor:
                       const WidgetStatePropertyAll(Colors.transparent),
@@ -85,10 +85,12 @@ class AuthInitialPage extends HookConsumerWidget {
                 const Gap(8),
                 InkWell(
                   onTap: () async {
+                    await ref
+                        .read(authNotifierProvider.notifier)
+                        .redirectToRegister();
                     ref
                         .read(carouselControllerProvider)
                         .animateToPage(curve: slideAnimationCurve, 1);
-                    ref.read(pageIndexProvder.notifier).state = 2;
                   },
                   overlayColor:
                       const WidgetStatePropertyAll(Colors.transparent),

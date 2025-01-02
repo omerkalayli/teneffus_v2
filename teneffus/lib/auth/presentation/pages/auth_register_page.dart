@@ -1,18 +1,33 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/global_widgets/custom_picker.dart';
 import 'package:teneffus/global_widgets/custom_text_button.dart';
 import 'package:teneffus/global_widgets/custom_text_field.dart';
 import 'package:teneffus/global_widgets/stroked_text.dart';
 
-class AuthRegisterPage extends StatelessWidget {
+class AuthRegisterPage extends HookConsumerWidget {
   const AuthRegisterPage({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final nameTextEditingController = useTextEditingController();
+    final surnameTextEditingController = useTextEditingController();
+    final emailTextEditingController = useTextEditingController(
+        text: kDebugMode ? "omerkalayli.4@gmail.com" : "");
+    final passwordTextEditingController = useTextEditingController();
+    final grade = useState(9);
+    final auth = FirebaseAuth.instance;
+
+    bool signedInWithGoogle = auth.currentUser != null;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(4.0),
@@ -21,7 +36,7 @@ class AuthRegisterPage extends StatelessWidget {
           children: [
             Center(
               child: StrokedText(
-                "Seni tanıyalım.",
+                signedInWithGoogle ? "Seni tanıyalım." : "Teneffüs'e kaydol.",
                 strokeWidth: 2.5,
                 style: Theme.of(context)
                     .textTheme
@@ -29,9 +44,47 @@ class AuthRegisterPage extends StatelessWidget {
                     .copyWith(shadows: [textShadowSmall]),
               ),
             ),
+            const Gap(16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (!signedInWithGoogle) ...[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: StrokedText(
+                      "Mail Adresi",
+                      strokeWidth: 2,
+                      strokeColor: const Color(0xff4A4A4A),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        shadows: [textShadowSmall],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                      height: 60,
+                      child: CustomTextField(
+                        controller: emailTextEditingController,
+                      )),
+                  const Gap(4),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: StrokedText(
+                      "Şifre",
+                      strokeWidth: 2,
+                      strokeColor: const Color(0xff4A4A4A),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        shadows: [textShadowSmall],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                      height: 60,
+                      child: CustomTextField(
+                        obscureText: true,
+                        controller: passwordTextEditingController,
+                      )),
+                ],
+                const Gap(4),
                 Padding(
                   padding: const EdgeInsets.only(left: 4.0),
                   child: StrokedText(
@@ -43,8 +96,12 @@ class AuthRegisterPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 60, child: CustomTextField()),
-                const Gap(32),
+                SizedBox(
+                    height: 60,
+                    child: CustomTextField(
+                      controller: nameTextEditingController,
+                    )),
+                const Gap(4),
                 Padding(
                   padding: const EdgeInsets.only(left: 4.0),
                   child: StrokedText(
@@ -56,8 +113,12 @@ class AuthRegisterPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 60, child: CustomTextField()),
-                const Gap(32),
+                SizedBox(
+                    height: 60,
+                    child: CustomTextField(
+                      controller: surnameTextEditingController,
+                    )),
+                const Gap(16),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
@@ -83,9 +144,9 @@ class AuthRegisterPage extends StatelessWidget {
                     child: CustomPicker(
                       labels: const ["9", "10", "11", "12"],
                       onSelected: (index) {
-                        print(index);
+                        grade.value = index + 9;
                       },
-                      defaultIndex: 3,
+                      defaultIndex: 0,
                     ),
                   ),
                 ),
@@ -97,7 +158,15 @@ class AuthRegisterPage extends StatelessWidget {
               width: 200,
               child: CustomTextButton(
                 text: "Giriş Yap",
-                onPressed: () {},
+                onPressed: () async {
+                  await ref.read(authNotifierProvider.notifier).registerUser(
+                        name: nameTextEditingController.text,
+                        surname: surnameTextEditingController.text,
+                        grade: grade.value,
+                        email: emailTextEditingController.text,
+                        password: passwordTextEditingController.text,
+                      );
+                },
               ),
             ),
           ],
