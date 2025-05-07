@@ -24,7 +24,11 @@ class CustomTextButton extends StatelessWidget {
     this.buttonStrokeBorderRadius,
     this.buttonPalette,
     this.duration,
+    this.padding,
     this.fontSize,
+    this.isSticky = false,
+    this.textStyle,
+    this.value,
     super.key,
   });
 
@@ -35,6 +39,10 @@ class CustomTextButton extends StatelessWidget {
   final ButtonPalette? buttonPalette;
   final Duration? duration;
   final double? fontSize;
+  final TextStyle? textStyle;
+  final bool isSticky;
+  final EdgeInsetsGeometry? padding;
+  final bool? value;
 
   final String text;
   final Function() onPressed;
@@ -42,6 +50,8 @@ class CustomTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButton(
+      value: value,
+      isSticky: isSticky,
       borderWidth: borderWidth,
       buttonBackgroundAndForegroundBorderRadius:
           buttonBackgroundAndForegroundBorderRadius,
@@ -49,13 +59,21 @@ class CustomTextButton extends StatelessWidget {
       buttonStrokeBorderRadius: buttonStrokeBorderRadius,
       buttonPalette: buttonPalette,
       duration: duration,
-      child: StrokedText(
-        text,
-        strokeWidth: 2,
-        style: Theme.of(context)
-            .textTheme
-            .bodyLarge!
-            .copyWith(color: Colors.white, fontSize: fontSize),
+      child: Padding(
+        padding: padding ?? EdgeInsets.zero,
+        child: textStyle != null
+            ? Text(
+                text,
+                style: textStyle,
+              )
+            : StrokedText(
+                text,
+                strokeWidth: 2,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(color: Colors.white, fontSize: fontSize),
+              ),
       ),
       onPressed: () {
         onPressed.call();

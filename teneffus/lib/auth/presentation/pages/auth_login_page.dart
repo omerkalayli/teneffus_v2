@@ -31,7 +31,6 @@ class AuthLoginPage extends HookConsumerWidget {
     final passwordTextEditingController = useTextEditingController();
     double textFieldHeight = 60;
     double iconButtonSize = 60;
-    double registerContainerHeight = 72;
 
     return Scaffold(
       body: Padding(
@@ -204,7 +203,7 @@ class AuthLoginPage extends HookConsumerWidget {
                 ),
                 const Gap(32),
                 Container(
-                  height: registerContainerHeight,
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(8),
@@ -216,21 +215,20 @@ class AuthLoginPage extends HookConsumerWidget {
                         "Buralarda yeni misin?",
                         style: TextStyle(shadows: [textShadowSmall]),
                       ),
-                      SizedBox(
-                        height: 48,
-                        child: CustomTextButton(
-                            fontSize: 16,
-                            buttonPalette: ButtonPalette.blue(),
-                            text: "Kayıt Ol",
-                            onPressed: () async {
-                              await ref
-                                  .read(carouselControllerProvider)
-                                  .nextPage();
+                      CustomTextButton(
+                          fontSize: 16,
+                          buttonPalette: ButtonPalette.blue(),
+                          text: "Kayıt Ol",
+                          onPressed: () async {
+                            await ref
+                                .read(carouselControllerProvider)
+                                .nextPage();
+                            if (context.mounted) {
                               await ref
                                   .read(authNotifierProvider.notifier)
                                   .redirectToRegister();
-                            }),
-                      ),
+                            }
+                          }),
                     ],
                   ),
                 ),

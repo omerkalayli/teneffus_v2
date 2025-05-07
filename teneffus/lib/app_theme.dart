@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 ThemeData get theme => ThemeData(
-      scaffoldBackgroundColor: const Color(0xff4DD0E1),
+      scaffoldBackgroundColor: Colors.transparent,
       textTheme: GoogleFonts.montserratTextTheme(const TextTheme(
           headlineMedium: TextStyle(fontSize: 36, color: Colors.white),
           headlineSmall: TextStyle(

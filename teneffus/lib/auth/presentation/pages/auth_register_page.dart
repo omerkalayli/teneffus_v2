@@ -6,7 +6,9 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/constants.dart';
+import 'package:teneffus/global_entities/snackbar_type.dart';
 import 'package:teneffus/global_widgets/custom_picker.dart';
+import 'package:teneffus/global_widgets/custom_snackbar.dart';
 import 'package:teneffus/global_widgets/custom_text_button.dart';
 import 'package:teneffus/global_widgets/custom_text_field.dart';
 import 'package:teneffus/global_widgets/stroked_text.dart';
@@ -159,6 +161,16 @@ class AuthRegisterPage extends HookConsumerWidget {
               child: CustomTextButton(
                 text: "Giriş Yap",
                 onPressed: () async {
+                  if (nameTextEditingController.text.isEmpty ||
+                      surnameTextEditingController.text.isEmpty ||
+                      passwordTextEditingController.text.isEmpty) {
+                    CustomSnackbar.show(
+                      context: context,
+                      message: "Lütfen tüm alanları doldurun.",
+                      type: SnackbarType.error(),
+                    );
+                    return;
+                  }
                   await ref.read(authNotifierProvider.notifier).registerUser(
                         name: nameTextEditingController.text,
                         surname: surnameTextEditingController.text,

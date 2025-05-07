@@ -25,6 +25,8 @@ mixin _$UserInformation {
   String get surname => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   int get grade => throw _privateConstructorUsedError;
+  String get rank => throw _privateConstructorUsedError;
+  int get starCount => throw _privateConstructorUsedError;
 
   /// Serializes this UserInformation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +44,14 @@ abstract class $UserInformationCopyWith<$Res> {
           UserInformation value, $Res Function(UserInformation) then) =
       _$UserInformationCopyWithImpl<$Res, UserInformation>;
   @useResult
-  $Res call({String uid, String name, String surname, String email, int grade});
+  $Res call(
+      {String uid,
+      String name,
+      String surname,
+      String email,
+      int grade,
+      String rank,
+      int starCount});
 }
 
 /// @nodoc
@@ -65,6 +74,8 @@ class _$UserInformationCopyWithImpl<$Res, $Val extends UserInformation>
     Object? surname = null,
     Object? email = null,
     Object? grade = null,
+    Object? rank = null,
+    Object? starCount = null,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
@@ -87,6 +98,14 @@ class _$UserInformationCopyWithImpl<$Res, $Val extends UserInformation>
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as int,
+      rank: null == rank
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as String,
+      starCount: null == starCount
+          ? _value.starCount
+          : starCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -99,7 +118,14 @@ abstract class _$$UserInformationImplCopyWith<$Res>
       __$$UserInformationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uid, String name, String surname, String email, int grade});
+  $Res call(
+      {String uid,
+      String name,
+      String surname,
+      String email,
+      int grade,
+      String rank,
+      int starCount});
 }
 
 /// @nodoc
@@ -120,6 +146,8 @@ class __$$UserInformationImplCopyWithImpl<$Res>
     Object? surname = null,
     Object? email = null,
     Object? grade = null,
+    Object? rank = null,
+    Object? starCount = null,
   }) {
     return _then(_$UserInformationImpl(
       uid: null == uid
@@ -142,6 +170,14 @@ class __$$UserInformationImplCopyWithImpl<$Res>
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as int,
+      rank: null == rank
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as String,
+      starCount: null == starCount
+          ? _value.starCount
+          : starCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -154,7 +190,9 @@ class _$UserInformationImpl implements _UserInformation {
       required this.name,
       required this.surname,
       required this.email,
-      required this.grade});
+      required this.grade,
+      required this.rank,
+      required this.starCount});
 
   factory _$UserInformationImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserInformationImplFromJson(json);
@@ -169,10 +207,14 @@ class _$UserInformationImpl implements _UserInformation {
   final String email;
   @override
   final int grade;
+  @override
+  final String rank;
+  @override
+  final int starCount;
 
   @override
   String toString() {
-    return 'UserInformation(uid: $uid, name: $name, surname: $surname, email: $email, grade: $grade)';
+    return 'UserInformation(uid: $uid, name: $name, surname: $surname, email: $email, grade: $grade, rank: $rank, starCount: $starCount)';
   }
 
   @override
@@ -184,13 +226,16 @@ class _$UserInformationImpl implements _UserInformation {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.surname, surname) || other.surname == surname) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.grade, grade) || other.grade == grade));
+            (identical(other.grade, grade) || other.grade == grade) &&
+            (identical(other.rank, rank) || other.rank == rank) &&
+            (identical(other.starCount, starCount) ||
+                other.starCount == starCount));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, uid, name, surname, email, grade);
+  int get hashCode => Object.hash(
+      runtimeType, uid, name, surname, email, grade, rank, starCount);
 
   /// Create a copy of UserInformation
   /// with the given fields replaced by the non-null parameter values.
@@ -215,7 +260,9 @@ abstract class _UserInformation implements UserInformation {
       required final String name,
       required final String surname,
       required final String email,
-      required final int grade}) = _$UserInformationImpl;
+      required final int grade,
+      required final String rank,
+      required final int starCount}) = _$UserInformationImpl;
 
   factory _UserInformation.fromJson(Map<String, dynamic> json) =
       _$UserInformationImpl.fromJson;
@@ -230,6 +277,10 @@ abstract class _UserInformation implements UserInformation {
   String get email;
   @override
   int get grade;
+  @override
+  String get rank;
+  @override
+  int get starCount;
 
   /// Create a copy of UserInformation
   /// with the given fields replaced by the non-null parameter values.

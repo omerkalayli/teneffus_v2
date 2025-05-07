@@ -24,8 +24,11 @@ const Color buttonForegroundColorBlue = Color(0xff64B5F6);
 const Color buttonBackgroundColorRed = Color(0xffC26649);
 const Color buttonForegroundColorRed = Color(0xffFF8A65);
 
-const Color buttonBackgroundColorGreen = Color(0xffC26649);
-const Color buttonForegroundColorGreen = Color(0xffFF8A65);
+const Color buttonBackgroundColorGreen = Color.fromARGB(255, 3, 130, 71);
+const Color buttonForegroundColorGreen = Color(0xff00D600);
+
+const Color buttonBackgroundColorYellow = Color(0xff94920D);
+const Color buttonForegroundColorYellow = Colors.yellow;
 
 /// Textfield colors
 const Color textFieldTextColor = Color(0xff333333);
@@ -39,3 +42,17 @@ const Color textFieldColor = Color(0xffADE8F4);
 const Color snackbarErrorColor = Colors.redAccent;
 const Color snackbarSuccessColor = Colors.green;
 const Color snackbarInfoColor = Colors.blue;
+
+const List<String> days = [
+  "Pazartesi",
+  "Salı",
+  "Çarşamba",
+  "Perşembe",
+  "Cuma",
+  "Cumartesi",
+  "Pazar"
+];
+
+const List<int> dayStreakStars = [1, 2, 4, 8, 10, 12, 16];
+
+const Duration animationDuration = Duration(milliseconds: 500);

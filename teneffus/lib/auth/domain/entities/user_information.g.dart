@@ -14,6 +14,8 @@ _$UserInformationImpl _$$UserInformationImplFromJson(
       surname: json['surname'] as String,
       email: json['email'] as String,
       grade: (json['grade'] as num).toInt(),
+      rank: json['rank'] as String,
+      starCount: (json['starCount'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$UserInformationImplToJson(
@@ -24,4 +26,6 @@ Map<String, dynamic> _$$UserInformationImplToJson(
       'surname': instance.surname,
       'email': instance.email,
       'grade': instance.grade,
+      'rank': instance.rank,
+      'starCount': instance.starCount,
     };

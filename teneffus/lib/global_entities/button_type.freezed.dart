@@ -23,6 +23,7 @@ mixin _$ButtonPalette {
     required TResult Function() red,
     required TResult Function() white,
     required TResult Function() blue,
+    required TResult Function() yellow,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) =>
@@ -34,6 +35,7 @@ mixin _$ButtonPalette {
     TResult? Function()? red,
     TResult? Function()? white,
     TResult? Function()? blue,
+    TResult? Function()? yellow,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +46,7 @@ mixin _$ButtonPalette {
     TResult Function()? red,
     TResult Function()? white,
     TResult Function()? blue,
+    TResult Function()? yellow,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) =>
@@ -55,6 +58,7 @@ mixin _$ButtonPalette {
     required TResult Function(_Red value) red,
     required TResult Function(_White value) white,
     required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
     required TResult Function(_Custom value) custom,
   }) =>
       throw _privateConstructorUsedError;
@@ -65,6 +69,7 @@ mixin _$ButtonPalette {
     TResult? Function(_Red value)? red,
     TResult? Function(_White value)? white,
     TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Custom value)? custom,
   }) =>
       throw _privateConstructorUsedError;
@@ -75,6 +80,7 @@ mixin _$ButtonPalette {
     TResult Function(_Red value)? red,
     TResult Function(_White value)? white,
     TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) =>
@@ -148,6 +154,7 @@ class _$OrangeImpl implements _Orange {
     required TResult Function() red,
     required TResult Function() white,
     required TResult Function() blue,
+    required TResult Function() yellow,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -162,6 +169,7 @@ class _$OrangeImpl implements _Orange {
     TResult? Function()? red,
     TResult? Function()? white,
     TResult? Function()? blue,
+    TResult? Function()? yellow,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return orange?.call();
@@ -175,6 +183,7 @@ class _$OrangeImpl implements _Orange {
     TResult Function()? red,
     TResult Function()? white,
     TResult Function()? blue,
+    TResult Function()? yellow,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -192,6 +201,7 @@ class _$OrangeImpl implements _Orange {
     required TResult Function(_Red value) red,
     required TResult Function(_White value) white,
     required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
     required TResult Function(_Custom value) custom,
   }) {
     return orange(this);
@@ -205,6 +215,7 @@ class _$OrangeImpl implements _Orange {
     TResult? Function(_Red value)? red,
     TResult? Function(_White value)? white,
     TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Custom value)? custom,
   }) {
     return orange?.call(this);
@@ -218,6 +229,7 @@ class _$OrangeImpl implements _Orange {
     TResult Function(_Red value)? red,
     TResult Function(_White value)? white,
     TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -278,6 +290,7 @@ class _$GreenImpl implements _Green {
     required TResult Function() red,
     required TResult Function() white,
     required TResult Function() blue,
+    required TResult Function() yellow,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -292,6 +305,7 @@ class _$GreenImpl implements _Green {
     TResult? Function()? red,
     TResult? Function()? white,
     TResult? Function()? blue,
+    TResult? Function()? yellow,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return green?.call();
@@ -305,6 +319,7 @@ class _$GreenImpl implements _Green {
     TResult Function()? red,
     TResult Function()? white,
     TResult Function()? blue,
+    TResult Function()? yellow,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -322,6 +337,7 @@ class _$GreenImpl implements _Green {
     required TResult Function(_Red value) red,
     required TResult Function(_White value) white,
     required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
     required TResult Function(_Custom value) custom,
   }) {
     return green(this);
@@ -335,6 +351,7 @@ class _$GreenImpl implements _Green {
     TResult? Function(_Red value)? red,
     TResult? Function(_White value)? white,
     TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Custom value)? custom,
   }) {
     return green?.call(this);
@@ -348,6 +365,7 @@ class _$GreenImpl implements _Green {
     TResult Function(_Red value)? red,
     TResult Function(_White value)? white,
     TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -406,6 +424,7 @@ class _$RedImpl implements _Red {
     required TResult Function() red,
     required TResult Function() white,
     required TResult Function() blue,
+    required TResult Function() yellow,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -420,6 +439,7 @@ class _$RedImpl implements _Red {
     TResult? Function()? red,
     TResult? Function()? white,
     TResult? Function()? blue,
+    TResult? Function()? yellow,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return red?.call();
@@ -433,6 +453,7 @@ class _$RedImpl implements _Red {
     TResult Function()? red,
     TResult Function()? white,
     TResult Function()? blue,
+    TResult Function()? yellow,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -450,6 +471,7 @@ class _$RedImpl implements _Red {
     required TResult Function(_Red value) red,
     required TResult Function(_White value) white,
     required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
     required TResult Function(_Custom value) custom,
   }) {
     return red(this);
@@ -463,6 +485,7 @@ class _$RedImpl implements _Red {
     TResult? Function(_Red value)? red,
     TResult? Function(_White value)? white,
     TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Custom value)? custom,
   }) {
     return red?.call(this);
@@ -476,6 +499,7 @@ class _$RedImpl implements _Red {
     TResult Function(_Red value)? red,
     TResult Function(_White value)? white,
     TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -536,6 +560,7 @@ class _$WhiteImpl implements _White {
     required TResult Function() red,
     required TResult Function() white,
     required TResult Function() blue,
+    required TResult Function() yellow,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -550,6 +575,7 @@ class _$WhiteImpl implements _White {
     TResult? Function()? red,
     TResult? Function()? white,
     TResult? Function()? blue,
+    TResult? Function()? yellow,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return white?.call();
@@ -563,6 +589,7 @@ class _$WhiteImpl implements _White {
     TResult Function()? red,
     TResult Function()? white,
     TResult Function()? blue,
+    TResult Function()? yellow,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -580,6 +607,7 @@ class _$WhiteImpl implements _White {
     required TResult Function(_Red value) red,
     required TResult Function(_White value) white,
     required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
     required TResult Function(_Custom value) custom,
   }) {
     return white(this);
@@ -593,6 +621,7 @@ class _$WhiteImpl implements _White {
     TResult? Function(_Red value)? red,
     TResult? Function(_White value)? white,
     TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Custom value)? custom,
   }) {
     return white?.call(this);
@@ -606,6 +635,7 @@ class _$WhiteImpl implements _White {
     TResult Function(_Red value)? red,
     TResult Function(_White value)? white,
     TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -665,6 +695,7 @@ class _$BlueImpl implements _Blue {
     required TResult Function() red,
     required TResult Function() white,
     required TResult Function() blue,
+    required TResult Function() yellow,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -679,6 +710,7 @@ class _$BlueImpl implements _Blue {
     TResult? Function()? red,
     TResult? Function()? white,
     TResult? Function()? blue,
+    TResult? Function()? yellow,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return blue?.call();
@@ -692,6 +724,7 @@ class _$BlueImpl implements _Blue {
     TResult Function()? red,
     TResult Function()? white,
     TResult Function()? blue,
+    TResult Function()? yellow,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -709,6 +742,7 @@ class _$BlueImpl implements _Blue {
     required TResult Function(_Red value) red,
     required TResult Function(_White value) white,
     required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
     required TResult Function(_Custom value) custom,
   }) {
     return blue(this);
@@ -722,6 +756,7 @@ class _$BlueImpl implements _Blue {
     TResult? Function(_Red value)? red,
     TResult? Function(_White value)? white,
     TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Custom value)? custom,
   }) {
     return blue?.call(this);
@@ -735,6 +770,7 @@ class _$BlueImpl implements _Blue {
     TResult Function(_Red value)? red,
     TResult Function(_White value)? white,
     TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -747,6 +783,142 @@ class _$BlueImpl implements _Blue {
 
 abstract class _Blue implements ButtonPalette {
   factory _Blue() = _$BlueImpl;
+}
+
+/// @nodoc
+abstract class _$$YellowImplCopyWith<$Res> {
+  factory _$$YellowImplCopyWith(
+          _$YellowImpl value, $Res Function(_$YellowImpl) then) =
+      __$$YellowImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$YellowImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$YellowImpl>
+    implements _$$YellowImplCopyWith<$Res> {
+  __$$YellowImplCopyWithImpl(
+      _$YellowImpl _value, $Res Function(_$YellowImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$YellowImpl implements _Yellow {
+  _$YellowImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.yellow()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$YellowImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return yellow();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return yellow?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (yellow != null) {
+      return yellow();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return yellow(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return yellow?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (yellow != null) {
+      return yellow(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Yellow implements ButtonPalette {
+  factory _Yellow() = _$YellowImpl;
 }
 
 /// @nodoc
@@ -833,6 +1005,7 @@ class _$CustomImpl implements _Custom {
     required TResult Function() red,
     required TResult Function() white,
     required TResult Function() blue,
+    required TResult Function() yellow,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -847,6 +1020,7 @@ class _$CustomImpl implements _Custom {
     TResult? Function()? red,
     TResult? Function()? white,
     TResult? Function()? blue,
+    TResult? Function()? yellow,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return custom?.call(foregroundColor, backgroundColor);
@@ -860,6 +1034,7 @@ class _$CustomImpl implements _Custom {
     TResult Function()? red,
     TResult Function()? white,
     TResult Function()? blue,
+    TResult Function()? yellow,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -877,6 +1052,7 @@ class _$CustomImpl implements _Custom {
     required TResult Function(_Red value) red,
     required TResult Function(_White value) white,
     required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
     required TResult Function(_Custom value) custom,
   }) {
     return custom(this);
@@ -890,6 +1066,7 @@ class _$CustomImpl implements _Custom {
     TResult? Function(_Red value)? red,
     TResult? Function(_White value)? white,
     TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Custom value)? custom,
   }) {
     return custom?.call(this);
@@ -903,6 +1080,7 @@ class _$CustomImpl implements _Custom {
     TResult Function(_Red value)? red,
     TResult Function(_White value)? white,
     TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {

@@ -1,0 +1,2 @@
+/Users/omerkalayli/Desktop/Front-End/Teneffus'/teneffus_v2/teneffus/android/app/.cxx/Debug/xs4t5a2x/x86/CMakeFiles/edit_cache.dir
+/Users/omerkalayli/Desktop/Front-End/Teneffus'/teneffus_v2/teneffus/android/app/.cxx/Debug/xs4t5a2x/x86/CMakeFiles/rebuild_cache.dir

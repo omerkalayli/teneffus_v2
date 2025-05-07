@@ -10,6 +10,7 @@ class ButtonPalette with _$ButtonPalette {
   factory ButtonPalette.red() = _Red;
   factory ButtonPalette.white() = _White;
   factory ButtonPalette.blue() = _Blue;
+  factory ButtonPalette.yellow() = _Yellow;
   factory ButtonPalette.custom(
       {required Color foregroundColor,
       required Color backgroundColor}) = _Custom;

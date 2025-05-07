@@ -8,6 +8,7 @@ Color _getButtonBackgroundColor(ButtonPalette? buttonPalette) {
         green: () => buttonBackgroundColorGreen,
         white: () => buttonBackgroundColorWhite,
         blue: () => buttonBackgroundColorBlue,
+        yellow: () => buttonBackgroundColorYellow,
         custom: (_, backgroundColor) {
           return backgroundColor;
         },
@@ -23,6 +24,7 @@ Color _getButtonForegroundColor(ButtonPalette? buttonPalette) {
           green: () => buttonForegroundColorGreen,
           white: () => buttonForegroundColorWhite,
           blue: () => buttonForegroundColorBlue,
+          yellow: () => buttonForegroundColorYellow,
           custom: (foregroundColor, _) {
             return foregroundColor;
           }) ??

@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -16,10 +17,7 @@ import 'package:teneffus/main/main_layout.dart' as _i2;
 /// [_i1.AuthPage]
 class AuthRoute extends _i3.PageRouteInfo<void> {
   const AuthRoute({List<_i3.PageRouteInfo>? children})
-      : super(
-          AuthRoute.name,
-          initialChildren: children,
-        );
+    : super(AuthRoute.name, initialChildren: children);
 
   static const String name = 'AuthRoute';
 
@@ -35,10 +33,7 @@ class AuthRoute extends _i3.PageRouteInfo<void> {
 /// [_i2.MainLayoutPage]
 class MainLayoutRoute extends _i3.PageRouteInfo<void> {
   const MainLayoutRoute({List<_i3.PageRouteInfo>? children})
-      : super(
-          MainLayoutRoute.name,
-          initialChildren: children,
-        );
+    : super(MainLayoutRoute.name, initialChildren: children);
 
   static const String name = 'MainLayoutRoute';
 

@@ -2,9 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/constants.dart';
-import 'package:teneffus/global_widgets/custom_text_button.dart';
+import 'package:teneffus/games/presentation/pages/games_page.dart';
+import 'package:teneffus/global_widgets/custom_scaffold.dart';
+import 'package:teneffus/main/nav_bar_item.dart';
+import 'package:teneffus/main/presentation/pages/main_page.dart';
+import 'package:teneffus/words/presentation/pages/words_page.dart';
+
+/// MainLayoutPage is the main layout of the app. It consists bottom navigation bar.
 
 @RoutePage()
 class MainLayoutPage extends HookConsumerWidget {
@@ -12,32 +17,27 @@ class MainLayoutPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userInfo = ref.watch(authNotifierProvider.notifier).userInformation;
-    var index = useState(1);
-    return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            Text(userInfo!.email),
-            Text(userInfo.name),
-            Text(userInfo.surname),
-            Text(userInfo.grade.toString()),
-            Text(userInfo.uid),
-            CustomTextButton(
-                text: "Sign out",
-                onPressed: () async {
-                  await ref.read(authNotifierProvider.notifier).signOut();
-                }),
-          ],
-        ),
+    final pageController = usePageController(initialPage: 1);
+    final currentIndex = useState(1);
+    return CustomScaffold(
+      body: PageView(
+        onPageChanged: (index) {
+          currentIndex.value = index;
+        },
+        controller: pageController,
+        children: const [
+          GamesPage(),
+          MainPage(),
+          WordsPage(),
+        ],
       ),
       bottomNavigationBar: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           Container(
-            height: 120,
+            height: 90,
             width: double.infinity,
-            margin: EdgeInsets.all(12),
+            margin: const EdgeInsets.all(12),
             decoration: BoxDecoration(
                 color: navBarOrange,
                 border: Border.all(width: 3, color: Colors.white),
@@ -45,82 +45,46 @@ class MainLayoutPage extends HookConsumerWidget {
           ),
           Container(
             height: 180,
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
                 Expanded(
                   child: NavBarItem(
-                    isSelected: index.value == 0,
+                    isSelected: currentIndex.value == 0,
+                    icon: Icons.sports_esports_rounded,
+                    label: " Oyunlar ",
                     onTap: () {
-                      index.value = 0;
+                      pageController.animateToPage(
+                          duration: Durations.medium1,
+                          curve: Curves.linearToEaseOut,
+                          0);
                     },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          color: Colors.white,
-                          Icons.pest_control_rodent_rounded,
-                          size: 40,
-                        ),
-                        Text(
-                          "Oyunlar",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        )
-                      ],
-                    ),
                   ),
                 ),
                 Expanded(
                   child: NavBarItem(
-                    isSelected: index.value == 1,
+                    isSelected: currentIndex.value == 1,
+                    label: "Ana Menü",
+                    icon: Icons.home_rounded,
                     onTap: () {
-                      index.value = 1;
+                      pageController.animateToPage(
+                          duration: Durations.medium1,
+                          curve: Curves.linearToEaseOut,
+                          1);
                     },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          color: Colors.white,
-                          Icons.home_rounded,
-                          size: 40,
-                        ),
-                        Text(
-                          "Ana Menü",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        )
-                      ],
-                    ),
                   ),
                 ),
                 Expanded(
                   child: NavBarItem(
-                    isSelected: index.value == 2,
+                    isSelected: currentIndex.value == 2,
+                    icon: Icons.library_books_rounded,
+                    label: "Kelimeler",
                     onTap: () {
-                      index.value = 2;
+                      pageController.animateToPage(
+                          duration: Durations.medium1,
+                          curve: Curves.linearToEaseOut,
+                          2);
                     },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          color: Colors.white,
-                          Icons.menu_book_rounded,
-                          size: 40,
-                        ),
-                        Text(
-                          "Kelimeler",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        )
-                      ],
-                    ),
                   ),
                 ),
               ],
@@ -128,58 +92,6 @@ class MainLayoutPage extends HookConsumerWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class NavBarItem extends StatelessWidget {
-  const NavBarItem({
-    required this.onTap,
-    required this.isSelected,
-    required this.child,
-    super.key,
-  });
-
-  final Widget child;
-  final bool isSelected;
-  final Function onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        AnimatedPositioned(
-          curve: !isSelected ? Curves.elasticOut : Curves.linear,
-          duration: !isSelected ? Durations.medium2 : Durations.short1,
-          bottom: isSelected ? 40 : 16,
-          child: InkWell(
-            onTap: () {
-              onTap.call();
-            },
-            child: AnimatedContainer(
-              duration: Durations.short3,
-              width: isSelected ? 116 : 110,
-              height: isSelected ? 116 : 110,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  border: isSelected
-                      ? Border.all(width: 3, color: Colors.white)
-                      : null,
-                  color: navBarOrange,
-                  boxShadow: !isSelected
-                      ? []
-                      : [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.25),
-                              offset: Offset(0, 4),
-                              blurRadius: 4)
-                        ]),
-              child: child,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

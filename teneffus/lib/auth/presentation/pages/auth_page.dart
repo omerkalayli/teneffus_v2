@@ -11,9 +11,11 @@ import 'package:teneffus/auth/presentation/pages/auth_register_page.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/global_entities/snackbar_type.dart';
 import 'package:teneffus/global_widgets/custom_circular_progress_indicator.dart';
+import 'package:teneffus/global_widgets/custom_scaffold.dart';
 import 'package:teneffus/global_widgets/custom_snackbar.dart';
 import 'package:teneffus/global_widgets/stroked_text.dart';
 import 'package:teneffus/main/main_layout.dart';
+import 'package:teneffus/main/presentation/pages/main_page.dart';
 import 'package:teneffus/validator.dart';
 
 final carouselControllerProvider = Provider<CarouselSliderController>((ref) {
@@ -42,13 +44,13 @@ class AuthPage extends HookConsumerWidget {
     return Stack(
       children: [
         authState.value == const AuthState.initialLoading()
-            ? const Scaffold(
+            ? const CustomScaffold(
                 body: CustomCircularProgressIndicator(
                   disableBackgroundColor: true,
                   showAppTitle: true,
                 ),
               )
-            : Scaffold(
+            : CustomScaffold(
                 appBar: AppBar(
                   leading: authState.value == const AuthState.register()
                       ? IconButton(
@@ -85,20 +87,22 @@ class AuthPage extends HookConsumerWidget {
                         )),
                       ),
                       const Gap(64),
-                      CarouselSlider(
-                        carouselController: carouselController,
-                        options: CarouselOptions(
-                          initialPage:
-                              authState.value == const AuthState.register()
-                                  ? 1
-                                  : 0,
-                          scrollPhysics: const NeverScrollableScrollPhysics(),
-                          height: MediaQuery.of(context).size.height * 0.65,
-                          enableInfiniteScroll: false,
-                          viewportFraction: 1,
+                      Expanded(
+                        child: CarouselSlider(
+                          carouselController: carouselController,
+                          options: CarouselOptions(
+                            initialPage:
+                                authState.value == const AuthState.register()
+                                    ? 1
+                                    : 0,
+                            height: double.infinity,
+                            enableInfiniteScroll: false,
+                            viewportFraction: 1,
+                          ),
+                          items: const [AuthLoginPage(), AuthRegisterPage()],
                         ),
-                        items: const [AuthLoginPage(), AuthRegisterPage()],
                       ),
+                      const Gap(16),
                     ],
                   ),
                 ),

@@ -11,6 +11,8 @@ class UserInformation with _$UserInformation {
     required String surname,
     required String email,
     required int grade,
+    required String rank,
+    required int starCount,
   }) = _UserInformation;
 
   factory UserInformation.fromJson(Map<String, dynamic> json) =>

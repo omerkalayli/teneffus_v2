@@ -48,20 +48,26 @@ class AuthFirebaseDb implements AuthDataSource {
 
   @override
   Future<Either<Failure, UserInformation>> getUserInformation() async {
-    if (auth.currentUser == null) {
-      return left(Failure("User not found"));
+    try {
+      if (auth.currentUser == null) {
+        return left(Failure("User not found"));
+      }
+      final user =
+          await firestore.collection("users").doc(auth.currentUser!.uid).get();
+      if (!user.exists) {
+        return left(Failure("User not found"));
+      }
+      return right(UserInformation(
+          uid: auth.currentUser!.uid,
+          name: user.get("name"),
+          surname: user.get("surname"),
+          email: auth.currentUser!.email!,
+          grade: user.get("grade"),
+          rank: user.get("rank"),
+          starCount: user.get("starCount")));
+    } catch (e) {
+      return left(Failure(e.toString()));
     }
-    final user =
-        await firestore.collection("users").doc(auth.currentUser!.uid).get();
-    if (!user.exists) {
-      return left(Failure("User not found"));
-    }
-    return right(UserInformation(
-        uid: auth.currentUser!.uid,
-        name: user.get("name"),
-        surname: user.get("surname"),
-        email: auth.currentUser!.email!,
-        grade: user.get("grade")));
   }
 
   Future<UserSubInformation> getUserSubInformation(
@@ -74,7 +80,9 @@ class AuthFirebaseDb implements AuthDataSource {
       return UserSubInformation(
           name: user.get("name"),
           surname: user.get("surname"),
-          grade: user.get("grade"));
+          grade: user.get("grade"),
+          rank: user.get("rank"),
+          starCount: user.get("starCount"));
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -110,7 +118,9 @@ class AuthFirebaseDb implements AuthDataSource {
             name: userSubInformation.name,
             surname: userSubInformation.surname,
             email: userCredential.user!.email!,
-            grade: userSubInformation.grade);
+            grade: userSubInformation.grade,
+            rank: userSubInformation.rank,
+            starCount: userSubInformation.starCount);
         return right(userInformation);
       } else {
         return left(Failure("user-not-found")); // To redirect to register page.
@@ -138,7 +148,9 @@ class AuthFirebaseDb implements AuthDataSource {
           name: userSubInformation.name,
           surname: userSubInformation.surname,
           email: userCredential.user!.email!,
-          grade: userSubInformation.grade);
+          grade: userSubInformation.grade,
+          rank: userSubInformation.rank,
+          starCount: userSubInformation.starCount);
 
       return right(userInformation);
     } on FirebaseAuthException catch (e) {
@@ -170,7 +182,9 @@ class AuthFirebaseDb implements AuthDataSource {
             name: name,
             surname: surname,
             email: email,
-            grade: grade);
+            grade: grade,
+            rank: "Çaylak 1",
+            starCount: 0);
 
         await firestore
             .collection("users")
@@ -189,7 +203,9 @@ class AuthFirebaseDb implements AuthDataSource {
             name: name,
             surname: surname,
             email: auth.currentUser!.email!,
-            grade: grade);
+            grade: grade,
+            rank: "Çaylak 1",
+            starCount: 0);
 
         await firestore
             .collection("users")
@@ -225,7 +241,13 @@ class UserSubInformation {
   final String name;
   final String surname;
   final int grade;
+  final String rank;
+  final int starCount;
 
   UserSubInformation(
-      {required this.name, required this.surname, required this.grade});
+      {required this.name,
+      required this.surname,
+      required this.grade,
+      required this.rank,
+      required this.starCount});
 }

@@ -38,12 +38,12 @@ class CustomButton extends HookConsumerWidget {
         duration = duration ?? const Duration(milliseconds: 200),
         buttonPalette = buttonPalette ?? ButtonPalette.orange(),
         buttonStrokeBorderRadius =
-            buttonStrokeBorderRadius ?? BorderRadius.circular(10),
+            buttonStrokeBorderRadius ?? BorderRadius.circular(8),
         buttonBackgroundAndForegroundBorderRadius =
             buttonBackgroundAndForegroundBorderRadius ??
-                BorderRadius.circular(7),
+                BorderRadius.circular(6),
         buttonOnPressedShadowBorderRadius =
-            buttonOnPressedShadowBorderRadius ?? BorderRadius.circular(8),
+            buttonOnPressedShadowBorderRadius ?? BorderRadius.circular(6),
         showForegroundInnerShadow = showForegroundInnerShadow ?? false,
         isSticky = isSticky ?? false;
 
@@ -102,7 +102,7 @@ class CustomButton extends HookConsumerWidget {
             child: AnimatedContainer(
               /// Border layer of the button
               curve: Curves.fastEaseInToSlowEaseOut,
-              margin: EdgeInsets.only(top: isPressed.value ? 8 : 0),
+              margin: EdgeInsets.only(top: isPressed.value ? 4 : 0),
               duration: duration,
               decoration: BoxDecoration(
                   boxShadow: !isPressed.value
@@ -120,7 +120,7 @@ class CustomButton extends HookConsumerWidget {
                 duration: duration,
                 margin: EdgeInsets.only(
                   top: isPressed.value ? borderWidth + 8 : borderWidth + 2,
-                  bottom: isPressed.value ? borderWidth + 2 : 0,
+                  bottom: 0,
                 ),
                 decoration: BoxDecoration(
                   borderRadius: buttonBackgroundAndForegroundBorderRadius,
@@ -136,8 +136,8 @@ class CustomButton extends HookConsumerWidget {
             margin: EdgeInsets.only(
                 left: borderWidth,
                 right: borderWidth,
-                bottom: isPressed.value ? borderWidth : 8,
-                top: isPressed.value ? borderWidth + 8 : borderWidth),
+                bottom: isPressed.value ? borderWidth : 6,
+                top: isPressed.value ? borderWidth + 4 : borderWidth),
             decoration: BoxDecoration(
               borderRadius: buttonBackgroundAndForegroundBorderRadius,
               color: _getButtonForegroundColor(buttonPalette),
