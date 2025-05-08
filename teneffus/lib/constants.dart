@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teneffus/gen/assets.gen.dart';
 
 const Color navBarOrange = Color(0xffFF7043);
 
@@ -56,3 +57,11 @@ const List<String> days = [
 const List<int> dayStreakStars = [1, 2, 4, 8, 10, 12, 16];
 
 const Duration animationDuration = Duration(milliseconds: 500);
+
+Map<String, AssetGenImage> games = {
+  "Eşleştirme": Assets.images.elestirme,
+  "Dinleme": Assets.images.dinleme,
+  "Cümle Kurma": Assets.images.cumleKurma,
+  "Boşluk Doldurma": Assets.images.boslukDoldurma,
+  "Konuşma": Assets.images.konusma,
+};

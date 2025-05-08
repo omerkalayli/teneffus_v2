@@ -11,11 +11,11 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            const Color(0xff4DD0E1),
-            const Color(0xff69AAFF),
+            Color(0xff4DD0E1),
+            Color(0xff69AAFF),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

@@ -27,8 +27,28 @@ class $AssetsImagesGen {
   /// File path: assets/images/Google.webp
   AssetGenImage get google => const AssetGenImage('assets/images/Google.webp');
 
+  /// File path: assets/images/bosluk_doldurma.webp
+  AssetGenImage get boslukDoldurma =>
+      const AssetGenImage('assets/images/bosluk_doldurma.webp');
+
   /// File path: assets/images/crow.webp
   AssetGenImage get crow => const AssetGenImage('assets/images/crow.webp');
+
+  /// File path: assets/images/cumle_kurma.webp
+  AssetGenImage get cumleKurma =>
+      const AssetGenImage('assets/images/cumle_kurma.webp');
+
+  /// File path: assets/images/dinleme.webp
+  AssetGenImage get dinleme =>
+      const AssetGenImage('assets/images/dinleme.webp');
+
+  /// File path: assets/images/elestirme.webp
+  AssetGenImage get elestirme =>
+      const AssetGenImage('assets/images/elestirme.webp');
+
+  /// File path: assets/images/konusma.webp
+  AssetGenImage get konusma =>
+      const AssetGenImage('assets/images/konusma.webp');
 
   /// File path: assets/images/loading.webp
   AssetGenImage get loading =>
@@ -39,7 +59,17 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/yellowStar.webp');
 
   /// List of all assets
-  List<AssetGenImage> get values => [google, crow, loading, yellowStar];
+  List<AssetGenImage> get values => [
+    google,
+    boslukDoldurma,
+    crow,
+    cumleKurma,
+    dinleme,
+    elestirme,
+    konusma,
+    loading,
+    yellowStar,
+  ];
 }
 
 class Assets {

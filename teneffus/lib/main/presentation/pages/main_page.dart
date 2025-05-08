@@ -17,41 +17,44 @@ class MainPage extends HookConsumerWidget {
     final userInfo = ref.watch(authNotifierProvider.notifier).userInformation;
     const dayStreak = 6;
     return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            MainHeader(userInfo: userInfo),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const DailyContainer(dayStreak: dayStreak),
-                  const DailyWordContainer(),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                                MediaQuery.of(context).size.width * 0.2),
-                        child: CustomTextButton(
-                            text: "Quize Başla", onPressed: () {}),
-                      ),
-                      Container(
-                        width: 2,
-                        height: 40,
-                        color: Colors.black,
-                      ),
-                      MainUnitButton(
-                        onTapped: () {},
-                        unitName: "Okulum ve Arkadaşlarım",
-                        unitNumber: 9,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            )
-          ],
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 100),
+        child: Scaffold(
+          body: Column(
+            children: [
+              MainHeader(userInfo: userInfo),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const DailyContainer(dayStreak: dayStreak),
+                    const DailyWordContainer(),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.2),
+                          child: CustomTextButton(
+                              text: "Quize Başla", onPressed: () {}),
+                        ),
+                        Container(
+                          width: 2,
+                          height: 40,
+                          color: Colors.black,
+                        ),
+                        MainUnitButton(
+                          onTapped: () {},
+                          unitName: "Okulum ve Arkadaşlarım",
+                          unitNumber: 9,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
