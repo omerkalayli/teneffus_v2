@@ -11,13 +11,13 @@ class LessonSelectionDropdown extends HookConsumerWidget {
     required this.lessons,
     required this.selectedLesson,
     required this.onSelected,
-    required this.isAllLessensSelected,
+    required this.isAllLessonsSelected,
   });
 
   final Function(int) onSelected;
   final List<Lesson> lessons;
   final int selectedLesson;
-  final bool isAllLessensSelected;
+  final bool isAllLessonsSelected;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +26,7 @@ class LessonSelectionDropdown extends HookConsumerWidget {
       data: DropdownMenuThemeData(
         textStyle: GoogleFonts.montserrat(
             fontSize: 12,
-            color: isAllLessensSelected
+            color: isAllLessonsSelected
                 ? const Color.fromARGB(255, 7, 114, 131)
                 : Colors.white,
             fontWeight: FontWeight.bold),
@@ -42,18 +42,18 @@ class LessonSelectionDropdown extends HookConsumerWidget {
         ),
       ),
       child: DropdownMenu(
-        enabled: !isAllLessensSelected,
+        enabled: !isAllLessonsSelected,
         initialSelection: selectedLesson + 1,
         trailingIcon: Icon(
           Icons.arrow_drop_down_rounded,
-          color: isAllLessensSelected
+          color: isAllLessonsSelected
               ? const Color.fromARGB(255, 7, 114, 131)
               : Colors.white,
           size: 30,
         ),
         selectedTrailingIcon: Icon(
           Icons.arrow_drop_up_rounded,
-          color: isAllLessensSelected
+          color: isAllLessonsSelected
               ? const Color.fromARGB(255, 7, 114, 131)
               : Colors.white,
           size: 30,

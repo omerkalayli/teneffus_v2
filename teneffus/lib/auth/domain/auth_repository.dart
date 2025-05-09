@@ -14,6 +14,7 @@ abstract interface class AuthRepository {
   Future<Either<Failure, UserInformation>> signInWithGoogle();
   Future<Either<Failure, UserInformation>> signInWithEmail(
       {required String email, required String password});
+  Future<void> increaseStarCount({required String uid, required int starCount});
   Future<Either<Failure, UserInformation>> registerUser({
     required String name,
     required String surname,

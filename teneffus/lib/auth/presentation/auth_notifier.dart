@@ -30,6 +30,16 @@ class AuthNotifier extends _$AuthNotifier {
     );
   }
 
+  Future<void> increaseStarCount({required int starCount}) async {
+    if (userInformation != null) {
+      await _authRepository.increaseStarCount(
+          uid: userInformation!.uid, starCount: starCount);
+      userInformation = userInformation!.copyWith(
+        starCount: userInformation!.starCount + starCount,
+      );
+    }
+  }
+
   Future<Either<Failure, bool>> sendResetPasswordEmail(
       {required String email}) async {
     return await _authRepository.sendResetPasswordEmail(email: email);

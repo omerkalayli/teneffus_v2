@@ -27,6 +27,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/Google.webp
   AssetGenImage get google => const AssetGenImage('assets/images/Google.webp');
 
+  /// File path: assets/images/app_icon.webp
+  AssetGenImage get appIcon =>
+      const AssetGenImage('assets/images/app_icon.webp');
+
   /// File path: assets/images/bosluk_doldurma.webp
   AssetGenImage get boslukDoldurma =>
       const AssetGenImage('assets/images/bosluk_doldurma.webp');
@@ -61,6 +65,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
     google,
+    appIcon,
     boslukDoldurma,
     crow,
     cumleKurma,

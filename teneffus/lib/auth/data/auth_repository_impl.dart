@@ -75,4 +75,14 @@ class AuthRepositoryImpl implements AuthRepository {
       return await authDataSource!.sendResetPasswordEmail(email: email);
     }
   }
+
+  @override
+  Future<void> increaseStarCount(
+      {required String uid, required int starCount}) {
+    if (authDataSource != null) {
+      return authDataSource!.increaseStarCount(uid: uid, starCount: starCount);
+    } else {
+      throw Exception("Data source is null");
+    }
+  }
 }

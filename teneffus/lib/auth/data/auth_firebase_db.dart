@@ -25,6 +25,7 @@ abstract interface class AuthDataSource {
     String? email,
     String? password,
   });
+  Future<void> increaseStarCount({required String uid, required int starCount});
   Future<void> signOut();
   Future<Either<Failure, bool>> sendResetPasswordEmail({required String email});
 }
@@ -233,6 +234,18 @@ class AuthFirebaseDb implements AuthDataSource {
       return left(Failure(e.code.toString()));
     } on Exception catch (e) {
       return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<void> increaseStarCount(
+      {required String uid, required int starCount}) {
+    try {
+      return firestore.collection("users").doc(uid).update({
+        "starCount": FieldValue.increment(starCount),
+      });
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 }

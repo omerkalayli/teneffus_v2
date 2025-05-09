@@ -5,9 +5,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/arabic/getter/getter.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/constants.dart';
+import 'package:teneffus/games/presentation/pages/matching_game_page.dart';
+import 'package:teneffus/games/presentation/widgets/game_container.dart';
 import 'package:teneffus/games/presentation/widgets/lesson_selection_container.dart';
 import 'package:teneffus/games/presentation/widgets/unit_selection_bar.dart';
-import 'package:teneffus/gen/assets.gen.dart';
+
+/// [GamesPage] is the main page of the games section. It contains the unit selection bar, lesson selection dropdown, and game containers.
 
 class GamesPage extends HookConsumerWidget {
   const GamesPage({super.key});
@@ -22,6 +25,7 @@ class GamesPage extends HookConsumerWidget {
     final lessons = units[selectedUnitNumber.value].lessons;
     final selectedUnit = units[selectedUnitNumber.value];
     final isAllLessonsSelected = useState(true);
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -53,7 +57,23 @@ class GamesPage extends HookConsumerWidget {
                     Row(
                       children: [
                         GameContainer(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MatchingGamePage(
+                                          isAllLessonsSelected:
+                                              isAllLessonsSelected.value,
+                                          selectedUnit: selectedUnit,
+                                          selectedUnitNumber:
+                                              selectedUnitNumber.value,
+                                          selectedLessons: isAllLessonsSelected
+                                                  .value
+                                              ? lessons
+                                              : [
+                                                  lessons[selectedLesson.value],
+                                                ])));
+                            },
                             label: games.keys.elementAt(0),
                             image: games.values.elementAt(0)),
                         GameContainer(
@@ -84,69 +104,6 @@ class GamesPage extends HookConsumerWidget {
                       ],
                     ),
                   ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class GameContainer extends StatelessWidget {
-  const GameContainer({
-    required this.label,
-    required this.image,
-    required this.onTap,
-    super.key,
-  });
-
-  final Function() onTap;
-  final String label;
-  final AssetGenImage image;
-
-  @override
-  Widget build(BuildContext context) {
-    final containerGradient = LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: [
-        const Color(0xff2C76ED).withValues(alpha: .53),
-        const Color(0xff4340A9).withValues(alpha: .47),
-      ],
-    );
-
-    return Expanded(
-      child: InkWell(
-        onTap: () {
-          onTap();
-        },
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: Container(
-            margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-                border: Border.all(width: 2, color: Colors.white),
-                gradient: containerGradient,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: .25),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  )
-                ]),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                  child: image.image(),
-                ),
-                Text(
-                  label,
-                  style: const TextStyle(fontSize: 16),
                 )
               ],
             ),

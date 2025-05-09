@@ -19,7 +19,7 @@ class LessonSelectionContainer extends StatelessWidget {
     return Row(
       children: [
         LessonSelectionDropdown(
-          isAllLessensSelected: isAllLessonsSelected.value,
+          isAllLessonsSelected: isAllLessonsSelected.value,
           lessons: lessons,
           selectedLesson: selectedLesson.value,
           onSelected: (val) {
