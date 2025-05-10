@@ -29,6 +29,8 @@ dependencies:
   json_serializable: ^6.9.0
   lottie: ^3.3.0
   flutter_flip_card: ^0.0.6
+  just_audio: ^0.10.2
+  confetti: ^0.8.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.3
@@ -50,6 +52,8 @@ flutter:
   assets:
     - assets/images/
     - assets/animations/
+    - assets/sounds/
+    - assets/sounds/KalkErkege.mp3
 
 flutter_gen:
   assets:

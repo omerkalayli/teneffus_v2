@@ -48,26 +48,33 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      obscureText: obscureText,
-      controller: controller,
-      cursorColor: textColor,
-      style: TextStyle(color: textColor),
-      decoration: InputDecoration(
-        errorBorder: OutlineInputBorder(
-            borderRadius: borderRadius,
-            borderSide:
-                BorderSide(width: borderWidth, color: errorBorderColor)),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: borderRadius,
-            borderSide:
-                BorderSide(width: borderWidth, color: enabledBorderColor)),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: borderRadius,
-            borderSide:
-                BorderSide(width: borderWidth, color: focusedBorderColor)),
-        filled: true,
-        fillColor: color,
+    return Theme(
+      data: Theme.of(context).copyWith(
+        textSelectionTheme: TextSelectionThemeData(
+          selectionHandleColor: textColor,
+        ),
+      ),
+      child: TextField(
+        obscureText: obscureText,
+        controller: controller,
+        cursorColor: textColor,
+        style: TextStyle(color: textColor),
+        decoration: InputDecoration(
+          errorBorder: OutlineInputBorder(
+              borderRadius: borderRadius,
+              borderSide:
+                  BorderSide(width: borderWidth, color: errorBorderColor)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: borderRadius,
+              borderSide:
+                  BorderSide(width: borderWidth, color: enabledBorderColor)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: borderRadius,
+              borderSide:
+                  BorderSide(width: borderWidth, color: focusedBorderColor)),
+          filled: true,
+          fillColor: color,
+        ),
       ),
     );
   }

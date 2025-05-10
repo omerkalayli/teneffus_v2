@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:teneffus/gen/assets.gen.dart';
 import 'package:teneffus/global_entities/button_type.dart';
-import 'package:teneffus/global_widgets/custom_button.dart';
 import 'package:teneffus/global_widgets/custom_text_button.dart';
-import 'package:teneffus/global_widgets/stroked_text.dart';
 
 /// This widget is used to display the daily word container.
 
@@ -20,7 +18,7 @@ class DailyWordContainer extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
+          margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
@@ -88,7 +86,7 @@ class DailyWordContainer extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: -16,
+          top: 0,
           child: IntrinsicWidth(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

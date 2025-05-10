@@ -31,157 +31,170 @@ class AuthRegisterPage extends HookConsumerWidget {
     bool signedInWithGoogle = auth.currentUser != null;
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Center(
-              child: StrokedText(
-                signedInWithGoogle ? "Seni tanıyalım." : "Teneffüs'e kaydol.",
-                strokeWidth: 2.5,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall!
-                    .copyWith(shadows: [textShadowSmall]),
-              ),
-            ),
-            const Gap(16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      resizeToAvoidBottomInset: true,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                if (!signedInWithGoogle) ...[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: StrokedText(
-                      "Mail Adresi",
-                      strokeWidth: 2,
-                      strokeColor: const Color(0xff4A4A4A),
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        shadows: [textShadowSmall],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                      height: 60,
-                      child: CustomTextField(
-                        controller: emailTextEditingController,
-                      )),
-                  const Gap(4),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: StrokedText(
-                      "Şifre",
-                      strokeWidth: 2,
-                      strokeColor: const Color(0xff4A4A4A),
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        shadows: [textShadowSmall],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                      height: 60,
-                      child: CustomTextField(
-                        obscureText: true,
-                        controller: passwordTextEditingController,
-                      )),
-                ],
-                const Gap(4),
-                Padding(
-                  padding: const EdgeInsets.only(left: 4.0),
+                Center(
                   child: StrokedText(
-                    "Adın",
-                    strokeWidth: 2,
-                    strokeColor: const Color(0xff4A4A4A),
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      shadows: [textShadowSmall],
-                    ),
+                    signedInWithGoogle
+                        ? "Seni tanıyalım."
+                        : "Teneffüs'e kaydol.",
+                    strokeWidth: 2.5,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(shadows: [textShadowSmall]),
                   ),
                 ),
-                SizedBox(
-                    height: 60,
-                    child: CustomTextField(
-                      controller: nameTextEditingController,
-                    )),
-                const Gap(4),
-                Padding(
-                  padding: const EdgeInsets.only(left: 4.0),
-                  child: StrokedText(
-                    "Soyadın",
-                    strokeWidth: 2,
-                    strokeColor: const Color(0xff4A4A4A),
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      shadows: [textShadowSmall],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                    height: 60,
-                    child: CustomTextField(
-                      controller: surnameTextEditingController,
-                    )),
                 const Gap(16),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: StrokedText(
-                      "Sınıfın",
-                      strokeWidth: 2,
-                      strokeColor: const Color(0xff4A4A4A),
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        shadows: [textShadowSmall],
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (!signedInWithGoogle) ...[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4.0),
+                        child: StrokedText(
+                          "Mail Adresi",
+                          strokeWidth: 2,
+                          strokeColor: const Color(0xff4A4A4A),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            shadows: [textShadowSmall],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                          height: 60,
+                          child: CustomTextField(
+                            controller: emailTextEditingController,
+                          )),
+                      const Gap(4),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4.0),
+                        child: StrokedText(
+                          "Şifre",
+                          strokeWidth: 2,
+                          strokeColor: const Color(0xff4A4A4A),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            shadows: [textShadowSmall],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                          height: 60,
+                          child: CustomTextField(
+                            obscureText: true,
+                            controller: passwordTextEditingController,
+                          )),
+                    ],
+                    const Gap(4),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: StrokedText(
+                        "Adın",
+                        strokeWidth: 2,
+                        strokeColor: const Color(0xff4A4A4A),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          shadows: [textShadowSmall],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: Colors.white60, width: 3),
-                        color: Colors.transparent),
-                    child: CustomPicker(
-                      labels: const ["9", "10", "11", "12"],
-                      onSelected: (index) {
-                        grade.value = index + 9;
-                      },
-                      defaultIndex: 0,
+                    SizedBox(
+                        height: 60,
+                        child: CustomTextField(
+                          controller: nameTextEditingController,
+                        )),
+                    const Gap(4),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: StrokedText(
+                        "Soyadın",
+                        strokeWidth: 2,
+                        strokeColor: const Color(0xff4A4A4A),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          shadows: [textShadowSmall],
+                        ),
+                      ),
                     ),
+                    SizedBox(
+                        height: 60,
+                        child: CustomTextField(
+                          controller: surnameTextEditingController,
+                        )),
+                    const Gap(16),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 4.0),
+                        child: StrokedText(
+                          "Sınıfın",
+                          strokeWidth: 2,
+                          strokeColor: const Color(0xff4A4A4A),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            shadows: [textShadowSmall],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: Colors.white60, width: 3),
+                            color: Colors.transparent),
+                        child: CustomPicker(
+                          labels: const ["9", "10", "11", "12"],
+                          onSelected: (index) {
+                            grade.value = index + 9;
+                          },
+                          defaultIndex: 0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Gap(signedInWithGoogle ? 32 : 16),
+                SizedBox(
+                  height: 60,
+                  width: 200,
+                  child: CustomTextButton(
+                    text: "Giriş Yap",
+                    onPressed: () async {
+                      if (nameTextEditingController.text.isEmpty ||
+                          surnameTextEditingController.text.isEmpty ||
+                          (passwordTextEditingController.text.isEmpty &&
+                              !signedInWithGoogle)) {
+                        CustomSnackbar.show(
+                          context: context,
+                          message: "Lütfen tüm alanları doldurun.",
+                          type: SnackbarType.error(),
+                        );
+                        return;
+                      }
+                      await ref
+                          .read(authNotifierProvider.notifier)
+                          .registerUser(
+                            name: nameTextEditingController.text,
+                            surname: surnameTextEditingController.text,
+                            grade: grade.value,
+                            email: emailTextEditingController.text,
+                            password: passwordTextEditingController.text,
+                          );
+                    },
                   ),
                 ),
               ],
             ),
-            const Gap(4),
-            SizedBox(
-              height: 60,
-              width: 200,
-              child: CustomTextButton(
-                text: "Giriş Yap",
-                onPressed: () async {
-                  if (nameTextEditingController.text.isEmpty ||
-                      surnameTextEditingController.text.isEmpty ||
-                      passwordTextEditingController.text.isEmpty) {
-                    CustomSnackbar.show(
-                      context: context,
-                      message: "Lütfen tüm alanları doldurun.",
-                      type: SnackbarType.error(),
-                    );
-                    return;
-                  }
-                  await ref.read(authNotifierProvider.notifier).registerUser(
-                        name: nameTextEditingController.text,
-                        surname: surnameTextEditingController.text,
-                        grade: grade.value,
-                        email: emailTextEditingController.text,
-                        password: passwordTextEditingController.text,
-                      );
-                },
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

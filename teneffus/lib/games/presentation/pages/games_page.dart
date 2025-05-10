@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/arabic/getter/getter.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/constants.dart';
+import 'package:teneffus/games/presentation/pages/listening_game_page.dart';
 import 'package:teneffus/games/presentation/pages/matching_game_page.dart';
 import 'package:teneffus/games/presentation/widgets/game_container.dart';
 import 'package:teneffus/games/presentation/widgets/lesson_selection_container.dart';
@@ -29,8 +30,7 @@ class GamesPage extends HookConsumerWidget {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding:
-              const EdgeInsets.only(left: 16.0, right: 16, top: 16, bottom: 56),
+          padding: const EdgeInsets.all(16),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +77,23 @@ class GamesPage extends HookConsumerWidget {
                             label: games.keys.elementAt(0),
                             image: games.values.elementAt(0)),
                         GameContainer(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ListeningGamePage(
+                                          isAllLessonsSelected:
+                                              isAllLessonsSelected.value,
+                                          selectedUnit: selectedUnit,
+                                          selectedUnitNumber:
+                                              selectedUnitNumber.value,
+                                          selectedLessons: isAllLessonsSelected
+                                                  .value
+                                              ? lessons
+                                              : [
+                                                  lessons[selectedLesson.value],
+                                                ])));
+                            },
                             label: games.keys.elementAt(1),
                             image: games.values.elementAt(1)),
                       ],

@@ -31,6 +31,9 @@ const Color buttonForegroundColorGreen = Color(0xff00D600);
 const Color buttonBackgroundColorYellow = Color(0xff94920D);
 const Color buttonForegroundColorYellow = Colors.yellow;
 
+const Color buttonBackgroundColorGrey = Color(0xFF616161);
+const Color buttonForegroundColorGrey = Color(0xFFE0E0E0);
+
 /// Textfield colors
 const Color textFieldTextColor = Color(0xff333333);
 const Color textFieldEnabledBorderColor = Color(0xff058595);

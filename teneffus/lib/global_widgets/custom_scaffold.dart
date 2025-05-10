@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomScaffold extends StatelessWidget {
-  const CustomScaffold(
-      {this.bottomNavigationBar, this.appBar, this.body, super.key});
+  const CustomScaffold({
+    this.bottomNavigationBar,
+    this.appBar,
+    this.body,
+    super.key,
+  });
 
   final Widget? body;
   final AppBar? appBar;

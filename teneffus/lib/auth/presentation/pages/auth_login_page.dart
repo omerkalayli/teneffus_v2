@@ -33,208 +33,213 @@ class AuthLoginPage extends HookConsumerWidget {
     double iconButtonSize = 60;
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Center(
-              child: StrokedText(
-                "Teneffüs'e giriş yap.",
-                strokeWidth: 2.5,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall!
-                    .copyWith(shadows: [textShadowSmall]),
-              ),
-            ),
-            const Gap(16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      resizeToAvoidBottomInset: true,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 4.0),
+                Center(
                   child: StrokedText(
-                    "Mail Adresi",
-                    strokeWidth: 2,
-                    strokeColor: const Color(0xff4A4A4A),
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      shadows: [textShadowSmall],
-                    ),
+                    "Teneffüs'e giriş yap.",
+                    strokeWidth: 2.5,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(shadows: [textShadowSmall]),
                   ),
-                ),
-                SizedBox(
-                    height: textFieldHeight,
-                    child: CustomTextField(
-                      controller: emailTextEditingController,
-                    )),
-                const Gap(32),
-                Padding(
-                  padding: const EdgeInsets.only(left: 4.0),
-                  child: StrokedText(
-                    "Şifre",
-                    strokeWidth: 2,
-                    strokeColor: const Color(0xff4A4A4A),
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      shadows: [textShadowSmall],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                    height: textFieldHeight,
-                    child: CustomTextField(
-                      obscureText: true,
-                      controller: passwordTextEditingController,
-                    )),
-                const Gap(4),
-                InkWell(
-                  onTap: () async {
-                    bool isValid = EmailValidator.validate(
-                        emailTextEditingController.text);
-
-                    if (!isValid) {
-                      CustomSnackbar.show(
-                          type: SnackbarType.error(),
-                          message: "Bu mail adresi geçerli değil.",
-                          context: context);
-                    } else {
-                      var res = await ref
-                          .read(authNotifierProvider.notifier)
-                          .sendResetPasswordEmail(
-                              email: emailTextEditingController.text);
-
-                      res.fold(
-                          (l) => CustomSnackbar.show(
-                              context: context,
-                              message: Validator.validateErrorMessage(
-                                  errorMessage: l.message),
-                              type: SnackbarType.error()),
-                          (r) => CustomSnackbar.show(
-                              context: context,
-                              message:
-                                  "Şifre sıfırlama mailini gönderdik. Şifreni maildeki link üzerinden sıfırlayabilirsin.",
-                              type: SnackbarType.success()));
-                    }
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.only(right: 4),
-                    child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.white,
-                                decorationThickness: 2),
-                            "Şifremi unuttum!")),
-                  ),
-                ),
-              ],
-            ),
-            const Gap(32),
-            SizedBox(
-              height: 60,
-              width: 200,
-              child: CustomTextButton(
-                text: "Giriş Yap",
-                onPressed: () async {
-                  await _signInWithEmail(emailTextEditingController,
-                      passwordTextEditingController, context, ref);
-                },
-              ),
-            ),
-            const Gap(16),
-            Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: 1,
-                        width: double.maxFinite,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const Gap(8),
-                    const StrokedText("Diğer Giriş Seçenekleri",
-                        strokeWidth: 1.5),
-                    const Gap(8),
-                    Expanded(
-                      child: Container(
-                        height: 1,
-                        width: double.maxFinite,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
                 ),
                 const Gap(16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: iconButtonSize,
-                      width: iconButtonSize,
-                      child: CustomButton(
-                        buttonPalette: ButtonPalette.white(),
-                        onPressed: () {},
-                        child: Icon(
-                          Icons.apple,
-                          size: iconButtonSize - 20,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: StrokedText(
+                        "Mail Adresi",
+                        strokeWidth: 2,
+                        strokeColor: const Color(0xff4A4A4A),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          shadows: [textShadowSmall],
                         ),
                       ),
                     ),
-                    const Gap(24),
                     SizedBox(
-                      height: iconButtonSize,
-                      width: iconButtonSize,
-                      child: CustomButton(
-                        buttonPalette: ButtonPalette.white(),
-                        onPressed: () async {
-                          await ref
+                        height: textFieldHeight,
+                        child: CustomTextField(
+                          controller: emailTextEditingController,
+                        )),
+                    const Gap(16),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: StrokedText(
+                        "Şifre",
+                        strokeWidth: 2,
+                        strokeColor: const Color(0xff4A4A4A),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          shadows: [textShadowSmall],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                        height: textFieldHeight,
+                        child: CustomTextField(
+                          obscureText: true,
+                          controller: passwordTextEditingController,
+                        )),
+                    const Gap(4),
+                    InkWell(
+                      onTap: () async {
+                        bool isValid = EmailValidator.validate(
+                            emailTextEditingController.text);
+
+                        if (!isValid) {
+                          CustomSnackbar.show(
+                              type: SnackbarType.error(),
+                              message: "Bu mail adresi geçerli değil.",
+                              context: context);
+                        } else {
+                          var res = await ref
                               .read(authNotifierProvider.notifier)
-                              .signInWithGoogle();
-                        },
-                        child: Assets.images.google.image(
-                            width: iconButtonSize * .53,
-                            height: iconButtonSize * .53),
+                              .sendResetPasswordEmail(
+                                  email: emailTextEditingController.text);
+
+                          res.fold(
+                              (l) => CustomSnackbar.show(
+                                  context: context,
+                                  message: Validator.validateErrorMessage(
+                                      errorMessage: l.message),
+                                  type: SnackbarType.error()),
+                              (r) => CustomSnackbar.show(
+                                  context: context,
+                                  message:
+                                      "Şifre sıfırlama mailini gönderdik. Şifreni maildeki link üzerinden sıfırlayabilirsin.",
+                                  type: SnackbarType.success()));
+                        }
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(right: 4),
+                        child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Colors.white,
+                                    decorationThickness: 2),
+                                "Şifremi unuttum!")),
                       ),
                     ),
                   ],
                 ),
                 const Gap(32),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(width: 2, color: Colors.white)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Text(
-                        "Buralarda yeni misin?",
-                        style: TextStyle(shadows: [textShadowSmall]),
-                      ),
-                      CustomTextButton(
-                          fontSize: 16,
-                          buttonPalette: ButtonPalette.blue(),
-                          text: "Kayıt Ol",
-                          onPressed: () async {
-                            await ref
-                                .read(carouselControllerProvider)
-                                .nextPage();
-                            if (context.mounted) {
+                SizedBox(
+                  height: 60,
+                  width: 200,
+                  child: CustomTextButton(
+                    text: "Giriş Yap",
+                    onPressed: () async {
+                      await _signInWithEmail(emailTextEditingController,
+                          passwordTextEditingController, context, ref);
+                    },
+                  ),
+                ),
+                const Gap(16),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 1,
+                            width: double.maxFinite,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const Gap(8),
+                        const StrokedText("Diğer Giriş Seçenekleri",
+                            strokeWidth: 1.5),
+                        const Gap(8),
+                        Expanded(
+                          child: Container(
+                            height: 1,
+                            width: double.maxFinite,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Gap(16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: iconButtonSize,
+                          width: iconButtonSize,
+                          child: CustomButton(
+                            buttonPalette: ButtonPalette.white(),
+                            onPressed: () {},
+                            child: Icon(
+                              Icons.apple,
+                              size: iconButtonSize - 20,
+                            ),
+                          ),
+                        ),
+                        const Gap(24),
+                        SizedBox(
+                          height: iconButtonSize,
+                          width: iconButtonSize,
+                          child: CustomButton(
+                            buttonPalette: ButtonPalette.white(),
+                            onPressed: () async {
                               await ref
                                   .read(authNotifierProvider.notifier)
-                                  .redirectToRegister();
-                            }
-                          }),
-                    ],
-                  ),
+                                  .signInWithGoogle();
+                            },
+                            child: Assets.images.google.image(
+                                width: iconButtonSize * .53,
+                                height: iconButtonSize * .53),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Gap(32),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(width: 2, color: Colors.white)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const Text(
+                            "Buralarda yeni misin?",
+                            style: TextStyle(shadows: [textShadowSmall]),
+                          ),
+                          CustomTextButton(
+                              fontSize: 16,
+                              buttonPalette: ButtonPalette.blue(),
+                              text: "Kayıt Ol",
+                              onPressed: () async {
+                                await ref
+                                    .read(carouselControllerProvider)
+                                    .nextPage();
+                                if (context.mounted) {
+                                  await ref
+                                      .read(authNotifierProvider.notifier)
+                                      .redirectToRegister();
+                                }
+                              }),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

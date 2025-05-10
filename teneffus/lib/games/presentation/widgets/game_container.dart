@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:teneffus/gen/assets.gen.dart';
 
@@ -33,6 +34,7 @@ class GameContainer extends StatelessWidget {
           aspectRatio: 1,
           child: Container(
             margin: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
                 border: Border.all(width: 2, color: Colors.white),
                 gradient: containerGradient,
@@ -51,8 +53,9 @@ class GameContainer extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: image.image(),
                 ),
-                Text(
+                AutoSizeText(
                   label,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 16),
                 )
               ],

@@ -24,8 +24,78 @@ class $AssetsAnimationsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Doktor (Erkek).webp
+  AssetGenImage get doktorErkek =>
+      const AssetGenImage('assets/images/Doktor (Erkek).webp');
+
+  /// File path: assets/images/Doktor (Kadın).webp
+  AssetGenImage get doktorKadN =>
+      const AssetGenImage('assets/images/Doktor (Kadın).webp');
+
+  /// File path: assets/images/Erkek Öğrenci.webp
+  AssetGenImage get erkekRenci =>
+      const AssetGenImage('assets/images/Erkek Öğrenci.webp');
+
+  /// File path: assets/images/Gel! (Erkeğe).webp
+  AssetGenImage get gelErkeE =>
+      const AssetGenImage('assets/images/Gel! (Erkeğe).webp');
+
+  /// File path: assets/images/Gel! (Kadına).webp
+  AssetGenImage get gelKadNa =>
+      const AssetGenImage('assets/images/Gel! (Kadına).webp');
+
   /// File path: assets/images/Google.webp
   AssetGenImage get google => const AssetGenImage('assets/images/Google.webp');
+
+  /// File path: assets/images/Kalk! (Erkeğe).webp
+  AssetGenImage get kalkErkeE =>
+      const AssetGenImage('assets/images/Kalk! (Erkeğe).webp');
+
+  /// File path: assets/images/Kalk! (Kadına).webp
+  AssetGenImage get kalkKadNa =>
+      const AssetGenImage('assets/images/Kalk! (Kadına).webp');
+
+  /// File path: assets/images/Kapat! (Erkeğe).webp
+  AssetGenImage get kapatErkeE =>
+      const AssetGenImage('assets/images/Kapat! (Erkeğe).webp');
+
+  /// File path: assets/images/Kapat! (Kadına).webp
+  AssetGenImage get kapatKadNa =>
+      const AssetGenImage('assets/images/Kapat! (Kadına).webp');
+
+  /// File path: assets/images/Kız Öğrenci.webp
+  AssetGenImage get kZRenci =>
+      const AssetGenImage('assets/images/Kız Öğrenci.webp');
+
+  /// File path: assets/images/Oku! (Erkeğe).webp
+  AssetGenImage get okuErkeE =>
+      const AssetGenImage('assets/images/Oku! (Erkeğe).webp');
+
+  /// File path: assets/images/Oku! (Kadına).webp
+  AssetGenImage get okuKadNa =>
+      const AssetGenImage('assets/images/Oku! (Kadına).webp');
+
+  /// File path: assets/images/Okul.webp
+  AssetGenImage get okul => const AssetGenImage('assets/images/Okul.webp');
+
+  /// File path: assets/images/Otur! (Erkeğe).webp
+  AssetGenImage get oturErkeE =>
+      const AssetGenImage('assets/images/Otur! (Erkeğe).webp');
+
+  /// File path: assets/images/Otur! (Kadına).webp
+  AssetGenImage get oturKadNa =>
+      const AssetGenImage('assets/images/Otur! (Kadına).webp');
+
+  /// File path: assets/images/Sınıf.webp
+  AssetGenImage get sNF => const AssetGenImage('assets/images/Sınıf.webp');
+
+  /// File path: assets/images/Yaz! (Erkeğe).webp
+  AssetGenImage get yazErkeE =>
+      const AssetGenImage('assets/images/Yaz! (Erkeğe).webp');
+
+  /// File path: assets/images/Yaz! (Kadına).webp
+  AssetGenImage get yazKadNa =>
+      const AssetGenImage('assets/images/Yaz! (Kadına).webp');
 
   /// File path: assets/images/app_icon.webp
   AssetGenImage get appIcon =>
@@ -62,9 +132,35 @@ class $AssetsImagesGen {
   AssetGenImage get yellowStar =>
       const AssetGenImage('assets/images/yellowStar.webp');
 
+  /// File path: assets/images/Öğretmen (Erkek).webp
+  AssetGenImage get aRetmenErkek =>
+      const AssetGenImage('assets/images/Öğretmen (Erkek).webp');
+
+  /// File path: assets/images/Öğretmen (Kadın).webp
+  AssetGenImage get aRetmenKadN =>
+      const AssetGenImage('assets/images/Öğretmen (Kadın).webp');
+
   /// List of all assets
   List<AssetGenImage> get values => [
+    doktorErkek,
+    doktorKadN,
+    erkekRenci,
+    gelErkeE,
+    gelKadNa,
     google,
+    kalkErkeE,
+    kalkKadNa,
+    kapatErkeE,
+    kapatKadNa,
+    kZRenci,
+    okuErkeE,
+    okuKadNa,
+    okul,
+    oturErkeE,
+    oturKadNa,
+    sNF,
+    yazErkeE,
+    yazKadNa,
     appIcon,
     boslukDoldurma,
     crow,
@@ -74,6 +170,96 @@ class $AssetsImagesGen {
     konusma,
     loading,
     yellowStar,
+    aRetmenErkek,
+    aRetmenKadN,
+  ];
+}
+
+class $AssetsSoundsGen {
+  const $AssetsSoundsGen();
+
+  /// File path: assets/sounds/DoktorErkek.mp3
+  String get doktorErkek => 'assets/sounds/DoktorErkek.mp3';
+
+  /// File path: assets/sounds/DoktorKadin.mp3
+  String get doktorKadin => 'assets/sounds/DoktorKadin.mp3';
+
+  /// File path: assets/sounds/ErkekOgrenci.mp3
+  String get erkekOgrenci => 'assets/sounds/ErkekOgrenci.mp3';
+
+  /// File path: assets/sounds/GelErkege.mp3
+  String get gelErkege => 'assets/sounds/GelErkege.mp3';
+
+  /// File path: assets/sounds/GelKadina.mp3
+  String get gelKadina => 'assets/sounds/GelKadina.mp3';
+
+  /// File path: assets/sounds/KalkErkege.mp3
+  String get kalkErkege => 'assets/sounds/KalkErkege.mp3';
+
+  /// File path: assets/sounds/KalkKadina.mp3
+  String get kalkKadina => 'assets/sounds/KalkKadina.mp3';
+
+  /// File path: assets/sounds/KapatErkege.mp3
+  String get kapatErkege => 'assets/sounds/KapatErkege.mp3';
+
+  /// File path: assets/sounds/KapatKadina.mp3
+  String get kapatKadina => 'assets/sounds/KapatKadina.mp3';
+
+  /// File path: assets/sounds/KizOgrenci.mp3
+  String get kizOgrenci => 'assets/sounds/KizOgrenci.mp3';
+
+  /// File path: assets/sounds/OgretmenErkek.mp3
+  String get ogretmenErkek => 'assets/sounds/OgretmenErkek.mp3';
+
+  /// File path: assets/sounds/OgretmenKadin.mp3
+  String get ogretmenKadin => 'assets/sounds/OgretmenKadin.mp3';
+
+  /// File path: assets/sounds/OkuErkege.mp3
+  String get okuErkege => 'assets/sounds/OkuErkege.mp3';
+
+  /// File path: assets/sounds/OkuKadina.mp3
+  String get okuKadina => 'assets/sounds/OkuKadina.mp3';
+
+  /// File path: assets/sounds/Okul.mp3
+  String get okul => 'assets/sounds/Okul.mp3';
+
+  /// File path: assets/sounds/OturErkege.mp3
+  String get oturErkege => 'assets/sounds/OturErkege.mp3';
+
+  /// File path: assets/sounds/OturKadina.mp3
+  String get oturKadina => 'assets/sounds/OturKadina.mp3';
+
+  /// File path: assets/sounds/Sinif.mp3
+  String get sinif => 'assets/sounds/Sinif.mp3';
+
+  /// File path: assets/sounds/YazErkege.mp3
+  String get yazErkege => 'assets/sounds/YazErkege.mp3';
+
+  /// File path: assets/sounds/YazKadina.mp3
+  String get yazKadina => 'assets/sounds/YazKadina.mp3';
+
+  /// List of all assets
+  List<String> get values => [
+    doktorErkek,
+    doktorKadin,
+    erkekOgrenci,
+    gelErkege,
+    gelKadina,
+    kalkErkege,
+    kalkKadina,
+    kapatErkege,
+    kapatKadina,
+    kizOgrenci,
+    ogretmenErkek,
+    ogretmenKadin,
+    okuErkege,
+    okuKadina,
+    okul,
+    oturErkege,
+    oturKadina,
+    sinif,
+    yazErkege,
+    yazKadina,
   ];
 }
 
@@ -82,6 +268,7 @@ class Assets {
 
   static const $AssetsAnimationsGen animations = $AssetsAnimationsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsSoundsGen sounds = $AssetsSoundsGen();
 }
 
 class AssetGenImage {

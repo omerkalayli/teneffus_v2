@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/gen/assets.gen.dart';
+import 'package:teneffus/main/presentation/widgets/daily_node_badge.dart';
 
 class DailyNode extends StatelessWidget {
   const DailyNode({
@@ -22,7 +23,7 @@ class DailyNode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color lineColor = isDone ? Colors.white : Colors.black;
-    double badgeWidthRatio = .36;
+    double badgeWidthRatio = .37;
     double badgeWidth = width * badgeWidthRatio;
     return SizedBox(
       width: width,
@@ -86,56 +87,6 @@ class DailyNode extends StatelessWidget {
                 right: -12,
                 child: Assets.animations.fire.lottie(height: 32)),
         ],
-      ),
-    );
-  }
-}
-
-class DailyNodeBadge extends StatelessWidget {
-  const DailyNodeBadge({
-    super.key,
-    required this.badgeWidth,
-    required this.isDone,
-    required this.badgeValue,
-  });
-
-  final double badgeWidth;
-  final bool isDone;
-  final int badgeValue;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: badgeWidth,
-      decoration: BoxDecoration(
-          color: isDone ? const Color(0xff30C26D) : const Color(0xff386D4D),
-          borderRadius: BorderRadius.circular(99),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha(50),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ]),
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 1),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "+${badgeValue.toString()}",
-              style: const TextStyle(
-                fontSize: 10,
-                color: Colors.white,
-              ),
-            ),
-            const Gap(2),
-            Padding(
-              padding: const EdgeInsets.only(top: 1.0),
-              child: Assets.images.yellowStar.image(),
-            )
-          ],
-        ),
       ),
     );
   }

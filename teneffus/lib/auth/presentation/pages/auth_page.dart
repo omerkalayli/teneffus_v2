@@ -15,7 +15,6 @@ import 'package:teneffus/global_widgets/custom_scaffold.dart';
 import 'package:teneffus/global_widgets/custom_snackbar.dart';
 import 'package:teneffus/global_widgets/stroked_text.dart';
 import 'package:teneffus/main/main_layout.dart';
-import 'package:teneffus/main/presentation/pages/main_page.dart';
 import 'package:teneffus/validator.dart';
 
 final carouselControllerProvider = Provider<CarouselSliderController>((ref) {
@@ -86,7 +85,6 @@ class AuthPage extends HookConsumerWidget {
                           shadows: [headerShadow],
                         )),
                       ),
-                      const Gap(64),
                       Expanded(
                         child: CarouselSlider(
                           carouselController: carouselController,

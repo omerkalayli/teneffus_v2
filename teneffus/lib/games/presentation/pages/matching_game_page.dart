@@ -10,7 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/games/domain/entities/word_card.dart';
-import 'package:teneffus/games/presentation/widgets/animated_star.dart';
+import 'package:teneffus/games/presentation/widgets/animated_score_text.dart';
+import 'package:teneffus/games/presentation/widgets/show_game_over_dialog.dart';
 import 'package:teneffus/gen/assets.gen.dart';
 import 'package:teneffus/global_entities/lesson.dart';
 import 'package:teneffus/global_entities/unit.dart';
@@ -35,7 +36,7 @@ class MatchingGamePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final allWords =
-        selectedLessons.expand((lesson) => lesson.words).take(16).toList();
+        selectedLessons.expand((lesson) => lesson.words).take(8).toList();
 
     final allFlipCards = useMemoized(() {
       final trWordCards =
@@ -105,20 +106,7 @@ class MatchingGamePage extends HookConsumerWidget {
                   ),
                 ],
                 const Gap(16),
-                TweenAnimationBuilder<int>(
-                  tween: IntTween(begin: 0, end: score.value),
-                  duration: const Duration(milliseconds: 400),
-                  builder: (context, value, child) {
-                    return Text(
-                      "Puan: $value",
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    );
-                  },
-                ),
+                AnimatedScoreText(score: score),
                 Expanded(
                   child: Center(
                     child: GridView.builder(
@@ -164,13 +152,9 @@ class MatchingGamePage extends HookConsumerWidget {
                                     allFlipCards.length) {
                                   await Future.delayed(
                                       const Duration(milliseconds: 500));
-                                  ref
-                                      .read(authNotifierProvider.notifier)
-                                      .increaseStarCount(
-                                        starCount: (score.value / 10).floor(),
-                                      );
+
                                   await showGameOverDialog(
-                                      context, score.value);
+                                      context, score.value, ref);
                                   Navigator.pop(context);
                                 }
                               } else {
@@ -251,40 +235,4 @@ class MatchingGamePage extends HookConsumerWidget {
 
 int calculateStars(int score) {
   return (score / 10).floor(); // 10 puana 1 yıldız
-}
-
-Future<void> showGameOverDialog(BuildContext context, int score) async {
-  final stars = (score / 10).floor();
-
-  await showDialog(
-    barrierColor: Colors.black87,
-    context: context,
-    barrierDismissible: true,
-    builder: (_) => GestureDetector(
-      onTap: () => Navigator.pop(context),
-      child: AlertDialog(
-        backgroundColor: Colors.transparent,
-        title: const Center(child: Text("Tebrikler!")),
-        content: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text("Oyunu tamamladınız!"),
-            const SizedBox(height: 16),
-            Text("Puanınız: $score"),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                stars,
-                (index) => AnimatedStar(
-                  delay: Duration(milliseconds: 150 * index),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
 }

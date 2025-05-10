@@ -45,7 +45,7 @@ class CustomPicker extends HookConsumerWidget {
           padding: const EdgeInsets.all(4.0),
           child: SizedBox(
             width: 48,
-            height: 56,
+            height: 50,
             child: CustomCircularButton(
                 isSticky: true,
                 showForegroundInnerShadow: true,

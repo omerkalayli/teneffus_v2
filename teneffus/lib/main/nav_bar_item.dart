@@ -25,14 +25,14 @@ class NavBarItem extends StatelessWidget {
         AnimatedPositioned(
           curve: !isSelected ? Curves.easeInOut : Curves.easeInOut,
           duration: !isSelected ? Durations.short4 : Durations.short4,
-          bottom: isSelected ? 64 : 16,
+          bottom: isSelected ? 36 : 12,
           child: InkWell(
             onTap: () {
               onTap.call();
             },
             child: AnimatedContainer(
               duration: Durations.short3,
-              height: 80,
+              height: 64,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
@@ -54,7 +54,7 @@ class NavBarItem extends StatelessWidget {
                   Icon(
                     color: Colors.white,
                     icon,
-                    size: 32,
+                    size: 24,
                   ),
                   Text(
                     label,
@@ -62,7 +62,7 @@ class NavBarItem extends StatelessWidget {
                     style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16),
+                        fontSize: 14),
                   )
                 ],
               ),

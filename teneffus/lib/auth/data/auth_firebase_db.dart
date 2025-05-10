@@ -187,10 +187,13 @@ class AuthFirebaseDb implements AuthDataSource {
             rank: "Çaylak 1",
             starCount: 0);
 
-        await firestore
-            .collection("users")
-            .doc(userCredential.user!.uid)
-            .set({"name": name, "surname": surname, "grade": grade});
+        await firestore.collection("users").doc(userCredential.user!.uid).set({
+          "name": name,
+          "surname": surname,
+          "grade": grade,
+          "rank": "Çaylak 1",
+          "starCount": 0,
+        });
         return right(userInfo);
       } else {
         // Signing in with Google.
@@ -208,10 +211,13 @@ class AuthFirebaseDb implements AuthDataSource {
             rank: "Çaylak 1",
             starCount: 0);
 
-        await firestore
-            .collection("users")
-            .doc(auth.currentUser!.uid)
-            .set({"name": name, "surname": surname, "grade": grade});
+        await firestore.collection("users").doc(auth.currentUser!.uid).set({
+          "name": name,
+          "surname": surname,
+          "grade": grade,
+          "rank": "Çaylak 1",
+          "starCount": 0
+        });
         return right(userInfo);
       }
     } catch (e) {

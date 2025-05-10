@@ -18,16 +18,16 @@ class CustomBottomNavBar extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          height: 90,
+          height: 72,
           width: double.infinity,
-          margin: const EdgeInsets.all(12),
+          margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
               color: navBarOrange,
               border: Border.all(width: 3, color: Colors.white),
               borderRadius: BorderRadius.circular(22)),
         ),
         Container(
-          height: 180,
+          height: 120,
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
