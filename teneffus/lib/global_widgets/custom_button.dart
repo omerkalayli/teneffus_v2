@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/global_entities/button_type.dart';
 
@@ -24,6 +25,7 @@ class CustomButton extends HookConsumerWidget {
   CustomButton({
     required this.onPressed,
     required this.child,
+    this.disableSound = false,
     Duration? duration,
     double? borderWidth,
     ButtonPalette? buttonPalette,
@@ -58,9 +60,16 @@ class CustomButton extends HookConsumerWidget {
   final bool isSticky;
   final bool? value;
   final Function() onPressed;
+  final bool disableSound;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final player = useMemoized(() {
+      AudioPlayer temp = AudioPlayer();
+      temp.setAsset(clickSoundPath);
+      return temp;
+    });
+
     final isPressed = useState(false);
 
     if (value != null) {
@@ -71,9 +80,24 @@ class CustomButton extends HookConsumerWidget {
       onTap: () async {
         if (isSticky) {
           isPressed.value = !isPressed.value;
-          if (isPressed.value) onPressed.call();
+          if (isPressed.value) {
+            if (!disableSound) {
+              Future.microtask(() async {
+                await player.seek(Duration.zero);
+                await player.play();
+              });
+            }
+            onPressed.call();
+          }
         } else {
+          if (!disableSound) {
+            Future.microtask(() async {
+              await player.seek(Duration.zero);
+              await player.play();
+            });
+          }
           onPressed.call();
+
           isPressed.value = true;
           await Future.delayed(Durations.short1, () {
             isPressed.value = false;

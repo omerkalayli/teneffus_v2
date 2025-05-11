@@ -26,12 +26,13 @@ class GameContainer extends StatelessWidget {
     );
 
     return Expanded(
-      child: InkWell(
-        onTap: () {
-          onTap();
-        },
-        child: AspectRatio(
-          aspectRatio: 1,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () {
+            onTap();
+          },
           child: Container(
             margin: const EdgeInsets.all(8),
             padding: const EdgeInsets.all(4),

@@ -238,6 +238,24 @@ class $AssetsSoundsGen {
   /// File path: assets/sounds/YazKadina.mp3
   String get yazKadina => 'assets/sounds/YazKadina.mp3';
 
+  /// File path: assets/sounds/click.mp3
+  String get click => 'assets/sounds/click.mp3';
+
+  /// File path: assets/sounds/correct.mp3
+  String get correct => 'assets/sounds/correct.mp3';
+
+  /// File path: assets/sounds/drop_word.mp3
+  String get dropWord => 'assets/sounds/drop_word.mp3';
+
+  /// File path: assets/sounds/game_finish.mp3
+  String get gameFinish => 'assets/sounds/game_finish.mp3';
+
+  /// File path: assets/sounds/put_word.mp3
+  String get putWord => 'assets/sounds/put_word.mp3';
+
+  /// File path: assets/sounds/wrong.mp3
+  String get wrong => 'assets/sounds/wrong.mp3';
+
   /// List of all assets
   List<String> get values => [
     doktorErkek,
@@ -260,6 +278,12 @@ class $AssetsSoundsGen {
     sinif,
     yazErkege,
     yazKadina,
+    click,
+    correct,
+    dropWord,
+    gameFinish,
+    putWord,
+    wrong,
   ];
 }
 

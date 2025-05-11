@@ -8,9 +8,9 @@ import 'package:fpdart/fpdart.dart' as fpdart;
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/games/domain/entities/word_card.dart';
 import 'package:teneffus/games/presentation/widgets/animated_score_text.dart';
+import 'package:teneffus/games/presentation/widgets/game_header.dart';
 import 'package:teneffus/games/presentation/widgets/show_game_over_dialog.dart';
 import 'package:teneffus/gen/assets.gen.dart';
 import 'package:teneffus/global_entities/lesson.dart';
@@ -90,21 +90,10 @@ class MatchingGamePage extends HookConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "${selectedUnit.number}. Ünite ${selectedUnit.nameTr}",
-                  style: const TextStyle(fontSize: 16),
-                ),
-                if (isAllLessonsSelected) ...[
-                  const Text(
-                    "Tüm Konular",
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ] else ...[
-                  Text(
-                    selectedLessons[0].nameTr,
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                ],
+                GameHeader(
+                    selectedUnit: selectedUnit,
+                    isAllLessonsSelected: isAllLessonsSelected,
+                    selectedLessons: selectedLessons),
                 const Gap(16),
                 AnimatedScoreText(score: score),
                 Expanded(

@@ -29,6 +29,7 @@ class CustomTextButton extends StatelessWidget {
     this.isSticky = false,
     this.textStyle,
     this.value,
+    this.disableSound = false,
     super.key,
   });
 
@@ -41,6 +42,7 @@ class CustomTextButton extends StatelessWidget {
   final double? fontSize;
   final TextStyle? textStyle;
   final bool isSticky;
+  final bool disableSound;
   final EdgeInsetsGeometry? padding;
   final bool? value;
 
@@ -50,6 +52,7 @@ class CustomTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButton(
+      disableSound: disableSound,
       value: value,
       isSticky: isSticky,
       borderWidth: borderWidth,

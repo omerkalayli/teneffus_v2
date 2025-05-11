@@ -33,9 +33,7 @@ String sanitizeFileName(String name) {
       .replaceAll('Ü', 'U')
       .replaceAll('Ğ', 'G');
 
-  // Özel karakterleri ve boşlukları kaldır
-  name =
-      name.replaceAll(RegExp(r'[!() ]'), ''); // Boşluk, '!' ve parantezleri sil
+  name = name.replaceAll(RegExp(r'[!() ]'), '');
 
   return name;
 }

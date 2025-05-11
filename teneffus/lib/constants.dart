@@ -68,3 +68,10 @@ Map<String, AssetGenImage> games = {
   "Boşluk Doldurma": Assets.images.boslukDoldurma,
   "Konuşma": Assets.images.konusma,
 };
+
+const String correctSoundPath = "assets/sounds/correct.mp3";
+const String wrongSoundPath = "assets/sounds/wrong.mp3";
+const String gameOverSoundPath = "assets/sounds/game_finish.mp3";
+const String clickSoundPath = "assets/sounds/click.mp3";
+const String dropWordSoundPath = "assets/sounds/drop_word.mp3";
+const String putWordSoundPath = "assets/sounds/put_word.mp3";

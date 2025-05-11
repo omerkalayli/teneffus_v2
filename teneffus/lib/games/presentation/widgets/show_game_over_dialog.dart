@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
+import 'package:teneffus/constants.dart';
 import 'package:teneffus/games/presentation/widgets/animated_star.dart';
 
 Future<void> showGameOverDialog(
@@ -16,7 +18,11 @@ Future<void> showGameOverDialog(
   final confettiController =
       ConfettiController(duration: const Duration(seconds: 2));
   confettiController.play();
-
+  Future.delayed(const Duration(milliseconds: 500), () async {
+    AudioPlayer player = AudioPlayer();
+    await player.setAsset(gameOverSoundPath);
+    await player.play();
+  });
   await showDialog(
     barrierColor: Colors.black87,
     context: context,

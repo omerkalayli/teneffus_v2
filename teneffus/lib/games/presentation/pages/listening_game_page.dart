@@ -4,8 +4,11 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:teneffus/constants.dart';
+import 'package:teneffus/games/presentation/play_audio.dart';
 import 'package:teneffus/games/presentation/widgets/animated_score_text.dart';
 import 'package:teneffus/games/presentation/widgets/custom_progress_bar.dart';
+import 'package:teneffus/games/presentation/widgets/game_header.dart';
 import 'package:teneffus/games/presentation/widgets/show_game_over_dialog.dart';
 import 'package:teneffus/games/presentation/widgets/word_option.dart';
 import 'package:teneffus/global_entities/button_type.dart';
@@ -35,6 +38,7 @@ class ListeningGamePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final player = useMemoized(() => AudioPlayer());
+    final sfxPlayer = useMemoized(() => AudioPlayer());
     final shuffledWords = useMemoized(() {
       final list =
           selectedLessons.expand((lesson) => lesson.words).take(16).toList();
@@ -91,8 +95,24 @@ class ListeningGamePage extends HookConsumerWidget {
     void onTapWordOption(int index) {
       if (options.value[index].id == selectedWord.value.id) {
         score.value += 10;
+        Future.microtask(() async {
+          await sfxPlayer.stop();
+          sfxPlayer.setAudioSource(AudioSource.asset(correctSoundPath));
+          sfxPlayer.play();
+        });
       } else if (score.value != 0) {
+        Future.microtask(() async {
+          await sfxPlayer.stop();
+          sfxPlayer.setAudioSource(AudioSource.asset(wrongSoundPath));
+          sfxPlayer.play();
+        });
         score.value -= 5;
+      } else {
+        Future.microtask(() async {
+          await sfxPlayer.stop();
+          sfxPlayer.setAudioSource(AudioSource.asset(wrongSoundPath));
+          sfxPlayer.play();
+        });
       }
       selectedChoice.value = index;
       Future.delayed(replayDuration, () async {
@@ -139,7 +159,10 @@ class ListeningGamePage extends HookConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _getHeader(),
+              GameHeader(
+                  selectedUnit: selectedUnit,
+                  isAllLessonsSelected: isAllLessonsSelected,
+                  selectedLessons: selectedLessons),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
@@ -242,32 +265,4 @@ class ListeningGamePage extends HookConsumerWidget {
       ],
     );
   }
-
-  Column _getHeader() {
-    return Column(
-      children: [
-        Text(
-          "${selectedUnit.number}. Ünite ${selectedUnit.nameTr}",
-          style: const TextStyle(fontSize: 16),
-        ),
-        if (isAllLessonsSelected) ...[
-          const Text(
-            "Tüm Konular",
-            style: TextStyle(fontSize: 14),
-          ),
-        ] else ...[
-          Text(
-            selectedLessons[0].nameTr,
-            style: const TextStyle(fontSize: 14),
-          ),
-        ],
-      ],
-    );
-  }
-}
-
-Future<void> playAudio(String audioUrl, AudioPlayer player) async {
-  await player.stop();
-  await player.setAudioSource(AudioSource.asset(audioUrl));
-  await player.play();
 }
