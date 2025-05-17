@@ -41,6 +41,7 @@ class SentenceGamePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final player = useMemoized(() => AudioPlayer());
     final wordSoundPlayer = useMemoized(() => AudioPlayer());
+    final isControlling = useState(false);
     final List<Sentence> shuffledSentences = useMemoized(() {
       final list = selectedLessons
           .expand((lesson) => (lesson.sentences ?? []) as List<Sentence>)
@@ -72,7 +73,7 @@ class SentenceGamePage extends HookConsumerWidget {
           .toList();
       allWords.shuffle();
       final extraWords = allWords.take(extraWordCount).toList();
-      final options = [...correctWords, ...extraWords];
+      final options = [...correctWords, ...extraWords]..shuffle();
 
       final uniqueOptions = <Word>[];
       for (var word in options) {
@@ -305,6 +306,10 @@ class SentenceGamePage extends HookConsumerWidget {
                   disableSound: true,
                   text: "Kontrol Et",
                   onPressed: () {
+                    if (isControlling.value) {
+                      return;
+                    }
+                    isControlling.value = true;
                     String correctID =
                         shuffledSentences[selectedSentenceIndex.value].id;
                     String userSentence =
@@ -337,6 +342,9 @@ class SentenceGamePage extends HookConsumerWidget {
                         isCorrect.value = null;
                       });
                     }
+                    Future.delayed(const Duration(seconds: 2), () {
+                      isControlling.value = false;
+                    });
                   },
                 ),
               ],
