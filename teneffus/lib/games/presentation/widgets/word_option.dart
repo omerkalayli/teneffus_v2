@@ -37,7 +37,7 @@ class WordOption extends StatelessWidget {
                 color: isCorrect == null
                     ? Colors.transparent
                     : isCorrect!
-                        ? Colors.green
+                        ? Colors.green.withValues(alpha: 0.5)
                         : Colors.red.shade700,
               ),
               borderRadius: BorderRadius.circular(8),

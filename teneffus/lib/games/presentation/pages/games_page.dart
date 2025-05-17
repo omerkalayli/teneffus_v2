@@ -9,6 +9,7 @@ import 'package:teneffus/games/presentation/pages/listening_game_page.dart';
 import 'package:teneffus/games/presentation/pages/matching_game_page.dart';
 import 'package:teneffus/games/presentation/pages/sentence_game_page.dart';
 import 'package:teneffus/games/presentation/pages/speaking_game_page.dart';
+import 'package:teneffus/games/presentation/pages/writing_game_page.dart';
 import 'package:teneffus/games/presentation/widgets/game_container.dart';
 import 'package:teneffus/games/presentation/widgets/lesson_selection_container.dart';
 import 'package:teneffus/games/presentation/widgets/unit_selection_bar.dart';
@@ -35,7 +36,7 @@ class GamesPage extends HookConsumerWidget {
           padding: const EdgeInsets.all(16),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text("${selectedUnit.number}. Ünite ${selectedUnit.nameTr}"),
                 const Gap(16),
@@ -123,7 +124,23 @@ class GamesPage extends HookConsumerWidget {
                             label: games.keys.elementAt(2),
                             image: games.values.elementAt(2)),
                         GameContainer(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => WritingGamePage(
+                                          isAllLessonsSelected:
+                                              isAllLessonsSelected.value,
+                                          selectedUnit: selectedUnit,
+                                          selectedUnitNumber:
+                                              selectedUnitNumber.value,
+                                          selectedLessons: isAllLessonsSelected
+                                                  .value
+                                              ? lessons
+                                              : [
+                                                  lessons[selectedLesson.value],
+                                                ])));
+                            },
                             label: games.keys.elementAt(3),
                             image: games.values.elementAt(3)),
                       ],

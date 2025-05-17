@@ -177,7 +177,7 @@ class MatchingGamePage extends HookConsumerWidget {
                             isProcessing.value = false;
                           },
                           child: FlipCard(
-                            animationDuration: Durations.short4,
+                            animationDuration: Durations.medium2,
                             controller: controller,
                             onTapFlipping: false,
                             rotateSide: RotateSide.left,

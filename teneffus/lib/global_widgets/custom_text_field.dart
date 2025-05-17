@@ -14,6 +14,7 @@ import 'package:teneffus/constants.dart';
 /// - [textColor]: The color of the text field text. Default: [textFieldTextColor].
 /// - [borderWidth]: The width of the text field border. Default: 2.
 /// - [obscureText]: Whether the text field is obscured or not. Default: false.
+/// - [textDirection]: The text direction of the text field. Default: TextDirection.ltr.
 
 class CustomTextField extends StatelessWidget {
   CustomTextField({
@@ -22,6 +23,7 @@ class CustomTextField extends StatelessWidget {
     Color? color,
     Color? enabledBorderColor,
     Color? errorBorderColor,
+    TextDirection? textDirection,
     Color? focusedBorderColor,
     Color? textColor,
     double? borderWidth,
@@ -34,10 +36,12 @@ class CustomTextField extends StatelessWidget {
         focusedBorderColor = focusedBorderColor ?? textFieldFocusedBorderColor,
         textColor = textColor ?? textFieldTextColor,
         borderWidth = borderWidth ?? 2,
+        textDirection = textDirection ?? TextDirection.ltr,
         obscureText = obscureText ?? false;
 
   final BorderRadius borderRadius;
   final Color color;
+  final TextDirection textDirection;
   final Color enabledBorderColor;
   final Color errorBorderColor;
   final Color focusedBorderColor;
@@ -55,6 +59,7 @@ class CustomTextField extends StatelessWidget {
         ),
       ),
       child: TextField(
+        textDirection: textDirection,
         obscureText: obscureText,
         controller: controller,
         cursorColor: textColor,

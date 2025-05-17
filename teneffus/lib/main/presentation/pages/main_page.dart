@@ -37,8 +37,8 @@ class MainPage extends HookConsumerWidget {
                                 MediaQuery.of(context).size.width * 0.2),
                         child: CustomTextButton(
                             buttonPalette: ButtonPalette.darkCyan(),
-                            textStyle:
-                                TextStyle(fontSize: 16, color: Colors.white),
+                            textStyle: const TextStyle(
+                                fontSize: 16, color: Colors.white),
                             text: "Quize Başla",
                             onPressed: () {}),
                       ),

@@ -10,6 +10,7 @@ import 'package:teneffus/games/presentation/widgets/animated_score_text.dart';
 import 'package:teneffus/games/presentation/widgets/custom_progress_bar.dart';
 import 'package:teneffus/games/presentation/widgets/game_header.dart';
 import 'package:teneffus/games/presentation/widgets/show_game_over_dialog.dart';
+import 'package:teneffus/games/presentation/widgets/step_counter.dart';
 import 'package:teneffus/games/presentation/widgets/word_drag_widget.dart';
 import 'package:teneffus/global_entities/button_type.dart';
 import 'package:teneffus/global_entities/lesson.dart';
@@ -144,8 +145,10 @@ class SentenceGamePage extends HookConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Row(
                     children: [
-                      Text(
-                          "${selectedSentenceIndex.value} / ${shuffledSentences.length}"),
+                      StepCounter(
+                        current: selectedSentenceIndex.value,
+                        length: shuffledSentences.length,
+                      ),
                       const Spacer(),
                       AnimatedScoreText(score: score),
                     ],
@@ -158,7 +161,7 @@ class SentenceGamePage extends HookConsumerWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.montserrat(
                     color: Colors.white,
-                    fontSize: 24,
+                    fontSize: 20,
                     fontWeight: FontWeight.w800,
                   ),
                 ),

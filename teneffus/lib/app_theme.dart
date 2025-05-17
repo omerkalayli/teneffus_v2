@@ -4,13 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 ThemeData get theme => ThemeData(
       scaffoldBackgroundColor: Colors.transparent,
       textTheme: GoogleFonts.montserratTextTheme(const TextTheme(
-          headlineMedium: TextStyle(fontSize: 36, color: Colors.white),
+          headlineMedium: TextStyle(fontSize: 30, color: Colors.white),
           headlineSmall: TextStyle(
-              fontSize: 24, color: Colors.white, fontWeight: FontWeight.w900),
+              fontSize: 22, color: Colors.white, fontWeight: FontWeight.w900),
           bodyLarge: TextStyle(
-              fontSize: 20, color: Colors.white, fontWeight: FontWeight.w900),
+              fontSize: 18, color: Colors.white, fontWeight: FontWeight.w900),
           bodyMedium: TextStyle(
-              fontSize: 16, color: Colors.white, fontWeight: FontWeight.w900),
+              fontSize: 14, color: Colors.white, fontWeight: FontWeight.w900),
           bodySmall: TextStyle(
-              fontSize: 12, color: Colors.white, fontWeight: FontWeight.w900))),
+              fontSize: 10, color: Colors.white, fontWeight: FontWeight.w900))),
     );

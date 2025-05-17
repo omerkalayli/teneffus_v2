@@ -4,12 +4,12 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:teneffus/constants.dart';
 import 'package:teneffus/games/presentation/play_audio.dart';
 import 'package:teneffus/games/presentation/widgets/animated_score_text.dart';
 import 'package:teneffus/games/presentation/widgets/custom_progress_bar.dart';
 import 'package:teneffus/games/presentation/widgets/game_header.dart';
 import 'package:teneffus/games/presentation/widgets/show_game_over_dialog.dart';
+import 'package:teneffus/games/presentation/widgets/step_counter.dart';
 import 'package:teneffus/games/presentation/widgets/word_option.dart';
 import 'package:teneffus/global_entities/button_type.dart';
 import 'package:teneffus/global_entities/lesson.dart';
@@ -155,8 +155,10 @@ class ListeningGamePage extends HookConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
                   children: [
-                    Text(
-                        "${selectedWordIndex.value} / ${shuffledWords.length}"),
+                    StepCounter(
+                      current: selectedWordIndex.value,
+                      length: shuffledWords.length,
+                    ),
                     const Spacer(),
                     AnimatedScoreText(
                       score: score,

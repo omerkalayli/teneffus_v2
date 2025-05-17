@@ -20,17 +20,17 @@ class GameHeader extends StatelessWidget {
       children: [
         Text(
           "${selectedUnit.number}. Ünite ${selectedUnit.nameTr}",
-          style: const TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 14),
         ),
         if (isAllLessonsSelected) ...[
           const Text(
             "Tüm Konular",
-            style: TextStyle(fontSize: 14),
+            style: TextStyle(fontSize: 12),
           ),
         ] else ...[
           Text(
             selectedLessons[0].nameTr,
-            style: const TextStyle(fontSize: 14),
+            style: const TextStyle(fontSize: 12),
           ),
         ],
       ],

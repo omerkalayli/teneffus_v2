@@ -8,11 +8,13 @@ import 'package:just_audio/just_audio.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:teneffus/games/normalize_arabic.dart';
 import 'package:teneffus/games/presentation/play_audio.dart';
 import 'package:teneffus/games/presentation/widgets/animated_score_text.dart';
 import 'package:teneffus/games/presentation/widgets/custom_progress_bar.dart';
 import 'package:teneffus/games/presentation/widgets/game_header.dart';
 import 'package:teneffus/games/presentation/widgets/show_game_over_dialog.dart';
+import 'package:teneffus/games/presentation/widgets/step_counter.dart';
 import 'package:teneffus/global_entities/button_type.dart';
 import 'package:teneffus/global_entities/lesson.dart';
 import 'package:teneffus/global_entities/unit.dart';
@@ -20,6 +22,9 @@ import 'package:teneffus/global_widgets/custom_button.dart';
 import 'package:teneffus/global_widgets/custom_circular_progress_indicator.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
 import 'package:teneffus/global_widgets/custom_text_button.dart';
+
+/// [SpeakingGamePage], is the "Konuşma" game page.
+/// It is a game where the user reads a word and speaks it.
 
 final speechToTextProvider = Provider<SpeechToText>((ref) {
   final speechToText = SpeechToText();
@@ -158,8 +163,10 @@ class SpeakingGamePage extends HookConsumerWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Row(
                             children: [
-                              Text(
-                                  "${selectedWordIndex.value} / ${shuffledWords.length}"),
+                              StepCounter(
+                                current: selectedWordIndex.value,
+                                length: shuffledWords.length,
+                              ),
                               const Spacer(),
                               AnimatedScoreText(
                                 score: score,
@@ -328,16 +335,4 @@ class SpeakingGamePage extends HookConsumerWidget {
       ),
     );
   }
-}
-
-String normalizeArabic(String input) {
-  // Harekeleri kaldır
-  final diacritics = RegExp(r'[\u064B-\u065F\u0670]');
-
-  String result = input.replaceAll(diacritics, '');
-  result = result.replaceAll(RegExp(r'[أإآ]'), 'ا');
-  if (result.endsWith('ة')) {
-    result = result.substring(0, result.length - 1) + 'ه';
-  }
-  return result;
 }

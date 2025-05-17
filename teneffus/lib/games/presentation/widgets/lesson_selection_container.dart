@@ -28,10 +28,15 @@ class LessonSelectionContainer extends StatelessWidget {
           },
         ),
         const Spacer(),
-        const Text(
-          "Tüm \nKonular",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 12),
+        GestureDetector(
+          onTap: () {
+            isAllLessonsSelected.value = !isAllLessonsSelected.value;
+          },
+          child: const Text(
+            "Tüm \nKonular",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12),
+          ),
         ),
         Checkbox(
             activeColor: const Color(0xffFF6E42),
