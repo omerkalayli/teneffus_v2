@@ -13,6 +13,7 @@ class _AnimatedStarState extends State<AnimatedStar>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _scaleAnimation;
+  late final Animation<double> _rotationAnimation;
 
   @override
   void initState() {
@@ -28,6 +29,13 @@ class _AnimatedStarState extends State<AnimatedStar>
       curve: Curves.elasticOut,
     );
 
+    _rotationAnimation = Tween<double>(begin: 0, end: 0.2).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOut,
+      ),
+    );
+
     Future.delayed(widget.delay, () {
       if (mounted) _controller.forward();
     });
@@ -41,9 +49,12 @@ class _AnimatedStarState extends State<AnimatedStar>
 
   @override
   Widget build(BuildContext context) {
-    return ScaleTransition(
-      scale: _scaleAnimation,
-      child: const Icon(Icons.star, color: Colors.yellow, size: 32),
+    return RotationTransition(
+      turns: _rotationAnimation,
+      child: ScaleTransition(
+        scale: _scaleAnimation,
+        child: const Icon(Icons.star, color: Colors.yellow, size: 32),
+      ),
     );
   }
 }

@@ -10,6 +10,18 @@ Color _getButtonBackgroundColor(ButtonPalette? buttonPalette) {
         blue: () => buttonBackgroundColorBlue,
         yellow: () => buttonBackgroundColorYellow,
         gray: () => buttonBackgroundColorGrey,
+        purple: () => buttonBackgroundColorPurple,
+        teal: () => buttonBackgroundColorTeal,
+        darkCyan: () => buttonBackgroundColorDarkCyan,
+        deepOrange: () => buttonBackgroundColorDeepOrange,
+        indigo: () => buttonBackgroundColorIndigo,
+        forestGreen: () => buttonBackgroundColorForestGreen,
+        maroon: () => buttonBackgroundColorMaroon,
+        midnightBlue: () => buttonBackgroundColorMidnightBlue,
+        burntSienna: () => buttonBackgroundColorBurntSienna,
+        slateGray: () => buttonBackgroundColorSlateGray,
+        olive: () => buttonBackgroundColorOlive,
+        darkMagenta: () => buttonBackgroundColorDarkMagenta,
         custom: (_, backgroundColor) {
           return backgroundColor;
         },
@@ -27,6 +39,18 @@ Color _getButtonForegroundColor(ButtonPalette? buttonPalette) {
           blue: () => buttonForegroundColorBlue,
           yellow: () => buttonForegroundColorYellow,
           gray: () => buttonForegroundColorGrey,
+          purple: () => buttonForegroundColorPurple,
+          teal: () => buttonForegroundColorTeal,
+          darkCyan: () => buttonForegroundColorDarkCyan,
+          deepOrange: () => buttonForegroundColorDeepOrange,
+          indigo: () => buttonForegroundColorIndigo,
+          forestGreen: () => buttonForegroundColorForestGreen,
+          maroon: () => buttonForegroundColorMaroon,
+          midnightBlue: () => buttonForegroundColorMidnightBlue,
+          burntSienna: () => buttonForegroundColorBurntSienna,
+          slateGray: () => buttonForegroundColorSlateGray,
+          olive: () => buttonForegroundColorOlive,
+          darkMagenta: () => buttonForegroundColorDarkMagenta,
           custom: (foregroundColor, _) {
             return foregroundColor;
           }) ??

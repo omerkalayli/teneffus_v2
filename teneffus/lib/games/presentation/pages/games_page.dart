@@ -8,6 +8,7 @@ import 'package:teneffus/constants.dart';
 import 'package:teneffus/games/presentation/pages/listening_game_page.dart';
 import 'package:teneffus/games/presentation/pages/matching_game_page.dart';
 import 'package:teneffus/games/presentation/pages/sentence_game_page.dart';
+import 'package:teneffus/games/presentation/pages/speaking_game_page.dart';
 import 'package:teneffus/games/presentation/widgets/game_container.dart';
 import 'package:teneffus/games/presentation/widgets/lesson_selection_container.dart';
 import 'package:teneffus/games/presentation/widgets/unit_selection_bar.dart';
@@ -130,7 +131,23 @@ class GamesPage extends HookConsumerWidget {
                     Row(
                       children: [
                         GameContainer(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SpeakingGamePage(
+                                          isAllLessonsSelected:
+                                              isAllLessonsSelected.value,
+                                          selectedUnit: selectedUnit,
+                                          selectedUnitNumber:
+                                              selectedUnitNumber.value,
+                                          selectedLessons: isAllLessonsSelected
+                                                  .value
+                                              ? lessons
+                                              : [
+                                                  lessons[selectedLesson.value],
+                                                ])));
+                            },
                             label: games.keys.elementAt(4),
                             image: games.values.elementAt(4)),
                         const Spacer()

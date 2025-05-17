@@ -15,8 +15,8 @@ import 'package:teneffus/global_entities/button_type.dart';
 import 'package:teneffus/global_entities/lesson.dart';
 import 'package:teneffus/global_entities/unit.dart';
 import 'package:teneffus/global_entities/word.dart';
+import 'package:teneffus/global_widgets/custom_button.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
-import 'package:teneffus/global_widgets/custom_text_button.dart';
 
 /// [ListeningGamePage], is the "Dinleme" game page.
 /// It is a game where the user listens to a word and selects the correct option from the given options.
@@ -95,24 +95,12 @@ class ListeningGamePage extends HookConsumerWidget {
     void onTapWordOption(int index) {
       if (options.value[index].id == selectedWord.value.id) {
         score.value += 10;
-        Future.microtask(() async {
-          await sfxPlayer.stop();
-          sfxPlayer.setAudioSource(AudioSource.asset(correctSoundPath));
-          sfxPlayer.play();
-        });
+        playCorrectSound(sfxPlayer);
       } else if (score.value != 0) {
-        Future.microtask(() async {
-          await sfxPlayer.stop();
-          sfxPlayer.setAudioSource(AudioSource.asset(wrongSoundPath));
-          sfxPlayer.play();
-        });
+        playWrongSound(sfxPlayer);
         score.value -= 5;
       } else {
-        Future.microtask(() async {
-          await sfxPlayer.stop();
-          sfxPlayer.setAudioSource(AudioSource.asset(wrongSoundPath));
-          sfxPlayer.play();
-        });
+        playWrongSound(sfxPlayer);
       }
       selectedChoice.value = index;
       Future.delayed(replayDuration, () async {
@@ -226,8 +214,11 @@ class ListeningGamePage extends HookConsumerWidget {
                   ],
                 ),
               ),
-              _getFooter(selectedWord, player, options, selectedChoice,
-                  selectedWordIndex)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: _getFooter(selectedWord, player, options, selectedChoice,
+                    selectedWordIndex),
+              ),
             ],
           ),
         ),
@@ -235,33 +226,64 @@ class ListeningGamePage extends HookConsumerWidget {
     );
   }
 
-  Column _getFooter(
+  Row _getFooter(
       ValueNotifier<Word> selectedWord,
       AudioPlayer player,
       ValueNotifier<List<Word>> options,
       ValueNotifier<int> selectedChoice,
       ValueNotifier<int> selectedWordIndex) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CustomTextButton(
-            buttonPalette: ButtonPalette.orange(),
-            text: "Tekrar Dinle",
-            onPressed: () async {
-              await playAudio(selectedWord.value.audioUrl, player);
-            }),
+        CustomButton(
+          buttonPalette: ButtonPalette.gray(),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              children: [
+                Text("Pas Geç",
+                    style: TextStyle(color: Colors.black, fontSize: 12)),
+                Gap(4),
+                Icon(
+                  Icons.double_arrow_rounded,
+                  size: 20,
+                ),
+              ],
+            ),
+          ),
+          onPressed: () async {
+            int correctIndex = options.value
+                .indexWhere((element) => element.id == selectedWord.value.id);
+            await playAudio(selectedWord.value.audioUrl, player);
+            selectedChoice.value = correctIndex;
+            Future.delayed(const Duration(seconds: 2), () async {
+              selectedWordIndex.value += 1;
+            });
+          },
+        ),
         const Gap(16),
-        CustomTextButton(
-            buttonPalette: ButtonPalette.gray(),
-            text: "Pas Geç",
-            onPressed: () async {
-              int correctIndex = options.value
-                  .indexWhere((element) => element.id == selectedWord.value.id);
-              await playAudio(selectedWord.value.audioUrl, player);
-              selectedChoice.value = correctIndex;
-              Future.delayed(const Duration(seconds: 2), () async {
-                selectedWordIndex.value += 1;
-              });
-            }),
+        CustomButton(
+          buttonPalette: ButtonPalette.teal(),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              children: [
+                Text("Tekrar Dinle",
+                    style: TextStyle(color: Colors.white, fontSize: 12)),
+                Gap(4),
+                Icon(
+                  Icons.replay,
+                  size: 20,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          ),
+          onPressed: () async {
+            await playAudio(selectedWord.value.audioUrl, player);
+          },
+        ),
       ],
     );
   }

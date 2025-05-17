@@ -8,6 +8,7 @@ import 'package:fpdart/fpdart.dart' as fpdart;
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:teneffus/constants.dart';
 import 'package:teneffus/games/domain/entities/word_card.dart';
 import 'package:teneffus/games/presentation/widgets/animated_score_text.dart';
 import 'package:teneffus/games/presentation/widgets/game_header.dart';
@@ -63,6 +64,8 @@ class MatchingGamePage extends HookConsumerWidget {
 
     final score = useState(0);
 
+    final isProcessing = useState(false); // Flag to prevent multiple taps
+
     return CustomScaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -114,6 +117,10 @@ class MatchingGamePage extends HookConsumerWidget {
                         final idx = allFlipCards[index].index;
                         return InkWell(
                           onTap: () async {
+                            if (isProcessing.value) {
+                              return; // Prevent multiple taps
+                            }
+
                             if (matchedCardIndexes.value.contains(idx) ||
                                 flippedCardIndexes.value.contains(idx)) {
                               return;
@@ -122,10 +129,14 @@ class MatchingGamePage extends HookConsumerWidget {
                             if (flippedCardIndexes.value.length < 2 &&
                                 !flippedCardIndexes.value.contains(idx)) {
                               flippedCardIndexes.value.add(idx);
+                              isProcessing.value = true;
+
                               await controller.flipcard();
                             }
 
                             if (flippedCardIndexes.value.length == 2) {
+                              isProcessing.value = true;
+
                               int firstIndex = flippedCardIndexes.value[0];
                               int secondIndex = flippedCardIndexes.value[1];
                               if (allFlipCards[firstIndex].id.compareTo(
@@ -147,7 +158,8 @@ class MatchingGamePage extends HookConsumerWidget {
                                   Navigator.pop(context);
                                 }
                               } else {
-                                Future.delayed(const Duration(seconds: 1),
+                                Future.delayed(
+                                    const Duration(milliseconds: 500),
                                     () async {
                                   allFlipCards[flippedCardIndexes.value[0]]
                                       .controller
@@ -162,6 +174,7 @@ class MatchingGamePage extends HookConsumerWidget {
                                 });
                               }
                             }
+                            isProcessing.value = false;
                           },
                           child: FlipCard(
                             animationDuration: Durations.short4,
@@ -171,14 +184,7 @@ class MatchingGamePage extends HookConsumerWidget {
                             frontWidget: Container(
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
-                                  colors: [
-                                    Color(0xFF0D47A1),
-                                    Color(0xFF1565C0),
-                                  ],
-                                ),
+                                gradient: flipCardGradient,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Assets.images.appIcon.image(),
@@ -186,14 +192,7 @@ class MatchingGamePage extends HookConsumerWidget {
                             backWidget: AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
                               decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
-                                  colors: [
-                                    Color(0xFF0D47A1),
-                                    Color(0xFF1565C0),
-                                  ],
-                                ),
+                                gradient: flipCardGradient,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               alignment: Alignment.center,

@@ -21,9 +21,29 @@ const Color buttonForegroundColorWhite = Colors.white;
 const Color buttonBackgroundColorBlue = Color(0xff4581B2);
 const Color buttonForegroundColorBlue = Color(0xff64B5F6);
 
-// TODO: these two must be specified
-const Color buttonBackgroundColorRed = Color(0xffC26649);
-const Color buttonForegroundColorRed = Color(0xffFF8A65);
+const Color buttonBackgroundColorPurple = Color(0xff7E57C2);
+const Color buttonForegroundColorPurple = Color(0xffB39DDB);
+
+const Color buttonBackgroundColorTeal = Color(0xff00796B);
+const Color buttonForegroundColorTeal = Color(0xff33A99A);
+
+const Color buttonBackgroundColorRed = Color(0xffE53935);
+const Color buttonForegroundColorRed = Color(0xffEF9A9A);
+
+const Color buttonBackgroundColorMidnightBlue = Color(0xff003366);
+const Color buttonForegroundColorMidnightBlue = Color(0xff6699CC);
+
+const Color buttonBackgroundColorBurntSienna = Color(0xff8A3B12);
+const Color buttonForegroundColorBurntSienna = Color(0xffD2691E);
+
+const Color buttonBackgroundColorSlateGray = Color(0xff455A64);
+const Color buttonForegroundColorSlateGray = Color(0xff90A4AE);
+
+const Color buttonBackgroundColorOlive = Color(0xff556B2F);
+const Color buttonForegroundColorOlive = Color(0xffBDB76B);
+
+const Color buttonBackgroundColorDarkMagenta = Color(0xff8B008B);
+const Color buttonForegroundColorDarkMagenta = Color(0xffD580FF);
 
 const Color buttonBackgroundColorGreen = Color.fromARGB(255, 3, 130, 71);
 const Color buttonForegroundColorGreen = Color(0xff00D600);
@@ -33,6 +53,21 @@ const Color buttonForegroundColorYellow = Colors.yellow;
 
 const Color buttonBackgroundColorGrey = Color(0xFF616161);
 const Color buttonForegroundColorGrey = Color(0xFFE0E0E0);
+
+const Color buttonBackgroundColorDarkCyan = Color(0xff00675B);
+const Color buttonForegroundColorDarkCyan = Color(0xff4DB6AC);
+
+const Color buttonBackgroundColorDeepOrange = Color(0xffD84315);
+const Color buttonForegroundColorDeepOrange = Color(0xffff7043);
+
+const Color buttonBackgroundColorIndigo = Color(0xff3949AB);
+const Color buttonForegroundColorIndigo = Color(0xff9FA8DA);
+
+const Color buttonBackgroundColorForestGreen = Color(0xff2E7D32);
+const Color buttonForegroundColorForestGreen = Color(0xff81C784);
+
+const Color buttonBackgroundColorMaroon = Color(0xff6A1B9A);
+const Color buttonForegroundColorMaroon = Color(0xffCE93D8);
 
 /// Textfield colors
 const Color textFieldTextColor = Color(0xff333333);
@@ -75,3 +110,12 @@ const String gameOverSoundPath = "assets/sounds/game_finish.mp3";
 const String clickSoundPath = "assets/sounds/click.mp3";
 const String dropWordSoundPath = "assets/sounds/drop_word.mp3";
 const String putWordSoundPath = "assets/sounds/put_word.mp3";
+
+const LinearGradient flipCardGradient = LinearGradient(
+  begin: Alignment.bottomCenter,
+  end: Alignment.topCenter,
+  colors: [
+    Color(0xFF0D47A1),
+    Color(0xFF1565C0),
+  ],
+);

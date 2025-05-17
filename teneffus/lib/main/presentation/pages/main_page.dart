@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
+import 'package:teneffus/global_entities/button_type.dart';
 import 'package:teneffus/global_widgets/custom_text_button.dart';
 import 'package:teneffus/main/presentation/widgets/daily_container.dart';
 import 'package:teneffus/main/presentation/widgets/daily_word_container.dart';
@@ -35,7 +36,11 @@ class MainPage extends HookConsumerWidget {
                             horizontal:
                                 MediaQuery.of(context).size.width * 0.2),
                         child: CustomTextButton(
-                            text: "Quize Başla", onPressed: () {}),
+                            buttonPalette: ButtonPalette.darkCyan(),
+                            textStyle:
+                                TextStyle(fontSize: 16, color: Colors.white),
+                            text: "Quize Başla",
+                            onPressed: () {}),
                       ),
                       Container(
                         width: 2,

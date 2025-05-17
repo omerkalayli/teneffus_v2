@@ -246,12 +246,19 @@ class SentenceGamePage extends HookConsumerWidget {
                   children: [
                     CustomButton(
                       buttonPalette: ButtonPalette.gray(),
-                      child: const Row(
-                        children: [
-                          Text("Pas Geç",
-                              style: TextStyle(color: Colors.black)),
-                          Icon(Icons.double_arrow_rounded),
-                        ],
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          children: [
+                            Text("Pas Geç",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 12)),
+                            Icon(
+                              Icons.double_arrow_rounded,
+                              size: 20,
+                            ),
+                          ],
+                        ),
                       ),
                       onPressed: () async {
                         isPassed.value = true;
@@ -273,14 +280,22 @@ class SentenceGamePage extends HookConsumerWidget {
                     ),
                     CustomButton(
                       disableSound: true,
-                      buttonPalette: ButtonPalette.yellow(),
-                      child: const Row(
-                        children: [
-                          Text("Geri Al",
-                              style: TextStyle(color: Colors.black87)),
-                          Gap(4),
-                          Icon(Icons.undo_rounded, color: Colors.black87),
-                        ],
+                      buttonPalette: ButtonPalette.teal(),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          children: [
+                            Text("Geri Al",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12)),
+                            Gap(4),
+                            Icon(
+                              Icons.undo_rounded,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ],
+                        ),
                       ),
                       onPressed: () {
                         Future.microtask(() async {
@@ -303,6 +318,12 @@ class SentenceGamePage extends HookConsumerWidget {
                   ],
                 ),
                 CustomTextButton(
+                  buttonPalette: ButtonPalette.burntSienna(),
+                  textStyle: const TextStyle(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                   disableSound: true,
                   text: "Kontrol Et",
                   onPressed: () {

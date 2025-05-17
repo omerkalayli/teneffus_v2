@@ -34,6 +34,7 @@ class CustomButton extends HookConsumerWidget {
     BorderRadius? buttonOnPressedShadowBorderRadius,
     bool? showForegroundInnerShadow,
     bool? isSticky,
+    this.isDisabled = false,
     this.value,
     super.key,
   })  : borderWidth = borderWidth ?? 2,
@@ -61,6 +62,7 @@ class CustomButton extends HookConsumerWidget {
   final bool? value;
   final Function() onPressed;
   final bool disableSound;
+  final bool isDisabled;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -78,6 +80,7 @@ class CustomButton extends HookConsumerWidget {
 
     return GestureDetector(
       onTap: () async {
+        if (isDisabled) return;
         if (isSticky) {
           isPressed.value = !isPressed.value;
           if (isPressed.value) {

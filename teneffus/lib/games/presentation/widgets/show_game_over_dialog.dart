@@ -14,7 +14,6 @@ Future<void> showGameOverDialog(
   ref.read(authNotifierProvider.notifier).increaseStarCount(
         starCount: stars,
       );
-
   final confettiController =
       ConfettiController(duration: const Duration(seconds: 2));
   confettiController.play();
@@ -43,18 +42,29 @@ Future<void> showGameOverDialog(
               children: [
                 const Text("Oyunu tamamladınız!"),
                 const SizedBox(height: 16),
-                Text("Puanınız: $score"),
+                Text(
+                  "Puanınız: $score",
+                  style: const TextStyle(fontSize: 14),
+                ),
                 const SizedBox(height: 16),
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: List.generate(
-                    stars,
-                    (index) => AnimatedStar(
-                      delay: Duration(milliseconds: 150 * index),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Kazandığınız yıldızlar: ",
+                      style: TextStyle(fontSize: 14),
                     ),
-                  ),
+                    const AnimatedStar(
+                      delay: Duration(milliseconds: 150),
+                    ),
+                    Text(
+                      "x ${stars.toString()}",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

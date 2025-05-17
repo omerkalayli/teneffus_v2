@@ -25,6 +25,18 @@ mixin _$ButtonPalette {
     required TResult Function() blue,
     required TResult Function() yellow,
     required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) =>
@@ -38,6 +50,18 @@ mixin _$ButtonPalette {
     TResult? Function()? blue,
     TResult? Function()? yellow,
     TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) =>
       throw _privateConstructorUsedError;
@@ -50,6 +74,18 @@ mixin _$ButtonPalette {
     TResult Function()? blue,
     TResult Function()? yellow,
     TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) =>
@@ -63,6 +99,18 @@ mixin _$ButtonPalette {
     required TResult Function(_Blue value) blue,
     required TResult Function(_Yellow value) yellow,
     required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
     required TResult Function(_Custom value) custom,
   }) =>
       throw _privateConstructorUsedError;
@@ -75,6 +123,18 @@ mixin _$ButtonPalette {
     TResult? Function(_Blue value)? blue,
     TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
     TResult? Function(_Custom value)? custom,
   }) =>
       throw _privateConstructorUsedError;
@@ -87,6 +147,18 @@ mixin _$ButtonPalette {
     TResult Function(_Blue value)? blue,
     TResult Function(_Yellow value)? yellow,
     TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) =>
@@ -162,6 +234,18 @@ class _$OrangeImpl implements _Orange {
     required TResult Function() blue,
     required TResult Function() yellow,
     required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -178,6 +262,18 @@ class _$OrangeImpl implements _Orange {
     TResult? Function()? blue,
     TResult? Function()? yellow,
     TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return orange?.call();
@@ -193,6 +289,18 @@ class _$OrangeImpl implements _Orange {
     TResult Function()? blue,
     TResult Function()? yellow,
     TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -212,6 +320,18 @@ class _$OrangeImpl implements _Orange {
     required TResult Function(_Blue value) blue,
     required TResult Function(_Yellow value) yellow,
     required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
     required TResult Function(_Custom value) custom,
   }) {
     return orange(this);
@@ -227,6 +347,18 @@ class _$OrangeImpl implements _Orange {
     TResult? Function(_Blue value)? blue,
     TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
     TResult? Function(_Custom value)? custom,
   }) {
     return orange?.call(this);
@@ -242,6 +374,18 @@ class _$OrangeImpl implements _Orange {
     TResult Function(_Blue value)? blue,
     TResult Function(_Yellow value)? yellow,
     TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -304,6 +448,18 @@ class _$GreenImpl implements _Green {
     required TResult Function() blue,
     required TResult Function() yellow,
     required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -320,6 +476,18 @@ class _$GreenImpl implements _Green {
     TResult? Function()? blue,
     TResult? Function()? yellow,
     TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return green?.call();
@@ -335,6 +503,18 @@ class _$GreenImpl implements _Green {
     TResult Function()? blue,
     TResult Function()? yellow,
     TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -354,6 +534,18 @@ class _$GreenImpl implements _Green {
     required TResult Function(_Blue value) blue,
     required TResult Function(_Yellow value) yellow,
     required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
     required TResult Function(_Custom value) custom,
   }) {
     return green(this);
@@ -369,6 +561,18 @@ class _$GreenImpl implements _Green {
     TResult? Function(_Blue value)? blue,
     TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
     TResult? Function(_Custom value)? custom,
   }) {
     return green?.call(this);
@@ -384,6 +588,18 @@ class _$GreenImpl implements _Green {
     TResult Function(_Blue value)? blue,
     TResult Function(_Yellow value)? yellow,
     TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -444,6 +660,18 @@ class _$RedImpl implements _Red {
     required TResult Function() blue,
     required TResult Function() yellow,
     required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -460,6 +688,18 @@ class _$RedImpl implements _Red {
     TResult? Function()? blue,
     TResult? Function()? yellow,
     TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return red?.call();
@@ -475,6 +715,18 @@ class _$RedImpl implements _Red {
     TResult Function()? blue,
     TResult Function()? yellow,
     TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -494,6 +746,18 @@ class _$RedImpl implements _Red {
     required TResult Function(_Blue value) blue,
     required TResult Function(_Yellow value) yellow,
     required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
     required TResult Function(_Custom value) custom,
   }) {
     return red(this);
@@ -509,6 +773,18 @@ class _$RedImpl implements _Red {
     TResult? Function(_Blue value)? blue,
     TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
     TResult? Function(_Custom value)? custom,
   }) {
     return red?.call(this);
@@ -524,6 +800,18 @@ class _$RedImpl implements _Red {
     TResult Function(_Blue value)? blue,
     TResult Function(_Yellow value)? yellow,
     TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -586,6 +874,18 @@ class _$WhiteImpl implements _White {
     required TResult Function() blue,
     required TResult Function() yellow,
     required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -602,6 +902,18 @@ class _$WhiteImpl implements _White {
     TResult? Function()? blue,
     TResult? Function()? yellow,
     TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return white?.call();
@@ -617,6 +929,18 @@ class _$WhiteImpl implements _White {
     TResult Function()? blue,
     TResult Function()? yellow,
     TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -636,6 +960,18 @@ class _$WhiteImpl implements _White {
     required TResult Function(_Blue value) blue,
     required TResult Function(_Yellow value) yellow,
     required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
     required TResult Function(_Custom value) custom,
   }) {
     return white(this);
@@ -651,6 +987,18 @@ class _$WhiteImpl implements _White {
     TResult? Function(_Blue value)? blue,
     TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
     TResult? Function(_Custom value)? custom,
   }) {
     return white?.call(this);
@@ -666,6 +1014,18 @@ class _$WhiteImpl implements _White {
     TResult Function(_Blue value)? blue,
     TResult Function(_Yellow value)? yellow,
     TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -727,6 +1087,18 @@ class _$BlueImpl implements _Blue {
     required TResult Function() blue,
     required TResult Function() yellow,
     required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -743,6 +1115,18 @@ class _$BlueImpl implements _Blue {
     TResult? Function()? blue,
     TResult? Function()? yellow,
     TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return blue?.call();
@@ -758,6 +1142,18 @@ class _$BlueImpl implements _Blue {
     TResult Function()? blue,
     TResult Function()? yellow,
     TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -777,6 +1173,18 @@ class _$BlueImpl implements _Blue {
     required TResult Function(_Blue value) blue,
     required TResult Function(_Yellow value) yellow,
     required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
     required TResult Function(_Custom value) custom,
   }) {
     return blue(this);
@@ -792,6 +1200,18 @@ class _$BlueImpl implements _Blue {
     TResult? Function(_Blue value)? blue,
     TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
     TResult? Function(_Custom value)? custom,
   }) {
     return blue?.call(this);
@@ -807,6 +1227,18 @@ class _$BlueImpl implements _Blue {
     TResult Function(_Blue value)? blue,
     TResult Function(_Yellow value)? yellow,
     TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -869,6 +1301,18 @@ class _$YellowImpl implements _Yellow {
     required TResult Function() blue,
     required TResult Function() yellow,
     required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -885,6 +1329,18 @@ class _$YellowImpl implements _Yellow {
     TResult? Function()? blue,
     TResult? Function()? yellow,
     TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return yellow?.call();
@@ -900,6 +1356,18 @@ class _$YellowImpl implements _Yellow {
     TResult Function()? blue,
     TResult Function()? yellow,
     TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -919,6 +1387,18 @@ class _$YellowImpl implements _Yellow {
     required TResult Function(_Blue value) blue,
     required TResult Function(_Yellow value) yellow,
     required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
     required TResult Function(_Custom value) custom,
   }) {
     return yellow(this);
@@ -934,6 +1414,18 @@ class _$YellowImpl implements _Yellow {
     TResult? Function(_Blue value)? blue,
     TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
     TResult? Function(_Custom value)? custom,
   }) {
     return yellow?.call(this);
@@ -949,6 +1441,18 @@ class _$YellowImpl implements _Yellow {
     TResult Function(_Blue value)? blue,
     TResult Function(_Yellow value)? yellow,
     TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -1010,6 +1514,18 @@ class _$GrayImpl implements _Gray {
     required TResult Function() blue,
     required TResult Function() yellow,
     required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -1026,6 +1542,18 @@ class _$GrayImpl implements _Gray {
     TResult? Function()? blue,
     TResult? Function()? yellow,
     TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return gray?.call();
@@ -1041,6 +1569,18 @@ class _$GrayImpl implements _Gray {
     TResult Function()? blue,
     TResult Function()? yellow,
     TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -1060,6 +1600,18 @@ class _$GrayImpl implements _Gray {
     required TResult Function(_Blue value) blue,
     required TResult Function(_Yellow value) yellow,
     required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
     required TResult Function(_Custom value) custom,
   }) {
     return gray(this);
@@ -1075,6 +1627,18 @@ class _$GrayImpl implements _Gray {
     TResult? Function(_Blue value)? blue,
     TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
     TResult? Function(_Custom value)? custom,
   }) {
     return gray?.call(this);
@@ -1090,6 +1654,18 @@ class _$GrayImpl implements _Gray {
     TResult Function(_Blue value)? blue,
     TResult Function(_Yellow value)? yellow,
     TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
@@ -1102,6 +1678,2573 @@ class _$GrayImpl implements _Gray {
 
 abstract class _Gray implements ButtonPalette {
   factory _Gray() = _$GrayImpl;
+}
+
+/// @nodoc
+abstract class _$$PurpleImplCopyWith<$Res> {
+  factory _$$PurpleImplCopyWith(
+          _$PurpleImpl value, $Res Function(_$PurpleImpl) then) =
+      __$$PurpleImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PurpleImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$PurpleImpl>
+    implements _$$PurpleImplCopyWith<$Res> {
+  __$$PurpleImplCopyWithImpl(
+      _$PurpleImpl _value, $Res Function(_$PurpleImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$PurpleImpl implements _Purple {
+  _$PurpleImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.purple()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$PurpleImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return purple();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return purple?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (purple != null) {
+      return purple();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return purple(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return purple?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (purple != null) {
+      return purple(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Purple implements ButtonPalette {
+  factory _Purple() = _$PurpleImpl;
+}
+
+/// @nodoc
+abstract class _$$TealImplCopyWith<$Res> {
+  factory _$$TealImplCopyWith(
+          _$TealImpl value, $Res Function(_$TealImpl) then) =
+      __$$TealImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$TealImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$TealImpl>
+    implements _$$TealImplCopyWith<$Res> {
+  __$$TealImplCopyWithImpl(_$TealImpl _value, $Res Function(_$TealImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$TealImpl implements _Teal {
+  _$TealImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.teal()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$TealImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return teal();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return teal?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (teal != null) {
+      return teal();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return teal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return teal?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (teal != null) {
+      return teal(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Teal implements ButtonPalette {
+  factory _Teal() = _$TealImpl;
+}
+
+/// @nodoc
+abstract class _$$DarkCyanImplCopyWith<$Res> {
+  factory _$$DarkCyanImplCopyWith(
+          _$DarkCyanImpl value, $Res Function(_$DarkCyanImpl) then) =
+      __$$DarkCyanImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DarkCyanImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$DarkCyanImpl>
+    implements _$$DarkCyanImplCopyWith<$Res> {
+  __$$DarkCyanImplCopyWithImpl(
+      _$DarkCyanImpl _value, $Res Function(_$DarkCyanImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$DarkCyanImpl implements _DarkCyan {
+  _$DarkCyanImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.darkCyan()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$DarkCyanImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return darkCyan();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return darkCyan?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (darkCyan != null) {
+      return darkCyan();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return darkCyan(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return darkCyan?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (darkCyan != null) {
+      return darkCyan(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DarkCyan implements ButtonPalette {
+  factory _DarkCyan() = _$DarkCyanImpl;
+}
+
+/// @nodoc
+abstract class _$$DeepOrangeImplCopyWith<$Res> {
+  factory _$$DeepOrangeImplCopyWith(
+          _$DeepOrangeImpl value, $Res Function(_$DeepOrangeImpl) then) =
+      __$$DeepOrangeImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DeepOrangeImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$DeepOrangeImpl>
+    implements _$$DeepOrangeImplCopyWith<$Res> {
+  __$$DeepOrangeImplCopyWithImpl(
+      _$DeepOrangeImpl _value, $Res Function(_$DeepOrangeImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$DeepOrangeImpl implements _DeepOrange {
+  _$DeepOrangeImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.deepOrange()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$DeepOrangeImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return deepOrange();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return deepOrange?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (deepOrange != null) {
+      return deepOrange();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return deepOrange(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return deepOrange?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (deepOrange != null) {
+      return deepOrange(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeepOrange implements ButtonPalette {
+  factory _DeepOrange() = _$DeepOrangeImpl;
+}
+
+/// @nodoc
+abstract class _$$IndigoImplCopyWith<$Res> {
+  factory _$$IndigoImplCopyWith(
+          _$IndigoImpl value, $Res Function(_$IndigoImpl) then) =
+      __$$IndigoImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$IndigoImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$IndigoImpl>
+    implements _$$IndigoImplCopyWith<$Res> {
+  __$$IndigoImplCopyWithImpl(
+      _$IndigoImpl _value, $Res Function(_$IndigoImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$IndigoImpl implements _Indigo {
+  _$IndigoImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.indigo()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$IndigoImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return indigo();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return indigo?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (indigo != null) {
+      return indigo();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return indigo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return indigo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (indigo != null) {
+      return indigo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Indigo implements ButtonPalette {
+  factory _Indigo() = _$IndigoImpl;
+}
+
+/// @nodoc
+abstract class _$$ForestGreenImplCopyWith<$Res> {
+  factory _$$ForestGreenImplCopyWith(
+          _$ForestGreenImpl value, $Res Function(_$ForestGreenImpl) then) =
+      __$$ForestGreenImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ForestGreenImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$ForestGreenImpl>
+    implements _$$ForestGreenImplCopyWith<$Res> {
+  __$$ForestGreenImplCopyWithImpl(
+      _$ForestGreenImpl _value, $Res Function(_$ForestGreenImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ForestGreenImpl implements _ForestGreen {
+  _$ForestGreenImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.forestGreen()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ForestGreenImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return forestGreen();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return forestGreen?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (forestGreen != null) {
+      return forestGreen();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return forestGreen(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return forestGreen?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (forestGreen != null) {
+      return forestGreen(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ForestGreen implements ButtonPalette {
+  factory _ForestGreen() = _$ForestGreenImpl;
+}
+
+/// @nodoc
+abstract class _$$MaroonImplCopyWith<$Res> {
+  factory _$$MaroonImplCopyWith(
+          _$MaroonImpl value, $Res Function(_$MaroonImpl) then) =
+      __$$MaroonImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$MaroonImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$MaroonImpl>
+    implements _$$MaroonImplCopyWith<$Res> {
+  __$$MaroonImplCopyWithImpl(
+      _$MaroonImpl _value, $Res Function(_$MaroonImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$MaroonImpl implements _Maroon {
+  _$MaroonImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.maroon()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$MaroonImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return maroon();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return maroon?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (maroon != null) {
+      return maroon();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return maroon(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return maroon?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (maroon != null) {
+      return maroon(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Maroon implements ButtonPalette {
+  factory _Maroon() = _$MaroonImpl;
+}
+
+/// @nodoc
+abstract class _$$MidnightBlueImplCopyWith<$Res> {
+  factory _$$MidnightBlueImplCopyWith(
+          _$MidnightBlueImpl value, $Res Function(_$MidnightBlueImpl) then) =
+      __$$MidnightBlueImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$MidnightBlueImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$MidnightBlueImpl>
+    implements _$$MidnightBlueImplCopyWith<$Res> {
+  __$$MidnightBlueImplCopyWithImpl(
+      _$MidnightBlueImpl _value, $Res Function(_$MidnightBlueImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$MidnightBlueImpl implements _MidnightBlue {
+  _$MidnightBlueImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.midnightBlue()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$MidnightBlueImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return midnightBlue();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return midnightBlue?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (midnightBlue != null) {
+      return midnightBlue();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return midnightBlue(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return midnightBlue?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (midnightBlue != null) {
+      return midnightBlue(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MidnightBlue implements ButtonPalette {
+  factory _MidnightBlue() = _$MidnightBlueImpl;
+}
+
+/// @nodoc
+abstract class _$$BurntSiennaImplCopyWith<$Res> {
+  factory _$$BurntSiennaImplCopyWith(
+          _$BurntSiennaImpl value, $Res Function(_$BurntSiennaImpl) then) =
+      __$$BurntSiennaImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$BurntSiennaImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$BurntSiennaImpl>
+    implements _$$BurntSiennaImplCopyWith<$Res> {
+  __$$BurntSiennaImplCopyWithImpl(
+      _$BurntSiennaImpl _value, $Res Function(_$BurntSiennaImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$BurntSiennaImpl implements _BurntSienna {
+  _$BurntSiennaImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.burntSienna()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$BurntSiennaImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return burntSienna();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return burntSienna?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (burntSienna != null) {
+      return burntSienna();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return burntSienna(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return burntSienna?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (burntSienna != null) {
+      return burntSienna(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _BurntSienna implements ButtonPalette {
+  factory _BurntSienna() = _$BurntSiennaImpl;
+}
+
+/// @nodoc
+abstract class _$$SlateGrayImplCopyWith<$Res> {
+  factory _$$SlateGrayImplCopyWith(
+          _$SlateGrayImpl value, $Res Function(_$SlateGrayImpl) then) =
+      __$$SlateGrayImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SlateGrayImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$SlateGrayImpl>
+    implements _$$SlateGrayImplCopyWith<$Res> {
+  __$$SlateGrayImplCopyWithImpl(
+      _$SlateGrayImpl _value, $Res Function(_$SlateGrayImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SlateGrayImpl implements _SlateGray {
+  _$SlateGrayImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.slateGray()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SlateGrayImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return slateGray();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return slateGray?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (slateGray != null) {
+      return slateGray();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return slateGray(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return slateGray?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (slateGray != null) {
+      return slateGray(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SlateGray implements ButtonPalette {
+  factory _SlateGray() = _$SlateGrayImpl;
+}
+
+/// @nodoc
+abstract class _$$OliveImplCopyWith<$Res> {
+  factory _$$OliveImplCopyWith(
+          _$OliveImpl value, $Res Function(_$OliveImpl) then) =
+      __$$OliveImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$OliveImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$OliveImpl>
+    implements _$$OliveImplCopyWith<$Res> {
+  __$$OliveImplCopyWithImpl(
+      _$OliveImpl _value, $Res Function(_$OliveImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$OliveImpl implements _Olive {
+  _$OliveImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.olive()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$OliveImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return olive();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return olive?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (olive != null) {
+      return olive();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return olive(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return olive?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (olive != null) {
+      return olive(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Olive implements ButtonPalette {
+  factory _Olive() = _$OliveImpl;
+}
+
+/// @nodoc
+abstract class _$$DarkMagentaImplCopyWith<$Res> {
+  factory _$$DarkMagentaImplCopyWith(
+          _$DarkMagentaImpl value, $Res Function(_$DarkMagentaImpl) then) =
+      __$$DarkMagentaImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DarkMagentaImplCopyWithImpl<$Res>
+    extends _$ButtonPaletteCopyWithImpl<$Res, _$DarkMagentaImpl>
+    implements _$$DarkMagentaImplCopyWith<$Res> {
+  __$$DarkMagentaImplCopyWithImpl(
+      _$DarkMagentaImpl _value, $Res Function(_$DarkMagentaImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ButtonPalette
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$DarkMagentaImpl implements _DarkMagenta {
+  _$DarkMagentaImpl();
+
+  @override
+  String toString() {
+    return 'ButtonPalette.darkMagenta()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$DarkMagentaImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() orange,
+    required TResult Function() green,
+    required TResult Function() red,
+    required TResult Function() white,
+    required TResult Function() blue,
+    required TResult Function() yellow,
+    required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
+    required TResult Function(Color foregroundColor, Color backgroundColor)
+        custom,
+  }) {
+    return darkMagenta();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? orange,
+    TResult? Function()? green,
+    TResult? Function()? red,
+    TResult? Function()? white,
+    TResult? Function()? blue,
+    TResult? Function()? yellow,
+    TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
+    TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
+  }) {
+    return darkMagenta?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? orange,
+    TResult Function()? green,
+    TResult Function()? red,
+    TResult Function()? white,
+    TResult Function()? blue,
+    TResult Function()? yellow,
+    TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
+    TResult Function(Color foregroundColor, Color backgroundColor)? custom,
+    required TResult orElse(),
+  }) {
+    if (darkMagenta != null) {
+      return darkMagenta();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Orange value) orange,
+    required TResult Function(_Green value) green,
+    required TResult Function(_Red value) red,
+    required TResult Function(_White value) white,
+    required TResult Function(_Blue value) blue,
+    required TResult Function(_Yellow value) yellow,
+    required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
+    required TResult Function(_Custom value) custom,
+  }) {
+    return darkMagenta(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Orange value)? orange,
+    TResult? Function(_Green value)? green,
+    TResult? Function(_Red value)? red,
+    TResult? Function(_White value)? white,
+    TResult? Function(_Blue value)? blue,
+    TResult? Function(_Yellow value)? yellow,
+    TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
+    TResult? Function(_Custom value)? custom,
+  }) {
+    return darkMagenta?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Orange value)? orange,
+    TResult Function(_Green value)? green,
+    TResult Function(_Red value)? red,
+    TResult Function(_White value)? white,
+    TResult Function(_Blue value)? blue,
+    TResult Function(_Yellow value)? yellow,
+    TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
+    TResult Function(_Custom value)? custom,
+    required TResult orElse(),
+  }) {
+    if (darkMagenta != null) {
+      return darkMagenta(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DarkMagenta implements ButtonPalette {
+  factory _DarkMagenta() = _$DarkMagentaImpl;
 }
 
 /// @nodoc
@@ -1190,6 +4333,18 @@ class _$CustomImpl implements _Custom {
     required TResult Function() blue,
     required TResult Function() yellow,
     required TResult Function() gray,
+    required TResult Function() purple,
+    required TResult Function() teal,
+    required TResult Function() darkCyan,
+    required TResult Function() deepOrange,
+    required TResult Function() indigo,
+    required TResult Function() forestGreen,
+    required TResult Function() maroon,
+    required TResult Function() midnightBlue,
+    required TResult Function() burntSienna,
+    required TResult Function() slateGray,
+    required TResult Function() olive,
+    required TResult Function() darkMagenta,
     required TResult Function(Color foregroundColor, Color backgroundColor)
         custom,
   }) {
@@ -1206,6 +4361,18 @@ class _$CustomImpl implements _Custom {
     TResult? Function()? blue,
     TResult? Function()? yellow,
     TResult? Function()? gray,
+    TResult? Function()? purple,
+    TResult? Function()? teal,
+    TResult? Function()? darkCyan,
+    TResult? Function()? deepOrange,
+    TResult? Function()? indigo,
+    TResult? Function()? forestGreen,
+    TResult? Function()? maroon,
+    TResult? Function()? midnightBlue,
+    TResult? Function()? burntSienna,
+    TResult? Function()? slateGray,
+    TResult? Function()? olive,
+    TResult? Function()? darkMagenta,
     TResult? Function(Color foregroundColor, Color backgroundColor)? custom,
   }) {
     return custom?.call(foregroundColor, backgroundColor);
@@ -1221,6 +4388,18 @@ class _$CustomImpl implements _Custom {
     TResult Function()? blue,
     TResult Function()? yellow,
     TResult Function()? gray,
+    TResult Function()? purple,
+    TResult Function()? teal,
+    TResult Function()? darkCyan,
+    TResult Function()? deepOrange,
+    TResult Function()? indigo,
+    TResult Function()? forestGreen,
+    TResult Function()? maroon,
+    TResult Function()? midnightBlue,
+    TResult Function()? burntSienna,
+    TResult Function()? slateGray,
+    TResult Function()? olive,
+    TResult Function()? darkMagenta,
     TResult Function(Color foregroundColor, Color backgroundColor)? custom,
     required TResult orElse(),
   }) {
@@ -1240,6 +4419,18 @@ class _$CustomImpl implements _Custom {
     required TResult Function(_Blue value) blue,
     required TResult Function(_Yellow value) yellow,
     required TResult Function(_Gray value) gray,
+    required TResult Function(_Purple value) purple,
+    required TResult Function(_Teal value) teal,
+    required TResult Function(_DarkCyan value) darkCyan,
+    required TResult Function(_DeepOrange value) deepOrange,
+    required TResult Function(_Indigo value) indigo,
+    required TResult Function(_ForestGreen value) forestGreen,
+    required TResult Function(_Maroon value) maroon,
+    required TResult Function(_MidnightBlue value) midnightBlue,
+    required TResult Function(_BurntSienna value) burntSienna,
+    required TResult Function(_SlateGray value) slateGray,
+    required TResult Function(_Olive value) olive,
+    required TResult Function(_DarkMagenta value) darkMagenta,
     required TResult Function(_Custom value) custom,
   }) {
     return custom(this);
@@ -1255,6 +4446,18 @@ class _$CustomImpl implements _Custom {
     TResult? Function(_Blue value)? blue,
     TResult? Function(_Yellow value)? yellow,
     TResult? Function(_Gray value)? gray,
+    TResult? Function(_Purple value)? purple,
+    TResult? Function(_Teal value)? teal,
+    TResult? Function(_DarkCyan value)? darkCyan,
+    TResult? Function(_DeepOrange value)? deepOrange,
+    TResult? Function(_Indigo value)? indigo,
+    TResult? Function(_ForestGreen value)? forestGreen,
+    TResult? Function(_Maroon value)? maroon,
+    TResult? Function(_MidnightBlue value)? midnightBlue,
+    TResult? Function(_BurntSienna value)? burntSienna,
+    TResult? Function(_SlateGray value)? slateGray,
+    TResult? Function(_Olive value)? olive,
+    TResult? Function(_DarkMagenta value)? darkMagenta,
     TResult? Function(_Custom value)? custom,
   }) {
     return custom?.call(this);
@@ -1270,6 +4473,18 @@ class _$CustomImpl implements _Custom {
     TResult Function(_Blue value)? blue,
     TResult Function(_Yellow value)? yellow,
     TResult Function(_Gray value)? gray,
+    TResult Function(_Purple value)? purple,
+    TResult Function(_Teal value)? teal,
+    TResult Function(_DarkCyan value)? darkCyan,
+    TResult Function(_DeepOrange value)? deepOrange,
+    TResult Function(_Indigo value)? indigo,
+    TResult Function(_ForestGreen value)? forestGreen,
+    TResult Function(_Maroon value)? maroon,
+    TResult Function(_MidnightBlue value)? midnightBlue,
+    TResult Function(_BurntSienna value)? burntSienna,
+    TResult Function(_SlateGray value)? slateGray,
+    TResult Function(_Olive value)? olive,
+    TResult Function(_DarkMagenta value)? darkMagenta,
     TResult Function(_Custom value)? custom,
     required TResult orElse(),
   }) {
