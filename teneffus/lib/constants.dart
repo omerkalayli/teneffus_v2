@@ -119,3 +119,11 @@ const LinearGradient flipCardGradient = LinearGradient(
     Color(0xFF1565C0),
   ],
 );
+
+const BoxDecoration homeworkCardHeaderDecoration = BoxDecoration(
+  color: Colors.blueGrey,
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(8),
+    topRight: Radius.circular(8),
+  ),
+);

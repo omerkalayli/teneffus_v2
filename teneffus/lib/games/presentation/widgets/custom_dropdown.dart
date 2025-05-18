@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:teneffus/global_entities/lesson.dart';
 
-/// This widget is used to select a lesson in the game. It shows a list of lessons
+/// This widget is used to select a lesson in the game. It shows a list of items
 
-class LessonSelectionDropdown extends HookConsumerWidget {
-  const LessonSelectionDropdown({
+class CustomDropdown extends HookConsumerWidget {
+  const CustomDropdown({
     super.key,
-    required this.lessons,
-    required this.selectedLesson,
+    required this.items,
+    required this.selectedIndex,
     required this.onSelected,
-    required this.isAllLessonsSelected,
+    required this.disabled,
   });
 
   final Function(int) onSelected;
-  final List<Lesson> lessons;
-  final int selectedLesson;
-  final bool isAllLessonsSelected;
+  final List<String> items;
+  final int selectedIndex;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DropdownMenuTheme(
-      key: ValueKey(lessons.hashCode),
+      key: ValueKey(items.hashCode),
       data: DropdownMenuThemeData(
         textStyle: GoogleFonts.montserrat(
             fontSize: 12,
-            color: isAllLessonsSelected
+            color: disabled
                 ? const Color.fromARGB(255, 7, 114, 131)
                 : Colors.white,
             fontWeight: FontWeight.bold),
@@ -42,20 +41,18 @@ class LessonSelectionDropdown extends HookConsumerWidget {
         ),
       ),
       child: DropdownMenu(
-        enabled: !isAllLessonsSelected,
-        initialSelection: selectedLesson + 1,
+        enabled: !disabled,
+        initialSelection: selectedIndex + 1,
         trailingIcon: Icon(
           Icons.arrow_drop_down_rounded,
-          color: isAllLessonsSelected
-              ? const Color.fromARGB(255, 7, 114, 131)
-              : Colors.white,
+          color:
+              disabled ? const Color.fromARGB(255, 7, 114, 131) : Colors.white,
           size: 30,
         ),
         selectedTrailingIcon: Icon(
           Icons.arrow_drop_up_rounded,
-          color: isAllLessonsSelected
-              ? const Color.fromARGB(255, 7, 114, 131)
-              : Colors.white,
+          color:
+              disabled ? const Color.fromARGB(255, 7, 114, 131) : Colors.white,
           size: 30,
         ),
         inputDecorationTheme: InputDecorationTheme(
@@ -88,10 +85,10 @@ class LessonSelectionDropdown extends HookConsumerWidget {
           ),
         ),
         dropdownMenuEntries: [
-          ...List.generate(lessons.length, (index) {
+          ...List.generate(items.length, (index) {
             return DropdownMenuEntry(
               value: index + 1,
-              label: lessons[index].nameTr,
+              label: items[index],
               style: ButtonStyle(
                 textStyle: WidgetStatePropertyAll(
                   GoogleFonts.montserrat(

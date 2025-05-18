@@ -14,7 +14,7 @@ class StepCounter extends StatelessWidget {
         color: Colors.blue.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Text("${current - 1} / $length",
+      child: Text("$current / $length",
           style: const TextStyle(
             fontSize: 12,
           )),

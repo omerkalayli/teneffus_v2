@@ -140,7 +140,7 @@ class WritingGamePage extends HookConsumerWidget {
                         child: Row(
                           children: [
                             StepCounter(
-                              current: selectedWordIndex.value + 1,
+                              current: selectedWordIndex.value,
                               length: shuffledWords.length,
                             ),
                             const Spacer(),

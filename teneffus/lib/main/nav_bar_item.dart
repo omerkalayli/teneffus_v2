@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:teneffus/constants.dart';
 
@@ -25,19 +26,20 @@ class NavBarItem extends StatelessWidget {
         AnimatedPositioned(
           curve: !isSelected ? Curves.easeInOut : Curves.easeInOut,
           duration: !isSelected ? Durations.short4 : Durations.short4,
-          bottom: isSelected ? 36 : 12,
+          bottom: isSelected ? 24 : 0,
           child: InkWell(
+            borderRadius: BorderRadius.circular(24),
             onTap: () {
               onTap.call();
             },
             child: AnimatedContainer(
               duration: Durations.short3,
-              height: 64,
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              width: MediaQuery.of(context).size.width / 5,
+              height: 80,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
                   border: isSelected
-                      ? Border.all(width: 3, color: Colors.white)
+                      ? Border.all(width: 2, color: Colors.white)
                       : null,
                   color: navBarOrange,
                   boxShadow: !isSelected
@@ -56,7 +58,7 @@ class NavBarItem extends StatelessWidget {
                     icon,
                     size: 24,
                   ),
-                  Text(
+                  AutoSizeText(
                     label,
                     textAlign: TextAlign.center,
                     style: const TextStyle(

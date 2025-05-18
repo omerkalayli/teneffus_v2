@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teneffus/games/presentation/widgets/lesson_selection_dropdown.dart';
+import 'package:teneffus/games/presentation/widgets/custom_dropdown.dart';
 import 'package:teneffus/global_entities/lesson.dart';
 
 class LessonSelectionContainer extends StatelessWidget {
@@ -18,10 +18,14 @@ class LessonSelectionContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        LessonSelectionDropdown(
-          isAllLessonsSelected: isAllLessonsSelected.value,
-          lessons: lessons,
-          selectedLesson: selectedLesson.value,
+        CustomDropdown(
+          disabled: isAllLessonsSelected.value,
+          items: lessons
+              .map(
+                (e) => e.nameTr,
+              )
+              .toList(),
+          selectedIndex: selectedLesson.value,
           onSelected: (val) {
             selectedLesson.value = val;
             isAllLessonsSelected.value = false;
