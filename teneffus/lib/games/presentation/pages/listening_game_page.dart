@@ -27,36 +27,57 @@ class ListeningGamePage extends HookConsumerWidget {
     required this.selectedUnit,
     required this.selectedUnitNumber,
     this.isAllLessonsSelected = false,
+    this.isAllUnitsSelected = false,
+    this.isInQuiz,
+    this.quizScore,
+    this.quizStep,
+    this.quizLength,
+    this.onFinished,
     super.key,
   });
 
   final bool isAllLessonsSelected;
+  final bool isAllUnitsSelected;
   final Unit selectedUnit;
   final int selectedUnitNumber;
   final List<Lesson> selectedLessons;
+  final bool? isInQuiz;
+  final int? quizScore;
+  final int? quizStep;
+  final int? quizLength;
+  final Function(int)? onFinished;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    const numberOfQuestions = 16;
+
     final player = useMemoized(() => AudioPlayer());
     final sfxPlayer = useMemoized(() => AudioPlayer());
     final shuffledWords = useMemoized(() {
-      final list =
-          selectedLessons.expand((lesson) => lesson.words).take(16).toList();
+      final list = selectedLessons
+          .expand((lesson) => lesson.words)
+          .take(numberOfQuestions)
+          .toList();
       list.shuffle();
       return list;
     });
-    final score = useState(0);
+    final score = useState(quizScore ?? 0);
     final selectedWordIndex = useState(0);
     final selectedChoice = useState(-1);
-
+    final isPassed = useState(false);
     bool isDone = selectedWordIndex.value == shuffledWords.length;
     if (isDone) {
-      selectedWordIndex.value -= 1;
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await showGameOverDialog(context, score.value, ref);
-        Navigator.pop(context);
-      });
+      if (isInQuiz == true) {
+        onFinished?.call(score.value);
+      } else {
+        selectedWordIndex.value -= 1;
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          await showGameOverDialog(context, score.value, ref);
+          Navigator.pop(context);
+        });
+      }
     }
+
     final selectedWord = useState(shuffledWords[selectedWordIndex.value]);
 
     const replayDuration = Duration(milliseconds: 500);
@@ -64,7 +85,14 @@ class ListeningGamePage extends HookConsumerWidget {
     final options = useState<List<Word>>([]);
     final isClickable = useState(true);
 
-    double progress = (selectedWordIndex.value) / shuffledWords.length;
+    final length = isInQuiz ?? false
+        ? quizLength! * numberOfQuestions
+        : shuffledWords.length;
+
+    final currentProgress = (selectedWordIndex.value +
+        (isInQuiz ?? false ? quizStep! * numberOfQuestions : 0));
+
+    double progress = currentProgress / length;
 
     useEffect(() {
       if (isDone) {
@@ -106,9 +134,13 @@ class ListeningGamePage extends HookConsumerWidget {
       Future.delayed(replayDuration, () async {
         await playAudio(selectedWord.value.audioUrl, player);
       });
-      Future.delayed(playDuration, () {
-        selectedWordIndex.value += 1;
-      });
+      if (selectedWordIndex.value < numberOfQuestions - 1) {
+        Future.delayed(playDuration, () {
+          selectedWordIndex.value += 1;
+        });
+      } else {
+        onFinished?.call(score.value);
+      }
     }
 
     bool? isChoiceCorrect(int index) {
@@ -148,6 +180,7 @@ class ListeningGamePage extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GameHeader(
+                  isAllUnitsSelected: isAllUnitsSelected,
                   selectedUnit: selectedUnit,
                   isAllLessonsSelected: isAllLessonsSelected,
                   selectedLessons: selectedLessons),
@@ -156,8 +189,8 @@ class ListeningGamePage extends HookConsumerWidget {
                 child: Row(
                   children: [
                     StepCounter(
-                      current: selectedWordIndex.value,
-                      length: shuffledWords.length,
+                      current: currentProgress,
+                      length: length,
                     ),
                     const Spacer(),
                     AnimatedScoreText(
@@ -218,8 +251,15 @@ class ListeningGamePage extends HookConsumerWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
-                child: _getFooter(selectedWord, player, options, selectedChoice,
-                    selectedWordIndex),
+                child: _getFooter(
+                    selectedWord: selectedWord,
+                    player: player,
+                    options: options,
+                    selectedChoice: selectedChoice,
+                    selectedWordIndex: selectedWordIndex,
+                    score: score.value,
+                    numberOfQuestions: numberOfQuestions,
+                    isPassed: isPassed),
               ),
             ],
           ),
@@ -229,11 +269,14 @@ class ListeningGamePage extends HookConsumerWidget {
   }
 
   Row _getFooter(
-      ValueNotifier<Word> selectedWord,
-      AudioPlayer player,
-      ValueNotifier<List<Word>> options,
-      ValueNotifier<int> selectedChoice,
-      ValueNotifier<int> selectedWordIndex) {
+      {required ValueNotifier<Word> selectedWord,
+      required AudioPlayer player,
+      required ValueNotifier<List<Word>> options,
+      required ValueNotifier<int> selectedChoice,
+      required ValueNotifier<int> selectedWordIndex,
+      required ValueNotifier<bool> isPassed,
+      required int score,
+      required int numberOfQuestions}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -255,13 +298,23 @@ class ListeningGamePage extends HookConsumerWidget {
             ),
           ),
           onPressed: () async {
-            int correctIndex = options.value
-                .indexWhere((element) => element.id == selectedWord.value.id);
+            if (isPassed.value) {
+              return;
+            }
+            isPassed.value = true;
             await playAudio(selectedWord.value.audioUrl, player);
-            selectedChoice.value = correctIndex;
-            Future.delayed(const Duration(seconds: 2), () async {
-              selectedWordIndex.value += 1;
-            });
+            if (selectedWordIndex.value < numberOfQuestions - 1) {
+              int correctIndex = options.value
+                  .indexWhere((element) => element.id == selectedWord.value.id);
+              selectedChoice.value = correctIndex;
+              Future.delayed(const Duration(seconds: 2), () {
+                selectedWordIndex.value += 1;
+                isPassed.value = false;
+              });
+            } else {
+              isPassed.value = false;
+              onFinished?.call(score);
+            }
           },
         ),
         const Gap(16),

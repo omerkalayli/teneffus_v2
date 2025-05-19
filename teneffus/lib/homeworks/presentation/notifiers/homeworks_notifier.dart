@@ -32,4 +32,20 @@ class HomeworksNotifier extends _$HomeworksNotifier {
       );
     });
   }
+
+  Future<void> updateHomework({
+    required String uid,
+    required int homeworkId,
+    required int score,
+    required bool isCompleted,
+  }) async {
+    state = const AsyncValue.data(HomeworksState.loading());
+    final result = await _homeworksRepository.updateHomework(
+      uid: uid,
+      homeworkId: homeworkId,
+      score: score,
+      isCompleted: isCompleted,
+    );
+    await getHomeworks(uid: uid);
+  }
 }

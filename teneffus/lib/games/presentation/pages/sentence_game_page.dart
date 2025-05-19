@@ -30,16 +30,30 @@ class SentenceGamePage extends HookConsumerWidget {
     required this.selectedUnit,
     required this.selectedUnitNumber,
     this.isAllLessonsSelected = false,
+    this.isAllUnitsSelected = false,
+    this.isInQuiz,
+    this.quizScore,
+    this.quizStep,
+    this.quizLength,
+    this.onFinished,
     super.key,
   });
 
   final bool isAllLessonsSelected;
+  final bool isAllUnitsSelected;
   final Unit selectedUnit;
   final int selectedUnitNumber;
   final List<Lesson> selectedLessons;
+  final bool? isInQuiz;
+  final int? quizScore;
+  final int? quizStep;
+  final int? quizLength;
+  final Function(int)? onFinished;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    const numberOfQuestions = 16;
+
     final player = useMemoized(() => AudioPlayer());
     final wordSoundPlayer = useMemoized(() => AudioPlayer());
     final isControlling = useState(false);
@@ -48,18 +62,30 @@ class SentenceGamePage extends HookConsumerWidget {
           .expand((lesson) => (lesson.sentences ?? []) as List<Sentence>)
           .toList();
       list.shuffle();
-      return list.take(16).toList();
+      return list.take(numberOfQuestions).toList();
     });
-    final score = useState(0);
+    final score = useState(quizScore ?? 0);
+
     final selectedSentenceIndex = useState(0);
     bool isDone = selectedSentenceIndex.value == shuffledSentences.length;
     if (isDone) {
-      selectedSentenceIndex.value -= 1;
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await showGameOverDialog(context, score.value, ref);
-        Navigator.pop(context);
-      });
+      if (isInQuiz == true) {
+        onFinished?.call(score.value);
+      } else {
+        selectedSentenceIndex.value -= 1;
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          await showGameOverDialog(context, score.value, ref);
+          Navigator.pop(context);
+        });
+      }
     }
+    final length = isInQuiz ?? false
+        ? quizLength! * numberOfQuestions
+        : shuffledSentences.length;
+    final currentProgress = (selectedSentenceIndex.value +
+        (isInQuiz ?? false ? quizStep! * numberOfQuestions : 0));
+
+    double progress = currentProgress / length;
 
     List<Word> generateWordOptions(
       Sentence current,
@@ -91,8 +117,6 @@ class SentenceGamePage extends HookConsumerWidget {
       () => generateWordOptions(currentSentence, shuffledSentences),
       [selectedSentenceIndex.value],
     );
-
-    double progress = selectedSentenceIndex.value / shuffledSentences.length;
 
     final droppedWords = useState<List<Word>>([]);
     final availableWords = useState<List<Word>>(List.from(options));
@@ -137,6 +161,7 @@ class SentenceGamePage extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GameHeader(
+                  isAllUnitsSelected: isAllUnitsSelected,
                   selectedUnit: selectedUnit,
                   isAllLessonsSelected: isAllLessonsSelected,
                   selectedLessons: selectedLessons,
@@ -146,8 +171,8 @@ class SentenceGamePage extends HookConsumerWidget {
                   child: Row(
                     children: [
                       StepCounter(
-                        current: selectedSentenceIndex.value,
-                        length: shuffledSentences.length,
+                        current: currentProgress,
+                        length: length,
                       ),
                       const Spacer(),
                       AnimatedScoreText(score: score),
@@ -264,11 +289,26 @@ class SentenceGamePage extends HookConsumerWidget {
                         ),
                       ),
                       onPressed: () async {
+                        if (isPassed.value ?? false) {
+                          return;
+                        }
                         isPassed.value = true;
                         await Future.delayed(const Duration(seconds: 3), () {
                           isPassed.value = null;
                         });
-                        selectedSentenceIndex.value++;
+                        if (selectedSentenceIndex.value <
+                            numberOfQuestions - 1) {
+                          selectedSentenceIndex.value++;
+                        } else {
+                          if (isInQuiz == true) {
+                            onFinished?.call(score.value);
+                          } else {
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              showGameOverDialog(context, score.value, ref);
+                              Navigator.pop(context);
+                            });
+                          }
+                        }
                         droppedWords.value = [];
                         if (selectedSentenceIndex.value <
                             shuffledSentences.length) {
@@ -303,17 +343,16 @@ class SentenceGamePage extends HookConsumerWidget {
                       onPressed: () {
                         Future.microtask(() async {
                           await wordSoundPlayer.setAsset(dropWordSoundPath);
-
                           await wordSoundPlayer.seek(Duration.zero);
                           await wordSoundPlayer.play();
                         });
                         if (droppedWords.value.isNotEmpty) {
-                          final lastWord = droppedWords.value.last;
+                          final firstWord = droppedWords.value.first;
                           droppedWords.value = [...droppedWords.value]
-                            ..removeLast();
+                            ..removeAt(0);
                           availableWords.value = [
                             ...availableWords.value,
-                            lastWord
+                            firstWord
                           ];
                         }
                       },
@@ -341,12 +380,15 @@ class SentenceGamePage extends HookConsumerWidget {
                     String userSentenceID = userSentence.hashCode.toString();
 
                     if (userSentenceID == correctID) {
+                      playAudio(correctSoundPath, player);
                       isCorrect.value = true;
                       score.value += 10;
-                      playAudio(correctSoundPath, player);
                       Future.delayed(const Duration(seconds: 2), () {
                         isCorrect.value = null;
-                        selectedSentenceIndex.value++;
+                        if (selectedSentenceIndex.value <
+                            numberOfQuestions - 1) {
+                          selectedSentenceIndex.value++;
+                        }
                         droppedWords.value = [];
                         if (selectedSentenceIndex.value <
                             shuffledSentences.length) {

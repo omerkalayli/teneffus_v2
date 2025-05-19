@@ -7,9 +7,11 @@ import 'package:intl/intl.dart';
 import 'package:teneffus/arabic/getter/getter.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/games/presentation/widgets/custom_dropdown.dart';
+import 'package:teneffus/homeworks/presentation/homeworks_state.dart';
 import 'package:teneffus/homeworks/presentation/notifiers/homeworks_notifier.dart';
 import 'package:teneffus/homeworks/presentation/widgets/homework_card.dart';
 import 'package:teneffus/homeworks/presentation/widgets/homework_card_header.dart';
+import 'package:teneffus/quiz/presentation/quiz_page.dart';
 
 class HomeworksPage extends HookConsumerWidget {
   const HomeworksPage({super.key});
@@ -35,6 +37,9 @@ class HomeworksPage extends HookConsumerWidget {
       "Tamamlanmayanlar",
     ];
 
+    final state = ref.watch(homeworksNotifierProvider);
+    final isLoading = state.value == const HomeworksState.loading();
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -55,18 +60,27 @@ class HomeworksPage extends HookConsumerWidget {
                   color: const Color.fromARGB(208, 33, 149, 243),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Text(
+                    const Text(
                       "Yenile",
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
-                    Gap(2),
-                    Icon(
-                      Icons.refresh,
-                      color: Colors.white,
-                      size: 20,
-                    ),
+                    const Gap(2),
+                    isLoading
+                        ? Container(
+                            margin: const EdgeInsets.all(2),
+                            height: 16,
+                            width: 16,
+                            child: const CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ))
+                        : const Icon(
+                            Icons.refresh,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                   ],
                 ),
               ),
@@ -143,7 +157,6 @@ class HomeworksPage extends HookConsumerWidget {
                       final myScore = homework.myScore;
                       final minScore = homework.minScore;
                       final isCompleted = homework.isCompleted;
-                      final teacherId = homework.teacherId;
                       final id = homework.id;
                       final units = UnitGetter.getUnits(grade);
                       final lesson = units[unitId].lessons[lessonId - 1];
@@ -153,7 +166,22 @@ class HomeworksPage extends HookConsumerWidget {
                       return InkWell(
                         overlayColor:
                             const WidgetStatePropertyAll(Colors.transparent),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => QuizPage(
+                                homeworkId: id,
+                                isHomework: true,
+                                minScore: minScore,
+                                selectedUnit: units[unitId],
+                                selectedLesson: lesson,
+                                isAllLessonsSelected: false,
+                                isAllUnitsSelected: false,
+                              ),
+                            ),
+                          );
+                        },
                         child: Column(
                           children: [
                             HomeworkCardHeader(

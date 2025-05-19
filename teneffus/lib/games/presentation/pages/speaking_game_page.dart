@@ -49,19 +49,35 @@ class SpeakingGamePage extends HookConsumerWidget {
     required this.selectedUnit,
     required this.selectedUnitNumber,
     this.isAllLessonsSelected = false,
+    this.isAllUnitsSelected = false,
+    this.isInQuiz,
+    this.quizScore,
+    this.quizStep,
+    this.quizLength,
+    this.onFinished,
     super.key,
   });
 
   final bool isAllLessonsSelected;
+  final bool isAllUnitsSelected;
   final Unit selectedUnit;
   final int selectedUnitNumber;
   final List<Lesson> selectedLessons;
+  final bool? isInQuiz;
+  final int? quizScore;
+  final int? quizStep;
+  final int? quizLength;
+  final Function(int)? onFinished;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    const numberOfQuestions = 16;
+
     final shuffledWords = useMemoized(() {
-      final list =
-          selectedLessons.expand((lesson) => lesson.words).take(16).toList();
+      final list = selectedLessons
+          .expand((lesson) => lesson.words)
+          .take(numberOfQuestions)
+          .toList();
       list.shuffle();
       return list;
     });
@@ -70,7 +86,14 @@ class SpeakingGamePage extends HookConsumerWidget {
     final score = useState(0);
     final selectedWordIndex = useState(0);
     final selectedWord = useState(shuffledWords[selectedWordIndex.value]);
-    double progress = (selectedWordIndex.value) / shuffledWords.length;
+
+    final length = isInQuiz ?? false
+        ? quizLength! * numberOfQuestions
+        : shuffledWords.length;
+    final currentProgress = (selectedWordIndex.value +
+        (isInQuiz ?? false ? quizStep! * numberOfQuestions : 0));
+
+    double progress = currentProgress / length;
 
     final player = useMemoized(() => AudioPlayer());
     final sfxPlayer = useMemoized(() => AudioPlayer());
@@ -79,6 +102,8 @@ class SpeakingGamePage extends HookConsumerWidget {
     final speechToText = ref.read(speechToTextProvider);
     final vibrate = useState(false);
     final isListening = ref.watch(isListeningProvider);
+
+    final isPassed = useState(false);
 
     void _onSpeechResult(SpeechRecognitionResult result) {
       final expected = normalizeArabic(selectedWord.value.ar);
@@ -93,10 +118,14 @@ class SpeakingGamePage extends HookConsumerWidget {
           selectedWord.value = shuffledWords[selectedWordIndex.value];
           progress = (selectedWordIndex.value) / shuffledWords.length;
         } else {
-          Future.microtask(() async {
-            await showGameOverDialog(context, score.value, ref);
-            Navigator.pop(context);
-          });
+          if (isInQuiz == true) {
+            onFinished?.call(score.value);
+          } else {
+            Future.microtask(() async {
+              await showGameOverDialog(context, score.value, ref);
+              Navigator.pop(context);
+            });
+          }
         }
       } else if (spoken.isNotEmpty) {
         playWrongSound(sfxPlayer);
@@ -156,6 +185,7 @@ class SpeakingGamePage extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GameHeader(
+                            isAllUnitsSelected: isAllUnitsSelected,
                             selectedUnit: selectedUnit,
                             isAllLessonsSelected: isAllLessonsSelected,
                             selectedLessons: selectedLessons),
@@ -164,8 +194,8 @@ class SpeakingGamePage extends HookConsumerWidget {
                           child: Row(
                             children: [
                               StepCounter(
-                                current: selectedWordIndex.value,
-                                length: shuffledWords.length,
+                                current: currentProgress,
+                                length: length,
                               ),
                               const Spacer(),
                               AnimatedScoreText(
@@ -217,21 +247,30 @@ class SpeakingGamePage extends HookConsumerWidget {
                                 ),
                               ),
                               onPressed: () async {
+                                if (isPassed.value) {
+                                  return;
+                                }
+                                isPassed.value = true;
                                 await playAudio(
                                     selectedWord.value.audioUrl, player);
                                 if (selectedWordIndex.value + 1 ==
                                     shuffledWords.length) {
-                                  Future.microtask(() async {
-                                    await showGameOverDialog(
-                                        context, score.value, ref);
-                                    Navigator.pop(context);
-                                  });
+                                  if (isInQuiz == true) {
+                                    onFinished?.call(score.value);
+                                  } else {
+                                    Future.microtask(() async {
+                                      await showGameOverDialog(
+                                          context, score.value, ref);
+                                      Navigator.pop(context);
+                                    });
+                                  }
                                 } else {
                                   await Future.delayed(
                                       const Duration(seconds: 2), () async {
                                     selectedWordIndex.value += 1;
                                     selectedWord.value =
                                         shuffledWords[selectedWordIndex.value];
+                                    isPassed.value = false;
                                   });
                                 }
                               },

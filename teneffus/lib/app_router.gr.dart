@@ -9,19 +9,23 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i3;
+import 'package:auto_route/auto_route.dart' as _i4;
+import 'package:flutter/material.dart' as _i7;
 import 'package:teneffus/auth/presentation/pages/auth_page.dart' as _i1;
+import 'package:teneffus/global_entities/lesson.dart' as _i5;
+import 'package:teneffus/global_entities/unit.dart' as _i6;
 import 'package:teneffus/main/main_layout.dart' as _i2;
+import 'package:teneffus/quiz/presentation/quiz_page.dart' as _i3;
 
 /// generated route for
 /// [_i1.AuthPage]
-class AuthRoute extends _i3.PageRouteInfo<void> {
-  const AuthRoute({List<_i3.PageRouteInfo>? children})
+class AuthRoute extends _i4.PageRouteInfo<void> {
+  const AuthRoute({List<_i4.PageRouteInfo>? children})
     : super(AuthRoute.name, initialChildren: children);
 
   static const String name = 'AuthRoute';
 
-  static _i3.PageInfo page = _i3.PageInfo(
+  static _i4.PageInfo page = _i4.PageInfo(
     name,
     builder: (data) {
       return const _i1.AuthPage();
@@ -31,16 +35,98 @@ class AuthRoute extends _i3.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.MainLayoutPage]
-class MainLayoutRoute extends _i3.PageRouteInfo<void> {
-  const MainLayoutRoute({List<_i3.PageRouteInfo>? children})
+class MainLayoutRoute extends _i4.PageRouteInfo<void> {
+  const MainLayoutRoute({List<_i4.PageRouteInfo>? children})
     : super(MainLayoutRoute.name, initialChildren: children);
 
   static const String name = 'MainLayoutRoute';
 
-  static _i3.PageInfo page = _i3.PageInfo(
+  static _i4.PageInfo page = _i4.PageInfo(
     name,
     builder: (data) {
       return const _i2.MainLayoutPage();
     },
   );
+}
+
+/// generated route for
+/// [_i3.QuizPage]
+class QuizRoute extends _i4.PageRouteInfo<QuizRouteArgs> {
+  QuizRoute({
+    required _i5.Lesson selectedLesson,
+    required _i6.Unit selectedUnit,
+    bool isAllLessonsSelected = false,
+    bool isAllUnitsSelected = false,
+    bool isHomework = false,
+    int? homeworkId,
+    int? minScore,
+    _i7.Key? key,
+    List<_i4.PageRouteInfo>? children,
+  }) : super(
+         QuizRoute.name,
+         args: QuizRouteArgs(
+           selectedLesson: selectedLesson,
+           selectedUnit: selectedUnit,
+           isAllLessonsSelected: isAllLessonsSelected,
+           isAllUnitsSelected: isAllUnitsSelected,
+           isHomework: isHomework,
+           homeworkId: homeworkId,
+           minScore: minScore,
+           key: key,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'QuizRoute';
+
+  static _i4.PageInfo page = _i4.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<QuizRouteArgs>();
+      return _i3.QuizPage(
+        selectedLesson: args.selectedLesson,
+        selectedUnit: args.selectedUnit,
+        isAllLessonsSelected: args.isAllLessonsSelected,
+        isAllUnitsSelected: args.isAllUnitsSelected,
+        isHomework: args.isHomework,
+        homeworkId: args.homeworkId,
+        minScore: args.minScore,
+        key: args.key,
+      );
+    },
+  );
+}
+
+class QuizRouteArgs {
+  const QuizRouteArgs({
+    required this.selectedLesson,
+    required this.selectedUnit,
+    this.isAllLessonsSelected = false,
+    this.isAllUnitsSelected = false,
+    this.isHomework = false,
+    this.homeworkId,
+    this.minScore,
+    this.key,
+  });
+
+  final _i5.Lesson selectedLesson;
+
+  final _i6.Unit selectedUnit;
+
+  final bool isAllLessonsSelected;
+
+  final bool isAllUnitsSelected;
+
+  final bool isHomework;
+
+  final int? homeworkId;
+
+  final int? minScore;
+
+  final _i7.Key? key;
+
+  @override
+  String toString() {
+    return 'QuizRouteArgs{selectedLesson: $selectedLesson, selectedUnit: $selectedUnit, isAllLessonsSelected: $isAllLessonsSelected, isAllUnitsSelected: $isAllUnitsSelected, isHomework: $isHomework, homeworkId: $homeworkId, minScore: $minScore, key: $key}';
+  }
 }

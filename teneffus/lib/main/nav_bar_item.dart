@@ -60,6 +60,7 @@ class NavBarItem extends StatelessWidget {
                   ),
                   AutoSizeText(
                     label,
+                    maxLines: 1,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                         color: Colors.white,

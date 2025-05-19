@@ -7,5 +7,6 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(page: AuthRoute.page, initial: true),
         AutoRoute(page: MainLayoutRoute.page),
+        AutoRoute(page: QuizRoute.page)
       ];
 }

@@ -33,6 +33,7 @@ class CustomButton extends HookConsumerWidget {
     BorderRadius? buttonBackgroundAndForegroundBorderRadius,
     BorderRadius? buttonOnPressedShadowBorderRadius,
     bool? showForegroundInnerShadow,
+    Color? borderColor,
     bool? isSticky,
     this.isDisabled = false,
     this.value,
@@ -48,6 +49,7 @@ class CustomButton extends HookConsumerWidget {
         buttonOnPressedShadowBorderRadius =
             buttonOnPressedShadowBorderRadius ?? BorderRadius.circular(6),
         showForegroundInnerShadow = showForegroundInnerShadow ?? false,
+        borderColor = borderColor ?? Colors.black,
         isSticky = isSticky ?? false;
 
   final Widget child;
@@ -63,6 +65,7 @@ class CustomButton extends HookConsumerWidget {
   final Function() onPressed;
   final bool disableSound;
   final bool isDisabled;
+  final Color borderColor;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -140,7 +143,7 @@ class CustomButton extends HookConsumerWidget {
                         ]
                       : null,
                   borderRadius: buttonStrokeBorderRadius,
-                  border: Border.all(width: borderWidth, color: Colors.black)),
+                  border: Border.all(width: borderWidth, color: borderColor)),
               child: AnimatedContainer(
                 /// Background layer of the button
                 curve: Curves.fastEaseInToSlowEaseOut,

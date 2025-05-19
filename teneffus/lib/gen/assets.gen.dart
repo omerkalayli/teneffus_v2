@@ -247,6 +247,9 @@ class $AssetsSoundsGen {
   /// File path: assets/sounds/drop_word.mp3
   String get dropWord => 'assets/sounds/drop_word.mp3';
 
+  /// File path: assets/sounds/failure.mp3
+  String get failure => 'assets/sounds/failure.mp3';
+
   /// File path: assets/sounds/game_finish.mp3
   String get gameFinish => 'assets/sounds/game_finish.mp3';
 
@@ -281,6 +284,7 @@ class $AssetsSoundsGen {
     click,
     correct,
     dropWord,
+    failure,
     gameFinish,
     putWord,
     wrong,

@@ -18,4 +18,21 @@ class HomeworksRepositoryImpl implements HomeworksRepository {
       return homeworksDataSource!.getHomeworks(uid: uid);
     }
   }
+
+  @override
+  Future<Either<Failure, Null>> updateHomework(
+      {required String uid,
+      required int homeworkId,
+      required int score,
+      required bool isCompleted}) async {
+    if (homeworksDataSource == null) {
+      return left(Failure("Data source is null"));
+    } else {
+      return homeworksDataSource!.updateHomework(
+          uid: uid,
+          homeworkId: homeworkId,
+          score: score,
+          isCompleted: isCompleted);
+    }
+  }
 }

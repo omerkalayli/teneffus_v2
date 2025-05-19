@@ -23,32 +23,59 @@ class WritingGamePage extends HookConsumerWidget {
     required this.selectedUnit,
     required this.selectedUnitNumber,
     this.isAllLessonsSelected = false,
+    this.isAllUnitsSelected = false,
+    this.isInQuiz,
+    this.quizScore,
+    this.quizStep,
+    this.quizLength,
+    this.onFinished,
     super.key,
   });
 
   final bool isAllLessonsSelected;
+  final bool isAllUnitsSelected;
   final Unit selectedUnit;
   final int selectedUnitNumber;
   final List<Lesson> selectedLessons;
+  final bool? isInQuiz;
+  final int? quizScore;
+  final int? quizStep;
+  final int? quizLength;
+  final Function(int)? onFinished;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    const numberOfQuestions = 16;
+
     final sfxPlayer = useMemoized(() => AudioPlayer());
     final scrollController = useScrollController();
     final textController = useTextEditingController();
     final shuffledWords = useMemoized(() {
-      final list =
-          selectedLessons.expand((lesson) => lesson.words).take(16).toList();
+      final list = selectedLessons
+          .expand((lesson) => lesson.words)
+          .take(numberOfQuestions)
+          .toList();
       list.shuffle();
       return list;
     });
     final score = useState(0);
     final selectedWordIndex = useState(0);
     final selectedWord = useState(shuffledWords[selectedWordIndex.value]);
-    double progress = (selectedWordIndex.value) / shuffledWords.length;
+    final length = isInQuiz ?? false
+        ? quizLength! * numberOfQuestions
+        : shuffledWords.length;
+    final currentProgress = (selectedWordIndex.value +
+        (isInQuiz ?? false ? quizStep! * numberOfQuestions : 0));
+
+    double progress = currentProgress / length;
+
     final isWrong = useState(false);
+    final isControlling = useState(false);
+
     void checkAnswer() {
+      if (isControlling.value) return;
       if (isWrong.value) return;
+      isControlling.value = true;
       String answer = normalizeArabic(textController.text.trim());
       String correctAnswer = normalizeArabic(selectedWord.value.ar);
       bool isCorrect = answer == correctAnswer;
@@ -66,13 +93,17 @@ class WritingGamePage extends HookConsumerWidget {
         }
       }
       if (selectedWordIndex.value + 1 == shuffledWords.length) {
-        Future.microtask(() async {
-          Future.delayed(Duration(milliseconds: isCorrect ? 0 : 3000),
-              () async {
-            await showGameOverDialog(context, score.value, ref);
-            Navigator.pop(context);
+        if (isInQuiz == true) {
+          onFinished?.call(score.value);
+        } else {
+          Future.microtask(() async {
+            Future.delayed(Duration(milliseconds: isCorrect ? 0 : 3000),
+                () async {
+              await showGameOverDialog(context, score.value, ref);
+              Navigator.pop(context);
+            });
           });
-        });
+        }
       } else {
         Future.delayed(const Duration(milliseconds: 3000), () {
           isWrong.value = false;
@@ -81,6 +112,9 @@ class WritingGamePage extends HookConsumerWidget {
           textController.clear();
         });
       }
+      Future.delayed(Duration(milliseconds: isCorrect ? 0 : 3000), () {
+        isControlling.value = false;
+      });
     }
 
     return Stack(
@@ -132,6 +166,7 @@ class WritingGamePage extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GameHeader(
+                          isAllUnitsSelected: isAllUnitsSelected,
                           selectedUnit: selectedUnit,
                           isAllLessonsSelected: isAllLessonsSelected,
                           selectedLessons: selectedLessons),
@@ -140,8 +175,8 @@ class WritingGamePage extends HookConsumerWidget {
                         child: Row(
                           children: [
                             StepCounter(
-                              current: selectedWordIndex.value,
-                              length: shuffledWords.length,
+                              current: currentProgress,
+                              length: length,
                             ),
                             const Spacer(),
                             AnimatedScoreText(
@@ -223,11 +258,15 @@ class WritingGamePage extends HookConsumerWidget {
                                   () {
                                 if (selectedWordIndex.value + 1 ==
                                     shuffledWords.length) {
-                                  Future.microtask(() async {
-                                    await showGameOverDialog(
-                                        context, score.value, ref);
-                                    Navigator.pop(context);
-                                  });
+                                  if (isInQuiz == true) {
+                                    onFinished?.call(score.value);
+                                  } else {
+                                    Future.microtask(() async {
+                                      await showGameOverDialog(
+                                          context, score.value, ref);
+                                      Navigator.pop(context);
+                                    });
+                                  }
                                 } else {
                                   selectedWordIndex.value++;
                                   selectedWord.value =

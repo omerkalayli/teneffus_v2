@@ -33,6 +33,7 @@ class StrokedText extends StatelessWidget {
       children: [
         AutoSizeText(
           text,
+          minFontSize: 8,
           maxLines: 2,
           style: (style ?? const TextStyle()).copyWith(
             foreground: Paint()
@@ -42,6 +43,7 @@ class StrokedText extends StatelessWidget {
           ),
         ),
         AutoSizeText(
+          minFontSize: 8,
           text,
           maxLines: maxLines,
           style: style,

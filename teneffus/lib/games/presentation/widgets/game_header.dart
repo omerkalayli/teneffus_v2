@@ -6,22 +6,32 @@ class GameHeader extends StatelessWidget {
   const GameHeader({
     super.key,
     required this.selectedUnit,
+    required this.isAllUnitsSelected,
     required this.isAllLessonsSelected,
     required this.selectedLessons,
   });
 
   final Unit selectedUnit;
   final bool isAllLessonsSelected;
+  final bool isAllUnitsSelected;
   final List<Lesson> selectedLessons;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          "${selectedUnit.number}. Ünite ${selectedUnit.nameTr}",
-          style: const TextStyle(fontSize: 14),
-        ),
+        if (!isAllUnitsSelected) ...[
+          Text(
+            "${selectedUnit.number}. Ünite ${selectedUnit.nameTr}",
+            style: const TextStyle(fontSize: 14),
+          ),
+        ] else ...[
+          const Text(
+            "Tüm Üniteler",
+            style: TextStyle(fontSize: 14),
+          ),
+        ],
+        const SizedBox(height: 4),
         if (isAllLessonsSelected) ...[
           const Text(
             "Tüm Konular",

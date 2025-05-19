@@ -12,4 +12,9 @@ final homeworksRepositoryProvider = Provider<HomeworksRepositoryImpl>((ref) {
 
 abstract interface class HomeworksRepository {
   Future<Either<Failure, List<Homework>>> getHomeworks({required String uid});
+  Future<Either<Failure, Null>> updateHomework(
+      {required String uid,
+      required int homeworkId,
+      required int score,
+      required bool isCompleted});
 }

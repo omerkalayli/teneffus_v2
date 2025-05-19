@@ -25,11 +25,13 @@ class MatchingGamePage extends HookConsumerWidget {
     required this.selectedLessons,
     required this.selectedUnit,
     required this.selectedUnitNumber,
+    this.isAllUnitsSelected = false,
     this.isAllLessonsSelected = false,
     super.key,
   });
 
   final bool isAllLessonsSelected;
+  final bool isAllUnitsSelected;
   final Unit selectedUnit;
   final int selectedUnitNumber;
   final List<Lesson> selectedLessons;
@@ -94,6 +96,7 @@ class MatchingGamePage extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GameHeader(
+                    isAllUnitsSelected: isAllUnitsSelected,
                     selectedUnit: selectedUnit,
                     isAllLessonsSelected: isAllLessonsSelected,
                     selectedLessons: selectedLessons),

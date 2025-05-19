@@ -1,0 +1,1 @@
+/Users/omerkalayli/Desktop/Front-End/Teneffus'/teneffus_v2/teneffus/build/app/intermediates/cxx/RelWithDebInfo/6z134b58/obj/arm64-v8a

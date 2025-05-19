@@ -14,6 +14,11 @@ final homeworksDataSourceProvider = Provider<HomeworksDataSource>(
 
 abstract interface class HomeworksDataSource {
   Future<Either<Failure, List<Homework>>> getHomeworks({required String uid});
+  Future<Either<Failure, Null>> updateHomework(
+      {required String uid,
+      required int homeworkId,
+      required int score,
+      required bool isCompleted});
 }
 
 class HomeworksFirebaseDb implements HomeworksDataSource {
@@ -50,6 +55,31 @@ class HomeworksFirebaseDb implements HomeworksDataSource {
       return right(homeworkList);
     } catch (e) {
       return left(Failure("Error getting homeworks $e"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Null>> updateHomework({
+    required String uid,
+    required int homeworkId,
+    required int score,
+    required bool isCompleted,
+  }) async {
+    try {
+      final homeworkRef = firestore
+          .collection("users")
+          .doc(uid)
+          .collection("homeworks")
+          .doc(homeworkId.toString());
+
+      if (isCompleted) {
+        homeworkRef.update({"isCompleted": true});
+      }
+      homeworkRef.update({"myScore": score});
+
+      return right(null);
+    } catch (e) {
+      return left(Failure("Error completing homework $e"));
     }
   }
 }

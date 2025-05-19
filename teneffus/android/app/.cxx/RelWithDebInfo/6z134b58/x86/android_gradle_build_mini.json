@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/omerkalayli/development/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/omerkalayli/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/omerkalayli/Desktop/Front-End/Teneffus\u0027/teneffus_v2/teneffus/android/app/.cxx/RelWithDebInfo/6z134b58/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/omerkalayli/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/omerkalayli/Desktop/Front-End/Teneffus\u0027/teneffus_v2/teneffus/android/app/.cxx/RelWithDebInfo/6z134b58/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
