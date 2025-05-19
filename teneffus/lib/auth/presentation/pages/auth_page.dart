@@ -31,8 +31,10 @@ class AuthPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final carouselController = ref.watch(carouselControllerProvider);
     final authState = ref.watch(authNotifierProvider);
-    final userInformation =
-        ref.watch(authNotifierProvider.notifier).userInformation;
+    final isStudent = ref.watch(userTypeProvider);
+    final userInformation = isStudent
+        ? ref.watch(authNotifierProvider.notifier).studentInformation
+        : ref.watch(authNotifierProvider.notifier).teacherInformation;
 
     listenAuthState(ref, context);
 

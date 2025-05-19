@@ -6,6 +6,8 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/auth/presentation/pages/auth_page.dart';
+import 'package:teneffus/auth/presentation/widgets/register_container.dart';
+import 'package:teneffus/auth/presentation/widgets/user_type_selection_container.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/gen/assets.gen.dart';
 import 'package:teneffus/global_entities/button_type.dart';
@@ -18,7 +20,6 @@ import 'package:teneffus/global_widgets/stroked_text.dart';
 import 'package:teneffus/validator.dart';
 
 /// [AuthLoginPage] is the page where users can login to the app.
-
 class AuthLoginPage extends HookConsumerWidget {
   const AuthLoginPage({
     super.key,
@@ -31,6 +32,7 @@ class AuthLoginPage extends HookConsumerWidget {
     final passwordTextEditingController = useTextEditingController();
     double textFieldHeight = 60;
     double iconButtonSize = 60;
+    final isStudent = ref.watch(userTypeProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -135,13 +137,20 @@ class AuthLoginPage extends HookConsumerWidget {
                 ),
                 const Gap(32),
                 SizedBox(
-                  height: 60,
+                  height: 48,
                   width: 200,
                   child: CustomTextButton(
+                    buttonPalette: ButtonPalette.midnightBlue(),
                     text: "Giriş Yap",
                     onPressed: () async {
-                      await _signInWithEmail(emailTextEditingController,
-                          passwordTextEditingController, context, ref);
+                      await _signInWithEmail(
+                          emailTextEditingController:
+                              emailTextEditingController,
+                          passwordTextEditingController:
+                              passwordTextEditingController,
+                          context: context,
+                          ref: ref,
+                          isStudent: isStudent);
                     },
                   ),
                 ),
@@ -195,7 +204,7 @@ class AuthLoginPage extends HookConsumerWidget {
                             onPressed: () async {
                               await ref
                                   .read(authNotifierProvider.notifier)
-                                  .signInWithGoogle();
+                                  .signInWithGoogle(isStudent: isStudent);
                             },
                             child: Assets.images.google.image(
                                 width: iconButtonSize * .53,
@@ -205,35 +214,26 @@ class AuthLoginPage extends HookConsumerWidget {
                       ],
                     ),
                     const Gap(32),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(width: 2, color: Colors.white)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Text(
-                            "Buralarda yeni misin?",
-                            style: TextStyle(shadows: [textShadowSmall]),
-                          ),
-                          CustomTextButton(
-                              fontSize: 16,
-                              buttonPalette: ButtonPalette.blue(),
-                              text: "Kayıt Ol",
-                              onPressed: () async {
-                                await ref
-                                    .read(carouselControllerProvider)
-                                    .nextPage();
-                                if (context.mounted) {
-                                  await ref
-                                      .read(authNotifierProvider.notifier)
-                                      .redirectToRegister();
-                                }
-                              }),
-                        ],
-                      ),
+                    UserTypeSelectionContainer(
+                        isStudent: isStudent,
+                        onStudentSelected: () {
+                          ref.read(userTypeProvider.notifier).state = true;
+                        },
+                        onTeacherSelected: () {
+                          ref.read(userTypeProvider.notifier).state = false;
+                        }),
+                    const Gap(16),
+                    RegisterContainer(
+                      onTap: () async {
+                        await ref
+                            .read(carouselControllerProvider)
+                            .nextPage(curve: Curves.fastEaseInToSlowEaseOut);
+                        if (context.mounted) {
+                          await ref
+                              .read(authNotifierProvider.notifier)
+                              .redirectToRegister();
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -246,10 +246,11 @@ class AuthLoginPage extends HookConsumerWidget {
   }
 
   Future<void> _signInWithEmail(
-      TextEditingController emailTextEditingController,
-      TextEditingController passwordTextEditingController,
-      BuildContext context,
-      WidgetRef ref) async {
+      {required TextEditingController emailTextEditingController,
+      required TextEditingController passwordTextEditingController,
+      required BuildContext context,
+      required WidgetRef ref,
+      required bool isStudent}) async {
     bool isValid = EmailValidator.validate(emailTextEditingController.text);
     if (passwordTextEditingController.text.isEmpty) {
       CustomSnackbar.show(
@@ -259,7 +260,8 @@ class AuthLoginPage extends HookConsumerWidget {
     } else if (isValid) {
       await ref.read(authNotifierProvider.notifier).signInWithEmail(
           email: emailTextEditingController.text,
-          password: passwordTextEditingController.text);
+          password: passwordTextEditingController.text,
+          isStudent: isStudent);
     } else {
       CustomSnackbar.show(
           type: SnackbarType.error(),

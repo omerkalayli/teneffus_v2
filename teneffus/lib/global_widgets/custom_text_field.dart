@@ -25,18 +25,19 @@ class CustomTextField extends StatelessWidget {
     Color? errorBorderColor,
     TextDirection? textDirection,
     Color? focusedBorderColor,
-    Color? textColor,
     double? borderWidth,
     bool? obscureText,
+    TextStyle? textStyle,
     super.key,
   })  : borderRadius = borderRadius ?? BorderRadius.circular(12),
         color = color ?? textFieldColor,
         enabledBorderColor = enabledBorderColor ?? textFieldEnabledBorderColor,
         errorBorderColor = errorBorderColor ?? textFieldErrorBorderColor,
         focusedBorderColor = focusedBorderColor ?? textFieldFocusedBorderColor,
-        textColor = textColor ?? textFieldTextColor,
         borderWidth = borderWidth ?? 2,
         textDirection = textDirection ?? TextDirection.ltr,
+        textStyle = textStyle?.copyWith(color: textFieldTextColor) ??
+            const TextStyle(color: textFieldTextColor, fontSize: 16),
         obscureText = obscureText ?? false;
 
   final BorderRadius borderRadius;
@@ -45,41 +46,35 @@ class CustomTextField extends StatelessWidget {
   final Color enabledBorderColor;
   final Color errorBorderColor;
   final Color focusedBorderColor;
-  final Color textColor;
   final double borderWidth;
   final TextEditingController controller;
   final bool obscureText;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        textSelectionTheme: TextSelectionThemeData(
-          selectionHandleColor: textColor,
-        ),
-      ),
-      child: TextField(
-        textDirection: textDirection,
-        obscureText: obscureText,
-        controller: controller,
-        cursorColor: textColor,
-        style: TextStyle(color: textColor),
-        decoration: InputDecoration(
-          errorBorder: OutlineInputBorder(
-              borderRadius: borderRadius,
-              borderSide:
-                  BorderSide(width: borderWidth, color: errorBorderColor)),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: borderRadius,
-              borderSide:
-                  BorderSide(width: borderWidth, color: enabledBorderColor)),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: borderRadius,
-              borderSide:
-                  BorderSide(width: borderWidth, color: focusedBorderColor)),
-          filled: true,
-          fillColor: color,
-        ),
+    return TextField(
+      textDirection: textDirection,
+      obscureText: obscureText,
+      controller: controller,
+      cursorColor: textStyle?.color,
+      style: textStyle,
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+        errorBorder: OutlineInputBorder(
+            borderRadius: borderRadius,
+            borderSide:
+                BorderSide(width: borderWidth, color: errorBorderColor)),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: borderRadius,
+            borderSide:
+                BorderSide(width: borderWidth, color: enabledBorderColor)),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: borderRadius,
+            borderSide:
+                BorderSide(width: borderWidth, color: focusedBorderColor)),
+        filled: true,
+        fillColor: color,
       ),
     );
   }

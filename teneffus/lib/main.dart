@@ -7,13 +7,17 @@ import 'package:teneffus/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:teneffus/firebase_options.dart';
 
+final restartAppProvider = Provider<void Function()>(
+  (ref) => throw UnimplementedError(),
+);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting("tr_TR");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ProviderScope(child: MainApp()));
+  runApp(MainAppWrapper());
 }
 
 class MainApp extends HookWidget {
@@ -25,6 +29,34 @@ class MainApp extends HookWidget {
       debugShowCheckedModeBanner: false,
       theme: theme,
       routerConfig: _appRouter.config(),
+    );
+  }
+}
+
+class MainAppWrapper extends StatefulWidget {
+  const MainAppWrapper({super.key});
+
+  @override
+  State<MainAppWrapper> createState() => _MainAppWrapperState();
+}
+
+class _MainAppWrapperState extends State<MainAppWrapper> {
+  Key _providerScopeKey = UniqueKey();
+
+  void restartApp() {
+    setState(() {
+      _providerScopeKey = UniqueKey();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ProviderScope(
+      key: _providerScopeKey,
+      overrides: [
+        restartAppProvider.overrideWithValue(restartApp),
+      ],
+      child: MainApp(),
     );
   }
 }

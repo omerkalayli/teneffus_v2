@@ -5,7 +5,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
+import 'package:teneffus/auth/presentation/pages/auth_login_page.dart';
 import 'package:teneffus/constants.dart';
+import 'package:teneffus/global_entities/button_type.dart';
 import 'package:teneffus/global_entities/snackbar_type.dart';
 import 'package:teneffus/global_widgets/custom_picker.dart';
 import 'package:teneffus/global_widgets/custom_snackbar.dart';
@@ -29,6 +31,8 @@ class AuthRegisterPage extends HookConsumerWidget {
     final auth = FirebaseAuth.instance;
 
     bool signedInWithGoogle = auth.currentUser != null;
+
+    final isStudent = ref.watch(userTypeProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -128,46 +132,56 @@ class AuthRegisterPage extends HookConsumerWidget {
                           controller: surnameTextEditingController,
                         )),
                     const Gap(16),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 4.0),
-                        child: StrokedText(
-                          "Sınıfın",
-                          strokeWidth: 2,
-                          strokeColor: const Color(0xff4A4A4A),
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            shadows: [textShadowSmall],
+                    !isStudent
+                        ? const SizedBox.shrink()
+                        : Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 4.0),
+                                  child: StrokedText(
+                                    "Sınıfın",
+                                    strokeWidth: 2,
+                                    strokeColor: const Color(0xff4A4A4A),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                      shadows: [textShadowSmall],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(
+                                          color: Colors.white60, width: 3),
+                                      color: Colors.transparent),
+                                  child: CustomPicker(
+                                    labels: const ["9", "10", "11", "12"],
+                                    onSelected: (index) {
+                                      grade.value = index + 9;
+                                    },
+                                    defaultIndex: 0,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: Colors.white60, width: 3),
-                            color: Colors.transparent),
-                        child: CustomPicker(
-                          labels: const ["9", "10", "11", "12"],
-                          onSelected: (index) {
-                            grade.value = index + 9;
-                          },
-                          defaultIndex: 0,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
                 Gap(signedInWithGoogle ? 32 : 16),
                 SizedBox(
-                  height: 60,
+                  height: 48,
                   width: 200,
                   child: CustomTextButton(
-                    text: "Giriş Yap",
+                    buttonPalette: ButtonPalette.midnightBlue(),
+                    text: "Hesap Oluştur",
                     onPressed: () async {
                       if (nameTextEditingController.text.isEmpty ||
                           surnameTextEditingController.text.isEmpty ||
@@ -180,15 +194,27 @@ class AuthRegisterPage extends HookConsumerWidget {
                         );
                         return;
                       }
-                      await ref
-                          .read(authNotifierProvider.notifier)
-                          .registerUser(
-                            name: nameTextEditingController.text,
-                            surname: surnameTextEditingController.text,
-                            grade: grade.value,
-                            email: emailTextEditingController.text,
-                            password: passwordTextEditingController.text,
-                          );
+                      if (isStudent) {
+                        await ref
+                            .read(authNotifierProvider.notifier)
+                            .registerStudent(
+                              isStudent: isStudent,
+                              name: nameTextEditingController.text,
+                              surname: surnameTextEditingController.text,
+                              grade: grade.value,
+                              email: emailTextEditingController.text,
+                              password: passwordTextEditingController.text,
+                            );
+                      } else {
+                        await ref
+                            .read(authNotifierProvider.notifier)
+                            .registerTeacher(
+                              name: nameTextEditingController.text,
+                              surname: surnameTextEditingController.text,
+                              email: emailTextEditingController.text,
+                              password: passwordTextEditingController.text,
+                            );
+                      }
                     },
                   ),
                 ),

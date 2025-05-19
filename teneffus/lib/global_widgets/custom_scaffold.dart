@@ -5,12 +5,14 @@ class CustomScaffold extends StatelessWidget {
     this.bottomNavigationBar,
     this.appBar,
     this.body,
+    this.flotingActionButton,
     super.key,
   });
 
   final Widget? body;
   final AppBar? appBar;
   final Widget? bottomNavigationBar;
+  final Widget? flotingActionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class CustomScaffold extends StatelessWidget {
         ),
       ),
       child: Scaffold(
+        floatingActionButton: flotingActionButton,
         appBar: appBar,
         bottomNavigationBar: bottomNavigationBar,
         backgroundColor: Colors.transparent,

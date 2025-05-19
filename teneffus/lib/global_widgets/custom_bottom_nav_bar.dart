@@ -7,10 +7,12 @@ class CustomBottomNavBar extends StatelessWidget {
     super.key,
     required this.currentIndex,
     required this.pageController,
+    required this.isStudent,
   });
 
   final ValueNotifier<int> currentIndex;
   final PageController pageController;
+  final bool isStudent;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +33,12 @@ class CustomBottomNavBar extends StatelessWidget {
             children: [
               Expanded(
                 child: NavBarItem(
+                  isStudent: isStudent,
                   isSelected: currentIndex.value == 0,
-                  icon: Icons.chrome_reader_mode_outlined,
-                  label: "Görevlerim",
+                  icon: isStudent
+                      ? Icons.chrome_reader_mode_outlined
+                      : Icons.post_add_rounded,
+                  label: isStudent ? "Görevlerim" : "Görev Oluştur",
                   onTap: () {
                     pageController.animateToPage(
                         duration: Durations.medium1,
@@ -44,9 +49,12 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               Expanded(
                 child: NavBarItem(
+                  isStudent: isStudent,
                   isSelected: currentIndex.value == 1,
-                  icon: Icons.sports_esports_rounded,
-                  label: " Oyunlar ",
+                  icon: isStudent
+                      ? Icons.sports_esports_rounded
+                      : Icons.home_rounded,
+                  label: isStudent ? " Oyunlar " : "Ana Menü",
                   onTap: () {
                     pageController.animateToPage(
                         duration: Durations.medium1,
@@ -57,9 +65,10 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               Expanded(
                 child: NavBarItem(
+                  isStudent: isStudent,
                   isSelected: currentIndex.value == 2,
-                  label: "Ana Menü",
-                  icon: Icons.home_rounded,
+                  label: isStudent ? "Ana Menü" : "Öğrenciler",
+                  icon: isStudent ? Icons.home_rounded : Icons.people_rounded,
                   onTap: () {
                     pageController.animateToPage(
                         duration: Durations.medium1,
@@ -68,32 +77,36 @@ class CustomBottomNavBar extends StatelessWidget {
                   },
                 ),
               ),
-              Expanded(
-                child: NavBarItem(
-                  isSelected: currentIndex.value == 3,
-                  icon: Icons.library_books_rounded,
-                  label: "Kelimeler",
-                  onTap: () {
-                    pageController.animateToPage(
-                        duration: Durations.medium1,
-                        curve: Curves.linearToEaseOut,
-                        3);
-                  },
+              if (isStudent)
+                Expanded(
+                  child: NavBarItem(
+                    isStudent: isStudent,
+                    isSelected: currentIndex.value == 3,
+                    icon: Icons.library_books_rounded,
+                    label: "Kelimeler",
+                    onTap: () {
+                      pageController.animateToPage(
+                          duration: Durations.medium1,
+                          curve: Curves.linearToEaseOut,
+                          3);
+                    },
+                  ),
                 ),
-              ),
-              Expanded(
-                child: NavBarItem(
-                  isSelected: currentIndex.value == 4,
-                  icon: Icons.public_rounded,
-                  label: "Sosyal  ",
-                  onTap: () {
-                    pageController.animateToPage(
-                        duration: Durations.medium1,
-                        curve: Curves.linearToEaseOut,
-                        4);
-                  },
+              if (isStudent)
+                Expanded(
+                  child: NavBarItem(
+                    isStudent: isStudent,
+                    isSelected: currentIndex.value == 4,
+                    icon: Icons.public_rounded,
+                    label: "Sosyal  ",
+                    onTap: () {
+                      pageController.animateToPage(
+                          duration: Durations.medium1,
+                          curve: Curves.linearToEaseOut,
+                          4);
+                    },
+                  ),
                 ),
-              ),
             ],
           ),
         ),

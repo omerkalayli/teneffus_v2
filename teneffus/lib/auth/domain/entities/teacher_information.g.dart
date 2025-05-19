@@ -1,31 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_information.dart';
+part of 'teacher_information.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserInformationImpl _$$UserInformationImplFromJson(
+_$TeacherInformationImpl _$$TeacherInformationImplFromJson(
         Map<String, dynamic> json) =>
-    _$UserInformationImpl(
+    _$TeacherInformationImpl(
       uid: json['uid'] as String,
       name: json['name'] as String,
       surname: json['surname'] as String,
       email: json['email'] as String,
-      grade: (json['grade'] as num).toInt(),
-      rank: json['rank'] as String,
-      starCount: (json['starCount'] as num).toInt(),
+      students: (json['students'] as List<dynamic>)
+          .map((e) => StudentInformation.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$$UserInformationImplToJson(
-        _$UserInformationImpl instance) =>
+Map<String, dynamic> _$$TeacherInformationImplToJson(
+        _$TeacherInformationImpl instance) =>
     <String, dynamic>{
       'uid': instance.uid,
       'name': instance.name,
       'surname': instance.surname,
       'email': instance.email,
-      'grade': instance.grade,
-      'rank': instance.rank,
-      'starCount': instance.starCount,
+      'students': instance.students,
     };

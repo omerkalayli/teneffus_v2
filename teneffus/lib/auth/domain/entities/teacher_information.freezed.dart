@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_information.dart';
+part of 'teacher_information.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,57 +14,53 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-UserInformation _$UserInformationFromJson(Map<String, dynamic> json) {
-  return _UserInformation.fromJson(json);
+TeacherInformation _$TeacherInformationFromJson(Map<String, dynamic> json) {
+  return _TeacherInformation.fromJson(json);
 }
 
 /// @nodoc
-mixin _$UserInformation {
+mixin _$TeacherInformation {
   String get uid => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get surname => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  int get grade => throw _privateConstructorUsedError;
-  String get rank => throw _privateConstructorUsedError;
-  int get starCount => throw _privateConstructorUsedError;
+  List<StudentInformation> get students => throw _privateConstructorUsedError;
 
-  /// Serializes this UserInformation to a JSON map.
+  /// Serializes this TeacherInformation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of UserInformation
+  /// Create a copy of TeacherInformation
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $UserInformationCopyWith<UserInformation> get copyWith =>
+  $TeacherInformationCopyWith<TeacherInformation> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserInformationCopyWith<$Res> {
-  factory $UserInformationCopyWith(
-          UserInformation value, $Res Function(UserInformation) then) =
-      _$UserInformationCopyWithImpl<$Res, UserInformation>;
+abstract class $TeacherInformationCopyWith<$Res> {
+  factory $TeacherInformationCopyWith(
+          TeacherInformation value, $Res Function(TeacherInformation) then) =
+      _$TeacherInformationCopyWithImpl<$Res, TeacherInformation>;
   @useResult
   $Res call(
       {String uid,
       String name,
       String surname,
       String email,
-      int grade,
-      String rank,
-      int starCount});
+      List<StudentInformation> students});
 }
 
 /// @nodoc
-class _$UserInformationCopyWithImpl<$Res, $Val extends UserInformation>
-    implements $UserInformationCopyWith<$Res> {
-  _$UserInformationCopyWithImpl(this._value, this._then);
+class _$TeacherInformationCopyWithImpl<$Res, $Val extends TeacherInformation>
+    implements $TeacherInformationCopyWith<$Res> {
+  _$TeacherInformationCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of UserInformation
+  /// Create a copy of TeacherInformation
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -73,9 +69,7 @@ class _$UserInformationCopyWithImpl<$Res, $Val extends UserInformation>
     Object? name = null,
     Object? surname = null,
     Object? email = null,
-    Object? grade = null,
-    Object? rank = null,
-    Object? starCount = null,
+    Object? students = null,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
@@ -94,28 +88,20 @@ class _$UserInformationCopyWithImpl<$Res, $Val extends UserInformation>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      grade: null == grade
-          ? _value.grade
-          : grade // ignore: cast_nullable_to_non_nullable
-              as int,
-      rank: null == rank
-          ? _value.rank
-          : rank // ignore: cast_nullable_to_non_nullable
-              as String,
-      starCount: null == starCount
-          ? _value.starCount
-          : starCount // ignore: cast_nullable_to_non_nullable
-              as int,
+      students: null == students
+          ? _value.students
+          : students // ignore: cast_nullable_to_non_nullable
+              as List<StudentInformation>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$UserInformationImplCopyWith<$Res>
-    implements $UserInformationCopyWith<$Res> {
-  factory _$$UserInformationImplCopyWith(_$UserInformationImpl value,
-          $Res Function(_$UserInformationImpl) then) =
-      __$$UserInformationImplCopyWithImpl<$Res>;
+abstract class _$$TeacherInformationImplCopyWith<$Res>
+    implements $TeacherInformationCopyWith<$Res> {
+  factory _$$TeacherInformationImplCopyWith(_$TeacherInformationImpl value,
+          $Res Function(_$TeacherInformationImpl) then) =
+      __$$TeacherInformationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -123,20 +109,18 @@ abstract class _$$UserInformationImplCopyWith<$Res>
       String name,
       String surname,
       String email,
-      int grade,
-      String rank,
-      int starCount});
+      List<StudentInformation> students});
 }
 
 /// @nodoc
-class __$$UserInformationImplCopyWithImpl<$Res>
-    extends _$UserInformationCopyWithImpl<$Res, _$UserInformationImpl>
-    implements _$$UserInformationImplCopyWith<$Res> {
-  __$$UserInformationImplCopyWithImpl(
-      _$UserInformationImpl _value, $Res Function(_$UserInformationImpl) _then)
+class __$$TeacherInformationImplCopyWithImpl<$Res>
+    extends _$TeacherInformationCopyWithImpl<$Res, _$TeacherInformationImpl>
+    implements _$$TeacherInformationImplCopyWith<$Res> {
+  __$$TeacherInformationImplCopyWithImpl(_$TeacherInformationImpl _value,
+      $Res Function(_$TeacherInformationImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserInformation
+  /// Create a copy of TeacherInformation
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -145,11 +129,9 @@ class __$$UserInformationImplCopyWithImpl<$Res>
     Object? name = null,
     Object? surname = null,
     Object? email = null,
-    Object? grade = null,
-    Object? rank = null,
-    Object? starCount = null,
+    Object? students = null,
   }) {
-    return _then(_$UserInformationImpl(
+    return _then(_$TeacherInformationImpl(
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
@@ -166,36 +148,27 @@ class __$$UserInformationImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      grade: null == grade
-          ? _value.grade
-          : grade // ignore: cast_nullable_to_non_nullable
-              as int,
-      rank: null == rank
-          ? _value.rank
-          : rank // ignore: cast_nullable_to_non_nullable
-              as String,
-      starCount: null == starCount
-          ? _value.starCount
-          : starCount // ignore: cast_nullable_to_non_nullable
-              as int,
+      students: null == students
+          ? _value._students
+          : students // ignore: cast_nullable_to_non_nullable
+              as List<StudentInformation>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UserInformationImpl implements _UserInformation {
-  const _$UserInformationImpl(
+class _$TeacherInformationImpl implements _TeacherInformation {
+  const _$TeacherInformationImpl(
       {required this.uid,
       required this.name,
       required this.surname,
       required this.email,
-      required this.grade,
-      required this.rank,
-      required this.starCount});
+      required final List<StudentInformation> students})
+      : _students = students;
 
-  factory _$UserInformationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserInformationImplFromJson(json);
+  factory _$TeacherInformationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TeacherInformationImplFromJson(json);
 
   @override
   final String uid;
@@ -205,67 +178,64 @@ class _$UserInformationImpl implements _UserInformation {
   final String surname;
   @override
   final String email;
+  final List<StudentInformation> _students;
   @override
-  final int grade;
-  @override
-  final String rank;
-  @override
-  final int starCount;
+  List<StudentInformation> get students {
+    if (_students is EqualUnmodifiableListView) return _students;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_students);
+  }
 
   @override
   String toString() {
-    return 'UserInformation(uid: $uid, name: $name, surname: $surname, email: $email, grade: $grade, rank: $rank, starCount: $starCount)';
+    return 'TeacherInformation(uid: $uid, name: $name, surname: $surname, email: $email, students: $students)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserInformationImpl &&
+            other is _$TeacherInformationImpl &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.surname, surname) || other.surname == surname) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.grade, grade) || other.grade == grade) &&
-            (identical(other.rank, rank) || other.rank == rank) &&
-            (identical(other.starCount, starCount) ||
-                other.starCount == starCount));
+            const DeepCollectionEquality().equals(other._students, _students));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, uid, name, surname, email, grade, rank, starCount);
+  int get hashCode => Object.hash(runtimeType, uid, name, surname, email,
+      const DeepCollectionEquality().hash(_students));
 
-  /// Create a copy of UserInformation
+  /// Create a copy of TeacherInformation
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserInformationImplCopyWith<_$UserInformationImpl> get copyWith =>
-      __$$UserInformationImplCopyWithImpl<_$UserInformationImpl>(
+  _$$TeacherInformationImplCopyWith<_$TeacherInformationImpl> get copyWith =>
+      __$$TeacherInformationImplCopyWithImpl<_$TeacherInformationImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserInformationImplToJson(
+    return _$$TeacherInformationImplToJson(
       this,
     );
   }
 }
 
-abstract class _UserInformation implements UserInformation {
-  const factory _UserInformation(
-      {required final String uid,
-      required final String name,
-      required final String surname,
-      required final String email,
-      required final int grade,
-      required final String rank,
-      required final int starCount}) = _$UserInformationImpl;
+abstract class _TeacherInformation implements TeacherInformation {
+  const factory _TeacherInformation(
+          {required final String uid,
+          required final String name,
+          required final String surname,
+          required final String email,
+          required final List<StudentInformation> students}) =
+      _$TeacherInformationImpl;
 
-  factory _UserInformation.fromJson(Map<String, dynamic> json) =
-      _$UserInformationImpl.fromJson;
+  factory _TeacherInformation.fromJson(Map<String, dynamic> json) =
+      _$TeacherInformationImpl.fromJson;
 
   @override
   String get uid;
@@ -276,16 +246,12 @@ abstract class _UserInformation implements UserInformation {
   @override
   String get email;
   @override
-  int get grade;
-  @override
-  String get rank;
-  @override
-  int get starCount;
+  List<StudentInformation> get students;
 
-  /// Create a copy of UserInformation
+  /// Create a copy of TeacherInformation
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UserInformationImplCopyWith<_$UserInformationImpl> get copyWith =>
+  _$$TeacherInformationImplCopyWith<_$TeacherInformationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

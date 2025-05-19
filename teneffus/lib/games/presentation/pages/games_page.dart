@@ -23,7 +23,7 @@ class GamesPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedUnitNumber = useState(0);
     final selectedLesson = useState(0);
-    final user = ref.watch(authNotifierProvider.notifier).userInformation;
+    final user = ref.watch(authNotifierProvider.notifier).studentInformation;
     final grade = user?.grade;
     final units = UnitGetter.getUnits(grade!);
     final lessons = units[selectedUnitNumber.value].lessons;

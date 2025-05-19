@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:teneffus/auth/domain/entities/user_information.dart';
+import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/global_widgets/stroked_text.dart';
 import 'package:teneffus/main/presentation/widgets/user_badge.dart';
@@ -15,7 +15,7 @@ class MainHeader extends HookConsumerWidget {
     required this.userInfo,
   });
 
-  final UserInformation? userInfo;
+  final StudentInformation? userInfo;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -5,11 +5,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/games/presentation/pages/games_page.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
+import 'package:teneffus/homework_teacher/presentation/homework_creation_page.dart';
 import 'package:teneffus/homeworks/presentation/notifiers/homeworks_notifier.dart';
 import 'package:teneffus/homeworks/presentation/pages/homeworks_page.dart';
 import 'package:teneffus/main/presentation/pages/main_page.dart';
 import 'package:teneffus/global_widgets/custom_bottom_nav_bar.dart';
+import 'package:teneffus/main_teacher/presentation/pages/teacher_main_page.dart';
 import 'package:teneffus/social/presentation/pages/social_page.dart';
+import 'package:teneffus/students/presentation/pages/students_page.dart';
 import 'package:teneffus/words/presentation/pages/words_page.dart';
 
 /// MainLayoutPage is the main layout of the app. It consists bottom navigation bar.
@@ -20,18 +23,21 @@ class MainLayoutPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pageController = usePageController(initialPage: 2);
-    final currentIndex = useState(2);
+    final isStudent = ref.watch(userTypeProvider);
+    final pageController = usePageController(initialPage: isStudent ? 2 : 1);
+    final currentIndex = useState(isStudent ? 2 : 1);
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        ref.read(homeworksNotifierProvider.notifier).getHomeworks(
-              uid: ref
-                      .read(authNotifierProvider.notifier)
-                      .userInformation
-                      ?.uid ??
-                  "",
-            );
+        if (isStudent) {
+          ref.read(homeworksNotifierProvider.notifier).getHomeworks(
+                uid: ref
+                        .read(authNotifierProvider.notifier)
+                        .studentInformation
+                        ?.uid ??
+                    "",
+              );
+        }
       });
       return null;
     }, []);
@@ -45,16 +51,24 @@ class MainLayoutPage extends HookConsumerWidget {
               currentIndex.value = index;
             },
             controller: pageController,
-            children: const [
-              HomeworksPage(),
-              GamesPage(),
-              MainPage(),
-              WordsPage(),
-              SocialPage(),
-            ],
+            children: isStudent
+                ? const [
+                    HomeworksPage(),
+                    GamesPage(),
+                    MainPage(),
+                    WordsPage(),
+                    SocialPage(),
+                  ]
+                : const [
+                    HomeworkCreationPage(),
+                    TeacherMainPage(),
+                    StudentsPage(),
+                  ],
           ),
           CustomBottomNavBar(
-              currentIndex: currentIndex, pageController: pageController),
+              isStudent: isStudent,
+              currentIndex: currentIndex,
+              pageController: pageController),
         ],
       ),
     );

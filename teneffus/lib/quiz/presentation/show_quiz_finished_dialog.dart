@@ -33,8 +33,9 @@ Future<void> showQuizFinishedDialog(
 
   if (isHomework && isPassed) {
     ref.read(homeworksNotifierProvider.notifier).updateHomework(
-          uid: ref.read(authNotifierProvider.notifier).userInformation?.uid ??
-              "",
+          uid:
+              ref.read(authNotifierProvider.notifier).studentInformation?.uid ??
+                  "",
           homeworkId: homeworkId,
           score: score,
           isCompleted: true,

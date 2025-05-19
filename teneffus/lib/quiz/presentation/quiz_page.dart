@@ -42,7 +42,7 @@ class QuizPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(authNotifierProvider.notifier).userInformation;
+    final user = ref.watch(authNotifierProvider.notifier).studentInformation;
     final units = UnitGetter.getUnits(user?.grade ?? 9);
     final selectedLessons = isAllLessonsSelected
         ? units

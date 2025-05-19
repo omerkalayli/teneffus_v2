@@ -12,7 +12,8 @@ class UserBadge extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userInfo = ref.watch(authNotifierProvider.notifier).userInformation;
+    final userInfo =
+        ref.watch(authNotifierProvider.notifier).studentInformation;
     const double minBarWidth = 64;
     const double maxBarWidth = 140;
     final double ratio = ((userInfo?.starCount ?? 0) / 100).clamp(0.0, 1.0);

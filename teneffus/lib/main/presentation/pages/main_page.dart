@@ -21,9 +21,10 @@ class MainPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userInfo = ref.watch(authNotifierProvider.notifier).userInformation;
+    final userInfo =
+        ref.watch(authNotifierProvider.notifier).studentInformation;
     const dayStreak = 6;
-    final user = ref.watch(authNotifierProvider.notifier).userInformation;
+    final user = ref.watch(authNotifierProvider.notifier).studentInformation;
     final grade = user?.grade;
     final units = UnitGetter.getUnits(grade!);
     final selectedUnitNumber = useState(0);

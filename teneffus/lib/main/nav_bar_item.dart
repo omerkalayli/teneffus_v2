@@ -10,6 +10,7 @@ class NavBarItem extends StatelessWidget {
     required this.isSelected,
     required this.label,
     required this.icon,
+    required this.isStudent,
     super.key,
   });
 
@@ -17,6 +18,7 @@ class NavBarItem extends StatelessWidget {
   final IconData icon;
   final bool isSelected;
   final Function onTap;
+  final bool isStudent;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class NavBarItem extends StatelessWidget {
             },
             child: AnimatedContainer(
               duration: Durations.short3,
-              width: MediaQuery.of(context).size.width / 5,
+              width: MediaQuery.of(context).size.width / (isStudent ? 5 : 3),
               height: 80,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),

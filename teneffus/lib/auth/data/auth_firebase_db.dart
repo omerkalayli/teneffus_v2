@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:teneffus/auth/domain/entities/student_information.dart';
+import 'package:teneffus/auth/domain/entities/teacher_information.dart';
 import 'package:teneffus/auth/domain/entities/user_information.dart';
 import 'package:teneffus/failure.dart';
 
@@ -14,14 +16,25 @@ final authDataSourceProvider = Provider<AuthDataSource>(
 /// [AuthDataSource] implementation for Firebase.
 
 abstract interface class AuthDataSource {
-  Future<Either<Failure, UserInformation>> signInWithGoogle();
+  Future<Either<Failure, UserInformation>> signInWithGoogle(
+      {required bool isStudent});
   Future<Either<Failure, UserInformation>> signInWithEmail(
-      {required String email, required String password});
-  Future<Either<Failure, UserInformation>> getUserInformation();
-  Future<Either<Failure, UserInformation>> registerUser({
+      {required String email,
+      required String password,
+      required bool isStudent});
+  Future<Either<Failure, String?>> getUserType(String uid);
+  Future<Either<Failure, StudentInformation>> getStudentInformation();
+  Future<Either<Failure, TeacherInformation>> getTeacherInformation();
+  Future<Either<Failure, StudentInformation>> registerStudent({
     required String name,
     required String surname,
     required int grade,
+    String? email,
+    String? password,
+  });
+  Future<Either<Failure, TeacherInformation>> registerTeacher({
+    required String name,
+    required String surname,
     String? email,
     String? password,
   });
@@ -35,9 +48,13 @@ class AuthFirebaseDb implements AuthDataSource {
   final auth = FirebaseAuth.instance;
   AuthFirebaseDb({required this.firestore});
 
-  Future<bool> doesUserExist({required String uid}) async {
+  Future<bool> doesUserExist(
+      {required String uid, required bool isStudent}) async {
     try {
-      final user = await firestore.collection("users").doc(uid).get();
+      final user = await firestore
+          .collection(isStudent ? "users" : "teachers")
+          .doc(uid)
+          .get();
       if (!user.exists) {
         return false;
       }
@@ -48,7 +65,7 @@ class AuthFirebaseDb implements AuthDataSource {
   }
 
   @override
-  Future<Either<Failure, UserInformation>> getUserInformation() async {
+  Future<Either<Failure, StudentInformation>> getStudentInformation() async {
     try {
       if (auth.currentUser == null) {
         return left(Failure("User not found"));
@@ -58,39 +75,92 @@ class AuthFirebaseDb implements AuthDataSource {
       if (!user.exists) {
         return left(Failure("User not found"));
       }
-      return right(UserInformation(
-          uid: auth.currentUser!.uid,
-          name: user.get("name"),
-          surname: user.get("surname"),
-          email: auth.currentUser!.email!,
-          grade: user.get("grade"),
-          rank: user.get("rank"),
-          starCount: user.get("starCount")));
+      return right(StudentInformation(
+        uid: auth.currentUser!.uid,
+        name: user.get("name"),
+        surname: user.get("surname"),
+        email: auth.currentUser!.email!,
+        grade: user.get("grade"),
+        rank: user.get("rank"),
+        starCount: user.get("starCount"),
+      ));
     } catch (e) {
       return left(Failure(e.toString()));
     }
   }
 
-  Future<UserSubInformation> getUserSubInformation(
+  Future<StudentSubInformation> getStudentSubInformation(
       {required String uid}) async {
     try {
       final user = await firestore.collection("users").doc(uid).get();
       if (!user.exists) {
         throw Exception("User not found");
       }
-      return UserSubInformation(
-          name: user.get("name"),
-          surname: user.get("surname"),
-          grade: user.get("grade"),
-          rank: user.get("rank"),
-          starCount: user.get("starCount"));
+      return StudentSubInformation(
+        name: user.get("name"),
+        surname: user.get("surname"),
+        grade: user.get("grade"),
+        rank: user.get("rank"),
+        starCount: user.get("starCount"),
+      );
     } catch (e) {
       throw Exception(e.toString());
     }
   }
 
   @override
-  Future<Either<Failure, UserInformation>> signInWithGoogle() async {
+  Future<Either<Failure, TeacherInformation>> getTeacherInformation() async {
+    try {
+      if (auth.currentUser == null) {
+        return left(Failure("User not found"));
+      }
+      final user = await firestore
+          .collection("teachers")
+          .doc(auth.currentUser!.uid)
+          .get();
+      if (!user.exists) {
+        return left(Failure("User not found"));
+      }
+      return right(TeacherInformation(
+        uid: auth.currentUser!.uid,
+        name: user.get("name"),
+        surname: user.get("surname"),
+        email: auth.currentUser!.email!,
+        students: user.get("students") != null
+            ? List<StudentInformation>.from(user
+                .get("students")
+                .map((student) => StudentInformation.fromJson(student)))
+            : [],
+      ));
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  Future<TeacherSubInformation> getTeacherSubInformation(
+      {required String uid}) async {
+    try {
+      final user = await firestore.collection("teachers").doc(uid).get();
+      if (!user.exists) {
+        throw Exception("User not found");
+      }
+      return TeacherSubInformation(
+        name: user.get("name"),
+        surname: user.get("surname"),
+        students: user.get("students") != null
+            ? List<StudentInformation>.from(user
+                .get("students")
+                .map((student) => StudentInformation.fromJson(student)))
+            : [],
+      );
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserInformation>> signInWithGoogle(
+      {required bool isStudent}) async {
     try {
       final googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
@@ -109,20 +179,35 @@ class AuthFirebaseDb implements AuthDataSource {
         return left(Failure("User not found"));
       }
 
-      bool userExists = await doesUserExist(uid: userCredential.user!.uid);
+      bool userExists = await doesUserExist(
+          uid: userCredential.user!.uid, isStudent: isStudent);
 
       if (userExists) {
-        UserSubInformation userSubInformation =
-            await getUserSubInformation(uid: userCredential.user!.uid);
-        UserInformation userInformation = UserInformation(
+        if (isStudent) {
+          StudentSubInformation userSubInformation =
+              await getStudentSubInformation(uid: userCredential.user!.uid);
+          StudentInformation userInformation = StudentInformation(
             uid: userCredential.user!.uid,
             name: userSubInformation.name,
             surname: userSubInformation.surname,
             email: userCredential.user!.email!,
             grade: userSubInformation.grade,
             rank: userSubInformation.rank,
-            starCount: userSubInformation.starCount);
-        return right(userInformation);
+            starCount: userSubInformation.starCount,
+          );
+          return right(userInformation);
+        } else {
+          TeacherSubInformation userSubInformation =
+              await getTeacherSubInformation(uid: userCredential.user!.uid);
+          TeacherInformation userInformation = TeacherInformation(
+            uid: userCredential.user!.uid,
+            name: userSubInformation.name,
+            surname: userSubInformation.surname,
+            email: userCredential.user!.email!,
+            students: userSubInformation.students,
+          );
+          return right(userInformation);
+        }
       } else {
         return left(Failure("user-not-found")); // To redirect to register page.
       }
@@ -133,7 +218,9 @@ class AuthFirebaseDb implements AuthDataSource {
 
   @override
   Future<Either<Failure, UserInformation>> signInWithEmail(
-      {required String email, required String password}) async {
+      {required String email,
+      required String password,
+      required bool isStudent}) async {
     try {
       final userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -141,27 +228,39 @@ class AuthFirebaseDb implements AuthDataSource {
       if (userCredential.user == null) {
         return left(Failure("user-not-found"));
       }
-
-      UserSubInformation userSubInformation =
-          await getUserSubInformation(uid: userCredential.user!.uid);
-      UserInformation userInformation = UserInformation(
+      if (isStudent) {
+        StudentSubInformation userSubInformation =
+            await getStudentSubInformation(uid: userCredential.user!.uid);
+        StudentInformation userInformation = StudentInformation(
           uid: userCredential.user!.uid,
           name: userSubInformation.name,
           surname: userSubInformation.surname,
           email: userCredential.user!.email!,
           grade: userSubInformation.grade,
           rank: userSubInformation.rank,
-          starCount: userSubInformation.starCount);
-
-      return right(userInformation);
+          starCount: userSubInformation.starCount,
+        );
+        return right(userInformation);
+      } else {
+        TeacherSubInformation userSubInformation =
+            await getTeacherSubInformation(uid: userCredential.user!.uid);
+        TeacherInformation userInformation = TeacherInformation(
+          uid: userCredential.user!.uid,
+          name: userSubInformation.name,
+          surname: userSubInformation.surname,
+          email: userCredential.user!.email!,
+          students: userSubInformation.students,
+        );
+        return right(userInformation);
+      }
     } on FirebaseAuthException catch (e) {
       return left(Failure(e.code.toString()));
     }
   }
 
-  /// Registers not registered users (only email) and writes db [UserInformation] of the user.
+  /// Registers not registered users (only email) and writes db [StudentInformation] of the user.
   @override
-  Future<Either<Failure, UserInformation>> registerUser(
+  Future<Either<Failure, StudentInformation>> registerStudent(
       {required String name,
       required String surname,
       required int grade,
@@ -178,14 +277,15 @@ class AuthFirebaseDb implements AuthDataSource {
           return left(Failure("User not found"));
         }
 
-        final userInfo = UserInformation(
-            uid: userCredential.user!.uid,
-            name: name,
-            surname: surname,
-            email: email,
-            grade: grade,
-            rank: "Çaylak 1",
-            starCount: 0);
+        final userInfo = StudentInformation(
+          uid: userCredential.user!.uid,
+          name: name,
+          surname: surname,
+          email: email,
+          grade: grade,
+          rank: "Çaylak 1",
+          starCount: 0,
+        );
 
         await firestore.collection("users").doc(userCredential.user!.uid).set({
           "name": name,
@@ -202,26 +302,27 @@ class AuthFirebaseDb implements AuthDataSource {
           return left(Failure("User not found"));
         }
 
-        final userInfo = UserInformation(
-            uid: auth.currentUser!.uid,
-            name: name,
-            surname: surname,
-            email: auth.currentUser!.email!,
-            grade: grade,
-            rank: "Çaylak 1",
-            starCount: 0);
+        final userInfo = StudentInformation(
+          uid: auth.currentUser!.uid,
+          name: name,
+          surname: surname,
+          email: auth.currentUser!.email!,
+          grade: grade,
+          rank: "Çaylak 1",
+          starCount: 0,
+        );
 
         await firestore.collection("users").doc(auth.currentUser!.uid).set({
           "name": name,
           "surname": surname,
           "grade": grade,
           "rank": "Çaylak 1",
-          "starCount": 0
+          "starCount": 0,
         });
         return right(userInfo);
       }
-    } catch (e) {
-      return left(Failure(e.toString()));
+    } on FirebaseAuthException catch (e) {
+      return left(Failure(e.code.toString()));
     }
   }
 
@@ -254,19 +355,109 @@ class AuthFirebaseDb implements AuthDataSource {
       throw Exception(e.toString());
     }
   }
+
+  @override
+  Future<Either<Failure, TeacherInformation>> registerTeacher(
+      {required String name,
+      required String surname,
+      String? email,
+      String? password}) async {
+    try {
+      if (auth.currentUser == null) {
+        // Signing in with email and password.
+
+        final userCredential = await auth.createUserWithEmailAndPassword(
+            email: email!, password: password!);
+
+        if (userCredential.user == null) {
+          return left(Failure("User not found"));
+        }
+
+        final userInfo = TeacherInformation(
+          uid: userCredential.user!.uid,
+          name: name,
+          surname: surname,
+          email: email,
+          students: [],
+        );
+
+        await firestore
+            .collection("teachers")
+            .doc(userCredential.user!.uid)
+            .set({
+          "name": name,
+          "surname": surname,
+          "students": [],
+        });
+        return right(userInfo);
+      } else {
+        // Signing in with Google.
+
+        if (auth.currentUser == null) {
+          return left(Failure("User not found"));
+        }
+
+        final userInfo = TeacherInformation(
+          uid: auth.currentUser!.uid,
+          name: name,
+          surname: surname,
+          email: auth.currentUser!.email!,
+          students: [],
+        );
+
+        await firestore.collection("teachers").doc(auth.currentUser!.uid).set({
+          "name": name,
+          "surname": surname,
+          "students": [],
+        });
+        return right(userInfo);
+      }
+    } on FirebaseAuthException catch (e) {
+      return left(Failure(e.code.toString()));
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String?>> getUserType(String uid) async {
+    final firestore = FirebaseFirestore.instance;
+
+    try {
+      final teacherDoc = await firestore.collection("teachers").doc(uid).get();
+      if (teacherDoc.exists) return right("teacher");
+
+      final userDoc = await firestore.collection("users").doc(uid).get();
+      if (userDoc.exists) return right("student");
+
+      return right(null); // Kullanıcı bulunamadı ama hata değil
+    } catch (e) {
+      return left(Failure("Firestore hatası: ${e.toString()}"));
+    }
+  }
 }
 
-class UserSubInformation {
+class StudentSubInformation {
   final String name;
   final String surname;
   final int grade;
   final String rank;
   final int starCount;
 
-  UserSubInformation(
-      {required this.name,
-      required this.surname,
-      required this.grade,
-      required this.rank,
-      required this.starCount});
+  StudentSubInformation({
+    required this.name,
+    required this.surname,
+    required this.grade,
+    required this.rank,
+    required this.starCount,
+  });
+}
+
+class TeacherSubInformation {
+  final String name;
+  final String surname;
+  final List<StudentInformation> students;
+
+  TeacherSubInformation(
+      {required this.name, required this.surname, required this.students});
 }
