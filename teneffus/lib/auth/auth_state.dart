@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:teneffus/auth/domain/entities/student_information.dart';
+import 'package:teneffus/auth/domain/entities/teacher_information.dart';
 
 part 'auth_state.freezed.dart';
 
@@ -6,7 +8,9 @@ part 'auth_state.freezed.dart';
 class AuthState with _$AuthState {
   const factory AuthState.initial() = _Initial;
   const factory AuthState.loading() = _Loading;
-  const factory AuthState.authenticated() = _Authenticated;
+  const factory AuthState.authenticated(
+      {StudentInformation? studentInformation,
+      TeacherInformation? teacherInformation}) = _Authenticated;
   const factory AuthState.register() = _Register;
   const factory AuthState.unauthenticated() = _Unauthenticated;
   const factory AuthState.initialLoading() = _InitialLoading;

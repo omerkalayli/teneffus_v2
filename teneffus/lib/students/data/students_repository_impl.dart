@@ -10,11 +10,12 @@ class StudentsRepositoryImpl implements StudentsRepository {
   StudentsRepositoryImpl(this.studentsDataSource);
 
   @override
-  Future<Either<Failure, void>> addStudent(StudentInformation student) async {
+  Future<Either<Failure, void>> addStudent(
+      StudentInformation student, String teacherEmail) async {
     if (studentsDataSource == null) {
       return left(Failure("Data source is null"));
     } else {
-      return studentsDataSource!.addStudent(student);
+      return studentsDataSource!.addStudent(student, teacherEmail);
     }
   }
 

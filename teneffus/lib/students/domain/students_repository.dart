@@ -11,7 +11,8 @@ final studentsRepositoryProvider = Provider<StudentsRepositoryImpl>((ref) {
 });
 
 abstract interface class StudentsRepository {
-  Future<Either<Failure, void>> addStudent(StudentInformation student);
+  Future<Either<Failure, void>> addStudent(
+      StudentInformation student, String teacherEmail);
   Future<Either<Failure, void>> deleteStudent(String uid);
   Future<Either<Failure, List<StudentInformation>>> getStudents();
 }

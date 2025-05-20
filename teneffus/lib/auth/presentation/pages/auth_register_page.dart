@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/auth/presentation/pages/auth_login_page.dart';
+import 'package:teneffus/auth/presentation/widgets/user_type_selection_container.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/global_entities/button_type.dart';
 import 'package:teneffus/global_entities/snackbar_type.dart';
@@ -32,7 +33,7 @@ class AuthRegisterPage extends HookConsumerWidget {
 
     bool signedInWithGoogle = auth.currentUser != null;
 
-    final isStudent = ref.watch(userTypeProvider);
+    final isStudent = useState(true);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -60,6 +61,15 @@ class AuthRegisterPage extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (!signedInWithGoogle) ...[
+                      UserTypeSelectionContainer(
+                          isStudent: isStudent.value,
+                          onStudentSelected: () {
+                            isStudent.value = true;
+                          },
+                          onTeacherSelected: () {
+                            isStudent.value = false;
+                          }),
+                      const Gap(16),
                       Padding(
                         padding: const EdgeInsets.only(left: 4.0),
                         child: StrokedText(
@@ -72,11 +82,9 @@ class AuthRegisterPage extends HookConsumerWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                          height: 60,
-                          child: CustomTextField(
-                            controller: emailTextEditingController,
-                          )),
+                      CustomTextField(
+                        controller: emailTextEditingController,
+                      ),
                       const Gap(4),
                       Padding(
                         padding: const EdgeInsets.only(left: 4.0),
@@ -90,12 +98,10 @@ class AuthRegisterPage extends HookConsumerWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                          height: 60,
-                          child: CustomTextField(
-                            obscureText: true,
-                            controller: passwordTextEditingController,
-                          )),
+                      CustomTextField(
+                        obscureText: true,
+                        controller: passwordTextEditingController,
+                      ),
                     ],
                     const Gap(4),
                     Padding(
@@ -109,11 +115,9 @@ class AuthRegisterPage extends HookConsumerWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                        height: 60,
-                        child: CustomTextField(
-                          controller: nameTextEditingController,
-                        )),
+                    CustomTextField(
+                      controller: nameTextEditingController,
+                    ),
                     const Gap(4),
                     Padding(
                       padding: const EdgeInsets.only(left: 4.0),
@@ -126,13 +130,11 @@ class AuthRegisterPage extends HookConsumerWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                        height: 60,
-                        child: CustomTextField(
-                          controller: surnameTextEditingController,
-                        )),
-                    const Gap(16),
-                    !isStudent
+                    CustomTextField(
+                      controller: surnameTextEditingController,
+                    ),
+                    const Gap(4),
+                    !(isStudent.value)
                         ? const SizedBox.shrink()
                         : Column(
                             children: [
@@ -194,11 +196,10 @@ class AuthRegisterPage extends HookConsumerWidget {
                         );
                         return;
                       }
-                      if (isStudent) {
+                      if (isStudent.value) {
                         await ref
                             .read(authNotifierProvider.notifier)
                             .registerStudent(
-                              isStudent: isStudent,
                               name: nameTextEditingController.text,
                               surname: surnameTextEditingController.text,
                               grade: grade.value,

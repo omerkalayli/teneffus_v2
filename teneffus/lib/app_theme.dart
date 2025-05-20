@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:teneffus/constants.dart';
 
 ThemeData get theme => ThemeData(
       scaffoldBackgroundColor: Colors.transparent,
+      textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: Color.fromRGBO(51, 51, 51, 1),
+        selectionHandleColor: textFieldTextColor,
+      ),
       textTheme: GoogleFonts.montserratTextTheme(const TextTheme(
           headlineMedium: TextStyle(fontSize: 30, color: Colors.white),
           headlineSmall: TextStyle(

@@ -17,37 +17,53 @@ class AuthNotifier extends _$AuthNotifier {
   late final AuthRepository _authRepository;
   StudentInformation? studentInformation;
   TeacherInformation? teacherInformation;
+
+  bool _isSignedIn = false;
   @override
   Future<AuthState> build() async {
     _authRepository = ref.read(authRepositoryProvider);
     bool isStudent = ref.read(userTypeProvider);
-    if (isStudent) {
-      studentInformation = await getStudentInformation();
-    } else {
-      teacherInformation = await getTeacherInformation();
+    if (_isSignedIn) {
+      if (isStudent) {
+        studentInformation = await getStudentInformation();
+      } else {
+        teacherInformation = await getTeacherInformation();
+      }
     }
     return const AuthState.initial();
   }
 
-  Future<StudentInformation?>? getStudentInformation() async {
-    state = const AsyncValue.data(AuthState.initialLoading());
+  Future<StudentInformation?> getStudentInformation() async {
+    state = const AsyncValue.loading();
     final result = await _authRepository.getStudentInformation();
+
     return result.fold(
-      (failure) => null,
+      (failure) {
+        state = AsyncValue.data(AuthState.error(failure.message));
+        return null;
+      },
       (userInfo) {
         studentInformation = userInfo;
+        state = AsyncValue.data(
+            AuthState.authenticated(studentInformation: userInfo));
         return userInfo;
       },
     );
   }
 
-  Future<TeacherInformation?>? getTeacherInformation() async {
-    state = const AsyncValue.data(AuthState.initialLoading());
+  Future<TeacherInformation?> getTeacherInformation() async {
+    state = const AsyncValue.loading();
     final result = await _authRepository.getTeacherInformation();
+
     return result.fold(
-      (failure) => null,
+      (failure) {
+        state = AsyncValue.data(AuthState.error(failure.message));
+        return null;
+      },
       (userInfo) {
         teacherInformation = userInfo;
+        state = AsyncValue.data(
+            AuthState.authenticated(teacherInformation: teacherInformation));
         return userInfo;
       },
     );
@@ -71,7 +87,9 @@ class AuthNotifier extends _$AuthNotifier {
   Future<void> signOut() async {
     await _authRepository.signOut();
     studentInformation = null;
+    teacherInformation = null;
     ref.read(restartAppProvider)();
+    _isSignedIn = false;
     state = const AsyncValue.data(AuthState.unauthenticated());
   }
 
@@ -85,50 +103,66 @@ class AuthNotifier extends _$AuthNotifier {
     return null;
   }
 
-  Future<void> signInWithGoogle({required bool isStudent}) async {
+  Future<void> signInWithGoogle() async {
     state = const AsyncValue.data(AuthState.loading());
-    final result = await _authRepository.signInWithGoogle(isStudent: isStudent);
+
+    final result = await _authRepository.signInWithGoogle();
     state = result.fold(
       (failure) {
         if (failure.message == "user-not-found") {
           return const AsyncValue.data(AuthState.register());
+        } else if (failure.message == "Exception: wrong-user-type") {
+          return const AsyncValue.data(AuthState.error("wrong-user-type"));
         } else {
           return AsyncValue.data(AuthState.error(failure.message));
         }
       },
-      (userInfo) {
-        if (isStudent) {
-          studentInformation = userInfo as StudentInformation?;
+      (authResult) {
+        _isSignedIn = true;
+        if (authResult.userType == "student") {
+          ref.read(userTypeProvider.notifier).state = true;
+          studentInformation = authResult.userInfo as StudentInformation?;
         } else {
-          teacherInformation = userInfo as TeacherInformation?;
+          ref.read(userTypeProvider.notifier).state = false;
+
+          teacherInformation = authResult.userInfo as TeacherInformation?;
         }
-        return const AsyncValue.data(AuthState.authenticated());
+        return AsyncValue.data(AuthState.authenticated(
+            studentInformation: studentInformation,
+            teacherInformation: teacherInformation));
       },
     );
   }
 
-  Future<void> signInWithEmail(
-      {required String email,
-      required String password,
-      required bool isStudent}) async {
+  Future<void> signInWithEmail({
+    required String email,
+    required String password,
+  }) async {
     state = const AsyncValue.data(AuthState.loading());
-    final result = await _authRepository.signInWithEmail(
-        email: email, password: password, isStudent: isStudent);
+    final result =
+        await _authRepository.signInWithEmail(email: email, password: password);
     state = result.fold(
       (failure) {
         if (failure.message == "user-not-found") {
           return const AsyncValue.data(AuthState.register());
+        } else if (failure.message == "Exception: wrong-user-type") {
+          return const AsyncValue.data(AuthState.error("wrong-user-type"));
         } else {
           return AsyncValue.data(AuthState.error(failure.message));
         }
       },
-      (userInfo) {
-        if (isStudent) {
-          studentInformation = userInfo as StudentInformation?;
+      (authResult) {
+        _isSignedIn = true;
+        if (authResult.userType == "student") {
+          ref.read(userTypeProvider.notifier).state = true;
+          studentInformation = authResult.userInfo as StudentInformation?;
         } else {
-          teacherInformation = userInfo as TeacherInformation?;
+          ref.read(userTypeProvider.notifier).state = false;
+          teacherInformation = authResult.userInfo as TeacherInformation?;
         }
-        return const AsyncValue.data(AuthState.authenticated());
+        return AsyncValue.data(AuthState.authenticated(
+            studentInformation: studentInformation,
+            teacherInformation: teacherInformation));
       },
     );
   }
@@ -139,7 +173,6 @@ class AuthNotifier extends _$AuthNotifier {
     required int grade,
     required String email,
     required String password,
-    required bool isStudent,
   }) async {
     state = const AsyncValue.data(AuthState.loading());
     final result = await _authRepository.registerStudent(
@@ -152,6 +185,7 @@ class AuthNotifier extends _$AuthNotifier {
     state = result.fold(
       (failure) => AsyncValue.data(AuthState.error(failure.message)),
       (userInformation) {
+        _isSignedIn = true;
         studentInformation = userInformation;
         return const AsyncValue.data(AuthState.authenticated());
       },
@@ -174,6 +208,7 @@ class AuthNotifier extends _$AuthNotifier {
     state = result.fold(
       (failure) => AsyncValue.data(AuthState.error(failure.message)),
       (userInformation) {
+        _isSignedIn = true;
         teacherInformation = userInformation;
         return const AsyncValue.data(AuthState.authenticated());
       },
@@ -181,7 +216,7 @@ class AuthNotifier extends _$AuthNotifier {
   }
 
   Future<String?> getUserType(String uid) async {
-    final result = await _authRepository.getUserType(uid);
+    final result = await _authRepository.getUserType(uid: uid);
     return result.fold(
       (failure) => null,
       (userType) {

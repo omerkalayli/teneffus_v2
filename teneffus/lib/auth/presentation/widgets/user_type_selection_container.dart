@@ -16,79 +16,57 @@ class UserTypeSelectionContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-            child: AnimatedContainer(
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-          duration: animationDuration,
-          decoration: BoxDecoration(
-            border: const Border(
-                left: BorderSide(width: 2, color: Colors.white),
-                right: BorderSide(width: 2, color: Colors.white),
-                top: BorderSide(width: 2, color: Colors.white)),
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-            color: isStudent ? Colors.cyan.shade700 : Colors.indigo.shade400,
-          ),
-          child: const Text(
-            "Kullanıcı Tipi",
-            style: TextStyle(shadows: [textShadowSmall]),
-          ),
-        )),
-        AnimatedContainer(
-          duration: animationDuration,
-          decoration: BoxDecoration(
-              color: isStudent ? Colors.cyan.shade700 : Colors.indigo.shade400,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 2, color: Colors.white)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              InkWell(
-                onTap: () {
-                  onStudentSelected();
-                },
-                child: Row(
-                  children: [
-                    const Text(
-                      "Öğrenciyim",
-                      style: TextStyle(shadows: [textShadowSmall]),
-                    ),
-                    Checkbox(
-                        activeColor: Colors.black45,
-                        side: const BorderSide(color: Colors.white, width: 2),
-                        value: isStudent,
-                        onChanged: (val) {
-                          onStudentSelected();
-                        }),
-                  ],
+    return AnimatedContainer(
+      duration: animationDuration,
+      decoration: BoxDecoration(
+          color: !isStudent ? Colors.cyan.shade700 : Colors.blue,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(width: 2, color: Colors.white)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          InkWell(
+            onTap: () {
+              onStudentSelected();
+            },
+            child: Row(
+              children: [
+                const Text(
+                  "Öğrenciyim",
+                  style: TextStyle(shadows: [textShadowSmall]),
                 ),
-              ),
-              InkWell(
-                onTap: () {
-                  onTeacherSelected();
-                },
-                child: Row(
-                  children: [
-                    const Text(
-                      "Öğretmenim",
-                      style: TextStyle(shadows: [textShadowSmall]),
-                    ),
-                    Checkbox(
-                        activeColor: Colors.black45,
-                        side: const BorderSide(color: Colors.white, width: 2),
-                        value: !isStudent,
-                        onChanged: (val) {
-                          onTeacherSelected();
-                        }),
-                  ],
-                ),
-              ),
-            ],
+                Checkbox(
+                    activeColor: Colors.black45,
+                    side: const BorderSide(color: Colors.white, width: 2),
+                    value: isStudent,
+                    onChanged: (val) {
+                      onStudentSelected();
+                    }),
+              ],
+            ),
           ),
-        ),
-      ],
+          InkWell(
+            onTap: () {
+              onTeacherSelected();
+            },
+            child: Row(
+              children: [
+                const Text(
+                  "Öğretmenim",
+                  style: TextStyle(shadows: [textShadowSmall]),
+                ),
+                Checkbox(
+                    activeColor: Colors.black45,
+                    side: const BorderSide(color: Colors.white, width: 2),
+                    value: !isStudent,
+                    onChanged: (val) {
+                      onTeacherSelected();
+                    }),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

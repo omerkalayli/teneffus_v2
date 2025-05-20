@@ -17,18 +17,19 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MainAppWrapper());
+  runApp(const MainAppWrapper());
 }
 
 class MainApp extends HookWidget {
-  MainApp({super.key});
-  final _appRouter = AppRouter();
+  const MainApp({required this.router, super.key});
+
+  final AppRouter router;
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: theme,
-      routerConfig: _appRouter.config(),
+      routerConfig: router.config(),
     );
   }
 }
@@ -41,7 +42,14 @@ class MainAppWrapper extends StatefulWidget {
 }
 
 class _MainAppWrapperState extends State<MainAppWrapper> {
-  Key _providerScopeKey = UniqueKey();
+  late Key _providerScopeKey;
+  late AppRouter _router;
+  @override
+  void initState() {
+    super.initState();
+    _providerScopeKey = UniqueKey();
+    _router = AppRouter();
+  }
 
   void restartApp() {
     setState(() {
@@ -56,7 +64,9 @@ class _MainAppWrapperState extends State<MainAppWrapper> {
       overrides: [
         restartAppProvider.overrideWithValue(restartApp),
       ],
-      child: MainApp(),
+      child: MainApp(
+        router: _router,
+      ),
     );
   }
 }

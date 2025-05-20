@@ -24,12 +24,13 @@ class MainLayoutPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isStudent = ref.watch(userTypeProvider);
-    final pageController = usePageController(initialPage: isStudent ? 2 : 1);
-    final currentIndex = useState(isStudent ? 2 : 1);
+    final pageController =
+        usePageController(initialPage: isStudent ?? true ? 2 : 1);
+    final currentIndex = useState(isStudent ?? true ? 2 : 1);
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (isStudent) {
+        if (isStudent ?? true) {
           ref.read(homeworksNotifierProvider.notifier).getHomeworks(
                 uid: ref
                         .read(authNotifierProvider.notifier)
@@ -51,7 +52,7 @@ class MainLayoutPage extends HookConsumerWidget {
               currentIndex.value = index;
             },
             controller: pageController,
-            children: isStudent
+            children: isStudent ?? true
                 ? const [
                     HomeworksPage(),
                     GamesPage(),
@@ -66,7 +67,7 @@ class MainLayoutPage extends HookConsumerWidget {
                   ],
           ),
           CustomBottomNavBar(
-              isStudent: isStudent,
+              isStudent: isStudent ?? true,
               currentIndex: currentIndex,
               pageController: pageController),
         ],

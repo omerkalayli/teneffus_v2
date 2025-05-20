@@ -3,7 +3,6 @@ import 'package:teneffus/auth/data/auth_firebase_db.dart';
 import 'package:teneffus/auth/domain/auth_repository.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/auth/domain/entities/teacher_information.dart';
-import 'package:teneffus/auth/domain/entities/user_information.dart';
 import 'package:teneffus/failure.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -12,25 +11,24 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.authDataSource);
 
   @override
-  Future<Either<Failure, UserInformation>> signInWithGoogle(
-      {required bool isStudent}) async {
+  Future<Either<Failure, AuthResult>> signInWithGoogle() async {
     if (authDataSource == null) {
       return left(Failure("Data source is null"));
     } else {
-      return await authDataSource!.signInWithGoogle(isStudent: isStudent);
+      return await authDataSource!.signInWithGoogle();
     }
   }
 
   @override
-  Future<Either<Failure, UserInformation>> signInWithEmail(
-      {required String email,
-      required String password,
-      required bool isStudent}) async {
+  Future<Either<Failure, AuthResult>> signInWithEmail({
+    required String email,
+    required String password,
+  }) async {
     if (authDataSource == null) {
       return left(Failure("Data source is null"));
     } else {
-      return await authDataSource!.signInWithEmail(
-          email: email, password: password, isStudent: isStudent);
+      return await authDataSource!
+          .signInWithEmail(email: email, password: password);
     }
   }
 
@@ -119,11 +117,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, String?>> getUserType(String uid) async {
+  Future<Either<Failure, String>> getUserType({required String uid}) async {
     if (authDataSource == null) {
       return left(Failure("Data source is null"));
     } else {
-      return authDataSource!.getUserType(uid);
+      return authDataSource!.getUserType(uid: uid);
     }
   }
 }

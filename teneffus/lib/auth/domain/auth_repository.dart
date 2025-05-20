@@ -4,7 +4,6 @@ import 'package:teneffus/auth/data/auth_firebase_db.dart';
 import 'package:teneffus/auth/data/auth_repository_impl.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/auth/domain/entities/teacher_information.dart';
-import 'package:teneffus/auth/domain/entities/user_information.dart';
 import 'package:teneffus/failure.dart';
 
 final authRepositoryProvider = Provider<AuthRepositoryImpl>((ref) {
@@ -13,12 +12,11 @@ final authRepositoryProvider = Provider<AuthRepositoryImpl>((ref) {
 });
 
 abstract interface class AuthRepository {
-  Future<Either<Failure, UserInformation>> signInWithGoogle(
-      {required bool isStudent});
-  Future<Either<Failure, UserInformation>> signInWithEmail(
-      {required String email,
-      required String password,
-      required bool isStudent});
+  Future<Either<Failure, AuthResult>> signInWithGoogle();
+  Future<Either<Failure, AuthResult>> signInWithEmail({
+    required String email,
+    required String password,
+  });
   Future<void> increaseStarCount({required String uid, required int starCount});
   Future<Either<Failure, StudentInformation>> registerStudent({
     required String name,
@@ -37,5 +35,5 @@ abstract interface class AuthRepository {
   Future<Either<Failure, TeacherInformation>> getTeacherInformation();
   Future<void> signOut();
   Future<Either<Failure, bool>> sendResetPasswordEmail({required String email});
-  Future<Either<Failure, String?>> getUserType(String uid);
+  Future<Either<Failure, String?>> getUserType({required String uid});
 }

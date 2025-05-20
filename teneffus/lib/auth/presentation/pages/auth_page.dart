@@ -32,7 +32,7 @@ class AuthPage extends HookConsumerWidget {
     final carouselController = ref.watch(carouselControllerProvider);
     final authState = ref.watch(authNotifierProvider);
     final isStudent = ref.watch(userTypeProvider);
-    final userInformation = isStudent
+    final userInformation = isStudent == true
         ? ref.watch(authNotifierProvider.notifier).studentInformation
         : ref.watch(authNotifierProvider.notifier).teacherInformation;
 

@@ -7,7 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/auth/presentation/pages/auth_page.dart';
 import 'package:teneffus/auth/presentation/widgets/register_container.dart';
-import 'package:teneffus/auth/presentation/widgets/user_type_selection_container.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/gen/assets.gen.dart';
 import 'package:teneffus/global_entities/button_type.dart';
@@ -68,11 +67,9 @@ class AuthLoginPage extends HookConsumerWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                        height: textFieldHeight,
-                        child: CustomTextField(
-                          controller: emailTextEditingController,
-                        )),
+                    CustomTextField(
+                      controller: emailTextEditingController,
+                    ),
                     const Gap(16),
                     Padding(
                       padding: const EdgeInsets.only(left: 4.0),
@@ -204,7 +201,7 @@ class AuthLoginPage extends HookConsumerWidget {
                             onPressed: () async {
                               await ref
                                   .read(authNotifierProvider.notifier)
-                                  .signInWithGoogle(isStudent: isStudent);
+                                  .signInWithGoogle();
                             },
                             child: Assets.images.google.image(
                                 width: iconButtonSize * .53,
@@ -214,15 +211,6 @@ class AuthLoginPage extends HookConsumerWidget {
                       ],
                     ),
                     const Gap(32),
-                    UserTypeSelectionContainer(
-                        isStudent: isStudent,
-                        onStudentSelected: () {
-                          ref.read(userTypeProvider.notifier).state = true;
-                        },
-                        onTeacherSelected: () {
-                          ref.read(userTypeProvider.notifier).state = false;
-                        }),
-                    const Gap(16),
                     RegisterContainer(
                       onTap: () async {
                         await ref
@@ -259,9 +247,9 @@ class AuthLoginPage extends HookConsumerWidget {
           context: context);
     } else if (isValid) {
       await ref.read(authNotifierProvider.notifier).signInWithEmail(
-          email: emailTextEditingController.text,
-          password: passwordTextEditingController.text,
-          isStudent: isStudent);
+            email: emailTextEditingController.text,
+            password: passwordTextEditingController.text,
+          );
     } else {
       CustomSnackbar.show(
           type: SnackbarType.error(),

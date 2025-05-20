@@ -11,7 +11,8 @@ final studentsDataSourceProvider = Provider<StudentsDataSource>(
     (ref) => StudentsFirebaseDb(firestore: ref.watch(firestoreProvider)));
 
 abstract interface class StudentsDataSource {
-  Future<Either<Failure, void>> addStudent(StudentInformation student);
+  Future<Either<Failure, void>> addStudent(
+      StudentInformation student, String teacherEmail);
   Future<Either<Failure, void>> deleteStudent(String uid);
   Future<Either<Failure, List<StudentInformation>>> getStudents();
 }
@@ -22,19 +23,40 @@ class StudentsFirebaseDb implements StudentsDataSource {
   StudentsFirebaseDb({required this.firestore});
 
   @override
-  Future<Either<Failure, void>> addStudent(StudentInformation student) async {
+  Future<Either<Failure, void>> addStudent(
+      StudentInformation student, String teacherEmail) async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser == null) {
         return left(Failure("Giriş yapılmamış kullanıcı"));
       }
 
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc(currentUser.uid)
-          .update({
-        "students": FieldValue.arrayUnion([student.uid])
-      });
+      final userQuery = await FirebaseFirestore.instance
+          .collection("teachers")
+          .where("email", isEqualTo: teacherEmail)
+          .limit(1)
+          .get();
+
+      if (userQuery.docs.isNotEmpty) {
+        final userDoc = userQuery.docs.first;
+        final userUid = userDoc.id;
+        final teacherDoc = userQuery.docs.first;
+        final teacherUid = teacherDoc.id;
+        await FirebaseFirestore.instance
+            .collection("teachers")
+            .doc(userUid)
+            .update({
+          "students": FieldValue.arrayUnion([student.toJson()]),
+        });
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({
+          "teacherUid": teacherUid,
+        });
+      } else {
+        return left(Failure("no-teacher"));
+      }
 
       return right(null);
     } catch (e) {
@@ -66,8 +88,11 @@ class StudentsFirebaseDb implements StudentsDataSource {
   @override
   Future<Either<Failure, List<StudentInformation>>> getStudents() async {
     try {
-      final snapshot =
-          await FirebaseFirestore.instance.collection("users").get();
+      final snapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("students")
+          .get();
 
       final students = snapshot.docs.map((doc) {
         final data = doc.data();
