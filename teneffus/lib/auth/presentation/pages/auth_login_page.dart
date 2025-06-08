@@ -89,45 +89,48 @@ class AuthLoginPage extends HookConsumerWidget {
                           controller: passwordTextEditingController,
                         )),
                     const Gap(4),
-                    InkWell(
-                      onTap: () async {
-                        bool isValid = EmailValidator.validate(
-                            emailTextEditingController.text);
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () async {
+                          bool isValid = EmailValidator.validate(
+                              emailTextEditingController.text);
 
-                        if (!isValid) {
-                          CustomSnackbar.show(
-                              type: SnackbarType.error(),
-                              message: "Bu mail adresi geçerli değil.",
-                              context: context);
-                        } else {
-                          var res = await ref
-                              .read(authNotifierProvider.notifier)
-                              .sendResetPasswordEmail(
-                                  email: emailTextEditingController.text);
+                          if (!isValid) {
+                            CustomSnackbar.show(
+                                type: SnackbarType.error(),
+                                message: "Bu mail adresi geçerli değil.",
+                                context: context);
+                          } else {
+                            var res = await ref
+                                .read(authNotifierProvider.notifier)
+                                .sendResetPasswordEmail(
+                                    email: emailTextEditingController.text);
 
-                          res.fold(
-                              (l) => CustomSnackbar.show(
-                                  context: context,
-                                  message: Validator.validateErrorMessage(
-                                      errorMessage: l.message),
-                                  type: SnackbarType.error()),
-                              (r) => CustomSnackbar.show(
-                                  context: context,
-                                  message:
-                                      "Şifre sıfırlama mailini gönderdik. Şifreni maildeki link üzerinden sıfırlayabilirsin.",
-                                  type: SnackbarType.success()));
-                        }
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.only(right: 4),
-                        child: Align(
-                            alignment: Alignment.centerRight,
+                            res.fold(
+                                (l) => CustomSnackbar.show(
+                                    context: context,
+                                    message: Validator.validateErrorMessage(
+                                        errorMessage: l.message),
+                                    type: SnackbarType.error()),
+                                (r) => CustomSnackbar.show(
+                                    context: context,
+                                    message:
+                                        "Şifre sıfırlama mailini gönderdik. Şifreni maildeki link üzerinden sıfırlayabilirsin.",
+                                    type: SnackbarType.success()));
+                          }
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.only(right: 4),
+                          child: IntrinsicWidth(
                             child: Text(
                                 style: TextStyle(
                                     decoration: TextDecoration.underline,
                                     decorationColor: Colors.white,
                                     decorationThickness: 2),
-                                "Şifremi unuttum!")),
+                                "Şifremi unuttum!"),
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -240,7 +243,12 @@ class AuthLoginPage extends HookConsumerWidget {
       required WidgetRef ref,
       required bool isStudent}) async {
     bool isValid = EmailValidator.validate(emailTextEditingController.text);
-    if (passwordTextEditingController.text.isEmpty) {
+    if (emailTextEditingController.text.isEmpty) {
+      CustomSnackbar.show(
+          type: SnackbarType.error(),
+          message: "Mail adresini girmelisin.",
+          context: context);
+    } else if (passwordTextEditingController.text.isEmpty) {
       CustomSnackbar.show(
           type: SnackbarType.error(),
           message: "Şifreni girmelisin.",

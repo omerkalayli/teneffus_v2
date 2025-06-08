@@ -20,6 +20,7 @@ class WordOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: InkWell(
+        overlayColor: const WidgetStatePropertyAll(Colors.transparent),
         onTap: () {
           if (isClickable.value) {
             isClickable.value = false;

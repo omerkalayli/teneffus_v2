@@ -15,4 +15,6 @@ abstract interface class StudentsRepository {
       StudentInformation student, String teacherEmail);
   Future<Either<Failure, void>> deleteStudent(String uid);
   Future<Either<Failure, List<StudentInformation>>> getStudents();
+  Future<Either<Failure, void>> removeStudent(
+      StudentInformation student, String teacherEmail);
 }

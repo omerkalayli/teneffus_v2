@@ -9,6 +9,7 @@ class CustomSnackbar {
       required BuildContext context}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        padding: const EdgeInsets.all(16.0),
         content: Text(message),
         backgroundColor: type.when(
             success: () => snackbarSuccessColor,

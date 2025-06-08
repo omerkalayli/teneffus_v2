@@ -47,7 +47,7 @@ class WritingGamePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     const numberOfQuestions = 16;
 
-    final sfxPlayer = useMemoized(() => AudioPlayer());
+    final sfxPlayer = ref.watch(sfxPlayerProvider);
     final scrollController = useScrollController();
     final textController = useTextEditingController();
     final shuffledWords = useMemoized(() {

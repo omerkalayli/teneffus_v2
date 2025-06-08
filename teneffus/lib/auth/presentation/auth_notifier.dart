@@ -12,6 +12,9 @@ part 'auth_notifier.g.dart';
 
 final userTypeProvider = StateProvider<bool>((ref) => true);
 
+final teacherInformationProvider =
+    StateProvider<TeacherInformation?>((ref) => null);
+
 @Riverpod(keepAlive: true)
 class AuthNotifier extends _$AuthNotifier {
   late final AuthRepository _authRepository;
@@ -27,6 +30,8 @@ class AuthNotifier extends _$AuthNotifier {
       if (isStudent) {
         studentInformation = await getStudentInformation();
       } else {
+        ref.read(teacherInformationProvider.notifier).state =
+            teacherInformation;
         teacherInformation = await getTeacherInformation();
       }
     }
@@ -62,6 +67,8 @@ class AuthNotifier extends _$AuthNotifier {
       },
       (userInfo) {
         teacherInformation = userInfo;
+        ref.read(teacherInformationProvider.notifier).state =
+            teacherInformation;
         state = AsyncValue.data(
             AuthState.authenticated(teacherInformation: teacherInformation));
         return userInfo;
@@ -124,7 +131,6 @@ class AuthNotifier extends _$AuthNotifier {
           studentInformation = authResult.userInfo as StudentInformation?;
         } else {
           ref.read(userTypeProvider.notifier).state = false;
-
           teacherInformation = authResult.userInfo as TeacherInformation?;
         }
         return AsyncValue.data(AuthState.authenticated(
@@ -187,6 +193,7 @@ class AuthNotifier extends _$AuthNotifier {
       (userInformation) {
         _isSignedIn = true;
         studentInformation = userInformation;
+        ref.read(userTypeProvider.notifier).state = true;
         return const AsyncValue.data(AuthState.authenticated());
       },
     );
@@ -210,6 +217,7 @@ class AuthNotifier extends _$AuthNotifier {
       (userInformation) {
         _isSignedIn = true;
         teacherInformation = userInformation;
+        ref.read(userTypeProvider.notifier).state = false;
         return const AsyncValue.data(AuthState.authenticated());
       },
     );

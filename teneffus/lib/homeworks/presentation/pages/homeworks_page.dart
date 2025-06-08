@@ -71,12 +71,12 @@ class HomeworksPage extends HookConsumerWidget {
                             "Yenile",
                             style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
-                          const Gap(2),
+                          const Gap(4),
                           isLoading
                               ? Container(
                                   margin: const EdgeInsets.all(2),
-                                  height: 16,
-                                  width: 16,
+                                  height: 12,
+                                  width: 12,
                                   child: const CircularProgressIndicator(
                                     strokeWidth: 2,
                                     color: Colors.white,
@@ -84,7 +84,7 @@ class HomeworksPage extends HookConsumerWidget {
                               : const Icon(
                                   Icons.refresh,
                                   color: Colors.white,
-                                  size: 20,
+                                  size: 16,
                                 ),
                         ],
                       ),

@@ -15,6 +15,8 @@ abstract interface class StudentsDataSource {
       StudentInformation student, String teacherEmail);
   Future<Either<Failure, void>> deleteStudent(String uid);
   Future<Either<Failure, List<StudentInformation>>> getStudents();
+  Future<Either<Failure, void>> removeStudent(
+      StudentInformation student, String teacherEmail);
 }
 
 class StudentsFirebaseDb implements StudentsDataSource {
@@ -100,6 +102,52 @@ class StudentsFirebaseDb implements StudentsDataSource {
       }).toList();
 
       return right(students);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> removeStudent(
+      StudentInformation student, String teacherEmail) async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) {
+        return left(Failure("Giriş yapılmamış kullanıcı"));
+      }
+
+      final userQuery = await FirebaseFirestore.instance
+          .collection("teachers")
+          .where("email", isEqualTo: teacherEmail)
+          .limit(1)
+          .get();
+
+      if (userQuery.docs.isNotEmpty) {
+        final userDoc = userQuery.docs.first;
+        final userUid = userDoc.id;
+        await FirebaseFirestore.instance
+            .collection("teachers")
+            .doc(userUid)
+            .update({
+          "students": FieldValue.arrayRemove([student.toJson()]),
+        });
+      } else {
+        return throw (Exception("no-teacher"));
+      }
+
+      final studentDoc = await FirebaseFirestore.instance
+          .collection("users")
+          .where("email", isEqualTo: student.email)
+          .limit(1)
+          .get();
+
+      if (studentDoc.docs.isNotEmpty) {
+        final docId = studentDoc.docs.first.id;
+        await FirebaseFirestore.instance.collection("users").doc(docId).update({
+          "teacherUid": null,
+        });
+      }
+      return right(null);
     } catch (e) {
       return left(Failure(e.toString()));
     }

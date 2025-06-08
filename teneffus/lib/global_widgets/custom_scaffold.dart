@@ -28,6 +28,7 @@ class CustomScaffold extends StatelessWidget {
         ),
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         floatingActionButton: flotingActionButton,
         appBar: appBar,
         bottomNavigationBar: bottomNavigationBar,

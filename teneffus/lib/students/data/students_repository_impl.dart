@@ -36,4 +36,14 @@ class StudentsRepositoryImpl implements StudentsRepository {
       return studentsDataSource!.getStudents();
     }
   }
+
+  @override
+  Future<Either<Failure, void>> removeStudent(
+      StudentInformation student, String teacherEmail) async {
+    if (studentsDataSource == null) {
+      return left(Failure("Data source is null"));
+    } else {
+      return studentsDataSource!.removeStudent(student, teacherEmail);
+    }
+  }
 }

@@ -56,4 +56,20 @@ class StudentsNotifier extends _$StudentsNotifier {
       return const AsyncValue.data(StudentsState.success());
     });
   }
+
+  Future<void> removeStudent(
+      StudentInformation student, String teacherEmail) async {
+    state = const AsyncValue.loading();
+    final result =
+        await _studentsRepository.removeStudent(student, teacherEmail);
+    state = result.fold(
+      (failure) => AsyncValue.data(StudentsState.error(failure.message)),
+      (students) {
+        return const AsyncValue.data(StudentsState.success());
+      },
+    );
+    if (result.isRight()) {
+      await ref.read(studentsNotifierProvider.notifier).getStudents();
+    }
+  }
 }

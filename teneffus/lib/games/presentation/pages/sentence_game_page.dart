@@ -54,7 +54,7 @@ class SentenceGamePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     const numberOfQuestions = 16;
 
-    final player = useMemoized(() => AudioPlayer());
+    final sfxPlayer = ref.watch(sfxPlayerProvider);
     final wordSoundPlayer = useMemoized(() => AudioPlayer());
     final isControlling = useState(false);
     final List<Sentence> shuffledSentences = useMemoized(() {
@@ -340,8 +340,9 @@ class SentenceGamePage extends HookConsumerWidget {
                           ],
                         ),
                       ),
-                      onPressed: () {
-                        Future.microtask(() async {
+                      onPressed: () async {
+                        await Future.microtask(() async {
+                          await wordSoundPlayer.stop();
                           await wordSoundPlayer.setAsset(dropWordSoundPath);
                           await wordSoundPlayer.seek(Duration.zero);
                           await wordSoundPlayer.play();
@@ -380,7 +381,7 @@ class SentenceGamePage extends HookConsumerWidget {
                     String userSentenceID = userSentence.hashCode.toString();
 
                     if (userSentenceID == correctID) {
-                      playAudio(correctSoundPath, player);
+                      playCorrectSound(sfxPlayer);
                       isCorrect.value = true;
                       score.value += 10;
                       Future.delayed(const Duration(seconds: 2), () {
@@ -402,7 +403,7 @@ class SentenceGamePage extends HookConsumerWidget {
                       });
                     } else {
                       if (score.value > 0) score.value -= 5;
-                      playAudio(wrongSoundPath, player);
+                      playWrongSound(sfxPlayer);
                       isCorrect.value = false;
                       Future.delayed(const Duration(seconds: 2), () {
                         isCorrect.value = null;

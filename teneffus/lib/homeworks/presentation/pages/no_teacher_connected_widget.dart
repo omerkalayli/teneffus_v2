@@ -61,6 +61,8 @@ class NoTeacherConnectedWidget extends HookConsumerWidget {
             child: CustomTextButton(
                 text: "Tamam",
                 onPressed: () async {
+                  FocusScope.of(context).unfocus();
+                  await Future.delayed(const Duration(milliseconds: 100));
                   final isSuccess = await ref
                       .read(studentsNotifierProvider.notifier)
                       .addStudent(myInfo!, emailTextEditingController.text);

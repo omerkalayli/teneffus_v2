@@ -39,10 +39,17 @@ class HomeworksWidget extends StatelessWidget {
                 disabled: false),
             Row(
               children: [
-                const Text(
-                  "Önce En \nYakın Tarih",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 12),
+                InkWell(
+                  overlayColor:
+                      const WidgetStatePropertyAll(Colors.transparent),
+                  onTap: () {
+                    showEarliestFirst.value = !showEarliestFirst.value;
+                  },
+                  child: const Text(
+                    "Önce En \nYakın Tarih",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 12),
+                  ),
                 ),
                 Checkbox(
                     value: showEarliestFirst.value,

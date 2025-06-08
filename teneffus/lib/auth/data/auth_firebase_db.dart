@@ -224,6 +224,7 @@ class AuthFirebaseDb implements AuthDataSource {
                 grade: userSubInformation.grade,
                 rank: userSubInformation.rank,
                 starCount: userSubInformation.starCount,
+                teacherUid: userSubInformation.teacherUid,
               );
               return right(AuthResult(
                 userInfo: userInformation,
@@ -291,6 +292,7 @@ class AuthFirebaseDb implements AuthDataSource {
           grade: userSubInformation.grade,
           rank: userSubInformation.rank,
           starCount: userSubInformation.starCount,
+          teacherUid: userSubInformation.teacherUid,
         );
         return right(AuthResult(
           userInfo: userInformation,
@@ -338,14 +340,14 @@ class AuthFirebaseDb implements AuthDataSource {
         }
 
         final userInfo = StudentInformation(
-          uid: userCredential.user!.uid,
-          name: name,
-          surname: surname,
-          email: email,
-          grade: grade,
-          rank: "Çaylak 1",
-          starCount: 0,
-        );
+            uid: userCredential.user!.uid,
+            name: name,
+            surname: surname,
+            email: email,
+            grade: grade,
+            rank: "Çaylak 1",
+            starCount: 0,
+            teacherUid: null);
 
         await firestore.collection("users").doc(userCredential.user!.uid).set({
           "name": name,
@@ -353,6 +355,8 @@ class AuthFirebaseDb implements AuthDataSource {
           "grade": grade,
           "rank": "Çaylak 1",
           "starCount": 0,
+          "teacherUid": null,
+          "email": email,
         });
         return right(userInfo);
       } else {
@@ -370,6 +374,7 @@ class AuthFirebaseDb implements AuthDataSource {
           grade: grade,
           rank: "Çaylak 1",
           starCount: 0,
+          teacherUid: null,
         );
 
         await firestore.collection("users").doc(auth.currentUser!.uid).set({
@@ -378,6 +383,8 @@ class AuthFirebaseDb implements AuthDataSource {
           "grade": grade,
           "rank": "Çaylak 1",
           "starCount": 0,
+          "teacherUid": null,
+          "email": auth.currentUser!.email!,
         });
         return right(userInfo);
       }

@@ -51,8 +51,8 @@ class ListeningGamePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     const numberOfQuestions = 16;
 
-    final player = useMemoized(() => AudioPlayer());
-    final sfxPlayer = useMemoized(() => AudioPlayer());
+    final player = ref.watch(listeningPlayerProvider);
+    final sfxPlayer = ref.watch(sfxPlayerProvider);
     final shuffledWords = useMemoized(() {
       final list = selectedLessons
           .expand((lesson) => lesson.words)
@@ -134,7 +134,7 @@ class ListeningGamePage extends HookConsumerWidget {
       Future.delayed(replayDuration, () async {
         await playAudio(selectedWord.value.audioUrl, player);
       });
-      if (selectedWordIndex.value < numberOfQuestions - 1) {
+      if (selectedWordIndex.value < numberOfQuestions && !(isInQuiz ?? false)) {
         Future.delayed(playDuration, () {
           selectedWordIndex.value += 1;
         });
@@ -259,7 +259,8 @@ class ListeningGamePage extends HookConsumerWidget {
                     selectedWordIndex: selectedWordIndex,
                     score: score.value,
                     numberOfQuestions: numberOfQuestions,
-                    isPassed: isPassed),
+                    isPassed: isPassed,
+                    ref: ref),
               ),
             ],
           ),
@@ -268,15 +269,17 @@ class ListeningGamePage extends HookConsumerWidget {
     );
   }
 
-  Row _getFooter(
-      {required ValueNotifier<Word> selectedWord,
-      required AudioPlayer player,
-      required ValueNotifier<List<Word>> options,
-      required ValueNotifier<int> selectedChoice,
-      required ValueNotifier<int> selectedWordIndex,
-      required ValueNotifier<bool> isPassed,
-      required int score,
-      required int numberOfQuestions}) {
+  Row _getFooter({
+    required ValueNotifier<Word> selectedWord,
+    required AudioPlayer player,
+    required ValueNotifier<List<Word>> options,
+    required ValueNotifier<int> selectedChoice,
+    required ValueNotifier<int> selectedWordIndex,
+    required ValueNotifier<bool> isPassed,
+    required int score,
+    required int numberOfQuestions,
+    required WidgetRef ref,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
