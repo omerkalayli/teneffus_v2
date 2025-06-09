@@ -31,12 +31,13 @@ class HomeworksWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomDropdown(
-                items: dropdownItems,
-                selectedIndex: selectedDropdownIndex.value,
-                onSelected: (index) {
-                  selectedDropdownIndex.value = index;
-                },
-                disabled: false),
+              items: dropdownItems,
+              selectedIndex: selectedDropdownIndex.value,
+              onSelected: (index) {
+                selectedDropdownIndex.value = index;
+              },
+              disabled: false,
+            ),
             Row(
               children: [
                 InkWell(
@@ -138,6 +139,7 @@ class HomeworksWidget extends StatelessWidget {
                         ),
                       );
                     }),
+                    Gap(80)
                   ]),
           ),
         ),

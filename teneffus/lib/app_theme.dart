@@ -8,6 +8,12 @@ ThemeData get theme => ThemeData(
         cursorColor: Color.fromRGBO(51, 51, 51, 1),
         selectionHandleColor: textFieldTextColor,
       ),
+      colorScheme: const ColorScheme.light(
+        primary: Colors.cyan,
+        onPrimary: Colors.white,
+        surface: Colors.white,
+        onSurface: Colors.black,
+      ),
       textTheme: GoogleFonts.montserratTextTheme(const TextTheme(
           headlineMedium: TextStyle(fontSize: 30, color: Colors.white),
           headlineSmall: TextStyle(

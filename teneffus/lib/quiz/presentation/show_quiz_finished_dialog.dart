@@ -15,7 +15,7 @@ Future<void> showQuizFinishedDialog(
     required int score,
     required int? minScore,
     required WidgetRef ref,
-    required int homeworkId,
+    required String homeworkId,
     required bool isHomework}) async {
   final stars = (score / 10).floor();
   ref.read(authNotifierProvider.notifier).increaseStarCount(

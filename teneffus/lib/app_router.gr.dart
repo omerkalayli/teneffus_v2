@@ -59,7 +59,7 @@ class QuizRoute extends _i5.PageRouteInfo<QuizRouteArgs> {
     bool isAllLessonsSelected = false,
     bool isAllUnitsSelected = false,
     bool isHomework = false,
-    int? homeworkId,
+    String? homeworkId,
     int? minScore,
     _i8.Key? key,
     List<_i5.PageRouteInfo>? children,
@@ -120,7 +120,7 @@ class QuizRouteArgs {
 
   final bool isHomework;
 
-  final int? homeworkId;
+  final String? homeworkId;
 
   final int? minScore;
 

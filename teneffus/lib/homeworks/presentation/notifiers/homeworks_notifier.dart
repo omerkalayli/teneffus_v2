@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:teneffus/homeworks/domain/entities/homework.dart';
 import 'package:teneffus/homeworks/domain/homeworks_repository.dart';
 import 'package:teneffus/homeworks/presentation/homeworks_state.dart';
 
@@ -35,17 +36,35 @@ class HomeworksNotifier extends _$HomeworksNotifier {
 
   Future<void> updateHomework({
     required String uid,
-    required int homeworkId,
+    required String homeworkId,
     required int score,
     required bool isCompleted,
   }) async {
     state = const AsyncValue.data(HomeworksState.loading());
-    final result = await _homeworksRepository.updateHomework(
+    await _homeworksRepository.updateHomework(
       uid: uid,
       homeworkId: homeworkId,
       score: score,
       isCompleted: isCompleted,
     );
     await getHomeworks(uid: uid);
+  }
+
+  Future<bool> addHomework({
+    required List<String> studentEmails,
+    required Homework homework,
+  }) async {
+    state = const AsyncValue.data(HomeworksState.loading());
+    final result = await _homeworksRepository.addHomework(
+      studentEmails: studentEmails,
+      homework: homework,
+    );
+    state = result.fold(
+      (failure) => AsyncValue.data(
+        HomeworksState.error(failure.message),
+      ),
+      (_) => const AsyncValue.data(HomeworksState.success([])),
+    );
+    return result.isRight();
   }
 }

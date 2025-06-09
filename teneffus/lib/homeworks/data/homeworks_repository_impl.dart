@@ -22,7 +22,7 @@ class HomeworksRepositoryImpl implements HomeworksRepository {
   @override
   Future<Either<Failure, Null>> updateHomework(
       {required String uid,
-      required int homeworkId,
+      required String homeworkId,
       required int score,
       required bool isCompleted}) async {
     if (homeworksDataSource == null) {
@@ -33,6 +33,17 @@ class HomeworksRepositoryImpl implements HomeworksRepository {
           homeworkId: homeworkId,
           score: score,
           isCompleted: isCompleted);
+    }
+  }
+
+  @override
+  Future<Either<Failure, Null>> addHomework(
+      {required List<String> studentEmails, required Homework homework}) async {
+    if (homeworksDataSource == null) {
+      return left(Failure("Data source is null"));
+    } else {
+      return homeworksDataSource!
+          .addHomework(studentEmails: studentEmails, homework: homework);
     }
   }
 }

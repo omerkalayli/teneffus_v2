@@ -6,7 +6,7 @@ part of 'homeworks_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homeworksNotifierHash() => r'7a4a09da1f28b46345969818bddf2e32de8473e0';
+String _$homeworksNotifierHash() => r'f162f7aa0ae366a1222ae87b4e6f9c8b3dc7e0c8';
 
 /// See also [HomeworksNotifier].
 @ProviderFor(HomeworksNotifier)

@@ -1,5 +1,5 @@
 class Homework {
-  final int id;
+  final String id;
   final int grade;
   final int unit;
   final int lesson;
@@ -8,7 +8,7 @@ class Homework {
   final DateTime dueDate;
   final bool isCompleted;
   final String teacher;
-  final int teacherId;
+  final String teacherId;
 
   const Homework({
     required this.id,

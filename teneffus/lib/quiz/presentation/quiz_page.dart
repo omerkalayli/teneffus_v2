@@ -37,7 +37,7 @@ class QuizPage extends HookConsumerWidget {
   final bool isAllLessonsSelected;
   final bool isAllUnitsSelected;
   final bool isHomework;
-  final int? homeworkId;
+  final String? homeworkId;
   final int? minScore;
 
   @override

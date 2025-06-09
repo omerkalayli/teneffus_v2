@@ -10,15 +10,15 @@ final firestoreProvider = Provider((ref) => FirebaseFirestore.instance);
 final homeworksDataSourceProvider = Provider<HomeworksDataSource>(
     (ref) => HomeworksFirebaseDb(firestore: ref.watch(firestoreProvider)));
 
-/// [HomeworksDataSource] implementation for Firebase.
-
 abstract interface class HomeworksDataSource {
   Future<Either<Failure, List<Homework>>> getHomeworks({required String uid});
   Future<Either<Failure, Null>> updateHomework(
       {required String uid,
-      required int homeworkId,
+      required String homeworkId,
       required int score,
       required bool isCompleted});
+  Future<Either<Failure, Null>> addHomework(
+      {required List<String> studentEmails, required Homework homework});
 }
 
 class HomeworksFirebaseDb implements HomeworksDataSource {
@@ -61,7 +61,7 @@ class HomeworksFirebaseDb implements HomeworksDataSource {
   @override
   Future<Either<Failure, Null>> updateHomework({
     required String uid,
-    required int homeworkId,
+    required String homeworkId,
     required int score,
     required bool isCompleted,
   }) async {
@@ -80,6 +80,49 @@ class HomeworksFirebaseDb implements HomeworksDataSource {
       return right(null);
     } catch (e) {
       return left(Failure("Error completing homework $e"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Null>> addHomework({
+    required List<String> studentEmails,
+    required Homework homework,
+  }) async {
+    try {
+      final batch = firestore.batch();
+      for (final email in studentEmails) {
+        final userDoc = await firestore
+            .collection("users")
+            .where("email", isEqualTo: email)
+            .get();
+
+        if (userDoc.docs.isNotEmpty) {
+          final userId = userDoc.docs.first.id;
+          final homeworkRef = firestore
+              .collection("users")
+              .doc(userId)
+              .collection("homeworks")
+              .doc();
+
+          batch.set(homeworkRef, {
+            "id": homeworkRef.id,
+            "myScore": homework.myScore,
+            "grade": homework.grade,
+            "unit": homework.unit,
+            "lesson": homework.lesson,
+            "minScore": homework.minScore,
+            "dueDate": Timestamp.fromDate(homework.dueDate),
+            "isCompleted": homework.isCompleted,
+            "teacher": homework.teacher,
+            "teacherId": homework.teacherId,
+          });
+        }
+      }
+
+      await batch.commit();
+      return right(null);
+    } catch (e) {
+      return left(Failure("Error adding homework $e"));
     }
   }
 }

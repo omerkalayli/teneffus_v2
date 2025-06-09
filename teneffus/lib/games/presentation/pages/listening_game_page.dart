@@ -134,11 +134,11 @@ class ListeningGamePage extends HookConsumerWidget {
       Future.delayed(replayDuration, () async {
         await playAudio(selectedWord.value.audioUrl, player);
       });
-      if (selectedWordIndex.value < numberOfQuestions && !(isInQuiz ?? false)) {
+      if (selectedWordIndex.value < numberOfQuestions) {
         Future.delayed(playDuration, () {
           selectedWordIndex.value += 1;
         });
-      } else {
+      } else if (isInQuiz ?? false) {
         onFinished?.call(score.value);
       }
     }

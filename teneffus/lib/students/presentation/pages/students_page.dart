@@ -7,6 +7,7 @@ import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/games/presentation/widgets/custom_dropdown.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
+import 'package:teneffus/global_widgets/student_search_bar.dart';
 import 'package:teneffus/students/presentation/students_notifier.dart';
 
 /// [StudentsPage] is the page where teachers can see their students.
@@ -71,7 +72,24 @@ class StudentsPage extends HookConsumerWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: _header(textEditingController, selectedGrade),
+                        child: StudentSearchBar(
+                          textEditingController: textEditingController,
+                          selectedStudentGrade: selectedGrade,
+                          onSelectionChanged: (index) {
+                            selectedGrade.value = index;
+
+                            filteredStudents.value = students.where((student) {
+                              final matchesName = student.name
+                                      .toLowerCase()
+                                      .contains(textEditingController.text
+                                          .toLowerCase()) ||
+                                  textEditingController.text.isEmpty;
+                              final matchesGrade =
+                                  index == 8 || student.grade == index;
+                              return matchesName && matchesGrade;
+                            }).toList();
+                          },
+                        ),
                       ),
                       ...List.generate(filteredStudents.value.length, (index) {
                         return ListTile(
@@ -142,51 +160,6 @@ class StudentsPage extends HookConsumerWidget {
                     ]),
               ),
       )),
-    );
-  }
-
-  Row _header(TextEditingController textEditingController,
-      ValueNotifier<int> selectedGrade) {
-    return Row(
-      children: [
-        Expanded(
-          child: SizedBox(
-            height: 30,
-            child: TextField(
-              controller: textEditingController,
-              cursorColor: Colors.white,
-              style: const TextStyle(color: Colors.white, fontSize: 12),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(left: 8),
-                hintText: "Öğrenci Ara",
-                hintStyle: TextStyle(
-                    color: Colors.white.withValues(alpha: .8), fontSize: 12),
-                filled: true,
-                fillColor: Colors.white.withValues(alpha: 0.2),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-          ),
-        ),
-        const Gap(8),
-        CustomDropdown(
-            width: 120,
-            items: const [
-              "Hepsi",
-              "9. Sınıf",
-              "10. Sınıf",
-              "11. Sınıf",
-              "12. Sınıf"
-            ],
-            selectedIndex: selectedGrade.value - 8,
-            onSelected: (index) {
-              selectedGrade.value = index + 8;
-            },
-            disabled: false),
-      ],
     );
   }
 
