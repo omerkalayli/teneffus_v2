@@ -4,6 +4,8 @@ import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/failure.dart';
+import 'package:teneffus/global_entities/word.dart';
+import 'package:teneffus/global_entities/word_stat.dart';
 
 final firestoreProvider = Provider((ref) => FirebaseFirestore.instance);
 
@@ -17,6 +19,9 @@ abstract interface class StudentsDataSource {
   Future<Either<Failure, List<StudentInformation>>> getStudents();
   Future<Either<Failure, void>> removeStudent(
       StudentInformation student, String teacherEmail);
+  Future<Either<Failure, void>> updateStudentStats(
+      {required List<WordStat> stats});
+  Future<Either<Failure, List<WordStat>>> getStudentStats(String email);
 }
 
 class StudentsFirebaseDb implements StudentsDataSource {
@@ -150,6 +155,82 @@ class StudentsFirebaseDb implements StudentsDataSource {
       return right(null);
     } catch (e) {
       return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateStudentStats({
+    required List<WordStat> stats,
+  }) async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) {
+        return left(Failure("Giriş yapılmamış kullanıcı"));
+      }
+
+      final statsCollection = FirebaseFirestore.instance
+          .collection("users")
+          .doc(currentUser.uid)
+          .collection("stats");
+
+      for (final stat in stats) {
+        final statDocRef = statsCollection.doc(stat.word.id);
+        final docSnapshot = await statDocRef.get();
+
+        if (docSnapshot.exists) {
+          final data = docSnapshot.data() as Map<String, dynamic>;
+
+          // Mevcut değerleri al
+          final currentCorrect = data['correctCount'] ?? 0;
+          final currentIncorrect = data['incorrectCount'] ?? 0;
+          final currentPassed = data['passedCount'] ?? 0;
+
+          // Yeni değerleri ekle
+          await statDocRef.set({
+            'word': stat.word.toJson(),
+            'correctCount': currentCorrect + stat.correctCount,
+            'incorrectCount': currentIncorrect + stat.incorrectCount,
+            'passedCount': currentPassed + stat.passedCount,
+          }, SetOptions(merge: true));
+        } else {
+          // Eğer yoksa direkt ekle
+          await statDocRef.set(stat.toJson());
+        }
+      }
+
+      return right(null);
+    } catch (e) {
+      return left(Failure("İstatistik güncellenirken hata oluştu: $e"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<WordStat>>> getStudentStats(String email) async {
+    try {
+      final userQuery = await FirebaseFirestore.instance
+          .collection("users")
+          .where("email", isEqualTo: email)
+          .limit(1)
+          .get();
+
+      if (userQuery.docs.isNotEmpty) {
+        final userDoc = userQuery.docs.first;
+        final statsCollection = userDoc.reference.collection("stats");
+        final statsSnapshot = await statsCollection.get();
+
+        if (statsSnapshot.docs.isNotEmpty) {
+          final statsList = statsSnapshot.docs
+              .map((doc) => WordStat.fromJson(doc.data()))
+              .toList();
+          return right(statsList);
+        } else {
+          return left(Failure("No stats found for this student"));
+        }
+      } else {
+        return left(Failure("Student not found"));
+      }
+    } catch (e) {
+      return left(Failure("Error getting student stats: $e"));
     }
   }
 }

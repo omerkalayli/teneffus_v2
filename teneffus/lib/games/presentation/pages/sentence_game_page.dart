@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:teneffus/constants.dart';
+import 'package:teneffus/games/presentation/pages/listening_game_page.dart';
 import 'package:teneffus/games/presentation/play_audio.dart';
 import 'package:teneffus/games/presentation/widgets/animated_score_text.dart';
 import 'package:teneffus/games/presentation/widgets/custom_progress_bar.dart';
@@ -12,20 +13,23 @@ import 'package:teneffus/games/presentation/widgets/game_header.dart';
 import 'package:teneffus/games/presentation/widgets/show_game_over_dialog.dart';
 import 'package:teneffus/games/presentation/widgets/step_counter.dart';
 import 'package:teneffus/games/presentation/widgets/word_drag_widget.dart';
+import 'package:teneffus/games/update_stats.dart';
 import 'package:teneffus/global_entities/button_type.dart';
 import 'package:teneffus/global_entities/lesson.dart';
 import 'package:teneffus/global_entities/sentence.dart';
 import 'package:teneffus/global_entities/unit.dart';
 import 'package:teneffus/global_entities/word.dart';
+import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/global_widgets/custom_button.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
 import 'package:teneffus/global_widgets/custom_text_button.dart';
+import 'package:teneffus/students/presentation/students_notifier.dart';
 
 /// [SentenceGamePage], is the "Cümle Kurma" game page.
 /// It is a game where the user listens to a word and selects the correct option from the given options.
 
 class SentenceGamePage extends HookConsumerWidget {
-  const SentenceGamePage({
+  SentenceGamePage({
     required this.selectedLessons,
     required this.selectedUnit,
     required this.selectedUnitNumber,
@@ -50,9 +54,11 @@ class SentenceGamePage extends HookConsumerWidget {
   final int? quizLength;
   final Function(int)? onFinished;
 
+  List<WordStat> wordStats = [];
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const numberOfQuestions = 16;
+    const numberOfQuestions = 4;
 
     final sfxPlayer = ref.watch(sfxPlayerProvider);
     final wordSoundPlayer = useMemoized(() => AudioPlayer());
@@ -69,6 +75,9 @@ class SentenceGamePage extends HookConsumerWidget {
     final selectedSentenceIndex = useState(0);
     bool isDone = selectedSentenceIndex.value == shuffledSentences.length;
     if (isDone) {
+      ref
+          .read(studentsNotifierProvider.notifier)
+          .updateStudentStats(stats: wordStats);
       if (isInQuiz == true) {
         onFinished?.call(score.value);
       } else {
@@ -289,6 +298,11 @@ class SentenceGamePage extends HookConsumerWidget {
                         ),
                       ),
                       onPressed: () async {
+                        for (Word word
+                            in shuffledSentences[selectedSentenceIndex.value]
+                                .words) {
+                          updateWordStat(StatType.passed, word, wordStats);
+                        }
                         if (isPassed.value ?? false) {
                           return;
                         }
@@ -300,11 +314,16 @@ class SentenceGamePage extends HookConsumerWidget {
                             numberOfQuestions - 1) {
                           selectedSentenceIndex.value++;
                         } else {
+                          ref
+                              .read(studentsNotifierProvider.notifier)
+                              .updateStudentStats(stats: wordStats);
                           if (isInQuiz == true) {
                             onFinished?.call(score.value);
                           } else {
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              showGameOverDialog(context, score.value, ref);
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((_) async {
+                              await showGameOverDialog(
+                                  context, score.value, ref);
                               Navigator.pop(context);
                             });
                           }
@@ -381,6 +400,12 @@ class SentenceGamePage extends HookConsumerWidget {
                     String userSentenceID = userSentence.hashCode.toString();
 
                     if (userSentenceID == correctID) {
+                      for (Word word
+                          in shuffledSentences[selectedSentenceIndex.value]
+                              .words) {
+                        updateWordStat(StatType.correct, word, wordStats);
+                      }
+
                       playCorrectSound(sfxPlayer);
                       isCorrect.value = true;
                       score.value += 10;
@@ -404,6 +429,11 @@ class SentenceGamePage extends HookConsumerWidget {
                     } else {
                       if (score.value > 0) score.value -= 5;
                       playWrongSound(sfxPlayer);
+                      for (Word word
+                          in shuffledSentences[selectedSentenceIndex.value]
+                              .words) {
+                        updateWordStat(StatType.incorrect, word, wordStats);
+                      }
                       isCorrect.value = false;
                       Future.delayed(const Duration(seconds: 2), () {
                         isCorrect.value = null;

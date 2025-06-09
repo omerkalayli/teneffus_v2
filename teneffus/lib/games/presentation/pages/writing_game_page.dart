@@ -3,22 +3,25 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:teneffus/games/normalize_arabic.dart';
+import 'package:teneffus/games/presentation/pages/listening_game_page.dart';
 import 'package:teneffus/games/presentation/play_audio.dart';
 import 'package:teneffus/games/presentation/widgets/animated_score_text.dart';
 import 'package:teneffus/games/presentation/widgets/custom_progress_bar.dart';
 import 'package:teneffus/games/presentation/widgets/game_header.dart';
 import 'package:teneffus/games/presentation/widgets/show_game_over_dialog.dart';
 import 'package:teneffus/games/presentation/widgets/step_counter.dart';
+import 'package:teneffus/games/update_stats.dart';
 import 'package:teneffus/global_entities/button_type.dart';
 import 'package:teneffus/global_entities/lesson.dart';
 import 'package:teneffus/global_entities/unit.dart';
+import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/global_widgets/custom_button.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
+import 'package:teneffus/students/presentation/students_notifier.dart';
 
 class WritingGamePage extends HookConsumerWidget {
-  const WritingGamePage({
+  WritingGamePage({
     required this.selectedLessons,
     required this.selectedUnit,
     required this.selectedUnitNumber,
@@ -42,6 +45,8 @@ class WritingGamePage extends HookConsumerWidget {
   final int? quizStep;
   final int? quizLength;
   final Function(int)? onFinished;
+
+  List<WordStat> wordStats = [];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -80,10 +85,13 @@ class WritingGamePage extends HookConsumerWidget {
       String correctAnswer = normalizeArabic(selectedWord.value.ar);
       bool isCorrect = answer == correctAnswer;
       if (isCorrect) {
+        updateWordStat(StatType.correct, selectedWord.value, wordStats);
         playCorrectSound(sfxPlayer);
         score.value += 10;
       } else {
         playWrongSound(sfxPlayer);
+        updateWordStat(StatType.incorrect, selectedWord.value, wordStats);
+
         isWrong.value = true;
         textController.text = selectedWord.value.ar;
         FocusScope.of(context).unfocus();
@@ -97,6 +105,9 @@ class WritingGamePage extends HookConsumerWidget {
           onFinished?.call(score.value);
         } else {
           Future.microtask(() async {
+            ref
+                .read(studentsNotifierProvider.notifier)
+                .updateStudentStats(stats: wordStats);
             Future.delayed(Duration(milliseconds: isCorrect ? 0 : 3000),
                 () async {
               await showGameOverDialog(context, score.value, ref);
@@ -251,6 +262,9 @@ class WritingGamePage extends HookConsumerWidget {
                             ),
                             onPressed: () {
                               if (isWrong.value) return;
+                              updateWordStat(StatType.passed,
+                                  selectedWord.value, wordStats);
+
                               isWrong.value = true;
                               textController.text = selectedWord.value.ar;
                               FocusScope.of(context).unfocus();
@@ -258,6 +272,9 @@ class WritingGamePage extends HookConsumerWidget {
                                   () {
                                 if (selectedWordIndex.value + 1 ==
                                     shuffledWords.length) {
+                                  ref
+                                      .read(studentsNotifierProvider.notifier)
+                                      .updateStudentStats(stats: wordStats);
                                   if (isInQuiz == true) {
                                     onFinished?.call(score.value);
                                   } else {

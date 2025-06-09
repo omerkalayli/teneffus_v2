@@ -1,6 +1,7 @@
 import 'package:fpdart/src/either.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/failure.dart';
+import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/students/data/students_firebase_db.dart';
 import 'package:teneffus/students/domain/students_repository.dart';
 
@@ -44,6 +45,25 @@ class StudentsRepositoryImpl implements StudentsRepository {
       return left(Failure("Data source is null"));
     } else {
       return studentsDataSource!.removeStudent(student, teacherEmail);
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateStudentStats(
+      {required List<WordStat> stats}) async {
+    if (studentsDataSource == null) {
+      return left(Failure("Data source is null"));
+    } else {
+      return studentsDataSource!.updateStudentStats(stats: stats);
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<WordStat>>> getStudentStats(String email) async {
+    if (studentsDataSource == null) {
+      return left(Failure("Data source is null"));
+    } else {
+      return studentsDataSource!.getStudentStats(email);
     }
   }
 }

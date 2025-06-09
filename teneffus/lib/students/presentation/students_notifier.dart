@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
+import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/students/domain/students_repository.dart';
 import 'package:teneffus/students/presentation/students_state.dart';
 
@@ -71,5 +72,19 @@ class StudentsNotifier extends _$StudentsNotifier {
     if (result.isRight()) {
       await ref.read(studentsNotifierProvider.notifier).getStudents();
     }
+  }
+
+  Future<void> updateStudentStats({
+    required List<WordStat> stats,
+  }) async {
+    await _studentsRepository.updateStudentStats(stats: stats);
+  }
+
+  Future<List<WordStat>?> getStudentStats(String email) async {
+    final result = await _studentsRepository.getStudentStats(email);
+    return result.fold(
+      (failure) => null,
+      (stats) => stats,
+    );
   }
 }

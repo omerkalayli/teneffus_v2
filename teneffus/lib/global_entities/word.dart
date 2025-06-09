@@ -16,6 +16,20 @@ class Word {
   String toString() {
     return 'Word{tr: $tr, ar: $ar}';
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'tr': tr,
+      'ar': ar,
+    };
+  }
+
+  static Word fromJson(Map<String, dynamic> json) {
+    return Word(
+      tr: json['tr'],
+      ar: json['ar'],
+    );
+  }
 }
 
 String sanitizeFileName(String name) {
