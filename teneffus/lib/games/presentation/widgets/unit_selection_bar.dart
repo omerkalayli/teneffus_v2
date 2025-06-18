@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:teneffus/constants.dart';
 import 'package:teneffus/global_entities/unit.dart';
 
 /// This widget is used to select a unit in the game. It shows a list of units
@@ -11,24 +10,27 @@ class UnitSelectionBar extends StatelessWidget {
     required this.units,
     required this.selectedUnitNumber,
     required this.onTap,
+    this.color,
   });
 
   final Function(int) onTap;
   final List<Unit> units;
   final ValueNotifier<int> selectedUnitNumber;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
-    const selectedUnitColor = Color(0xffFF7043);
-    const unSelectedUnitColor = Color(0xffFF916E);
+    Color selectedUnitColor = color ?? Colors.blue;
+    Color unSelectedUnitColor = Colors.grey.shade400;
+    Color selectedBorderColor = const Color(0xfff5f5f5);
     return Stack(
       alignment: Alignment.center,
       children: [
         Container(
-          height: 12,
+          height: 6,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: const Color.fromARGB(255, 219, 219, 219),
             borderRadius: BorderRadius.circular(16),
           ),
         ),
@@ -42,27 +44,28 @@ class UnitSelectionBar extends StatelessWidget {
                   onTap(i);
                 },
                 child: AnimatedContainer(
-                  curve: Curves.bounceOut,
-                  duration: animationDuration,
-                  height: 36,
-                  padding: const EdgeInsets.all(8),
+                  curve: Curves.easeInOut,
+                  duration: Durations.short4,
+                  height: 30,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                   decoration: BoxDecoration(
                     color: selectedUnitNumber.value == i
                         ? selectedUnitColor
                         : unSelectedUnitColor,
                     border: Border.all(
-                        width: selectedUnitNumber.value == i ? 2 : 1,
-                        color: selectedUnitNumber.value == i
-                            ? Colors.white
-                            : const Color(0xffD9D9D9)),
-                    borderRadius: BorderRadius.circular(20),
+                        width: 2,
+                        color: selectedUnitNumber.value != i
+                            ? selectedBorderColor
+                            : selectedUnitColor),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: Center(
                     child: AnimatedDefaultTextStyle(
                       curve: Curves.bounceOut,
                       duration: Durations.short3,
                       style: GoogleFonts.montserrat(
-                        fontSize: selectedUnitNumber.value == i ? 12 : 10,
+                        fontSize: 10,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),

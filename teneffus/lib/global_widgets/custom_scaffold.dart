@@ -20,8 +20,10 @@ class CustomScaffold extends StatelessWidget {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xff4DD0E1),
-            Color(0xff69AAFF),
+            // Color(0xff4DD0E1),
+            // Color(0xff69AAFF),
+            Color(0xffF5F5F5),
+            Color(0xffF5F5F5),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teneffus/constants.dart';
 import 'package:teneffus/games/presentation/widgets/custom_dropdown.dart';
 import 'package:teneffus/global_entities/lesson.dart';
 
@@ -8,10 +9,12 @@ class LessonSelectionContainer extends StatelessWidget {
     required this.isAllLessonsSelected,
     required this.lessons,
     required this.selectedLesson,
+    this.color,
   });
 
   final ValueNotifier<bool> isAllLessonsSelected;
   final List<Lesson> lessons;
+  final Color? color;
   final ValueNotifier<int> selectedLesson;
 
   @override
@@ -43,8 +46,8 @@ class LessonSelectionContainer extends StatelessWidget {
           ),
         ),
         Checkbox(
-            activeColor: const Color(0xffFF6E42),
-            side: const BorderSide(color: Colors.white, width: 2),
+            activeColor: color ?? Colors.blue,
+            side: const BorderSide(color: textColor, width: 2),
             value: isAllLessonsSelected.value,
             onChanged: (val) {
               isAllLessonsSelected.value = val ?? false;

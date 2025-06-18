@@ -77,17 +77,16 @@ class SpeakingGamePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const numberOfQuestions = 16;
+    const numberOfQuestions = 2;
 
     final shuffledWords = useMemoized(() {
-      final list = selectedLessons
-          .expand((lesson) => lesson.words)
-          .take(numberOfQuestions)
-          .toList();
-      list.shuffle();
+      final allWords =
+          selectedLessons.expand((lesson) => lesson.words).toList();
+      allWords.shuffle();
+      final list = allWords.take(numberOfQuestions).toList();
       return list;
     });
-
+// TODO: quizde puan birden dustu
     final speakedWord = useState("");
     final score = useState(0);
     final selectedWordIndex = useState(0);
@@ -118,7 +117,6 @@ class SpeakingGamePage extends HookConsumerWidget {
       speakedWord.value = spoken;
       if (spoken == expected) {
         updateWordStat(StatType.correct, selectedWord.value, wordStats);
-
         playCorrectSound(sfxPlayer);
         score.value += 10;
         if (selectedWordIndex.value + 1 < shuffledWords.length) {
@@ -126,16 +124,16 @@ class SpeakingGamePage extends HookConsumerWidget {
           selectedWord.value = shuffledWords[selectedWordIndex.value];
           progress = (selectedWordIndex.value) / shuffledWords.length;
         } else {
-          if (isInQuiz == true) {
+          if (isInQuiz == true && !isPassed.value) {
             onFinished?.call(score.value);
           } else {
-            ref
-                .read(studentsNotifierProvider.notifier)
-                .updateStudentStats(stats: wordStats);
-            Future.microtask(() async {
-              await showGameOverDialog(context, score.value, ref);
-              Navigator.pop(context);
-            });
+            updateStat(GameType.speaking, wordStats, ref);
+            if (!isPassed.value) {
+              Future.microtask(() async {
+                await showGameOverDialog(context, score.value, ref);
+                Navigator.pop(context);
+              });
+            }
           }
         }
       } else if (spoken.isNotEmpty) {
@@ -155,6 +153,12 @@ class SpeakingGamePage extends HookConsumerWidget {
           onResult: _onSpeechResult,
           localeId: 'ar',
         );
+      }
+    }
+
+    Future<void> _stopListening() async {
+      if (microphonePermissionStatus.value?.isGranted ?? false) {
+        await speechToText.stop();
       }
     }
 
@@ -270,16 +274,18 @@ class SpeakingGamePage extends HookConsumerWidget {
                                     selectedWord.value.audioUrl, player);
                                 if (selectedWordIndex.value + 1 ==
                                     shuffledWords.length) {
-                                  ref
-                                      .read(studentsNotifierProvider.notifier)
-                                      .updateStudentStats(stats: wordStats);
-                                  if (isInQuiz == true) {
-                                    onFinished?.call(score.value);
-                                  } else {
-                                    Future.microtask(() async {
+                                  updateStat(GameType.speaking, wordStats, ref);
+                                  if (isInQuiz != true) {
+                                    Future.delayed((const Duration(seconds: 2)),
+                                        () async {
                                       await showGameOverDialog(
                                           context, score.value, ref);
                                       Navigator.pop(context);
+                                    });
+                                  } else {
+                                    Future.delayed(const Duration(seconds: 2),
+                                        () {
+                                      onFinished?.call(score.value);
                                     });
                                   }
                                 } else {
@@ -294,9 +300,11 @@ class SpeakingGamePage extends HookConsumerWidget {
                               },
                             ),
                             CustomButton(
-                                isDisabled: isListening,
+                                // isDisabled: isListening,
                                 buttonPalette: ButtonPalette.teal(),
-                                onPressed: () async => await _startListening(),
+                                onPressed: () async => isListening
+                                    ? await _stopListening()
+                                    : await _startListening(),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),

@@ -5,12 +5,14 @@ class WordStat {
   int correctCount;
   int incorrectCount;
   int passedCount;
+  DateTime lastStudied;
 
   WordStat({
     required this.word,
     required this.correctCount,
     required this.incorrectCount,
     required this.passedCount,
+    required this.lastStudied,
   });
 
   Map<String, dynamic> toJson() {
@@ -19,6 +21,7 @@ class WordStat {
       'correctCount': correctCount,
       'incorrectCount': incorrectCount,
       'passedCount': passedCount,
+      'lastStudied': lastStudied.toIso8601String(),
     };
   }
 
@@ -28,6 +31,8 @@ class WordStat {
       correctCount: json['correctCount'] ?? 0,
       incorrectCount: json['incorrectCount'] ?? 0,
       passedCount: json['passedCount'] ?? 0,
+      lastStudied: DateTime.parse(
+          json['lastStudied'] ?? DateTime.now().toIso8601String()),
     );
   }
 }

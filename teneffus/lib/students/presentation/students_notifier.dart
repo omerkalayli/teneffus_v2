@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
+import 'package:teneffus/global_entities/student_stat.dart';
 import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/students/domain/students_repository.dart';
 import 'package:teneffus/students/presentation/students_state.dart';
@@ -74,17 +75,29 @@ class StudentsNotifier extends _$StudentsNotifier {
     }
   }
 
-  Future<void> updateStudentStats({
+  Future<void> updateWordStats({
     required List<WordStat> stats,
   }) async {
-    await _studentsRepository.updateStudentStats(stats: stats);
+    await _studentsRepository.updateWordStats(stats: stats);
   }
 
-  Future<List<WordStat>?> getStudentStats(String email) async {
-    final result = await _studentsRepository.getStudentStats(email);
+  Future<List<WordStat>?> getWordStats(String email) async {
+    final result = await _studentsRepository.getWordStats(email);
     return result.fold(
       (failure) => null,
       (stats) => stats,
+    );
+  }
+
+  Future<void> updateStudentStats({required StudentStat stats}) async {
+    await _studentsRepository.updateStudentStats(stats: stats);
+  }
+
+  Future<StudentStat?> getStudentStat(String email) async {
+    final result = await _studentsRepository.getStudentStat(email);
+    return result.fold(
+      (failure) => null,
+      (stat) => stat,
     );
   }
 }

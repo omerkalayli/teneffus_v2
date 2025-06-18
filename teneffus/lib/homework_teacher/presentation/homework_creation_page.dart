@@ -380,7 +380,8 @@ class HomeworkCreationPage extends HookConsumerWidget {
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(left: 8.0, bottom: 4),
-                    child: Text("Geçme Notu"),
+                    child: Text(
+                        "Geçme Notu"), // TODO: gecme notu yerine dogru yuzdesi ya da sayisi olmlaı bence
                   ),
                   SizedBox(
                     height: 30,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:teneffus/constants.dart';
 
 /// This widget is used to select a lesson in the game. It shows a list of items
 
@@ -12,6 +13,7 @@ class CustomDropdown extends HookConsumerWidget {
     required this.selectedIndex,
     required this.onSelected,
     required this.disabled,
+    this.baseColor = textColor,
   });
 
   final Function(int) onSelected;
@@ -19,6 +21,7 @@ class CustomDropdown extends HookConsumerWidget {
   final int selectedIndex;
   final bool disabled;
   final double? width;
+  final Color baseColor;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,13 +32,11 @@ class CustomDropdown extends HookConsumerWidget {
         data: DropdownMenuThemeData(
           textStyle: GoogleFonts.montserrat(
               fontSize: 12,
-              color: disabled
-                  ? const Color.fromARGB(255, 7, 114, 131)
-                  : Colors.white,
+              color: disabled ? baseColor.withValues(alpha: .5) : baseColor,
               fontWeight: FontWeight.bold),
           inputDecorationTheme: InputDecorationTheme(
             enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: baseColor),
               borderRadius: BorderRadius.circular(12),
             ),
           ),
@@ -49,16 +50,12 @@ class CustomDropdown extends HookConsumerWidget {
           initialSelection: selectedIndex + 1,
           trailingIcon: Icon(
             Icons.arrow_drop_down_rounded,
-            color: disabled
-                ? const Color.fromARGB(255, 7, 114, 131)
-                : Colors.white,
+            color: disabled ? baseColor.withValues(alpha: 0.5) : baseColor,
             size: 30,
           ),
           selectedTrailingIcon: Icon(
             Icons.arrow_drop_up_rounded,
-            color: disabled
-                ? const Color.fromARGB(255, 7, 114, 131)
-                : Colors.white,
+            color: disabled ? baseColor.withValues(alpha: 0.5) : baseColor,
             size: 30,
           ),
           inputDecorationTheme: InputDecorationTheme(
@@ -66,16 +63,16 @@ class CustomDropdown extends HookConsumerWidget {
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             border: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: baseColor, width: 1.5),
               borderRadius: BorderRadius.circular(12),
             ),
             disabledBorder: OutlineInputBorder(
-              borderSide:
-                  const BorderSide(color: Color.fromARGB(255, 7, 114, 131)),
+              borderSide: BorderSide(
+                  color: baseColor.withValues(alpha: .5), width: 1.5),
               borderRadius: BorderRadius.circular(12),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: baseColor, width: 1.5),
               borderRadius: BorderRadius.circular(12),
             ),
             constraints: const BoxConstraints(maxHeight: 30),
@@ -86,7 +83,7 @@ class CustomDropdown extends HookConsumerWidget {
             shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
-                side: const BorderSide(color: Colors.white),
+                side: BorderSide(color: Colors.grey.shade300),
               ),
             ),
           ),

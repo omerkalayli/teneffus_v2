@@ -6,18 +6,34 @@ import 'package:teneffus/constants.dart';
 final sfxPlayerProvider = Provider<AudioPlayer>((ref) {
   final sfxPlayer = AudioPlayer();
   sfxPlayer.setAndroidAudioAttributes(const AndroidAudioAttributes(
-    contentType: AndroidAudioContentType.sonification,
-    usage: AndroidAudioUsage.notification,
+    contentType: AndroidAudioContentType.music,
+    usage: AndroidAudioUsage.media,
   ));
   return sfxPlayer;
 });
+
+final dropWordPlayerProvider = Provider<AudioPlayer>((ref) {
+  final dropWordPlayer = AudioPlayer();
+  dropWordPlayer.setAsset(dropWordSoundPath);
+  dropWordPlayer.setAndroidAudioAttributes(const AndroidAudioAttributes(
+    contentType: AndroidAudioContentType.music,
+    usage: AndroidAudioUsage.media,
+  ));
+
+  return dropWordPlayer;
+});
+
+Future<void> playDropWordSound(AudioPlayer player) async {
+  await player.stop();
+  await player.play();
+}
 
 final listeningPlayerProvider = Provider<AudioPlayer>((ref) {
   final player = AudioPlayer();
 
   player.setAndroidAudioAttributes(const AndroidAudioAttributes(
     contentType: AndroidAudioContentType.music,
-    usage: AndroidAudioUsage.notification,
+    usage: AndroidAudioUsage.media,
   ));
 
   return player;

@@ -97,11 +97,11 @@ const List<int> dayStreakStars = [1, 2, 4, 8, 10, 12, 16];
 const Duration animationDuration = Duration(milliseconds: 500);
 
 Map<String, AssetGenImage> games = {
-  "Eşleştirme": Assets.images.elestirme,
-  "Dinleme": Assets.images.dinleme,
-  "Cümle Kurma": Assets.images.cumleKurma,
-  "Boşluk Doldurma": Assets.images.boslukDoldurma,
-  "Konuşma": Assets.images.konusma,
+  "Eşleştirme": Assets.images.matching,
+  "Dinleme": Assets.images.listening,
+  "Cümle Kurma": Assets.images.sentenceMaking,
+  "Yazma": Assets.images.writing,
+  "Konuşma": Assets.images.speaking,
 };
 
 const String correctSoundPath = "assets/sounds/correct.mp3";
@@ -122,9 +122,33 @@ const LinearGradient flipCardGradient = LinearGradient(
 );
 
 const BoxDecoration homeworkCardHeaderDecoration = BoxDecoration(
-  color: Colors.blueGrey,
+  color: Color(0xff7687D0),
   borderRadius: BorderRadius.only(
     topLeft: Radius.circular(8),
     topRight: Radius.circular(8),
   ),
 );
+
+// BACKGROUND (koyu tonlar, gölge efekti için)
+const Color listeningBackgroundColor = Color(0xFF3BCB70); // Yeşil (asıl ton)
+const Color speakingBackgroundColor = Color(0xFFF59E42); // Turuncu
+const Color sentenceMakingBackgroundColor = Color(0xFFFF6B6B); // Kırmızımsı
+const Color writingBackgroundColor = Color(0xFFD660FA); // Mor
+const Color matchingBackgroundColor = Color(0xFF607D8B); // BlueGrey 600
+
+// FOREGROUND (aynı tonda, bir kademe açık – üst katman)
+const Color listeningForegroundColor =
+    Color(0xFF51D985); // Yeşil – bir ton açık
+const Color speakingForegroundColor =
+    Color(0xFFFFAD5F); // Turuncu – bir ton açık
+const Color sentenceMakingForegroundColor =
+    Color(0xFFFF7E7E); // Kırmızı – bir ton açık
+const Color writingForegroundColor = Color(0xFFE078FF); // Mor – bir ton açık
+const Color matchingForegroundColor = Color(0xFF78909C); // BlueGrey 400
+
+const Color textColor = Color(0xff212121);
+
+const Color homeworksColor = Color(0xFFEF476F); // canlı pembe-kırmızı
+const Color gamesColor = Color(0xFF3A86FF);
+const Color wordsColor = Color(0xFF8E44AD);
+const Color profileColor = Color(0xFF118AB2);   // sakin mavi

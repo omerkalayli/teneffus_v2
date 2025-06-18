@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:teneffus/constants.dart';
 
@@ -11,6 +10,7 @@ class NavBarItem extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.isStudent,
+    required this.color,
     super.key,
   });
 
@@ -19,6 +19,8 @@ class NavBarItem extends StatelessWidget {
   final bool isSelected;
   final Function onTap;
   final bool isStudent;
+  final Color color;
+// TODO: quiz sentence doğru olduğundd asonrakine geçmiyor. göstermiyor
 
   @override
   Widget build(BuildContext context) {
@@ -28,48 +30,53 @@ class NavBarItem extends StatelessWidget {
         AnimatedPositioned(
           curve: !isSelected ? Curves.easeInOut : Curves.easeInOut,
           duration: !isSelected ? Durations.short4 : Durations.short4,
-          bottom: isSelected ? 24 : 0,
+          bottom: isSelected ? 0 : 0,
           child: InkWell(
             borderRadius: BorderRadius.circular(24),
             onTap: () {
               onTap.call();
             },
-            child: AnimatedContainer(
-              duration: Durations.short3,
-              width: MediaQuery.of(context).size.width / (isStudent ? 5 : 3),
+            child: SizedBox(
               height: 80,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  border: isSelected
-                      ? Border.all(width: 2, color: Colors.white)
-                      : null,
-                  color: navBarOrange,
-                  boxShadow: !isSelected
-                      ? []
-                      : [
-                          BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.25),
-                              offset: const Offset(0, 4),
-                              blurRadius: 4)
-                        ]),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
+              child: AnimatedContainer(
+                duration: Durations.short3,
+                width: MediaQuery.of(context).size.width / (isStudent ? 6 : 3),
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8),
+                height: 76,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    border: isSelected
+                        ? Border.all(width: 2.5, color: color)
+                        : null,
                     color: Colors.white,
-                    icon,
-                    size: 24,
-                  ),
-                  AutoSizeText(
-                    label,
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12),
-                  )
-                ],
+                    boxShadow: !isSelected
+                        ? []
+                        : [
+                            BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.25),
+                                offset: const Offset(0, 4),
+                                blurRadius: 4)
+                          ]),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      color: textColor,
+                      icon,
+                      size: 32,
+                    ),
+                    // AutoSizeText(
+                    //   label,
+                    //   maxLines: 1,
+                    //   textAlign: TextAlign.center,
+                    //   style: const TextStyle(
+                    //       color: textColor,
+                    //       fontWeight: FontWeight.bold,
+                    //       fontSize: 12),
+                    // )
+                  ],
+                ),
               ),
             ),
           ),

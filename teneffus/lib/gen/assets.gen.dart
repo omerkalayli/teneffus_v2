@@ -97,6 +97,10 @@ class $AssetsImagesGen {
   AssetGenImage get yazKadNa =>
       const AssetGenImage('assets/images/Yaz! (Kadına).webp');
 
+  /// File path: assets/images/answered_question.webp
+  AssetGenImage get answeredQuestion =>
+      const AssetGenImage('assets/images/answered_question.webp');
+
   /// File path: assets/images/app_icon.webp
   AssetGenImage get appIcon =>
       const AssetGenImage('assets/images/app_icon.webp');
@@ -120,13 +124,40 @@ class $AssetsImagesGen {
   AssetGenImage get elestirme =>
       const AssetGenImage('assets/images/elestirme.webp');
 
+  /// File path: assets/images/king.webp
+  AssetGenImage get king => const AssetGenImage('assets/images/king.webp');
+
   /// File path: assets/images/konusma.webp
   AssetGenImage get konusma =>
       const AssetGenImage('assets/images/konusma.webp');
 
+  /// File path: assets/images/listening.webp
+  AssetGenImage get listening =>
+      const AssetGenImage('assets/images/listening.webp');
+
   /// File path: assets/images/loading.webp
   AssetGenImage get loading =>
       const AssetGenImage('assets/images/loading.webp');
+
+  /// File path: assets/images/matching.webp
+  AssetGenImage get matching =>
+      const AssetGenImage('assets/images/matching.webp');
+
+  /// File path: assets/images/overrall_success.webp
+  AssetGenImage get overrallSuccess =>
+      const AssetGenImage('assets/images/overrall_success.webp');
+
+  /// File path: assets/images/sentence_making.webp
+  AssetGenImage get sentenceMaking =>
+      const AssetGenImage('assets/images/sentence_making.webp');
+
+  /// File path: assets/images/speaking.webp
+  AssetGenImage get speaking =>
+      const AssetGenImage('assets/images/speaking.webp');
+
+  /// File path: assets/images/writing.webp
+  AssetGenImage get writing =>
+      const AssetGenImage('assets/images/writing.webp');
 
   /// File path: assets/images/yellowStar.webp
   AssetGenImage get yellowStar =>
@@ -161,14 +192,22 @@ class $AssetsImagesGen {
     sNF,
     yazErkeE,
     yazKadNa,
+    answeredQuestion,
     appIcon,
     boslukDoldurma,
     crow,
     cumleKurma,
     dinleme,
     elestirme,
+    king,
     konusma,
+    listening,
     loading,
+    matching,
+    overrallSuccess,
+    sentenceMaking,
+    speaking,
+    writing,
     yellowStar,
     aRetmenErkek,
     aRetmenKadN,

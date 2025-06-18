@@ -8,61 +8,45 @@ class GameContainer extends StatelessWidget {
     required this.label,
     required this.image,
     required this.onTap,
+    required this.foregroundColor,
+    required this.backgroundColor,
     super.key,
   });
 
   final Function() onTap;
   final String label;
   final AssetGenImage image;
+  final Color foregroundColor;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    final containerGradient = LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: [
-        const Color(0xff2C76ED).withValues(alpha: .53),
-        const Color(0xff4340A9).withValues(alpha: .47),
-      ],
-    );
-
-    return Expanded(
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(16),
-          onTap: () {
-            onTap();
-          },
-          child: Container(
-            margin: const EdgeInsets.all(12),
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-                border: Border.all(width: 2, color: Colors.white),
-                gradient: containerGradient,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: .25),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  )
-                ]),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                  child: image.image(),
-                ),
-                const Gap(4),
-                AutoSizeText(
-                  label,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 14),
-                )
-              ],
-            ),
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: () {
+        onTap();
+      },
+      child: Card(
+        shadowColor: backgroundColor,
+        child: Container(
+          width: double.infinity,
+          height: 48,
+          padding: const EdgeInsets.all(8),
+          margin: const EdgeInsets.symmetric(vertical: 8),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Gap(16),
+              AutoSizeText(
+                label,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14, color: backgroundColor),
+              ),
+              const Spacer(),
+              image.image(fit: BoxFit.contain, width: 48, height: 48),
+              const Gap(8),
+            ],
           ),
         ),
       ),

@@ -15,37 +15,33 @@ class HomeworkCardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-          decoration: homeworkCardHeaderDecoration,
-          child: Text(
-            teacher,
-            style: const TextStyle(fontSize: 10, color: Colors.white),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+            decoration: homeworkCardHeaderDecoration.copyWith(
+                color: isCompleted
+                    ? Colors.green
+                    : Colors.red.withValues(alpha: 0.8)),
+            child: Text(
+              isCompleted ? "Tamamlandı" : "Tamamlanmadı",
+              style: const TextStyle(fontSize: 10, color: Colors.white),
+            ),
           ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-          decoration: homeworkCardHeaderDecoration,
-          child: Text(
-            formattedDate,
-            style: const TextStyle(fontSize: 10, color: Colors.white),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+            decoration: homeworkCardHeaderDecoration.copyWith(
+                color: Colors.cyan.shade500),
+            child: Text(
+              formattedDate,
+              style: const TextStyle(fontSize: 10, color: Colors.white),
+            ),
           ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-          decoration: homeworkCardHeaderDecoration.copyWith(
-              color: isCompleted
-                  ? Colors.green
-                  : Colors.red.withValues(alpha: 0.8)),
-          child: Text(
-            isCompleted ? "Tamamlandı" : "Tamamlanmadı",
-            style: const TextStyle(fontSize: 10, color: Colors.white),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

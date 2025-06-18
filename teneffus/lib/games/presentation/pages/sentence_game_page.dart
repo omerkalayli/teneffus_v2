@@ -23,7 +23,6 @@ import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/global_widgets/custom_button.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
 import 'package:teneffus/global_widgets/custom_text_button.dart';
-import 'package:teneffus/students/presentation/students_notifier.dart';
 
 /// [SentenceGamePage], is the "Cümle Kurma" game page.
 /// It is a game where the user listens to a word and selects the correct option from the given options.
@@ -58,7 +57,7 @@ class SentenceGamePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const numberOfQuestions = 4;
+    const numberOfQuestions = 2;
 
     final sfxPlayer = ref.watch(sfxPlayerProvider);
     final wordSoundPlayer = useMemoized(() => AudioPlayer());
@@ -71,13 +70,13 @@ class SentenceGamePage extends HookConsumerWidget {
       return list.take(numberOfQuestions).toList();
     });
     final score = useState(quizScore ?? 0);
+    final takeBackDone = useState(true);
 
     final selectedSentenceIndex = useState(0);
     bool isDone = selectedSentenceIndex.value == shuffledSentences.length;
+    // TODO: quizde dogru ile bitirdigimde bir sonraki alistirmaya gecmiyor
     if (isDone) {
-      ref
-          .read(studentsNotifierProvider.notifier)
-          .updateStudentStats(stats: wordStats);
+      updateStat(GameType.sentenceMaking, wordStats, ref);
       if (isInQuiz == true) {
         onFinished?.call(score.value);
       } else {
@@ -121,9 +120,17 @@ class SentenceGamePage extends HookConsumerWidget {
       return uniqueOptions;
     }
 
+    final dropWordPlayer = ref.watch(dropWordPlayerProvider);
+
     final currentSentence = shuffledSentences[selectedSentenceIndex.value];
     final options = useMemoized(
-      () => generateWordOptions(currentSentence, shuffledSentences),
+      () {
+        final list = selectedLessons
+            .expand((lesson) => (lesson.sentences ?? []) as List<Sentence>)
+            .toList();
+        list.shuffle();
+        return generateWordOptions(currentSentence, list);
+      },
       [selectedSentenceIndex.value],
     );
 
@@ -314,18 +321,12 @@ class SentenceGamePage extends HookConsumerWidget {
                             numberOfQuestions - 1) {
                           selectedSentenceIndex.value++;
                         } else {
-                          ref
-                              .read(studentsNotifierProvider.notifier)
-                              .updateStudentStats(stats: wordStats);
+                          updateStat(GameType.sentenceMaking, wordStats, ref);
                           if (isInQuiz == true) {
                             onFinished?.call(score.value);
                           } else {
-                            WidgetsBinding.instance
-                                .addPostFrameCallback((_) async {
-                              await showGameOverDialog(
-                                  context, score.value, ref);
-                              Navigator.pop(context);
-                            });
+                            await showGameOverDialog(context, score.value, ref);
+                            Navigator.pop(context);
                           }
                         }
                         droppedWords.value = [];
@@ -360,12 +361,7 @@ class SentenceGamePage extends HookConsumerWidget {
                         ),
                       ),
                       onPressed: () async {
-                        await Future.microtask(() async {
-                          await wordSoundPlayer.stop();
-                          await wordSoundPlayer.setAsset(dropWordSoundPath);
-                          await wordSoundPlayer.seek(Duration.zero);
-                          await wordSoundPlayer.play();
-                        });
+                        playDropWordSound(dropWordPlayer);
                         if (droppedWords.value.isNotEmpty) {
                           final firstWord = droppedWords.value.first;
                           droppedWords.value = [...droppedWords.value]
@@ -409,21 +405,26 @@ class SentenceGamePage extends HookConsumerWidget {
                       playCorrectSound(sfxPlayer);
                       isCorrect.value = true;
                       score.value += 10;
-                      Future.delayed(const Duration(seconds: 2), () {
+                      Future.delayed(const Duration(milliseconds: 2), () async {
                         isCorrect.value = null;
                         if (selectedSentenceIndex.value <
                             numberOfQuestions - 1) {
                           selectedSentenceIndex.value++;
-                        }
-                        droppedWords.value = [];
-                        if (selectedSentenceIndex.value <
-                            shuffledSentences.length) {
+                          droppedWords.value = [];
                           availableWords.value = List.from(
                             generateWordOptions(
                               shuffledSentences[selectedSentenceIndex.value],
                               shuffledSentences,
                             ),
                           );
+                        } else {
+                          updateStat(GameType.sentenceMaking, wordStats, ref);
+                          if (isInQuiz == true) {
+                            onFinished?.call(score.value);
+                          } else {
+                            await showGameOverDialog(context, score.value, ref);
+                            Navigator.pop(context);
+                          }
                         }
                       });
                     } else {

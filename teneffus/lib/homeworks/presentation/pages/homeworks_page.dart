@@ -1,10 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
-import 'package:teneffus/homeworks/presentation/homeworks_state.dart';
 import 'package:teneffus/homeworks/presentation/notifiers/homeworks_notifier.dart';
 import 'package:teneffus/homeworks/presentation/pages/homeworks_widget.dart';
 import 'package:teneffus/homeworks/presentation/pages/no_teacher_connected_widget.dart';
@@ -40,75 +38,20 @@ class HomeworksPage extends HookConsumerWidget {
       "Tamamlanmayanlar",
     ];
 
-    final state = ref.watch(homeworksNotifierProvider);
-    final isLoading = state.value == const HomeworksState.loading();
-
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          actions: hasTeacher
-              ? [
-                  InkWell(
-                    onTap: () {
-                      ref.read(homeworksNotifierProvider.notifier).getHomeworks(
-                            uid: ref
-                                    .read(authNotifierProvider.notifier)
-                                    .studentInformation
-                                    ?.uid ??
-                                "",
-                          );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(208, 33, 149, 243),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        children: [
-                          const Text(
-                            "Yenile",
-                            style: TextStyle(color: Colors.white, fontSize: 12),
-                          ),
-                          const Gap(4),
-                          isLoading
-                              ? Container(
-                                  margin: const EdgeInsets.all(2),
-                                  height: 12,
-                                  width: 12,
-                                  child: const CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    color: Colors.white,
-                                  ))
-                              : const Icon(
-                                  Icons.refresh,
-                                  color: Colors.white,
-                                  size: 16,
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Gap(16)
-                ]
-              : [],
-          title: Text('Görevlerim',
-              style: GoogleFonts.montserrat(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20)),
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: hasTeacher
-              ? HomeworksWidget(
-                  dropdownItems: dropdownItems,
-                  selectedDropdownIndex: selectedDropdownIndex,
-                  showEarliestFirst: showEarliestFirst,
-                  filteredHomeworks: filteredHomeworks)
-              : const NoTeacherConnectedWidget(),
-        ));
+        backgroundColor: Colors.transparent,
+        body: hasTeacher
+            ? HomeworksWidget(
+                dropdownItems: dropdownItems,
+                selectedDropdownIndex: selectedDropdownIndex,
+                showEarliestFirst: showEarliestFirst,
+                filteredHomeworks: filteredHomeworks,
+                onRefresh: () async {
+                  final uid = FirebaseAuth.instance.currentUser?.uid ?? "";
+                  final notifier = ref.read(homeworksNotifierProvider.notifier);
+                  await notifier.getHomeworks(uid: uid);
+                },
+              )
+            : const NoTeacherConnectedWidget());
   }
 }

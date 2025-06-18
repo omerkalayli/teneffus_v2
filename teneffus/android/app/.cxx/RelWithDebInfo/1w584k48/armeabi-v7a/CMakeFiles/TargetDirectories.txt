@@ -1,0 +1,2 @@
+/Users/omerkalayli/Desktop/Front-End/Teneffuses/teneffus_v2/teneffus/android/app/.cxx/RelWithDebInfo/1w584k48/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/omerkalayli/Desktop/Front-End/Teneffuses/teneffus_v2/teneffus/android/app/.cxx/RelWithDebInfo/1w584k48/armeabi-v7a/CMakeFiles/rebuild_cache.dir

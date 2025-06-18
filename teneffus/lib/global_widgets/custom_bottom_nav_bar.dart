@@ -23,7 +23,7 @@ class CustomBottomNavBar extends StatelessWidget {
           height: 84,
           width: double.infinity,
           decoration: const BoxDecoration(
-            color: navBarOrange,
+            color: Colors.white,
             border: Border(top: BorderSide(width: 2, color: Colors.white)),
           ),
         ),
@@ -33,6 +33,7 @@ class CustomBottomNavBar extends StatelessWidget {
             children: [
               Expanded(
                 child: NavBarItem(
+                  color: homeworksColor,
                   isStudent: isStudent,
                   isSelected: currentIndex.value == 0,
                   icon: isStudent
@@ -40,15 +41,13 @@ class CustomBottomNavBar extends StatelessWidget {
                       : Icons.post_add_rounded,
                   label: isStudent ? "Görevlerim" : "Görev Oluştur",
                   onTap: () {
-                    pageController.animateToPage(
-                        duration: Durations.medium1,
-                        curve: Curves.linearToEaseOut,
-                        0);
+                    pageController.jumpToPage(0);
                   },
                 ),
               ),
               Expanded(
                 child: NavBarItem(
+                  color: gamesColor,
                   isStudent: isStudent,
                   isSelected: currentIndex.value == 1,
                   icon: isStudent
@@ -56,54 +55,45 @@ class CustomBottomNavBar extends StatelessWidget {
                       : Icons.home_rounded,
                   label: isStudent ? " Oyunlar " : "Ana Menü",
                   onTap: () {
-                    pageController.animateToPage(
-                        duration: Durations.medium1,
-                        curve: Curves.linearToEaseOut,
-                        1);
+                    pageController.jumpToPage(1);
                   },
                 ),
               ),
               Expanded(
                 child: NavBarItem(
+                  color: textColor,
                   isStudent: isStudent,
                   isSelected: currentIndex.value == 2,
                   label: isStudent ? "Ana Menü" : "Öğrenciler",
                   icon: isStudent ? Icons.home_rounded : Icons.people_rounded,
                   onTap: () {
-                    pageController.animateToPage(
-                        duration: Durations.medium1,
-                        curve: Curves.linearToEaseOut,
-                        2);
+                    pageController.jumpToPage(2);
                   },
                 ),
               ),
               if (isStudent)
                 Expanded(
                   child: NavBarItem(
+                    color: wordsColor,
                     isStudent: isStudent,
                     isSelected: currentIndex.value == 3,
                     icon: Icons.library_books_rounded,
                     label: "Kelimeler",
                     onTap: () {
-                      pageController.animateToPage(
-                          duration: Durations.medium1,
-                          curve: Curves.linearToEaseOut,
-                          3);
+                      pageController.jumpToPage(3);
                     },
                   ),
                 ),
               if (isStudent)
                 Expanded(
                   child: NavBarItem(
+                    color: profileColor,
                     isStudent: isStudent,
                     isSelected: currentIndex.value == 4,
-                    icon: Icons.public_rounded,
-                    label: "Sosyal  ",
+                    icon: Icons.person_rounded,
+                    label: "Profil  ",
                     onTap: () {
-                      pageController.animateToPage(
-                          duration: Durations.medium1,
-                          curve: Curves.linearToEaseOut,
-                          4);
+                      pageController.jumpToPage(4);
                     },
                   ),
                 ),

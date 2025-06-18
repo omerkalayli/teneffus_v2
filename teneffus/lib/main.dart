@@ -1,5 +1,6 @@
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,13 +17,22 @@ final restartAppProvider = Provider<void Function()>(
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final session = await AudioSession.instance;
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, // TODO: düzelt,
+      overlays: [SystemUiOverlay.top]);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Color(0xfff5f5f5),
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.light,
+    ),
+  );
   await session.configure(
     const AudioSessionConfiguration(
       androidWillPauseWhenDucked: false,
       androidAudioFocusGainType: AndroidAudioFocusGainType.gainTransientMayDuck,
       androidAudioAttributes: AndroidAudioAttributes(
-        contentType: AndroidAudioContentType.sonification,
-        usage: AndroidAudioUsage.assistanceSonification,
+        contentType: AndroidAudioContentType.music,
+        usage: AndroidAudioUsage.media,
       ),
     ),
   );

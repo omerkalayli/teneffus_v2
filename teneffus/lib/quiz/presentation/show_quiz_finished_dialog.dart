@@ -80,7 +80,7 @@ Future<void> showQuizFinishedDialog(
                 const Gap(16),
                 if (isHomework)
                   Text(
-                    "Gereken minimum puan: $minScore.",
+                    "Gereken minimum puan: $minScore",
                     style: const TextStyle(fontSize: 14),
                   ),
                 const Gap(16),

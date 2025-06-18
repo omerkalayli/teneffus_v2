@@ -11,7 +11,7 @@ import 'package:teneffus/homeworks/presentation/pages/homeworks_page.dart';
 import 'package:teneffus/main/presentation/pages/main_page.dart';
 import 'package:teneffus/global_widgets/custom_bottom_nav_bar.dart';
 import 'package:teneffus/main_teacher/presentation/pages/teacher_main_page.dart';
-import 'package:teneffus/social/presentation/pages/social_page.dart';
+import 'package:teneffus/profile/presentation/pages/profile_page.dart';
 import 'package:teneffus/students/presentation/pages/students_page.dart';
 import 'package:teneffus/words/presentation/pages/words_page.dart';
 
@@ -57,7 +57,7 @@ class MainLayoutPage extends HookConsumerWidget {
                     GamesPage(),
                     MainPage(),
                     WordsPage(),
-                    SocialPage(),
+                    ProfilePage(),
                   ]
                 : const [
                     HomeworkCreationPage(),

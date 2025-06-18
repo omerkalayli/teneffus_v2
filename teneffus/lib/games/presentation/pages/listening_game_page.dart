@@ -19,7 +19,6 @@ import 'package:teneffus/global_entities/word.dart';
 import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/global_widgets/custom_button.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
-import 'package:teneffus/students/presentation/students_notifier.dart';
 
 /// [ListeningGamePage], is the "Dinleme" game page.
 /// It is a game where the user listens to a word and selects the correct option from the given options.
@@ -54,16 +53,15 @@ class ListeningGamePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const numberOfQuestions = 16;
+    const numberOfQuestions = 2;
 
     final player = ref.watch(listeningPlayerProvider);
     final sfxPlayer = ref.watch(sfxPlayerProvider);
     final shuffledWords = useMemoized(() {
-      final list = selectedLessons
-          .expand((lesson) => lesson.words)
-          .take(numberOfQuestions)
-          .toList();
-      list.shuffle();
+      final allWords =
+          selectedLessons.expand((lesson) => lesson.words).toList();
+      allWords.shuffle();
+      final list = allWords.take(numberOfQuestions).toList();
       return list;
     });
 
@@ -73,16 +71,19 @@ class ListeningGamePage extends HookConsumerWidget {
     final isPassed = useState(false);
     bool isDone = selectedWordIndex.value == shuffledWords.length;
     if (isDone) {
-      ref.read(studentsNotifierProvider.notifier).updateStudentStats(
-            stats: wordStats,
-          );
-      if (isInQuiz == true) {
-        onFinished?.call(score.value);
+      updateStat(GameType.listening, wordStats, ref);
+      if (isInQuiz == true && !isPassed.value) {
+        selectedWordIndex.value -= 1;
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          onFinished?.call(score.value);
+        });
       } else {
         selectedWordIndex.value -= 1;
         WidgetsBinding.instance.addPostFrameCallback((_) async {
-          await showGameOverDialog(context, score.value, ref);
-          Navigator.pop(context);
+          if (!isPassed.value) {
+            await showGameOverDialog(context, score.value, ref);
+            Navigator.pop(context);
+          }
         });
       }
     }
@@ -108,8 +109,9 @@ class ListeningGamePage extends HookConsumerWidget {
         return null;
       }
       selectedWord.value = shuffledWords[selectedWordIndex.value];
-
-      final remaining = shuffledWords
+      final allWords =
+          selectedLessons.expand((lesson) => lesson.words).toList();
+      final remaining = allWords
           .where((word) => word != selectedWord.value)
           .toList()
         ..shuffle();
@@ -137,7 +139,6 @@ class ListeningGamePage extends HookConsumerWidget {
       } else if (score.value != 0) {
         playWrongSound(sfxPlayer);
         updateWordStat(StatType.incorrect, selectedWord.value, wordStats);
-
         score.value -= 5;
       } else {
         playWrongSound(sfxPlayer);
@@ -321,20 +322,24 @@ class ListeningGamePage extends HookConsumerWidget {
             await playAudio(selectedWord.value.audioUrl, player);
             updateWordStat(StatType.passed, selectedWord.value, wordStats);
 
+            int correctIndex = options.value
+                .indexWhere((element) => element.id == selectedWord.value.id);
+            selectedChoice.value = correctIndex;
             if (selectedWordIndex.value < numberOfQuestions - 1) {
-              int correctIndex = options.value
-                  .indexWhere((element) => element.id == selectedWord.value.id);
-              selectedChoice.value = correctIndex;
               Future.delayed(const Duration(seconds: 2), () {
                 selectedWordIndex.value += 1;
                 isPassed.value = false;
               });
             } else if (isInQuiz ?? false) {
-              isPassed.value = false;
-              onFinished?.call(score);
+              Future.delayed(const Duration(seconds: 2), () {
+                isPassed.value = false;
+                onFinished?.call(score);
+              });
             } else {
-              isPassed.value = false;
-              selectedWordIndex.value += 1;
+              Future.delayed(const Duration(seconds: 2), () {
+                isPassed.value = false;
+                selectedWordIndex.value += 1;
+              });
             }
           },
         ),
@@ -365,8 +370,6 @@ class ListeningGamePage extends HookConsumerWidget {
   }
 }
 
-enum StatType {
-  correct,
-  incorrect,
-  passed,
-}
+enum StatType { correct, incorrect, passed, date, total }
+
+enum GameType { listening, writing, speaking, sentenceMaking }

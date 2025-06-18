@@ -4,7 +4,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/failure.dart';
-import 'package:teneffus/global_entities/word.dart';
+import 'package:teneffus/global_entities/student_stat.dart';
 import 'package:teneffus/global_entities/word_stat.dart';
 
 final firestoreProvider = Provider((ref) => FirebaseFirestore.instance);
@@ -19,9 +19,12 @@ abstract interface class StudentsDataSource {
   Future<Either<Failure, List<StudentInformation>>> getStudents();
   Future<Either<Failure, void>> removeStudent(
       StudentInformation student, String teacherEmail);
-  Future<Either<Failure, void>> updateStudentStats(
+  Future<Either<Failure, void>> updateWordStats(
       {required List<WordStat> stats});
-  Future<Either<Failure, List<WordStat>>> getStudentStats(String email);
+  Future<Either<Failure, void>> updateStudentStats(
+      {required StudentStat stats});
+  Future<Either<Failure, StudentStat>> getStudentStat(String email);
+  Future<Either<Failure, List<WordStat>>> getWordStats(String email);
 }
 
 class StudentsFirebaseDb implements StudentsDataSource {
@@ -159,7 +162,7 @@ class StudentsFirebaseDb implements StudentsDataSource {
   }
 
   @override
-  Future<Either<Failure, void>> updateStudentStats({
+  Future<Either<Failure, void>> updateWordStats({
     required List<WordStat> stats,
   }) async {
     try {
@@ -171,7 +174,7 @@ class StudentsFirebaseDb implements StudentsDataSource {
       final statsCollection = FirebaseFirestore.instance
           .collection("users")
           .doc(currentUser.uid)
-          .collection("stats");
+          .collection("wordStats");
 
       for (final stat in stats) {
         final statDocRef = statsCollection.doc(stat.word.id);
@@ -205,7 +208,7 @@ class StudentsFirebaseDb implements StudentsDataSource {
   }
 
   @override
-  Future<Either<Failure, List<WordStat>>> getStudentStats(String email) async {
+  Future<Either<Failure, List<WordStat>>> getWordStats(String email) async {
     try {
       final userQuery = await FirebaseFirestore.instance
           .collection("users")
@@ -215,7 +218,7 @@ class StudentsFirebaseDb implements StudentsDataSource {
 
       if (userQuery.docs.isNotEmpty) {
         final userDoc = userQuery.docs.first;
-        final statsCollection = userDoc.reference.collection("stats");
+        final statsCollection = userDoc.reference.collection("wordStats");
         final statsSnapshot = await statsCollection.get();
 
         if (statsSnapshot.docs.isNotEmpty) {
@@ -225,6 +228,97 @@ class StudentsFirebaseDb implements StudentsDataSource {
           return right(statsList);
         } else {
           return left(Failure("No stats found for this student"));
+        }
+      } else {
+        return left(Failure("Student not found"));
+      }
+    } catch (e) {
+      return left(Failure("Error getting student stats: $e"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateStudentStats(
+      {required StudentStat stats}) async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) {
+        return left(Failure("Giriş yapılmamış kullanıcı"));
+      }
+
+      final statsDoc = FirebaseFirestore.instance
+          .collection("users")
+          .doc(currentUser.uid)
+          .collection("studentStats")
+          .doc("stats");
+
+      final docSnapshot = await statsDoc.get();
+
+      Map<String, dynamic> newStats = stats.toJson();
+
+      if (docSnapshot.exists) {
+        final currentStats = docSnapshot.data()!;
+        newStats.update('listeningCorrectCount',
+            (value) => value + (currentStats['listeningCorrectCount'] ?? 0));
+        newStats.update('listeningIncorrectCount',
+            (value) => value + (currentStats['listeningIncorrectCount'] ?? 0));
+        newStats.update('listeningPassedCount',
+            (value) => value + (currentStats['listeningPassedCount'] ?? 0));
+        newStats.update('speakingCorrectCount',
+            (value) => value + (currentStats['speakingCorrectCount'] ?? 0));
+        newStats.update('speakingIncorrectCount',
+            (value) => value + (currentStats['speakingIncorrectCount'] ?? 0));
+        newStats.update('speakingPassedCount',
+            (value) => value + (currentStats['speakingPassedCount'] ?? 0));
+        newStats.update('writingCorrectCount',
+            (value) => value + (currentStats['writingCorrectCount'] ?? 0));
+        newStats.update('writingIncorrectCount',
+            (value) => value + (currentStats['writingIncorrectCount'] ?? 0));
+        newStats.update('writingPassedCount',
+            (value) => value + (currentStats['writingPassedCount'] ?? 0));
+        newStats.update(
+            'sentenceMakingCorrectCount',
+            (value) =>
+                value + (currentStats['sentenceMakingCorrectCount'] ?? 0));
+        newStats.update(
+            'sentenceMakingIncorrectCount',
+            (value) =>
+                value + (currentStats['sentenceMakingIncorrectCount'] ?? 0));
+        newStats.update(
+            'sentenceMakingPassedCount',
+            (value) =>
+                value + (currentStats['sentenceMakingPassedCount'] ?? 0));
+      }
+
+      await statsDoc.set(newStats);
+
+      return right(null);
+    } catch (e) {
+      return left(
+          Failure("Öğrenci istatistikleri güncellenirken hata oluştu: $e"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, StudentStat>> getStudentStat(String email) async {
+    try {
+      final userQuery = await FirebaseFirestore.instance
+          .collection("users")
+          .where("email", isEqualTo: email)
+          .limit(1)
+          .get();
+
+      if (userQuery.docs.isNotEmpty) {
+        final userDoc = userQuery.docs.first;
+        final statsDoc =
+            userDoc.reference.collection("studentStats").doc("stats");
+        final docSnapshot = await statsDoc.get();
+
+        if (docSnapshot.exists) {
+          final statsData = docSnapshot.data()!;
+          return right(StudentStat.fromJson(statsData));
+        } else {
+          return left(Failure("No student stats found"));
         }
       } else {
         return left(Failure("Student not found"));

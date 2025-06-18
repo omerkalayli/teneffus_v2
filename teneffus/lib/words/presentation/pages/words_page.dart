@@ -4,12 +4,20 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:teneffus/arabic/getter/getter.dart';
+import 'package:teneffus/auth/presentation/auth_notifier.dart';
+import 'package:teneffus/constants.dart';
 import 'package:teneffus/games/presentation/pages/listening_game_page.dart';
 import 'package:teneffus/games/presentation/widgets/custom_dropdown.dart';
+import 'package:teneffus/games/presentation/widgets/lesson_selection_container.dart';
+import 'package:teneffus/games/presentation/widgets/unit_selection_bar.dart';
+import 'package:teneffus/global_entities/lesson.dart';
+import 'package:teneffus/global_entities/unit.dart';
+import 'package:teneffus/global_entities/word.dart';
 import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/global_widgets/custom_circular_progress_indicator.dart';
-import 'package:teneffus/global_widgets/custom_scaffold.dart';
 import 'package:teneffus/students/presentation/students_notifier.dart';
+import 'package:teneffus/words/presentation/widgets/card_top_container.dart';
 
 class WordsPage extends HookConsumerWidget {
   const WordsPage({super.key});
@@ -19,25 +27,36 @@ class WordsPage extends HookConsumerWidget {
     final auth = FirebaseAuth.instance;
     final isLoading = useState(true);
     final stats = useState<List<WordStat>>([]);
-
+    final allStats = useState<List<WordStat>>([]);
+    final user = ref.watch(authNotifierProvider.notifier).studentInformation;
+    final grade = user?.grade;
+    final units = UnitGetter.getUnits(grade!);
+    final selectedUnitNumber = useState(0);
+    final lessons = units[selectedUnitNumber.value].lessons;
     final sortTypeIndex = useState(0);
     final sortIncreasing = useState(true);
+    final selectedLesson = useState(0);
+    final isAllLessonsSelected = useState(true);
 
     void _sortStats(
         ValueNotifier<List<WordStat>> stats, int sortIndex, bool increasing) {
-      stats.value = [...stats.value]; // trigger rebuild
-
+      stats.value = [...stats.value];
       stats.value.sort((a, b) {
         int compare;
         switch (sortIndex) {
           case 0:
-            compare = a.correctCount.compareTo(b.correctCount);
+            final aRatio = a.correctCount /
+                (a.correctCount + a.incorrectCount + a.passedCount);
+            final bRatio = b.correctCount /
+                (b.correctCount + b.incorrectCount + b.passedCount);
+            compare = aRatio.compareTo(bRatio);
             break;
           case 1:
-            compare = a.incorrectCount.compareTo(b.incorrectCount);
+            compare = a.lastStudied.compareTo(b.lastStudied);
             break;
           case 2:
-            compare = a.passedCount.compareTo(b.passedCount);
+            compare = (a.correctCount + a.incorrectCount + a.passedCount)
+                .compareTo(b.correctCount + b.incorrectCount + b.passedCount);
             break;
           default:
             compare = 0;
@@ -46,17 +65,41 @@ class WordsPage extends HookConsumerWidget {
       });
     }
 
+    int? getWordLessonNumber(List<Lesson> lessons, Word word) {
+      for (final lesson in lessons) {
+        for (final w in lesson.words) {
+          if (w.tr == word.tr) return lesson.number;
+        }
+        for (final sentence in lesson.sentences ?? []) {
+          for (final w in sentence.words) {
+            if (w.tr == word.tr) return lesson.number;
+          }
+        }
+      }
+      return -1;
+    }
+
+    final scrollController = useScrollController();
+    final scrollOffset = useState(0.0);
+
+    useEffect(() {
+      void listener() {
+        scrollOffset.value = scrollController.offset;
+      }
+
+      scrollController.addListener(listener);
+
+      return () => scrollController.removeListener(listener);
+    }, [scrollController]);
     useEffect(() {
       Future.microtask(() async {
+        isLoading.value = true;
         final result = await ref
             .read(studentsNotifierProvider.notifier)
-            .getStudentStats(auth.currentUser?.email ?? "");
-
+            .getWordStats(auth.currentUser?.email ?? "");
         stats.value = result ?? [];
-
-        // İlk açılışta sıralama uygula
+        allStats.value = stats.value;
         _sortStats(stats, sortTypeIndex.value, sortIncreasing.value);
-
         isLoading.value = false;
       });
       return null;
@@ -67,176 +110,325 @@ class WordsPage extends HookConsumerWidget {
       return null;
     }, [sortTypeIndex.value, sortIncreasing.value]);
 
-    return CustomScaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Text('Kelimeler',
-            style: GoogleFonts.montserrat(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            )),
-        centerTitle: true,
-      ),
-      body: isLoading.value
-          ? const Center(
-              child: CustomCircularProgressIndicator(
-              disableBackgroundColor: true,
-            ))
-          : Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    children: [
-                      Row(
-                        children: [
-                          const Text("Sırala:"),
-                          const Gap(8),
-                          CustomDropdown(
-                              width: 160,
-                              items: const [
-                                "Doğruya Göre",
-                                "Yanlışa Göre",
-                                "Pasa Göre"
-                              ],
-                              selectedIndex: sortTypeIndex.value,
-                              onSelected: (index) {
-                                sortTypeIndex.value = index;
-                              },
-                              disabled: false)
-                        ],
-                      ),
-                      const Spacer(),
-                      InkWell(
-                        onTap: () {
-                          sortIncreasing.value = !sortIncreasing.value;
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                sortIncreasing.value ? "Artan" : "Azalan",
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 12),
-                              ),
-                              const Gap(2),
-                              Icon(
-                                  sortIncreasing.value
-                                      ? Icons.arrow_upward_rounded
-                                      : Icons.arrow_downward_rounded,
-                                  color: Colors.white,
-                                  size: 16),
-                            ],
-                          ),
+    useEffect(() {
+      stats.value = allStats.value.where((stat) {
+        final lessonNumber = getWordLessonNumber(lessons, stat.word);
+        if (isAllLessonsSelected.value) return lessonNumber != -1;
+        return lessonNumber == selectedLesson.value;
+      }).toList();
+      return;
+    }, [
+      selectedUnitNumber.value,
+      selectedLesson.value,
+      isAllLessonsSelected.value
+    ]);
+
+    double percentScrolled;
+
+    if (scrollOffset.value <= 150) {
+      percentScrolled = 0.0;
+    } else if (scrollOffset.value > 150 && scrollOffset.value <= 200) {
+      percentScrolled = ((scrollOffset.value - 150) / 50).clamp(0.0, 1.0);
+    } else {
+      percentScrolled = 1.0;
+    }
+    final hasJumpedInNotification = useState(false);
+
+    return NotificationListener(
+      onNotification: (notification) {
+        if (notification is ScrollEndNotification &&
+            !hasJumpedInNotification.value) {
+          hasJumpedInNotification.value = true;
+
+          Future.microtask(() {
+            final offset = scrollController.offset;
+
+            if (offset > 160 && offset < 360) {
+              scrollController.animateTo(
+                400,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            } else if (offset < 160) {
+              scrollController.animateTo(
+                0,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+              );
+            }
+          });
+        } else if (notification is ScrollUpdateNotification) {
+          hasJumpedInNotification.value = false;
+        }
+
+        return false;
+      },
+      child: CustomScrollView(
+        controller: scrollController,
+        slivers: [
+          _appBar(
+              percentScrolled,
+              scrollController,
+              units,
+              selectedUnitNumber,
+              selectedLesson,
+              sortTypeIndex,
+              sortIncreasing,
+              isAllLessonsSelected,
+              lessons),
+          isLoading.value
+              ? const SliverToBoxAdapter(
+                  child: Center(
+                  child: SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: CustomCircularProgressIndicator(
+                      disableBackgroundColor: true,
+                    ),
+                  ),
+                ))
+              : stats.value.isEmpty
+                  ? SliverToBoxAdapter(
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Gap(64),
+                            const Icon(Icons.error_outline_rounded,
+                                size: 28, color: textColor),
+                            const Gap(4),
+                            Text(
+                              "Kelime istatistiği bulunamadı.",
+                              style: GoogleFonts.montserrat(
+                                  color: textColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    )
+                  : SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          final stat = stats.value[index];
+                          final total = (stat.correctCount +
+                              stat.incorrectCount +
+                              stat.passedCount);
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CardTopContainer(
+                                        type: StatType.correct,
+                                        count: stat.correctCount,
+                                        all: total.toDouble(),
+                                      ),
+                                      CardTopContainer(
+                                        type: StatType.total,
+                                        value: total.toString(),
+                                      ),
+                                      CardTopContainer(
+                                        type: StatType.date,
+                                        value: stat.lastStudied
+                                            .toLocal()
+                                            .toString()
+                                            .split(" ")[0],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Card(
+                                  margin: const EdgeInsets.only(bottom: 16),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Colors.transparent,
+                                      border: Border.all(
+                                        color:
+                                            Colors.black.withValues(alpha: .05),
+                                      ),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 8),
+                                    child: Row(
+                                      children: [
+                                        Text(stat.word.tr,
+                                            style: const TextStyle(
+                                                color: Colors.black87)),
+                                        const Spacer(),
+                                        Text(stat.word.ar,
+                                            style: const TextStyle(
+                                                color: Colors.black87)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        childCount: stats.value.length,
+                      ),
+                    ),
+          const SliverToBoxAdapter(child: Gap(72)),
+        ],
+      ),
+    );
+  }
+
+  SliverAppBar _appBar(
+      double percentScrolled,
+      ScrollController scrollController,
+      List<Unit> units,
+      ValueNotifier<int> selectedUnitNumber,
+      ValueNotifier<int> selectedLesson,
+      ValueNotifier<int> sortTypeIndex,
+      ValueNotifier<bool> sortIncreasing,
+      ValueNotifier<bool> isAllLessonsSelected,
+      List<Lesson> lessons) {
+    return SliverAppBar(
+      shadowColor: wordsColor.withValues(alpha: .2),
+      pinned: true,
+      backgroundColor: const Color(0xfff5f5f5),
+      expandedHeight: 400,
+      toolbarHeight: 56,
+      flexibleSpace: FlexibleSpaceBar(
+        titlePadding: EdgeInsets.zero,
+        collapseMode: CollapseMode.pin,
+        title: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          height: 56 - (1.0 - percentScrolled) * 56,
+          color: const Color(0xfff5f5f5),
+          child: AnimatedOpacity(
+            opacity: percentScrolled,
+            duration: const Duration(milliseconds: 0),
+            child: Row(
+              children: [
+                const Gap(16),
+                Text("Kelimeler",
+                    style: GoogleFonts.montserrat(
+                        fontSize: 18,
+                        color: textColor,
+                        fontWeight: FontWeight.bold)),
+                const Spacer(),
+                InkWell(
+                  borderRadius: BorderRadius.circular(24),
+                  onTap: () {
+                    scrollController.animateTo(
+                      0,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                  child: const Icon(
+                    Icons.keyboard_double_arrow_up_rounded,
+                    color: textColor,
                   ),
                 ),
                 const Gap(16),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 60),
-                    child: ListView.builder(
-                      itemCount: stats.value.length,
-                      itemBuilder: (context, index) {
-                        final stat = stats.value[index];
-                        return Column(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CardTopContainer(
-                                    type: StatType.incorrect,
-                                    count: stat.incorrectCount,
-                                  ),
-                                  CardTopContainer(
-                                    type: StatType.passed,
-                                    count: stat.passedCount,
-                                  ),
-                                  CardTopContainer(
-                                    type: StatType.correct,
-                                    count: stat.correctCount,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Card(
-                              margin: const EdgeInsets.only(
-                                  left: 8, right: 8, bottom: 16),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 8),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      stat.word.tr,
-                                      style: const TextStyle(
-                                          color: Colors.black87),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      stat.word.ar,
-                                      style: const TextStyle(
-                                          color: Colors.black87),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ),
               ],
             ),
-    );
-  }
-}
-
-class CardTopContainer extends StatelessWidget {
-  const CardTopContainer({super.key, required this.type, required this.count});
-
-  final StatType type;
-  final int count;
-
-  @override
-  Widget build(BuildContext context) {
-    final suffix = type == StatType.correct
-        ? " doğru"
-        : type == StatType.incorrect
-            ? " yanlış"
-            : " pas geçme";
-
-    final color = type == StatType.correct
-        ? Colors.green
-        : type == StatType.incorrect
-            ? const Color(0xffE55355)
-            : const Color(0xff587E8D);
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-      ),
-      child: Text(
-        "$count $suffix",
-        style: const TextStyle(fontSize: 10),
+          ),
+        ),
+        background: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          color: const Color(0xfff5f5f5),
+          alignment: Alignment.bottomLeft,
+          padding: const EdgeInsets.only(
+            bottom: 4,
+          ),
+          child: Opacity(
+            opacity: 1.0 - percentScrolled,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text("KELİMELER",
+                    style: GoogleFonts.balooChettan2(
+                      color: textColor,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    )),
+                const Gap(
+                  90,
+                ),
+                UnitSelectionBar(
+                  color: wordsColor,
+                  units: units,
+                  selectedUnitNumber: selectedUnitNumber,
+                  onTap: (i) {
+                    selectedUnitNumber.value = i;
+                    selectedLesson.value = 0;
+                  },
+                ),
+                const Gap(16),
+                Row(
+                  children: [
+                    CustomDropdown(
+                      items: const [
+                        "Başarı Oranına Göre",
+                        "Tarihe Göre",
+                        "Toplam Sayıya Göre"
+                      ],
+                      selectedIndex: sortTypeIndex.value,
+                      onSelected: (index) {
+                        sortTypeIndex.value = index;
+                      },
+                      disabled: false,
+                    ),
+                    const Spacer(),
+                    InkWell(
+                      onTap: () {
+                        sortIncreasing.value = !sortIncreasing.value;
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: wordsColor,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              sortIncreasing.value ? "Artan" : "Azalan",
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 12),
+                            ),
+                            const Gap(2),
+                            Icon(
+                              sortIncreasing.value
+                                  ? Icons.arrow_upward_rounded
+                                  : Icons.arrow_downward_rounded,
+                              color: Colors.white,
+                              size: 16,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                const Gap(8),
+                LessonSelectionContainer(
+                  color: wordsColor,
+                  isAllLessonsSelected: isAllLessonsSelected,
+                  lessons: lessons,
+                  selectedLesson: selectedLesson,
+                ),
+                const Gap(8),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

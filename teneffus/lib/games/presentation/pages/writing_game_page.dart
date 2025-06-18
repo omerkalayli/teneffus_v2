@@ -50,17 +50,16 @@ class WritingGamePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const numberOfQuestions = 16;
+    const numberOfQuestions = 2;
 
     final sfxPlayer = ref.watch(sfxPlayerProvider);
     final scrollController = useScrollController();
     final textController = useTextEditingController();
     final shuffledWords = useMemoized(() {
-      final list = selectedLessons
-          .expand((lesson) => lesson.words)
-          .take(numberOfQuestions)
-          .toList();
-      list.shuffle();
+      final allWords =
+          selectedLessons.expand((lesson) => lesson.words).toList();
+      allWords.shuffle();
+      final list = allWords.take(numberOfQuestions).toList();
       return list;
     });
     final score = useState(0);
@@ -105,9 +104,7 @@ class WritingGamePage extends HookConsumerWidget {
           onFinished?.call(score.value);
         } else {
           Future.microtask(() async {
-            ref
-                .read(studentsNotifierProvider.notifier)
-                .updateStudentStats(stats: wordStats);
+            updateStat(GameType.writing, wordStats, ref);
             Future.delayed(Duration(milliseconds: isCorrect ? 0 : 3000),
                 () async {
               await showGameOverDialog(context, score.value, ref);
@@ -130,13 +127,13 @@ class WritingGamePage extends HookConsumerWidget {
 
     return Stack(
       children: [
-        CustomScaffold(),
+        const CustomScaffold(),
         Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             title: Text(
-              "Boşluk Doldurma",
+              "Yazma",
               style: GoogleFonts.montserrat(
                   color: Colors.white,
                   fontSize: 24,
@@ -272,9 +269,7 @@ class WritingGamePage extends HookConsumerWidget {
                                   () {
                                 if (selectedWordIndex.value + 1 ==
                                     shuffledWords.length) {
-                                  ref
-                                      .read(studentsNotifierProvider.notifier)
-                                      .updateStudentStats(stats: wordStats);
+                                  updateStat(GameType.writing, wordStats, ref);
                                   if (isInQuiz == true) {
                                     onFinished?.call(score.value);
                                   } else {
