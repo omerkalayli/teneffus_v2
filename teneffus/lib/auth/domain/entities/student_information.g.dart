@@ -16,6 +16,7 @@ _$StudentInformationImpl _$$StudentInformationImplFromJson(
       grade: (json['grade'] as num).toInt(),
       rank: json['rank'] as String,
       starCount: (json['starCount'] as num).toInt(),
+      avatarId: (json['avatarId'] as num).toInt(),
       teacherUid: json['teacherUid'] as String?,
     );
 
@@ -29,5 +30,6 @@ Map<String, dynamic> _$$StudentInformationImplToJson(
       'grade': instance.grade,
       'rank': instance.rank,
       'starCount': instance.starCount,
+      'avatarId': instance.avatarId,
       'teacherUid': instance.teacherUid,
     };

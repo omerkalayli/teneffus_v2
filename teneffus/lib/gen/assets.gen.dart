@@ -21,6 +21,161 @@ class $AssetsAnimationsGen {
   List<LottieGenImage> get values => [fire];
 }
 
+class $AssetsAvatarsGen {
+  const $AssetsAvatarsGen();
+
+  /// File path: assets/avatars/approval.webp
+  AssetGenImage get approval =>
+      const AssetGenImage('assets/avatars/approval.webp');
+
+  /// File path: assets/avatars/bot.webp
+  AssetGenImage get bot => const AssetGenImage('assets/avatars/bot.webp');
+
+  /// File path: assets/avatars/bug.webp
+  AssetGenImage get bug => const AssetGenImage('assets/avatars/bug.webp');
+
+  /// File path: assets/avatars/butterfly.webp
+  AssetGenImage get butterfly =>
+      const AssetGenImage('assets/avatars/butterfly.webp');
+
+  /// File path: assets/avatars/camera.webp
+  AssetGenImage get camera => const AssetGenImage('assets/avatars/camera.webp');
+
+  /// File path: assets/avatars/cartwheel.webp
+  AssetGenImage get cartwheel =>
+      const AssetGenImage('assets/avatars/cartwheel.webp');
+
+  /// File path: assets/avatars/cat.webp
+  AssetGenImage get cat => const AssetGenImage('assets/avatars/cat.webp');
+
+  /// File path: assets/avatars/corvette.webp
+  AssetGenImage get corvette =>
+      const AssetGenImage('assets/avatars/corvette.webp');
+
+  /// File path: assets/avatars/dance.webp
+  AssetGenImage get dance => const AssetGenImage('assets/avatars/dance.webp');
+
+  /// File path: assets/avatars/dinosaur.webp
+  AssetGenImage get dinosaur =>
+      const AssetGenImage('assets/avatars/dinosaur.webp');
+
+  /// File path: assets/avatars/frog.webp
+  AssetGenImage get frog => const AssetGenImage('assets/avatars/frog.webp');
+
+  /// File path: assets/avatars/ghost.webp
+  AssetGenImage get ghost => const AssetGenImage('assets/avatars/ghost.webp');
+
+  /// File path: assets/avatars/heart.webp
+  AssetGenImage get heart => const AssetGenImage('assets/avatars/heart.webp');
+
+  /// File path: assets/avatars/hiking.webp
+  AssetGenImage get hiking => const AssetGenImage('assets/avatars/hiking.webp');
+
+  /// File path: assets/avatars/jinn.webp
+  AssetGenImage get jinn => const AssetGenImage('assets/avatars/jinn.webp');
+
+  /// File path: assets/avatars/king.webp
+  AssetGenImage get king => const AssetGenImage('assets/avatars/king.webp');
+
+  /// File path: assets/avatars/kiss.webp
+  AssetGenImage get kiss => const AssetGenImage('assets/avatars/kiss.webp');
+
+  /// File path: assets/avatars/lotus.webp
+  AssetGenImage get lotus => const AssetGenImage('assets/avatars/lotus.webp');
+
+  /// File path: assets/avatars/mindblown.webp
+  AssetGenImage get mindblown =>
+      const AssetGenImage('assets/avatars/mindblown.webp');
+
+  /// File path: assets/avatars/nerd.webp
+  AssetGenImage get nerd => const AssetGenImage('assets/avatars/nerd.webp');
+
+  /// File path: assets/avatars/owl.webp
+  AssetGenImage get owl => const AssetGenImage('assets/avatars/owl.webp');
+
+  /// File path: assets/avatars/perfect.webp
+  AssetGenImage get perfect =>
+      const AssetGenImage('assets/avatars/perfect.webp');
+
+  /// File path: assets/avatars/profile.webp
+  AssetGenImage get profile =>
+      const AssetGenImage('assets/avatars/profile.webp');
+
+  /// File path: assets/avatars/robot.webp
+  AssetGenImage get robot => const AssetGenImage('assets/avatars/robot.webp');
+
+  /// File path: assets/avatars/rocket.webp
+  AssetGenImage get rocket => const AssetGenImage('assets/avatars/rocket.webp');
+
+  /// File path: assets/avatars/ship.webp
+  AssetGenImage get ship => const AssetGenImage('assets/avatars/ship.webp');
+
+  /// File path: assets/avatars/smile.webp
+  AssetGenImage get smile => const AssetGenImage('assets/avatars/smile.webp');
+
+  /// File path: assets/avatars/snowman.webp
+  AssetGenImage get snowman =>
+      const AssetGenImage('assets/avatars/snowman.webp');
+
+  /// File path: assets/avatars/sofa.webp
+  AssetGenImage get sofa => const AssetGenImage('assets/avatars/sofa.webp');
+
+  /// File path: assets/avatars/superhero.webp
+  AssetGenImage get superhero =>
+      const AssetGenImage('assets/avatars/superhero.webp');
+
+  /// File path: assets/avatars/tv.webp
+  AssetGenImage get tv => const AssetGenImage('assets/avatars/tv.webp');
+
+  /// File path: assets/avatars/weightlifting.webp
+  AssetGenImage get weightlifting =>
+      const AssetGenImage('assets/avatars/weightlifting.webp');
+
+  /// File path: assets/avatars/winner.webp
+  AssetGenImage get winner => const AssetGenImage('assets/avatars/winner.webp');
+
+  /// File path: assets/avatars/wizard.webp
+  AssetGenImage get wizard => const AssetGenImage('assets/avatars/wizard.webp');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+    approval,
+    bot,
+    bug,
+    butterfly,
+    camera,
+    cartwheel,
+    cat,
+    corvette,
+    dance,
+    dinosaur,
+    frog,
+    ghost,
+    heart,
+    hiking,
+    jinn,
+    king,
+    kiss,
+    lotus,
+    mindblown,
+    nerd,
+    owl,
+    perfect,
+    profile,
+    robot,
+    rocket,
+    ship,
+    smile,
+    snowman,
+    sofa,
+    superhero,
+    tv,
+    weightlifting,
+    winner,
+    wizard,
+  ];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -97,6 +252,10 @@ class $AssetsImagesGen {
   AssetGenImage get yazKadNa =>
       const AssetGenImage('assets/images/Yaz! (Kadına).webp');
 
+  /// File path: assets/images/add_homework.webp
+  AssetGenImage get addHomework =>
+      const AssetGenImage('assets/images/add_homework.webp');
+
   /// File path: assets/images/answered_question.webp
   AssetGenImage get answeredQuestion =>
       const AssetGenImage('assets/images/answered_question.webp');
@@ -124,8 +283,15 @@ class $AssetsImagesGen {
   AssetGenImage get elestirme =>
       const AssetGenImage('assets/images/elestirme.webp');
 
-  /// File path: assets/images/king.webp
-  AssetGenImage get king => const AssetGenImage('assets/images/king.webp');
+  /// File path: assets/images/games.webp
+  AssetGenImage get games => const AssetGenImage('assets/images/games.webp');
+
+  /// File path: assets/images/home.webp
+  AssetGenImage get home => const AssetGenImage('assets/images/home.webp');
+
+  /// File path: assets/images/homeworks.webp
+  AssetGenImage get homeworks =>
+      const AssetGenImage('assets/images/homeworks.webp');
 
   /// File path: assets/images/konusma.webp
   AssetGenImage get konusma =>
@@ -143,9 +309,23 @@ class $AssetsImagesGen {
   AssetGenImage get matching =>
       const AssetGenImage('assets/images/matching.webp');
 
+  /// File path: assets/images/no_homework.webp
+  AssetGenImage get noHomework =>
+      const AssetGenImage('assets/images/no_homework.webp');
+
+  /// File path: assets/images/no_user.webp
+  AssetGenImage get noUser => const AssetGenImage('assets/images/no_user.webp');
+
   /// File path: assets/images/overrall_success.webp
   AssetGenImage get overrallSuccess =>
       const AssetGenImage('assets/images/overrall_success.webp');
+
+  /// File path: assets/images/profile.webp
+  AssetGenImage get profile =>
+      const AssetGenImage('assets/images/profile.webp');
+
+  /// File path: assets/images/send.webp
+  AssetGenImage get send => const AssetGenImage('assets/images/send.webp');
 
   /// File path: assets/images/sentence_making.webp
   AssetGenImage get sentenceMaking =>
@@ -154,6 +334,16 @@ class $AssetsImagesGen {
   /// File path: assets/images/speaking.webp
   AssetGenImage get speaking =>
       const AssetGenImage('assets/images/speaking.webp');
+
+  /// File path: assets/images/star.webp
+  AssetGenImage get star => const AssetGenImage('assets/images/star.webp');
+
+  /// File path: assets/images/students.webp
+  AssetGenImage get students =>
+      const AssetGenImage('assets/images/students.webp');
+
+  /// File path: assets/images/words.webp
+  AssetGenImage get words => const AssetGenImage('assets/images/words.webp');
 
   /// File path: assets/images/writing.webp
   AssetGenImage get writing =>
@@ -192,6 +382,7 @@ class $AssetsImagesGen {
     sNF,
     yazErkeE,
     yazKadNa,
+    addHomework,
     answeredQuestion,
     appIcon,
     boslukDoldurma,
@@ -199,14 +390,23 @@ class $AssetsImagesGen {
     cumleKurma,
     dinleme,
     elestirme,
-    king,
+    games,
+    home,
+    homeworks,
     konusma,
     listening,
     loading,
     matching,
+    noHomework,
+    noUser,
     overrallSuccess,
+    profile,
+    send,
     sentenceMaking,
     speaking,
+    star,
+    students,
+    words,
     writing,
     yellowStar,
     aRetmenErkek,
@@ -334,6 +534,7 @@ class Assets {
   const Assets._();
 
   static const $AssetsAnimationsGen animations = $AssetsAnimationsGen();
+  static const $AssetsAvatarsGen avatars = $AssetsAvatarsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsSoundsGen sounds = $AssetsSoundsGen();
 }

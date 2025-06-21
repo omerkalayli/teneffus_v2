@@ -124,4 +124,13 @@ class AuthRepositoryImpl implements AuthRepository {
       return authDataSource!.getUserType(uid: uid);
     }
   }
+
+  @override
+  Future<Either<Failure, void>> updateAvatar({required int avatarId}) async {
+    if (authDataSource == null) {
+      return left(Failure("Data source is null"));
+    } else {
+      return authDataSource!.updateAvatar(avatarId: avatarId);
+    }
+  }
 }

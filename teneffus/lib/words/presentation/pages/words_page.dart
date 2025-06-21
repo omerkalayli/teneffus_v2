@@ -11,6 +11,7 @@ import 'package:teneffus/games/presentation/pages/listening_game_page.dart';
 import 'package:teneffus/games/presentation/widgets/custom_dropdown.dart';
 import 'package:teneffus/games/presentation/widgets/lesson_selection_container.dart';
 import 'package:teneffus/games/presentation/widgets/unit_selection_bar.dart';
+import 'package:teneffus/gen/assets.gen.dart';
 import 'package:teneffus/global_entities/lesson.dart';
 import 'package:teneffus/global_entities/unit.dart';
 import 'package:teneffus/global_entities/word.dart';
@@ -194,11 +195,13 @@ class WordsPage extends HookConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Gap(64),
-                            const Icon(Icons.error_outline_rounded,
-                                size: 28, color: textColor),
-                            const Gap(4),
+                            Assets.images.noHomework.image(
+                              width: 64,
+                              height: 64,
+                            ),
+                            const Gap(8),
                             Text(
-                              "Kelime istatistiği bulunamadı.",
+                              "Burada kelime istatistiği yok gibi.",
                               style: GoogleFonts.montserrat(
                                   color: textColor,
                                   fontSize: 14,

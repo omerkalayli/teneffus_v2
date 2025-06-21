@@ -36,4 +36,5 @@ abstract interface class AuthRepository {
   Future<void> signOut();
   Future<Either<Failure, bool>> sendResetPasswordEmail({required String email});
   Future<Either<Failure, String?>> getUserType({required String uid});
+  Future<Either<Failure, void>> updateAvatar({required int avatarId});
 }

@@ -65,6 +65,7 @@ flutter:
     - assets/images/
     - assets/animations/
     - assets/sounds/
+    - assets/avatars/
 
 flutter_gen:
   assets:

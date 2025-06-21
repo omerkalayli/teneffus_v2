@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:teneffus/arabic/getter/getter.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/games/presentation/widgets/custom_dropdown.dart';
+import 'package:teneffus/gen/assets.gen.dart';
 import 'package:teneffus/homeworks/presentation/widgets/homework_card.dart';
 import 'package:teneffus/homeworks/presentation/widgets/homework_card_header.dart';
 import 'package:teneffus/quiz/presentation/quiz_page.dart';
@@ -109,10 +110,22 @@ class _HomeworksWidgetState extends ConsumerState<HomeworksWidget> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     children: [
-                      const Gap(4),
                       widget.filteredHomeworks.isEmpty
-                          ? const Center(
-                              child: Text("Hiç göreviniz yok."),
+                          ? Center(
+                              child: Column(
+                                children: [
+                                  Assets.images.noHomework
+                                      .image(width: 80, height: 80),
+                                  const Gap(8),
+                                  Text(
+                                    "Hmm... Burada hiç ödev görünmüyor.",
+                                    style: GoogleFonts.montserrat(
+                                        color: textColor,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ],
+                              ),
                             )
                           : Column(children: <Widget>[
                               Center(

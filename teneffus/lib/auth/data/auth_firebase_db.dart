@@ -22,6 +22,7 @@ abstract interface class AuthDataSource {
     required String password,
   });
   Future<Either<Failure, String>> getUserType({required String uid});
+  Future<Either<Failure, void>> updateAvatar({required int avatarId});
   Future<Either<Failure, StudentInformation>> getStudentInformation();
   Future<Either<Failure, TeacherInformation>> getTeacherInformation();
   Future<Either<Failure, StudentInformation>> registerStudent({
@@ -86,6 +87,7 @@ class AuthFirebaseDb implements AuthDataSource {
         rank: user.get("rank"),
         starCount: user.get("starCount"),
         teacherUid: user.get("teacherUid"),
+        avatarId: user.get("avatarId") ?? 0,
       ));
     } on FirebaseAuthException catch (e) {
       return left(Failure(e.code.toString()));
@@ -108,6 +110,7 @@ class AuthFirebaseDb implements AuthDataSource {
         rank: user.get("rank"),
         starCount: user.get("starCount"),
         teacherUid: user.get("teacherUid"),
+        avatarId: user.get("avatarId") ?? 0,
       );
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code.toString() == "user-not-found"
@@ -225,6 +228,7 @@ class AuthFirebaseDb implements AuthDataSource {
                 rank: userSubInformation.rank,
                 starCount: userSubInformation.starCount,
                 teacherUid: userSubInformation.teacherUid,
+                avatarId: userSubInformation.avatarId,
               );
               return right(AuthResult(
                 userInfo: userInformation,
@@ -293,6 +297,7 @@ class AuthFirebaseDb implements AuthDataSource {
           rank: userSubInformation.rank,
           starCount: userSubInformation.starCount,
           teacherUid: userSubInformation.teacherUid,
+          avatarId: userSubInformation.avatarId,
         );
         return right(AuthResult(
           userInfo: userInformation,
@@ -347,7 +352,8 @@ class AuthFirebaseDb implements AuthDataSource {
             grade: grade,
             rank: "Çaylak 1",
             starCount: 0,
-            teacherUid: null);
+            teacherUid: null,
+            avatarId: 0);
 
         await firestore.collection("users").doc(userCredential.user!.uid).set({
           "name": name,
@@ -375,6 +381,7 @@ class AuthFirebaseDb implements AuthDataSource {
           rank: "Çaylak 1",
           starCount: 0,
           teacherUid: null,
+          avatarId: 0,
         );
 
         await firestore.collection("users").doc(auth.currentUser!.uid).set({
@@ -487,6 +494,24 @@ class AuthFirebaseDb implements AuthDataSource {
       return left(Failure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> updateAvatar({required int avatarId}) async {
+    try {
+      if (auth.currentUser == null) {
+        return left(Failure("User not found"));
+      }
+      firestore
+          .collection("users")
+          .doc(auth.currentUser!.uid)
+          .update({"avatarId": avatarId}).then((_) {
+        return right(null);
+      });
+      return right(null);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
 }
 
 class StudentSubInformation {
@@ -496,6 +521,7 @@ class StudentSubInformation {
   final String rank;
   final String? teacherUid;
   final int starCount;
+  final int avatarId;
 
   StudentSubInformation({
     required this.name,
@@ -504,6 +530,7 @@ class StudentSubInformation {
     required this.rank,
     required this.starCount,
     required this.teacherUid,
+    this.avatarId = 0,
   });
 }
 

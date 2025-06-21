@@ -15,6 +15,9 @@ final userTypeProvider = StateProvider<bool>((ref) => true);
 final teacherInformationProvider =
     StateProvider<TeacherInformation?>((ref) => null);
 
+final studentInformationProvider =
+    StateProvider<StudentInformation?>((ref) => null);
+
 @Riverpod(keepAlive: true)
 class AuthNotifier extends _$AuthNotifier {
   late final AuthRepository _authRepository;
@@ -29,10 +32,12 @@ class AuthNotifier extends _$AuthNotifier {
     if (_isSignedIn) {
       if (isStudent) {
         studentInformation = await getStudentInformation();
+        ref.read(studentInformationProvider.notifier).state =
+            studentInformation;
       } else {
+        teacherInformation = await getTeacherInformation();
         ref.read(teacherInformationProvider.notifier).state =
             teacherInformation;
-        teacherInformation = await getTeacherInformation();
       }
     }
     return const AuthState.initial();
@@ -49,6 +54,8 @@ class AuthNotifier extends _$AuthNotifier {
       },
       (userInfo) {
         studentInformation = userInfo;
+        ref.read(studentInformationProvider.notifier).state =
+            studentInformation;
         state = AsyncValue.data(
             AuthState.authenticated(studentInformation: userInfo));
         return userInfo;
@@ -84,6 +91,12 @@ class AuthNotifier extends _$AuthNotifier {
         starCount: studentInformation!.starCount + starCount,
       );
     }
+  }
+
+  Future<Either<Failure, void>> updateAvatar({required int avatarId}) async {
+    await _authRepository.updateAvatar(avatarId: avatarId);
+    await getStudentInformation();
+    return const Right(null);
   }
 
   Future<Either<Failure, bool>> sendResetPasswordEmail(

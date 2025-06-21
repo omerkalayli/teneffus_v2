@@ -5,11 +5,13 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
+import 'package:teneffus/avatars.dart';
 import 'package:teneffus/constants.dart';
 import 'package:teneffus/global_entities/student_stat.dart';
 import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/global_widgets/custom_circular_progress_indicator.dart';
 import 'package:teneffus/homeworks/presentation/notifiers/homeworks_notifier.dart';
+import 'package:teneffus/profile/presentation/pages/avatar_selection_page.dart';
 import 'package:teneffus/profile/presentation/widgets/stat_banner.dart';
 import 'package:teneffus/students/presentation/students_notifier.dart';
 
@@ -24,7 +26,7 @@ class ProfilePage extends HookConsumerWidget {
     final auth = FirebaseAuth.instance;
     final wordStats = useState(<WordStat>[]);
     final stats = useState<StudentStat>(StudentStat.empty());
-    final user = ref.watch(authNotifierProvider.notifier).studentInformation;
+    final user = ref.watch(studentInformationProvider);
 
     useEffect(() {
       Future.microtask(() async {
@@ -176,7 +178,20 @@ class ProfilePage extends HookConsumerWidget {
                           child: Row(
                             children: [
                               const Gap(16),
-                              Assets.images.king.image(width: 24, height: 24),
+                              Padding(
+                                padding: EdgeInsets.all(
+                                  shuffledAvatars[user?.avatarId ?? 0]!.isBig
+                                      ? 4
+                                      : 0,
+                                ),
+                                child: shuffledAvatars[user?.avatarId ?? 0]!
+                                    .image
+                                    .image(
+                                      width: 24,
+                                      height: 24,
+                                      fit: BoxFit.contain,
+                                    ),
+                              ),
                               const Gap(4),
                               Text("Hesabım",
                                   style: GoogleFonts.montserrat(
@@ -227,10 +242,68 @@ class ProfilePage extends HookConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 const Gap(8),
-                                Card(
-                                  shadowColor: profileColor,
-                                  child: Assets.images.king
-                                      .image(width: 90, height: 90),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) =>
+                                              const AvatarSelectionPage()),
+                                    );
+                                  },
+                                  child: Stack(
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      SizedBox(
+                                        width: 80,
+                                        height: 80,
+                                        child: Card(
+                                          shadowColor: profileColor,
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                              shuffledAvatars[
+                                                          user?.avatarId ?? 0]!
+                                                      .isBig
+                                                  ? 20
+                                                  : 8.0,
+                                            ),
+                                            child: shuffledAvatars[
+                                                    user?.avatarId ?? 0]!
+                                                .image
+                                                .image(
+                                                  width: 90,
+                                                  height: 90,
+                                                  fit: BoxFit.contain,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        right: -2,
+                                        bottom: -2,
+                                        child: Container(
+                                            padding: const EdgeInsets.all(4),
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: textColor.withValues(
+                                                  alpha: .6),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withValues(alpha: .2),
+                                                  offset: const Offset(0, 2),
+                                                  blurRadius: 4,
+                                                ),
+                                              ],
+                                            ),
+                                            child: const Icon(
+                                              Icons.edit,
+                                              size: 12,
+                                              color: Colors.white,
+                                            )),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 const Gap(8),
                                 Column(

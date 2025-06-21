@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:teneffus/constants.dart';
+import 'package:teneffus/gen/assets.gen.dart';
 import 'package:teneffus/main/nav_bar_item.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
@@ -20,25 +21,33 @@ class CustomBottomNavBar extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          height: 84,
+          height: 80,
           width: double.infinity,
           decoration: const BoxDecoration(
             color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                offset: Offset(0, -2),
+                blurRadius: 4,
+              ),
+            ],
             border: Border(top: BorderSide(width: 2, color: Colors.white)),
           ),
         ),
-        SizedBox(
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           height: 120,
           child: Row(
             children: [
               Expanded(
                 child: NavBarItem(
-                  color: homeworksColor,
+                  color: currentIndex.value == 0 ? homeworksColor : textColor,
                   isStudent: isStudent,
                   isSelected: currentIndex.value == 0,
                   icon: isStudent
-                      ? Icons.chrome_reader_mode_outlined
-                      : Icons.post_add_rounded,
+                      ? Assets.images.homeworks
+                      : Assets.images.addHomework,
                   label: isStudent ? "Görevlerim" : "Görev Oluştur",
                   onTap: () {
                     pageController.jumpToPage(0);
@@ -47,12 +56,14 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               Expanded(
                 child: NavBarItem(
-                  color: gamesColor,
+                  color: currentIndex.value == 1
+                      ? isStudent
+                          ? gamesColor
+                          : homeColor
+                      : textColor,
                   isStudent: isStudent,
                   isSelected: currentIndex.value == 1,
-                  icon: isStudent
-                      ? Icons.sports_esports_rounded
-                      : Icons.home_rounded,
+                  icon: isStudent ? Assets.images.games : Assets.images.home,
                   label: isStudent ? " Oyunlar " : "Ana Menü",
                   onTap: () {
                     pageController.jumpToPage(1);
@@ -61,11 +72,15 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               Expanded(
                 child: NavBarItem(
-                  color: textColor,
+                  color: currentIndex.value == 2
+                      ? isStudent
+                          ? homeColor
+                          : wordsColor
+                      : textColor,
                   isStudent: isStudent,
                   isSelected: currentIndex.value == 2,
                   label: isStudent ? "Ana Menü" : "Öğrenciler",
-                  icon: isStudent ? Icons.home_rounded : Icons.people_rounded,
+                  icon: isStudent ? Assets.images.home : Assets.images.students,
                   onTap: () {
                     pageController.jumpToPage(2);
                   },
@@ -74,10 +89,10 @@ class CustomBottomNavBar extends StatelessWidget {
               if (isStudent)
                 Expanded(
                   child: NavBarItem(
-                    color: wordsColor,
+                    color: currentIndex.value == 3 ? wordsColor : textColor,
                     isStudent: isStudent,
                     isSelected: currentIndex.value == 3,
-                    icon: Icons.library_books_rounded,
+                    icon: Assets.images.words,
                     label: "Kelimeler",
                     onTap: () {
                       pageController.jumpToPage(3);
@@ -87,10 +102,10 @@ class CustomBottomNavBar extends StatelessWidget {
               if (isStudent)
                 Expanded(
                   child: NavBarItem(
-                    color: profileColor,
+                    color: currentIndex.value == 4 ? profileColor : textColor,
                     isStudent: isStudent,
                     isSelected: currentIndex.value == 4,
-                    icon: Icons.person_rounded,
+                    icon: Assets.images.profile,
                     label: "Profil  ",
                     onTap: () {
                       pageController.jumpToPage(4);

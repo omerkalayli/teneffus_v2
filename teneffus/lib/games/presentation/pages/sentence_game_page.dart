@@ -384,7 +384,7 @@ class SentenceGamePage extends HookConsumerWidget {
                   ),
                   disableSound: true,
                   text: "Kontrol Et",
-                  onPressed: () {
+                  onPressed: () async {
                     if (isControlling.value) {
                       return;
                     }
@@ -403,10 +403,13 @@ class SentenceGamePage extends HookConsumerWidget {
                       }
 
                       playCorrectSound(sfxPlayer);
-                      isCorrect.value = true;
                       score.value += 10;
-                      Future.delayed(const Duration(milliseconds: 2), () async {
+                      isCorrect.value = true;
+                      await Future.delayed(const Duration(seconds: 2), () {
                         isCorrect.value = null;
+                      });
+                      await Future.delayed(const Duration(milliseconds: 2),
+                          () async {
                         if (selectedSentenceIndex.value <
                             numberOfQuestions - 1) {
                           selectedSentenceIndex.value++;

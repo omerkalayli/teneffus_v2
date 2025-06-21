@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:teneffus/constants.dart';
+import 'package:teneffus/gen/assets.gen.dart';
 
 /// A widget that represents a navigation bar item.
 
@@ -15,12 +16,11 @@ class NavBarItem extends StatelessWidget {
   });
 
   final String label;
-  final IconData icon;
+  final AssetGenImage icon;
   final bool isSelected;
   final Function onTap;
   final bool isStudent;
   final Color color;
-// TODO: quiz sentence doğru olduğundd asonrakine geçmiyor. göstermiyor
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class NavBarItem extends StatelessWidget {
               height: 80,
               child: AnimatedContainer(
                 duration: Durations.short3,
-                width: MediaQuery.of(context).size.width / (isStudent ? 6 : 3),
+                width: MediaQuery.of(context).size.width / (isStudent ? 6 : 4),
                 padding: const EdgeInsets.all(8),
                 margin: const EdgeInsets.all(8),
                 height: 76,
@@ -61,11 +61,7 @@ class NavBarItem extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      color: textColor,
-                      icon,
-                      size: 32,
-                    ),
+                    icon.image(width: 64, height: 32, color: color),
                     // AutoSizeText(
                     //   label,
                     //   maxLines: 1,

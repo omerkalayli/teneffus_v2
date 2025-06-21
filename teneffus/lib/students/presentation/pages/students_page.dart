@@ -4,9 +4,10 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
+import 'package:teneffus/auth/domain/entities/teacher_information.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
-import 'package:teneffus/games/presentation/widgets/custom_dropdown.dart';
-import 'package:teneffus/global_widgets/custom_scaffold.dart';
+import 'package:teneffus/constants.dart';
+import 'package:teneffus/gen/assets.gen.dart';
 import 'package:teneffus/global_widgets/student_search_bar.dart';
 import 'package:teneffus/students/presentation/students_notifier.dart';
 
@@ -18,16 +19,19 @@ class StudentsPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final teacher = ref.watch(teacherInformationProvider);
-    final students = teacher?.students ?? [];
+    List<StudentInformation> students = teacher?.students ?? [];
     final isLoading = useState(false);
     final selectedGrade = useState<int>(8);
     final textEditingController = useTextEditingController();
     final filteredStudents = useState<List<StudentInformation>>(students);
-
+    final isAscending = useState<bool>(true);
     useEffect(() {
       textEditingController.addListener(() {
-        filteredStudents.value = students.where((student) {
+        List<StudentInformation> filtered = students.where((student) {
           final matchesName = student.name
+                  .toLowerCase()
+                  .contains(textEditingController.text.toLowerCase()) ||
+              student.surname
                   .toLowerCase()
                   .contains(textEditingController.text.toLowerCase()) ||
               textEditingController.text.isEmpty;
@@ -35,185 +39,351 @@ class StudentsPage extends HookConsumerWidget {
               selectedGrade.value == 8 || student.grade == selectedGrade.value;
           return matchesName && matchesGrade;
         }).toList();
-      });
 
+        filtered.sort((a, b) => isAscending.value
+            ? a.starCount.compareTo(b.starCount)
+            : b.starCount.compareTo(a.starCount));
+        filteredStudents.value = filtered;
+      });
+      final sorted = List<StudentInformation>.from(filteredStudents.value)
+        ..sort((a, b) => isAscending.value
+            ? a.starCount.compareTo(b.starCount)
+            : b.starCount.compareTo(a.starCount));
+
+      filteredStudents.value = sorted;
       return;
     }, [
       textEditingController.text,
       selectedGrade.value,
       isLoading.value,
-      students
+      students,
+      isAscending.value,
     ]);
 
-    return CustomScaffold(
-      appBar: _appBar(isLoading, ref),
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.only(left: 8),
-        child: students.isEmpty
-            ? const Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.person_off_outlined,
-                      color: Colors.white,
-                      size: 36,
-                    ),
-                    Gap(4),
-                    Text("Hiç öğrenciniz yok."),
-                  ],
-                ),
-              )
-            : SingleChildScrollView(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: StudentSearchBar(
-                          textEditingController: textEditingController,
-                          selectedStudentGrade: selectedGrade,
-                          onSelectionChanged: (index) {
-                            selectedGrade.value = index;
+    final scrollController = useScrollController();
+    final scrollOffset = useState(0.0);
 
-                            filteredStudents.value = students.where((student) {
-                              final matchesName = student.name
-                                      .toLowerCase()
-                                      .contains(textEditingController.text
-                                          .toLowerCase()) ||
-                                  textEditingController.text.isEmpty;
-                              final matchesGrade =
-                                  index == 8 || student.grade == index;
-                              return matchesName && matchesGrade;
-                            }).toList();
-                          },
-                        ),
-                      ),
-                      ...List.generate(filteredStudents.value.length, (index) {
-                        return ListTile(
-                          title: Text(
-                            "${filteredStudents.value[index].name} ${filteredStudents.value[index].surname}",
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                          subtitle: Text(
-                            "${filteredStudents.value[index].grade}. Sınıf",
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                          trailing: InkWell(
-                            onTap: () async {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      backgroundColor:
-                                          Colors.white.withValues(alpha: .5),
-                                      title: const Text("Öğrenciyi Sil"),
-                                      content: const Text(
-                                          "Bu öğrenciyi silmek istediğinize emin misiniz?"),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text(
-                                            "Hayır",
-                                            style: GoogleFonts.montserrat(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () async {
-                                            await ref
-                                                .read(studentsNotifierProvider
-                                                    .notifier)
-                                                .removeStudent(
-                                                  filteredStudents.value[index],
-                                                  teacher?.email ?? "",
-                                                );
-                                            await ref
-                                                .read(authNotifierProvider
-                                                    .notifier)
-                                                .getTeacherInformation();
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text(
-                                            "Evet",
-                                            style: GoogleFonts.montserrat(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  });
-                            },
-                            child: const Icon(
-                              Icons.delete,
-                              color: Colors.white,
+    useEffect(() {
+      void listener() {
+        scrollOffset.value = scrollController.offset;
+      }
+
+      scrollController.addListener(listener);
+
+      return () => scrollController.removeListener(listener);
+    }, [scrollController]);
+
+    double percentScrolled;
+
+    if (scrollOffset.value <= 150) {
+      percentScrolled = 0.0;
+    } else if (scrollOffset.value > 150 && scrollOffset.value <= 200) {
+      percentScrolled = ((scrollOffset.value - 150) / 50).clamp(0.0, 1.0);
+    } else {
+      percentScrolled = 1.0;
+    }
+    final hasJumpedInNotification = useState(false);
+
+    return RefreshIndicator(
+      color: textColor,
+      onRefresh: () async {
+        await Future.delayed(const Duration(milliseconds: 500), () {});
+        isLoading.value = true;
+        textEditingController.clear();
+        final info = await ref
+            .read(authNotifierProvider.notifier)
+            .getTeacherInformation();
+        students = info?.students ?? [];
+        isLoading.value = false;
+      },
+      child: NotificationListener(
+        onNotification: (notification) {
+          if (notification is ScrollEndNotification &&
+              !hasJumpedInNotification.value) {
+            hasJumpedInNotification.value = true;
+
+            Future.microtask(() {
+              final offset = scrollController.offset;
+
+              if (offset > 160 && offset < 240) {
+                scrollController.animateTo(
+                  220,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              } else if (offset < 160) {
+                scrollController.animateTo(
+                  0,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeInOut,
+                );
+              }
+            });
+          } else if (notification is ScrollUpdateNotification) {
+            hasJumpedInNotification.value = false;
+          }
+
+          return false;
+        },
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            SliverAppBar(
+              shadowColor: profileColor.withValues(alpha: .2),
+              pinned: true,
+              backgroundColor: const Color(0xfff5f5f5),
+              expandedHeight: 250,
+              toolbarHeight: 56,
+              flexibleSpace: appBar(percentScrolled, scrollController),
+            ),
+            SliverList(
+                delegate: SliverChildListDelegate(students.isEmpty
+                    ? _noStudentWidget
+                    : [
+                        _header(isAscending, textEditingController,
+                            selectedGrade, filteredStudents, students),
+                        const Gap(16),
+                        if (filteredStudents.value.isEmpty)
+                          Center(
+                            child: Column(
+                              children: [
+                                const Gap(32),
+                                Assets.images.noUser.image(
+                                  width: 32,
+                                  height: 32,
+                                  color: textColor,
+                                ),
+                                const Gap(4),
+                                const Text(
+                                  "Öğrenci bulunamadı.",
+                                  style: TextStyle(color: textColor),
+                                ),
+                              ],
                             ),
+                          )
+                        else
+                          ...List.generate(
+                            filteredStudents.value.length,
+                            (index) {
+                              return GestureDetector(
+                                onLongPress: () {
+                                  _deleteStudentDialog(context, ref,
+                                      filteredStudents, index, teacher);
+                                },
+                                child: Card(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 4),
+                                  child: ListTile(
+                                    dense: true,
+                                    title: Text(
+                                      "${filteredStudents.value[index].name} ${filteredStudents.value[index].surname}",
+                                      style: const TextStyle(
+                                          color: textColor, fontSize: 14),
+                                    ),
+                                    subtitle: Text(
+                                      "${filteredStudents.value[index].grade}. Sınıf",
+                                      style: const TextStyle(
+                                          color: textColor, fontSize: 12),
+                                    ),
+                                    trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 2),
+                                          child: Text(
+                                            filteredStudents
+                                                .value[index].starCount
+                                                .toString(),
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: textColor,
+                                            ),
+                                          ),
+                                        ),
+                                        const Gap(4),
+                                        Assets.images.star.image(
+                                            width: 18,
+                                            height: 18,
+                                            color: textColor),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      }),
-                    ]),
-              ),
-      )),
+                        const Gap(1000)
+                      ])),
+          ],
+        ),
+      ),
     );
   }
 
-  AppBar _appBar(ValueNotifier<bool> isLoading, WidgetRef ref) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      centerTitle: true,
-      title: Text(
-        "Öğrencilerim",
-        style: GoogleFonts.montserrat(
-            color: Colors.white, fontWeight: FontWeight.w700),
-      ),
-      actions: [
-        InkWell(
-          onTap: () async {
-            isLoading.value = true;
-            await ref
-                .read(authNotifierProvider.notifier)
-                .getTeacherInformation();
-            isLoading.value = false;
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            margin: const EdgeInsets.only(right: 8),
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(208, 33, 149, 243),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              children: [
-                const Text(
-                  "Yenile",
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+  Future<dynamic> _deleteStudentDialog(
+      BuildContext context,
+      WidgetRef ref,
+      ValueNotifier<List<StudentInformation>> filteredStudents,
+      int index,
+      TeacherInformation? teacher) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            title: const Text("Öğrenciyi Sil"),
+            content:
+                const Text("Bu öğrenciyi silmek istediğinize emin misiniz?"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "Hayır",
+                  style: GoogleFonts.montserrat(
+                      color: textColor, fontWeight: FontWeight.bold),
                 ),
-                const Gap(4),
-                isLoading.value
-                    ? Container(
-                        margin: const EdgeInsets.all(2),
-                        height: 12,
-                        width: 12,
-                        child: const CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ))
-                    : const Icon(
-                        Icons.refresh,
-                        color: Colors.white,
-                        size: 16,
-                      ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await ref
+                      .read(studentsNotifierProvider.notifier)
+                      .removeStudent(
+                        filteredStudents.value[index],
+                        teacher?.email ?? "",
+                      );
+                  await ref
+                      .read(authNotifierProvider.notifier)
+                      .getTeacherInformation();
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "Evet",
+                  style: GoogleFonts.montserrat(
+                      color: textColor, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  Padding _header(
+      ValueNotifier<bool> isAscending,
+      TextEditingController textEditingController,
+      ValueNotifier<int> selectedGrade,
+      ValueNotifier<List<StudentInformation>> filteredStudents,
+      List<StudentInformation> students) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: StudentSearchBar(
+        isAscending: isAscending,
+        textEditingController: textEditingController,
+        selectedStudentGrade: selectedGrade,
+        onSelectionChanged: (index) {
+          selectedGrade.value = index;
+
+          filteredStudents.value = students.where((student) {
+            final matchesName = student.name
+                    .toLowerCase()
+                    .contains(textEditingController.text.toLowerCase()) ||
+                textEditingController.text.isEmpty;
+            final matchesGrade = index == 8 || student.grade == index;
+            return matchesName && matchesGrade;
+          }).toList();
+        },
+      ),
+    );
+  }
+
+  List<Widget> get _noStudentWidget {
+    return [
+      Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Assets.images.noUser.image(
+              width: 32,
+              height: 32,
+              color: textColor,
+            ),
+            const Gap(4),
+            const Text("Hiç öğrenciniz yok."),
+          ],
+        ),
+      )
+    ];
+  }
+
+  FlexibleSpaceBar appBar(
+      double percentScrolled, ScrollController scrollController) {
+    return FlexibleSpaceBar(
+      titlePadding: EdgeInsets.zero,
+      collapseMode: CollapseMode.pin,
+      title: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: 56 - (1.0 - percentScrolled) * 56,
+        color: const Color(0xfff5f5f5),
+        child: AnimatedOpacity(
+          opacity: percentScrolled,
+          duration: const Duration(milliseconds: 300),
+          child: Row(
+            children: [
+              const Gap(16),
+              Text("Öğrencilerim",
+                  style: GoogleFonts.montserrat(
+                      fontSize: 18,
+                      color: textColor,
+                      fontWeight: FontWeight.bold)),
+              const Spacer(),
+              InkWell(
+                borderRadius: BorderRadius.circular(24),
+                onTap: () {
+                  scrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                child: const Icon(
+                  Icons.keyboard_double_arrow_up_rounded,
+                  color: textColor,
+                ),
+              ),
+              const Gap(16),
+            ],
+          ),
+        ),
+      ),
+      background: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        color: const Color(0xfff5f5f5),
+        alignment: Alignment.bottomLeft,
+        padding: const EdgeInsets.only(
+          bottom: 4,
+        ),
+        child: Opacity(
+          opacity: 1.0 - percentScrolled,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Gap(16),
+                Text("ÖĞRENCİLERİM",
+                    style: GoogleFonts.balooChettan2(
+                      color: textColor,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    )),
               ],
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 
@@ -238,7 +408,7 @@ class StudentsPage extends HookConsumerWidget {
               Gap(2),
               Icon(
                 Icons.add,
-                color: Colors.white,
+                color: textColor,
               )
             ],
           ),

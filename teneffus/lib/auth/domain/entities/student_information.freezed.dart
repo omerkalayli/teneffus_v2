@@ -27,6 +27,7 @@ mixin _$StudentInformation {
   int get grade => throw _privateConstructorUsedError;
   String get rank => throw _privateConstructorUsedError;
   int get starCount => throw _privateConstructorUsedError;
+  int get avatarId => throw _privateConstructorUsedError;
   String? get teacherUid => throw _privateConstructorUsedError;
 
   /// Serializes this StudentInformation to a JSON map.
@@ -53,6 +54,7 @@ abstract class $StudentInformationCopyWith<$Res> {
       int grade,
       String rank,
       int starCount,
+      int avatarId,
       String? teacherUid});
 }
 
@@ -78,6 +80,7 @@ class _$StudentInformationCopyWithImpl<$Res, $Val extends StudentInformation>
     Object? grade = null,
     Object? rank = null,
     Object? starCount = null,
+    Object? avatarId = null,
     Object? teacherUid = freezed,
   }) {
     return _then(_value.copyWith(
@@ -109,6 +112,10 @@ class _$StudentInformationCopyWithImpl<$Res, $Val extends StudentInformation>
           ? _value.starCount
           : starCount // ignore: cast_nullable_to_non_nullable
               as int,
+      avatarId: null == avatarId
+          ? _value.avatarId
+          : avatarId // ignore: cast_nullable_to_non_nullable
+              as int,
       teacherUid: freezed == teacherUid
           ? _value.teacherUid
           : teacherUid // ignore: cast_nullable_to_non_nullable
@@ -133,6 +140,7 @@ abstract class _$$StudentInformationImplCopyWith<$Res>
       int grade,
       String rank,
       int starCount,
+      int avatarId,
       String? teacherUid});
 }
 
@@ -156,6 +164,7 @@ class __$$StudentInformationImplCopyWithImpl<$Res>
     Object? grade = null,
     Object? rank = null,
     Object? starCount = null,
+    Object? avatarId = null,
     Object? teacherUid = freezed,
   }) {
     return _then(_$StudentInformationImpl(
@@ -187,6 +196,10 @@ class __$$StudentInformationImplCopyWithImpl<$Res>
           ? _value.starCount
           : starCount // ignore: cast_nullable_to_non_nullable
               as int,
+      avatarId: null == avatarId
+          ? _value.avatarId
+          : avatarId // ignore: cast_nullable_to_non_nullable
+              as int,
       teacherUid: freezed == teacherUid
           ? _value.teacherUid
           : teacherUid // ignore: cast_nullable_to_non_nullable
@@ -206,6 +219,7 @@ class _$StudentInformationImpl implements _StudentInformation {
       required this.grade,
       required this.rank,
       required this.starCount,
+      required this.avatarId,
       this.teacherUid});
 
   factory _$StudentInformationImpl.fromJson(Map<String, dynamic> json) =>
@@ -226,11 +240,13 @@ class _$StudentInformationImpl implements _StudentInformation {
   @override
   final int starCount;
   @override
+  final int avatarId;
+  @override
   final String? teacherUid;
 
   @override
   String toString() {
-    return 'StudentInformation(uid: $uid, name: $name, surname: $surname, email: $email, grade: $grade, rank: $rank, starCount: $starCount, teacherUid: $teacherUid)';
+    return 'StudentInformation(uid: $uid, name: $name, surname: $surname, email: $email, grade: $grade, rank: $rank, starCount: $starCount, avatarId: $avatarId, teacherUid: $teacherUid)';
   }
 
   @override
@@ -246,6 +262,8 @@ class _$StudentInformationImpl implements _StudentInformation {
             (identical(other.rank, rank) || other.rank == rank) &&
             (identical(other.starCount, starCount) ||
                 other.starCount == starCount) &&
+            (identical(other.avatarId, avatarId) ||
+                other.avatarId == avatarId) &&
             (identical(other.teacherUid, teacherUid) ||
                 other.teacherUid == teacherUid));
   }
@@ -253,7 +271,7 @@ class _$StudentInformationImpl implements _StudentInformation {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, uid, name, surname, email, grade,
-      rank, starCount, teacherUid);
+      rank, starCount, avatarId, teacherUid);
 
   /// Create a copy of StudentInformation
   /// with the given fields replaced by the non-null parameter values.
@@ -281,6 +299,7 @@ abstract class _StudentInformation implements StudentInformation {
       required final int grade,
       required final String rank,
       required final int starCount,
+      required final int avatarId,
       final String? teacherUid}) = _$StudentInformationImpl;
 
   factory _StudentInformation.fromJson(Map<String, dynamic> json) =
@@ -300,6 +319,8 @@ abstract class _StudentInformation implements StudentInformation {
   String get rank;
   @override
   int get starCount;
+  @override
+  int get avatarId;
   @override
   String? get teacherUid;
 
