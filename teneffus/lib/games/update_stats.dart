@@ -1,19 +1,19 @@
-import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/games/presentation/pages/listening_game_page.dart';
 import 'package:teneffus/global_entities/student_stat.dart';
 import 'package:teneffus/global_entities/word.dart';
 import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/students/presentation/students_notifier.dart';
+import 'package:teneffus/time.dart';
 
-void updateWordStat(
-    StatType statType, Word selectedWord, List<WordStat> wordStats) {
+Future<void> updateWordStat(
+    StatType statType, Word selectedWord, List<WordStat> wordStats) async {
   bool hasWordStat =
       wordStats.any((wordStat) => wordStat.word.id == selectedWord.id);
 
   if (!hasWordStat) {
     wordStats.add(WordStat(
-        lastStudied: DateTime.now(),
+        lastStudied: await getCurrentTime(),
         word: selectedWord,
         correctCount: statType == StatType.correct ? 1 : 0,
         incorrectCount: statType == StatType.incorrect ? 1 : 0,

@@ -17,8 +17,16 @@ class $AssetsAnimationsGen {
   LottieGenImage get fire =>
       const LottieGenImage('assets/animations/fire.json');
 
+  /// File path: assets/animations/sparkle.json
+  LottieGenImage get sparkle =>
+      const LottieGenImage('assets/animations/sparkle.json');
+
+  /// File path: assets/animations/star.json
+  LottieGenImage get star =>
+      const LottieGenImage('assets/animations/star.json');
+
   /// List of all assets
-  List<LottieGenImage> get values => [fire];
+  List<LottieGenImage> get values => [fire, sparkle, star];
 }
 
 class $AssetsAvatarsGen {
@@ -264,27 +272,11 @@ class $AssetsImagesGen {
   AssetGenImage get appIcon =>
       const AssetGenImage('assets/images/app_icon.webp');
 
-  /// File path: assets/images/bosluk_doldurma.webp
-  AssetGenImage get boslukDoldurma =>
-      const AssetGenImage('assets/images/bosluk_doldurma.webp');
-
-  /// File path: assets/images/crow.webp
-  AssetGenImage get crow => const AssetGenImage('assets/images/crow.webp');
-
-  /// File path: assets/images/cumle_kurma.webp
-  AssetGenImage get cumleKurma =>
-      const AssetGenImage('assets/images/cumle_kurma.webp');
-
-  /// File path: assets/images/dinleme.webp
-  AssetGenImage get dinleme =>
-      const AssetGenImage('assets/images/dinleme.webp');
-
-  /// File path: assets/images/elestirme.webp
-  AssetGenImage get elestirme =>
-      const AssetGenImage('assets/images/elestirme.webp');
-
   /// File path: assets/images/games.webp
   AssetGenImage get games => const AssetGenImage('assets/images/games.webp');
+
+  /// File path: assets/images/header.webp
+  AssetGenImage get header => const AssetGenImage('assets/images/header.webp');
 
   /// File path: assets/images/home.webp
   AssetGenImage get home => const AssetGenImage('assets/images/home.webp');
@@ -293,9 +285,9 @@ class $AssetsImagesGen {
   AssetGenImage get homeworks =>
       const AssetGenImage('assets/images/homeworks.webp');
 
-  /// File path: assets/images/konusma.webp
-  AssetGenImage get konusma =>
-      const AssetGenImage('assets/images/konusma.webp');
+  /// File path: assets/images/listening-2.webp
+  AssetGenImage get listening2 =>
+      const AssetGenImage('assets/images/listening-2.webp');
 
   /// File path: assets/images/listening.webp
   AssetGenImage get listening =>
@@ -334,6 +326,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/speaking.webp
   AssetGenImage get speaking =>
       const AssetGenImage('assets/images/speaking.webp');
+
+  /// File path: assets/images/star-2.webp
+  AssetGenImage get star2 => const AssetGenImage('assets/images/star-2.webp');
+
+  /// File path: assets/images/star-3.webp
+  AssetGenImage get star3 => const AssetGenImage('assets/images/star-3.webp');
 
   /// File path: assets/images/star.webp
   AssetGenImage get star => const AssetGenImage('assets/images/star.webp');
@@ -385,15 +383,11 @@ class $AssetsImagesGen {
     addHomework,
     answeredQuestion,
     appIcon,
-    boslukDoldurma,
-    crow,
-    cumleKurma,
-    dinleme,
-    elestirme,
     games,
+    header,
     home,
     homeworks,
-    konusma,
+    listening2,
     listening,
     loading,
     matching,
@@ -404,6 +398,8 @@ class $AssetsImagesGen {
     send,
     sentenceMaking,
     speaking,
+    star2,
+    star3,
     star,
     students,
     words,

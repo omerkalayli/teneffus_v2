@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ntp/ntp.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:teneffus/auth/auth_state.dart';
 import 'package:teneffus/auth/domain/auth_repository.dart';
@@ -252,5 +253,23 @@ class AuthNotifier extends _$AuthNotifier {
         }
       },
     );
+  }
+
+  Future<void> updateDayStreak(int dayStreak) async {
+    if (studentInformation != null) {
+      await _authRepository.updateDayStreak(dayStreak: dayStreak);
+      studentInformation = studentInformation!.copyWith(dayStreak: dayStreak);
+      ref.read(studentInformationProvider.notifier).state = studentInformation;
+    }
+  }
+
+  Future<void> updateLastLoginDate() async {
+    if (studentInformation != null) {
+      await _authRepository.updateLastLoginDate(uid: studentInformation!.uid);
+      studentInformation = studentInformation!.copyWith(
+        lastLogin: await NTP.now(),
+      );
+      ref.read(studentInformationProvider.notifier).state = studentInformation;
+    }
   }
 }

@@ -1,106 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:teneffus/games/presentation/play_audio.dart';
 import 'package:teneffus/gen/assets.gen.dart';
 import 'package:teneffus/global_entities/button_type.dart';
-import 'package:teneffus/global_widgets/custom_text_button.dart';
+import 'package:teneffus/global_entities/word.dart';
+import 'package:teneffus/global_widgets/custom_button.dart';
 
 /// This widget is used to display the daily word container.
 
-class DailyWordContainer extends StatelessWidget {
+class DailyWordContainer extends HookConsumerWidget {
   const DailyWordContainer({
+    required this.word,
     super.key,
   });
 
+  final Word word;
+
   @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(width: 2, color: Colors.white),
-              gradient: const LinearGradient(
-                  colors: [Color(0xff38ACEA), Color(0xff4C91E2)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter)),
-          child: Row(
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.bottomCenter,
-                children: [
-                  CustomTextButton(
-                    fontSize: 12,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    buttonPalette: ButtonPalette.green(),
-                    onPressed: () {},
-                    text: "Öğren",
-                  ),
-                  Positioned(
-                    bottom: -8,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.4),
-                              blurRadius: 4,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("2", style: TextStyle(fontSize: 10)),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 1.0),
-                            child: Assets.images.yellowStar.image(
-                              width: 12,
-                              height: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              const Spacer(),
-              const Text("ما هذا؟"),
-              const Gap(8),
-              Container(
-                width: 100,
-                height: 64,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8), color: Colors.grey),
-              )
-            ],
-          ),
-        ),
-        Positioned(
-          top: 0,
-          child: IntrinsicWidth(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                  color: const Color(0xff38ACEA),
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                  border: Border.all(color: Colors.white, width: 2)),
-              child: const Center(
-                child: Text("Günün Kelimesi"),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isPlaying = useState(false);
+    final player = useMemoized(() => AudioPlayer(), []);
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Günün Kelimesi",
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
               ),
             ),
-          ),
+            const Gap(8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(8)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(word.imagePath,
+                        width: 80, height: 80, fit: BoxFit.cover),
+                  ),
+                ),
+                Column(
+                  children: [
+                    Text(
+                      word.ar,
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    const Gap(4),
+                    Text(
+                      word.tr,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                CustomButton(
+                  borderColor: Colors.blue,
+                  disableOnPressedForegroundColor: true,
+                  buttonPalette: ButtonPalette.white(),
+                  onPressed: () async {
+                    if (isPlaying.value) {
+                      return;
+                    }
+                    isPlaying.value = true;
+                    await playAudio(word.audioUrl, player);
+                  },
+                  child: Assets.images.listening2.image(
+                      width: 32,
+                      height: 32,
+                      fit: BoxFit.cover,
+                      color: Colors.blue),
+                ),
+              ],
+            ),
+            const Gap(4),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

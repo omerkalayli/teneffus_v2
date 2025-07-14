@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:teneffus/games/presentation/pages/listening_game_page.dart';
+import 'package:teneffus/time.dart';
 
 /// [CardTopContainer] is a widget that displays the top container of a card
 /// with statistics information. It shows the type of statistic, value, and
 /// additional information based on the type of statistic.
 
 class CardTopContainer extends StatelessWidget {
-  const CardTopContainer({
-    super.key,
-    required this.type,
-    this.value,
-    this.all,
-    this.count,
-  });
+  const CardTopContainer(
+      {super.key,
+      required this.type,
+      this.value,
+      this.all,
+      this.count,
+      this.currentTime});
 
   final StatType type;
   final String? value;
   final double? all;
   final int? count;
+  final DateTime? currentTime;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +42,10 @@ class CardTopContainer extends StatelessWidget {
     if (type == StatType.correct && percentage != null) {
       color = Color.lerp(const Color(0xffE55355), Colors.green, percentage)!;
     } else if (type == StatType.date && value != null) {
-      final lastDate = DateTime.tryParse(value!) ?? DateTime.now();
-      final daysDiff = DateTime.now().difference(lastDate).inDays;
+      final lastDate =
+          DateTime.tryParse(value!) ?? currentTime ?? DateTime.now();
+      final daysDiff = currentTime?.difference(lastDate).inDays ??
+          DateTime.now().difference(lastDate).inDays;
 
       if (daysDiff >= 30) {
         color = const Color(0xff8D6E63);

@@ -28,6 +28,8 @@ mixin _$StudentInformation {
   String get rank => throw _privateConstructorUsedError;
   int get starCount => throw _privateConstructorUsedError;
   int get avatarId => throw _privateConstructorUsedError;
+  int get dayStreak => throw _privateConstructorUsedError;
+  DateTime get lastLogin => throw _privateConstructorUsedError;
   String? get teacherUid => throw _privateConstructorUsedError;
 
   /// Serializes this StudentInformation to a JSON map.
@@ -55,6 +57,8 @@ abstract class $StudentInformationCopyWith<$Res> {
       String rank,
       int starCount,
       int avatarId,
+      int dayStreak,
+      DateTime lastLogin,
       String? teacherUid});
 }
 
@@ -81,6 +85,8 @@ class _$StudentInformationCopyWithImpl<$Res, $Val extends StudentInformation>
     Object? rank = null,
     Object? starCount = null,
     Object? avatarId = null,
+    Object? dayStreak = null,
+    Object? lastLogin = null,
     Object? teacherUid = freezed,
   }) {
     return _then(_value.copyWith(
@@ -116,6 +122,14 @@ class _$StudentInformationCopyWithImpl<$Res, $Val extends StudentInformation>
           ? _value.avatarId
           : avatarId // ignore: cast_nullable_to_non_nullable
               as int,
+      dayStreak: null == dayStreak
+          ? _value.dayStreak
+          : dayStreak // ignore: cast_nullable_to_non_nullable
+              as int,
+      lastLogin: null == lastLogin
+          ? _value.lastLogin
+          : lastLogin // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       teacherUid: freezed == teacherUid
           ? _value.teacherUid
           : teacherUid // ignore: cast_nullable_to_non_nullable
@@ -141,6 +155,8 @@ abstract class _$$StudentInformationImplCopyWith<$Res>
       String rank,
       int starCount,
       int avatarId,
+      int dayStreak,
+      DateTime lastLogin,
       String? teacherUid});
 }
 
@@ -165,6 +181,8 @@ class __$$StudentInformationImplCopyWithImpl<$Res>
     Object? rank = null,
     Object? starCount = null,
     Object? avatarId = null,
+    Object? dayStreak = null,
+    Object? lastLogin = null,
     Object? teacherUid = freezed,
   }) {
     return _then(_$StudentInformationImpl(
@@ -200,6 +218,14 @@ class __$$StudentInformationImplCopyWithImpl<$Res>
           ? _value.avatarId
           : avatarId // ignore: cast_nullable_to_non_nullable
               as int,
+      dayStreak: null == dayStreak
+          ? _value.dayStreak
+          : dayStreak // ignore: cast_nullable_to_non_nullable
+              as int,
+      lastLogin: null == lastLogin
+          ? _value.lastLogin
+          : lastLogin // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       teacherUid: freezed == teacherUid
           ? _value.teacherUid
           : teacherUid // ignore: cast_nullable_to_non_nullable
@@ -220,6 +246,8 @@ class _$StudentInformationImpl implements _StudentInformation {
       required this.rank,
       required this.starCount,
       required this.avatarId,
+      required this.dayStreak,
+      required this.lastLogin,
       this.teacherUid});
 
   factory _$StudentInformationImpl.fromJson(Map<String, dynamic> json) =>
@@ -242,11 +270,15 @@ class _$StudentInformationImpl implements _StudentInformation {
   @override
   final int avatarId;
   @override
+  final int dayStreak;
+  @override
+  final DateTime lastLogin;
+  @override
   final String? teacherUid;
 
   @override
   String toString() {
-    return 'StudentInformation(uid: $uid, name: $name, surname: $surname, email: $email, grade: $grade, rank: $rank, starCount: $starCount, avatarId: $avatarId, teacherUid: $teacherUid)';
+    return 'StudentInformation(uid: $uid, name: $name, surname: $surname, email: $email, grade: $grade, rank: $rank, starCount: $starCount, avatarId: $avatarId, dayStreak: $dayStreak, lastLogin: $lastLogin, teacherUid: $teacherUid)';
   }
 
   @override
@@ -264,6 +296,10 @@ class _$StudentInformationImpl implements _StudentInformation {
                 other.starCount == starCount) &&
             (identical(other.avatarId, avatarId) ||
                 other.avatarId == avatarId) &&
+            (identical(other.dayStreak, dayStreak) ||
+                other.dayStreak == dayStreak) &&
+            (identical(other.lastLogin, lastLogin) ||
+                other.lastLogin == lastLogin) &&
             (identical(other.teacherUid, teacherUid) ||
                 other.teacherUid == teacherUid));
   }
@@ -271,7 +307,7 @@ class _$StudentInformationImpl implements _StudentInformation {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, uid, name, surname, email, grade,
-      rank, starCount, avatarId, teacherUid);
+      rank, starCount, avatarId, dayStreak, lastLogin, teacherUid);
 
   /// Create a copy of StudentInformation
   /// with the given fields replaced by the non-null parameter values.
@@ -300,6 +336,8 @@ abstract class _StudentInformation implements StudentInformation {
       required final String rank,
       required final int starCount,
       required final int avatarId,
+      required final int dayStreak,
+      required final DateTime lastLogin,
       final String? teacherUid}) = _$StudentInformationImpl;
 
   factory _StudentInformation.fromJson(Map<String, dynamic> json) =
@@ -321,6 +359,10 @@ abstract class _StudentInformation implements StudentInformation {
   int get starCount;
   @override
   int get avatarId;
+  @override
+  int get dayStreak;
+  @override
+  DateTime get lastLogin;
   @override
   String? get teacherUid;
 

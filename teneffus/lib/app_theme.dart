@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:teneffus/constants.dart';
 
 ThemeData get theme => ThemeData(
-      scaffoldBackgroundColor: Color(0xffF5F5F5),
+      scaffoldBackgroundColor: const Color(0xffF5F5F5),
       textSelectionTheme: const TextSelectionThemeData(
         cursorColor: Color.fromRGBO(51, 51, 51, 1),
         selectionHandleColor: textFieldTextColor,

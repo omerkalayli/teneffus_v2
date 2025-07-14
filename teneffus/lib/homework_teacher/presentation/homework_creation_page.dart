@@ -18,6 +18,7 @@ import 'package:teneffus/global_widgets/custom_snackbar.dart';
 import 'package:teneffus/global_widgets/student_search_bar.dart';
 import 'package:teneffus/homeworks/domain/entities/homework.dart';
 import 'package:teneffus/homeworks/presentation/notifiers/homeworks_notifier.dart';
+import 'package:teneffus/time.dart';
 import 'package:uuid/uuid.dart';
 
 class HomeworkCreationPage extends HookConsumerWidget {
@@ -31,7 +32,16 @@ class HomeworkCreationPage extends HookConsumerWidget {
     final lessons = units[selectedUnitNumber.value].lessons;
     final selectedLessonNumber = useState(0);
     final minScoreTextEditingController = useTextEditingController();
-    final dueDate = useState(DateTime.now());
+    final dueDate = useState<DateTime>(DateTime.now());
+
+    useEffect(() {
+      Future<void> loadTime() async {
+        dueDate.value = await getCurrentTime();
+      }
+
+      loadTime();
+      return null;
+    }, []);
 
     final teacher = ref.watch(teacherInformationProvider);
     List<StudentInformation> students = teacher?.students ?? [];
@@ -471,7 +481,7 @@ class HomeworkCreationPage extends HookConsumerWidget {
                   locale: const Locale("tr", "TR"),
                   context: context,
                   initialDate: dueDate.value,
-                  firstDate: DateTime.now(),
+                  firstDate: dueDate.value,
                   lastDate: DateTime(2100),
                 ).then((selectedDate) {
                   if (selectedDate != null) {
@@ -591,7 +601,7 @@ class SendHomeworkButton extends HookConsumerWidget {
                         selectedStudentEmails.value = [];
                         textEditingController.clear();
                         filteredStudents.value = students;
-                        dueDate.value = DateTime.now();
+                        dueDate.value = await getCurrentTime();
                         selectedGradeIndex.value = 0;
                         selectedUnitNumber.value = 0;
                         selectedLessonNumber.value = 0;

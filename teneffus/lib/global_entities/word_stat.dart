@@ -1,4 +1,5 @@
 import 'package:teneffus/global_entities/word.dart';
+import 'package:teneffus/time.dart';
 
 class WordStat {
   final Word word;
@@ -25,14 +26,22 @@ class WordStat {
     };
   }
 
-  factory WordStat.fromJson(Map<String, dynamic> json) {
+  static Future<WordStat> fromJsonAsync(Map<String, dynamic> json) async {
+    final lastStudiedStr = json['lastStudied'];
+    DateTime lastStudied;
+
+    if (lastStudiedStr == null) {
+      lastStudied = await getCurrentTime();
+    } else {
+      lastStudied = DateTime.parse(lastStudiedStr);
+    }
+
     return WordStat(
       word: Word.fromJson(json['word']),
       correctCount: json['correctCount'] ?? 0,
       incorrectCount: json['incorrectCount'] ?? 0,
       passedCount: json['passedCount'] ?? 0,
-      lastStudied: DateTime.parse(
-          json['lastStudied'] ?? DateTime.now().toIso8601String()),
+      lastStudied: lastStudied,
     );
   }
 }

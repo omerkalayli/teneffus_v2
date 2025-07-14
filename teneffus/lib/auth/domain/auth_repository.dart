@@ -2,6 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/data/auth_firebase_db.dart';
 import 'package:teneffus/auth/data/auth_repository_impl.dart';
+import 'package:teneffus/auth/domain/entities/auth_result.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/auth/domain/entities/teacher_information.dart';
 import 'package:teneffus/failure.dart';
@@ -37,4 +38,6 @@ abstract interface class AuthRepository {
   Future<Either<Failure, bool>> sendResetPasswordEmail({required String email});
   Future<Either<Failure, String?>> getUserType({required String uid});
   Future<Either<Failure, void>> updateAvatar({required int avatarId});
+  Future<Either<Failure, void>> updateLastLoginDate({required String uid});
+  Future<Either<Failure, void>> updateDayStreak({required int dayStreak});
 }

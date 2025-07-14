@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:teneffus/constants.dart';
-import 'package:teneffus/global_entities/button_type.dart';
-import 'package:teneffus/global_widgets/custom_button.dart';
 
 class MainUnitButton extends StatelessWidget {
   const MainUnitButton({
@@ -20,7 +18,7 @@ class MainUnitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color textColor = Colors.white.withValues(alpha: 0.8);
+    Color textColor = Colors.white;
 
     return Stack(
       clipBehavior: Clip.none,
@@ -29,65 +27,77 @@ class MainUnitButton extends StatelessWidget {
         IntrinsicWidth(
           child: ConstrainedBox(
             constraints: const BoxConstraints(minWidth: 200),
-            child: CustomButton(
-                borderColor: Colors.black45,
-                isSticky: true,
-                value: false,
-                buttonStrokeBorderRadius: BorderRadius.circular(99),
-                buttonOnPressedShadowBorderRadius: BorderRadius.circular(99),
-                buttonBackgroundAndForegroundBorderRadius:
-                    BorderRadius.circular(99),
-                buttonPalette: ButtonPalette.darkCyan(),
-                child: Container(
-                  padding: const EdgeInsets.only(top: 2, right: 8, left: 8),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          unitName,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: textColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        const Gap(2),
-                        Text(
-                          lessonName,
-                          style: TextStyle(
-                              color: textColor,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
+            child: InkWell(
+              overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+              onTap: () {
+                onTapped();
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  color: buttonForegroundColorBlue,
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: .3),
+                      blurRadius: 2,
+                      offset: const Offset(0, 2),
                     ),
+                  ],
+                ),
+                padding:
+                    const EdgeInsets.only(top: 6, right: 8, left: 8, bottom: 6),
+                child: Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        unitName,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: textColor,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      const Gap(2),
+                      Text(
+                        lessonName,
+                        style: TextStyle(
+                            color: textColor,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
                   ),
                 ),
-                onPressed: () {
-                  onTapped();
-                }),
-          ),
-        ),
-        Positioned(
-          top: -14,
-          child: InkWell(
-            overlayColor: const WidgetStatePropertyAll(Colors.transparent),
-            onTap: onTapped,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black45, width: 2),
-                  color: buttonForegroundColorDarkCyan,
-                  borderRadius: BorderRadius.circular(99)),
-              child: Text(
-                unitNumber == -1
-                    ? "Tüm Üniteler"
-                    : "Ünite ${(unitNumber + 1).toString()}",
-                style: TextStyle(color: textColor, fontSize: 10),
               ),
             ),
           ),
         ),
+        if (unitNumber != -1)
+          Positioned(
+            top: -14,
+            child: InkWell(
+              overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+              onTap: onTapped,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black26, width: 1),
+                    color: buttonForegroundColorBlue,
+                    borderRadius: BorderRadius.circular(99)),
+                child: Text(
+                  unitNumber == -1
+                      ? "Tüm Üniteler"
+                      : "Ünite ${(unitNumber + 1).toString()}",
+                  style: TextStyle(color: textColor, fontSize: 10),
+                ),
+              ),
+            ),
+          ),
       ],
     );
   }

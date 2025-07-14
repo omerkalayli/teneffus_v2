@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:teneffus/app_router.gr.dart';
+import 'package:teneffus/quiz/presentation/quiz_page.dart';
 
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {

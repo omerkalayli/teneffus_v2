@@ -37,6 +37,7 @@ class MainLayoutPage extends HookConsumerWidget {
                         ?.uid ??
                     "",
               );
+          ref.read(authNotifierProvider.notifier).getStudentInformation();
         }
       });
       return null;

@@ -15,6 +15,8 @@ class StudentInformation extends UserInformation with _$StudentInformation {
     required String rank,
     required int starCount,
     required int avatarId,
+    required int dayStreak,
+    required DateTime lastLogin,
     String? teacherUid,
   }) = _StudentInformation;
 

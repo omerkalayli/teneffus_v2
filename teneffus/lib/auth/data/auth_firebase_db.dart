@@ -3,10 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:teneffus/auth/domain/entities/auth_result.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
+import 'package:teneffus/auth/domain/entities/student_sub_information.dart';
 import 'package:teneffus/auth/domain/entities/teacher_information.dart';
-import 'package:teneffus/auth/domain/entities/user_information.dart';
+import 'package:teneffus/auth/domain/entities/teacher_sub_information.dart';
 import 'package:teneffus/failure.dart';
+import 'package:teneffus/time.dart';
 
 final firestoreProvider = Provider((ref) => FirebaseFirestore.instance);
 
@@ -41,6 +44,8 @@ abstract interface class AuthDataSource {
   Future<void> increaseStarCount({required String uid, required int starCount});
   Future<void> signOut();
   Future<Either<Failure, bool>> sendResetPasswordEmail({required String email});
+  Future<Either<Failure, void>> updateLastLoginDate({required String uid});
+  Future<Either<Failure, void>> updateDayStreak({required int dayStreak});
 }
 
 class AuthFirebaseDb implements AuthDataSource {
@@ -79,16 +84,19 @@ class AuthFirebaseDb implements AuthDataSource {
         return left(Failure("User not found"));
       }
       return right(StudentInformation(
-        uid: auth.currentUser!.uid,
-        name: user.get("name"),
-        surname: user.get("surname"),
-        email: auth.currentUser!.email!,
-        grade: user.get("grade"),
-        rank: user.get("rank"),
-        starCount: user.get("starCount"),
-        teacherUid: user.get("teacherUid"),
-        avatarId: user.get("avatarId") ?? 0,
-      ));
+          uid: auth.currentUser!.uid,
+          name: user.get("name"),
+          surname: user.get("surname"),
+          email: auth.currentUser!.email!,
+          grade: user.get("grade"),
+          rank: user.get("rank"),
+          starCount: user.get("starCount"),
+          teacherUid: user.get("teacherUid"),
+          avatarId: user.get("avatarId") ?? 0,
+          dayStreak: user.get("dayStreak") ?? 1,
+          lastLogin: user.get("lastLogin") != null
+              ? DateTime.parse(user.get("lastLogin"))
+              : await getCurrentTime()));
     } on FirebaseAuthException catch (e) {
       return left(Failure(e.code.toString()));
     } on Exception catch (e) {
@@ -229,6 +237,8 @@ class AuthFirebaseDb implements AuthDataSource {
                 starCount: userSubInformation.starCount,
                 teacherUid: userSubInformation.teacherUid,
                 avatarId: userSubInformation.avatarId,
+                dayStreak: userSubInformation.dayStreak,
+                lastLogin: await getCurrentTime(),
               );
               return right(AuthResult(
                 userInfo: userInformation,
@@ -298,6 +308,8 @@ class AuthFirebaseDb implements AuthDataSource {
           starCount: userSubInformation.starCount,
           teacherUid: userSubInformation.teacherUid,
           avatarId: userSubInformation.avatarId,
+          dayStreak: userSubInformation.dayStreak,
+          lastLogin: await getCurrentTime(),
         );
         return right(AuthResult(
           userInfo: userInformation,
@@ -334,6 +346,7 @@ class AuthFirebaseDb implements AuthDataSource {
       String? email,
       String? password}) async {
     try {
+      DateTime currentTime = await getCurrentTime();
       if (auth.currentUser == null) {
         // Signing in with email and password.
 
@@ -353,7 +366,9 @@ class AuthFirebaseDb implements AuthDataSource {
             rank: "Çaylak 1",
             starCount: 0,
             teacherUid: null,
-            avatarId: 0);
+            avatarId: 0,
+            dayStreak: 1,
+            lastLogin: currentTime);
 
         await firestore.collection("users").doc(userCredential.user!.uid).set({
           "name": name,
@@ -363,6 +378,8 @@ class AuthFirebaseDb implements AuthDataSource {
           "starCount": 0,
           "teacherUid": null,
           "email": email,
+          "lastLogin": currentTime.toIso8601String(),
+          "dayStreak": 1,
         });
         return right(userInfo);
       } else {
@@ -373,16 +390,17 @@ class AuthFirebaseDb implements AuthDataSource {
         }
 
         final userInfo = StudentInformation(
-          uid: auth.currentUser!.uid,
-          name: name,
-          surname: surname,
-          email: auth.currentUser!.email!,
-          grade: grade,
-          rank: "Çaylak 1",
-          starCount: 0,
-          teacherUid: null,
-          avatarId: 0,
-        );
+            uid: auth.currentUser!.uid,
+            name: name,
+            surname: surname,
+            email: auth.currentUser!.email!,
+            grade: grade,
+            rank: "Çaylak 1",
+            starCount: 0,
+            teacherUid: null,
+            avatarId: 0,
+            dayStreak: 1,
+            lastLogin: currentTime);
 
         await firestore.collection("users").doc(auth.currentUser!.uid).set({
           "name": name,
@@ -392,6 +410,8 @@ class AuthFirebaseDb implements AuthDataSource {
           "starCount": 0,
           "teacherUid": null,
           "email": auth.currentUser!.email!,
+          "lastLogin": currentTime.toIso8601String(),
+          "dayStreak": 1,
         });
         return right(userInfo);
       }
@@ -512,43 +532,42 @@ class AuthFirebaseDb implements AuthDataSource {
       return left(Failure(e.toString()));
     }
   }
-}
 
-class StudentSubInformation {
-  final String name;
-  final String surname;
-  final int grade;
-  final String rank;
-  final String? teacherUid;
-  final int starCount;
-  final int avatarId;
+  @override
+  Future<Either<Failure, void>> updateLastLoginDate(
+      {required String uid}) async {
+    try {
+      DateTime currentTime = await getCurrentTime();
 
-  StudentSubInformation({
-    required this.name,
-    required this.surname,
-    required this.grade,
-    required this.rank,
-    required this.starCount,
-    required this.teacherUid,
-    this.avatarId = 0,
-  });
-}
+      if (auth.currentUser == null) {
+        return left(Failure("User not found"));
+      }
+      firestore.collection("users").doc(uid).update({
+        "lastLogin": currentTime.toIso8601String(),
+      }).then((_) {
+        return right(null);
+      });
+      return right(null);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
 
-class TeacherSubInformation {
-  final String name;
-  final String surname;
-  final List<StudentInformation> students;
-
-  TeacherSubInformation(
-      {required this.name, required this.surname, required this.students});
-}
-
-class AuthResult {
-  final UserInformation userInfo;
-  final String userType;
-
-  AuthResult({
-    required this.userInfo,
-    required this.userType,
-  });
+  @override
+  Future<Either<Failure, void>> updateDayStreak(
+      {required int dayStreak}) async {
+    try {
+      if (auth.currentUser == null) {
+        return left(Failure("User not found"));
+      }
+      firestore.collection("users").doc(auth.currentUser!.uid).update({
+        "dayStreak": dayStreak,
+      }).then((_) {
+        return right(null);
+      });
+      return right(null);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
 }

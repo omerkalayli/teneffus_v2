@@ -1,6 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:teneffus/auth/data/auth_firebase_db.dart';
 import 'package:teneffus/auth/domain/auth_repository.dart';
+import 'package:teneffus/auth/domain/entities/auth_result.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/auth/domain/entities/teacher_information.dart';
 import 'package:teneffus/failure.dart';
@@ -131,6 +132,26 @@ class AuthRepositoryImpl implements AuthRepository {
       return left(Failure("Data source is null"));
     } else {
       return authDataSource!.updateAvatar(avatarId: avatarId);
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateLastLoginDate(
+      {required String uid}) async {
+    if (authDataSource == null) {
+      return left(Failure("Data source is null"));
+    } else {
+      return authDataSource!.updateLastLoginDate(uid: uid);
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateDayStreak(
+      {required int dayStreak}) async {
+    if (authDataSource == null) {
+      return left(Failure("Data source is null"));
+    } else {
+      return authDataSource!.updateDayStreak(dayStreak: dayStreak);
     }
   }
 }

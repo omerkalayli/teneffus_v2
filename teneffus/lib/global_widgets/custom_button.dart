@@ -33,6 +33,8 @@ class CustomButton extends HookConsumerWidget {
     BorderRadius? buttonBackgroundAndForegroundBorderRadius,
     BorderRadius? buttonOnPressedShadowBorderRadius,
     bool? showForegroundInnerShadow,
+    this.disableOnPressedForegroundColor = false,
+    bool? isShadowDisabled,
     Color? borderColor,
     bool? isSticky,
     this.isDisabled = false,
@@ -50,6 +52,7 @@ class CustomButton extends HookConsumerWidget {
             buttonOnPressedShadowBorderRadius ?? BorderRadius.circular(6),
         showForegroundInnerShadow = showForegroundInnerShadow ?? false,
         borderColor = borderColor ?? Colors.black,
+        isShadowDisabled = isShadowDisabled ?? false,
         isSticky = isSticky ?? false;
 
   final Widget child;
@@ -66,6 +69,8 @@ class CustomButton extends HookConsumerWidget {
   final bool disableSound;
   final bool isDisabled;
   final Color borderColor;
+  final bool? disableOnPressedForegroundColor;
+  final bool? isShadowDisabled;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -135,10 +140,10 @@ class CustomButton extends HookConsumerWidget {
               margin: EdgeInsets.only(top: isPressed.value ? 4 : 0),
               duration: duration,
               decoration: BoxDecoration(
-                  boxShadow: !isPressed.value
+                  boxShadow: !isPressed.value && !(isShadowDisabled ?? false)
                       ? [
                           BoxShadow(
-                              offset: const Offset(0, 4),
+                              offset: const Offset(0, 2),
                               color: Colors.black.withValues(alpha: 0.3))
                         ]
                       : null,
@@ -166,7 +171,7 @@ class CustomButton extends HookConsumerWidget {
             margin: EdgeInsets.only(
                 left: borderWidth,
                 right: borderWidth,
-                bottom: isPressed.value ? borderWidth : 6,
+                bottom: isPressed.value ? borderWidth : 4,
                 top: isPressed.value ? borderWidth + 4 : borderWidth),
             decoration: BoxDecoration(
               borderRadius: buttonBackgroundAndForegroundBorderRadius,
@@ -179,7 +184,8 @@ class CustomButton extends HookConsumerWidget {
                 duration: duration,
                 decoration: BoxDecoration(
                     borderRadius: buttonOnPressedShadowBorderRadius,
-                    color: isPressed.value || showForegroundInnerShadow
+                    color: (isPressed.value || showForegroundInnerShadow) &&
+                            !disableOnPressedForegroundColor!
                         ? Colors.black.withValues(alpha: 0.2)
                         : Colors.transparent),
                 child: Center(child: child)),

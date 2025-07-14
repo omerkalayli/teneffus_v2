@@ -7,6 +7,7 @@ import 'package:teneffus/app_router.gr.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/global_widgets/custom_circular_progress_indicator.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
+import 'package:teneffus/time.dart';
 
 @RoutePage()
 class SplashPage extends HookConsumerWidget {
@@ -25,9 +26,34 @@ class SplashPage extends HookConsumerWidget {
               "student";
 
           if (userType == "student") {
-            await ref
+            final studentInfo = await ref
                 .read(authNotifierProvider.notifier)
                 .getStudentInformation();
+
+            DateTime? lastLogin = studentInfo?.lastLogin;
+            if (lastLogin != null) {
+              DateTime now = await getCurrentTime();
+              DateTime lastDate =
+                  DateTime(lastLogin.year, lastLogin.month, lastLogin.day);
+              DateTime todayDate = DateTime(now.year, now.month, now.day);
+              int dayDifference = todayDate.difference(lastDate).inDays;
+
+              if (dayDifference == 1) {
+                await ref
+                    .read(authNotifierProvider.notifier)
+                    .updateDayStreak(studentInfo?.dayStreak ?? 1 + 1);
+                await ref
+                    .read(authNotifierProvider.notifier)
+                    .updateLastLoginDate();
+              } else if (dayDifference > 1) {
+                await ref
+                    .read(authNotifierProvider.notifier)
+                    .updateDayStreak(0);
+                await ref
+                    .read(authNotifierProvider.notifier)
+                    .updateLastLoginDate();
+              }
+            }
           } else {
             await ref
                 .read(authNotifierProvider.notifier)

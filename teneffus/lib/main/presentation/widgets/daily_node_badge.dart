@@ -5,19 +5,16 @@ import 'package:teneffus/gen/assets.gen.dart';
 class DailyNodeBadge extends StatelessWidget {
   const DailyNodeBadge({
     super.key,
-    required this.badgeWidth,
     required this.isDone,
     required this.badgeValue,
   });
 
-  final double badgeWidth;
   final bool isDone;
   final int badgeValue;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: badgeWidth,
       decoration: BoxDecoration(
           color: isDone ? const Color(0xff30C26D) : const Color(0xff386D4D),
           borderRadius: BorderRadius.circular(99),
@@ -28,7 +25,8 @@ class DailyNodeBadge extends StatelessWidget {
               offset: const Offset(0, 4),
             ),
           ]),
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 1),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

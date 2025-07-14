@@ -302,7 +302,7 @@ class WordsPage extends HookConsumerWidget {
       shadowColor: wordsColor.withValues(alpha: .2),
       pinned: true,
       backgroundColor: const Color(0xfff5f5f5),
-      expandedHeight: 400,
+      expandedHeight: 388,
       toolbarHeight: 56,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: EdgeInsets.zero,

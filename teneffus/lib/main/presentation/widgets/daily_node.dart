@@ -10,6 +10,7 @@ class DailyNode extends StatelessWidget {
     required this.label,
     required this.width,
     required this.badgeValue,
+    required this.isPassed,
     this.isLatestDay = false,
     super.key,
   });
@@ -19,12 +20,11 @@ class DailyNode extends StatelessWidget {
   final bool isDone;
   final String label;
   final bool isLatestDay;
+  final bool isPassed;
 
   @override
   Widget build(BuildContext context) {
     Color lineColor = isDone ? Colors.white : Colors.black;
-    double badgeWidthRatio = .37;
-    double badgeWidth = width * badgeWidthRatio;
     return SizedBox(
       width: width,
       child: Stack(
@@ -33,7 +33,7 @@ class DailyNode extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              label == "Pazartesi"
+              label == "Pazartesi" || label == "Cuma"
                   ? const Gap(0)
                   : AnimatedContainer(
                       duration: animationDuration,
@@ -75,12 +75,12 @@ class DailyNode extends StatelessWidget {
               ),
             ],
           ),
-          Positioned(
-            top: -10,
-            right: -8,
-            child: DailyNodeBadge(
-                badgeWidth: badgeWidth, isDone: isDone, badgeValue: badgeValue),
-          ),
+          if (true)
+            Positioned(
+              top: -10,
+              right: -8,
+              child: DailyNodeBadge(isDone: isDone, badgeValue: badgeValue),
+            ),
           if (isLatestDay)
             Positioned(
                 bottom: -12,

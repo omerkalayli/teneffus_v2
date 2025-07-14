@@ -222,9 +222,9 @@ class StudentsFirebaseDb implements StudentsDataSource {
         final statsSnapshot = await statsCollection.get();
 
         if (statsSnapshot.docs.isNotEmpty) {
-          final statsList = statsSnapshot.docs
-              .map((doc) => WordStat.fromJson(doc.data()))
-              .toList();
+          final statsList = await Future.wait(
+            statsSnapshot.docs.map((doc) => WordStat.fromJsonAsync(doc.data())),
+          );
           return right(statsList);
         } else {
           return left(Failure("No stats found for this student"));

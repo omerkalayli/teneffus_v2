@@ -92,8 +92,6 @@ const List<String> days = [
   "Pazar"
 ];
 
-const List<int> dayStreakStars = [1, 2, 4, 8, 10, 12, 16];
-
 const Duration animationDuration = Duration(milliseconds: 500);
 
 Map<String, AssetGenImage> games = {
@@ -151,5 +149,5 @@ const Color textColor = Color(0xff212121);
 const Color homeworksColor = Color(0xFFEF476F); // canlı pembe-kırmızı
 const Color gamesColor = Color(0xFF3A86FF);
 const Color wordsColor = Color(0xFF8E44AD);
-const Color profileColor = Color(0xFF118AB2); // sakin mavi
-const Color homeColor = Color(0xFFF4A261);
+const Color homeColor = Color(0xFF41B7FC); // sakin mavi
+const Color profileColor = Color(0xFFF4A261);

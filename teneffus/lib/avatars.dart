@@ -10,12 +10,12 @@ Map<int, AvatarInfo> avatars = {
   1: AvatarInfo(
     id: 1,
     image: Assets.avatars.weightlifting,
-    description: "Bu güç kimsede yok.",
+    description: "Halter kaldıran adam.",
   ),
   2: AvatarInfo(
     id: 2,
     image: Assets.avatars.ghost,
-    description: "Şimdi bunun korkunç bir şey olduğunu hayal-et.",
+    description: "Bu bir hayalet.",
   ),
   3: AvatarInfo(
     id: 3,
@@ -25,12 +25,12 @@ Map<int, AvatarInfo> avatars = {
   4: AvatarInfo(
     id: 4,
     image: Assets.avatars.corvette,
-    description: "Atla.",
+    description: "Corvette.",
   ),
   5: AvatarInfo(
     id: 5,
     image: Assets.avatars.wizard,
-    description: "Uhm... You shall pass.",
+    description: "You shall pass.",
   ),
   6: AvatarInfo(
     id: 6,
@@ -50,12 +50,12 @@ Map<int, AvatarInfo> avatars = {
   9: AvatarInfo(
     id: 9,
     image: Assets.avatars.winner,
-    description: "Zafer benimdir!",
+    description: "Zafer!",
   ),
   10: AvatarInfo(
     id: 10,
     image: Assets.avatars.nerd,
-    description: "Dört gözümle mutluyum.",
+    description: "Dört-göz.",
   ),
   11: AvatarInfo(
     id: 11,
@@ -65,7 +65,7 @@ Map<int, AvatarInfo> avatars = {
   12: AvatarInfo(
     id: 12,
     image: Assets.avatars.dinosaur,
-    description: "Din-a-zor.",
+    description: "Dino.",
   ),
   13: AvatarInfo(
     id: 13,
@@ -85,12 +85,12 @@ Map<int, AvatarInfo> avatars = {
   16: AvatarInfo(
     id: 16,
     image: Assets.avatars.cartwheel,
-    description: "Asla yapamadığım bir hareket.",
+    description: "Takla.",
   ),
   17: AvatarInfo(
     id: 17,
     image: Assets.avatars.smile,
-    description: "Kocaman bir gülümseme.",
+    description: "Gülümseme.",
   ),
   18: AvatarInfo(
     id: 18,
@@ -105,7 +105,7 @@ Map<int, AvatarInfo> avatars = {
   20: AvatarInfo(
     id: 20,
     image: Assets.avatars.heart,
-    description: "Galp.",
+    description: "Kalp kalp kalp.",
     isBig: true,
   ),
   21: AvatarInfo(
@@ -158,14 +158,11 @@ Map<int, AvatarInfo> avatars = {
       description: "Mükemmel.",
       isBig: true),
   31: AvatarInfo(
-      id: 31,
-      image: Assets.avatars.tv,
-      description: "Bu zımbırtıları kullanan kaldı mı dersin?",
-      isBig: true),
+      id: 31, image: Assets.avatars.tv, description: "TV.", isBig: true),
   32: AvatarInfo(
       id: 32,
       image: Assets.avatars.camera,
-      description: "Seni çeken olmasa de gülümse.",
+      description: "Fotoğraf makinesi.",
       isBig: true),
   33: AvatarInfo(
     id: 33,

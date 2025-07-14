@@ -17,6 +17,8 @@ _$StudentInformationImpl _$$StudentInformationImplFromJson(
       rank: json['rank'] as String,
       starCount: (json['starCount'] as num).toInt(),
       avatarId: (json['avatarId'] as num).toInt(),
+      dayStreak: (json['dayStreak'] as num).toInt(),
+      lastLogin: DateTime.parse(json['lastLogin'] as String),
       teacherUid: json['teacherUid'] as String?,
     );
 
@@ -31,5 +33,7 @@ Map<String, dynamic> _$$StudentInformationImplToJson(
       'rank': instance.rank,
       'starCount': instance.starCount,
       'avatarId': instance.avatarId,
+      'dayStreak': instance.dayStreak,
+      'lastLogin': instance.lastLogin.toIso8601String(),
       'teacherUid': instance.teacherUid,
     };
