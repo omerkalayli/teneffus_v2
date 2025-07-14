@@ -34,19 +34,19 @@ class WordOption extends StatelessWidget {
             curve: Curves.easeInOut,
             decoration: BoxDecoration(
               border: Border.all(
-                width: 4,
+                width: 3,
                 color: isCorrect == null
                     ? Colors.transparent
                     : isCorrect!
                         ? Colors.green.withValues(alpha: 0.5)
                         : Colors.red.shade700,
               ),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 isCorrect == null
                     ? const BoxShadow(
-                        color: Colors.transparent,
-                        blurRadius: 0,
+                        color: Colors.black12,
+                        blurRadius: 8,
                       )
                     : const BoxShadow(
                         color: Colors.black26,
@@ -55,7 +55,7 @@ class WordOption extends StatelessWidget {
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(15),
               child: Stack(
                 alignment: Alignment.bottomCenter,
                 children: [

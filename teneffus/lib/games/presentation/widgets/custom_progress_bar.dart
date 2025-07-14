@@ -15,7 +15,7 @@ class CustomProgressBar extends StatelessWidget {
       width: double.infinity,
       height: 8,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Stack(
@@ -25,7 +25,7 @@ class CustomProgressBar extends StatelessWidget {
             curve: Curves.fastOutSlowIn,
             width: (MediaQuery.of(context).size.width - 32) * progress,
             decoration: BoxDecoration(
-              color: const Color(0xFF3BAFEC),
+              color: Colors.blue.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(8),
             ),
           ),

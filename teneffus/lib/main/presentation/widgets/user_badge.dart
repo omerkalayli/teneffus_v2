@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gradient_borders/gradient_borders.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/avatars.dart';
@@ -24,6 +25,17 @@ class UserBadge extends HookConsumerWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
+                border: GradientBoxBorder(
+                  width: 2,
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.lightBlueAccent.withValues(alpha: 0.5),
+                      buttonForegroundColorBlue.withValues(alpha: 0.5),
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                ),
                 borderRadius: BorderRadius.circular(12),
                 gradient: LinearGradient(
                   colors: [

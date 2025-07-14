@@ -40,11 +40,14 @@ Future<void> showGameOverDialog(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text("Oyunu tamamladınız!"),
+                const Text(
+                  "Oyunu tamamladınız!",
+                  style: TextStyle(color: Colors.white),
+                ),
                 const SizedBox(height: 16),
                 Text(
                   "Puanınız: $score",
-                  style: const TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 14, color: Colors.white),
                 ),
                 const SizedBox(height: 16),
                 Row(
@@ -52,7 +55,7 @@ Future<void> showGameOverDialog(
                   children: [
                     const Text(
                       "Kazandığınız yıldızlar: ",
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: 14, color: Colors.white),
                     ),
                     const AnimatedStar(
                       delay: Duration(milliseconds: 150),
@@ -62,6 +65,7 @@ Future<void> showGameOverDialog(
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
                   ],

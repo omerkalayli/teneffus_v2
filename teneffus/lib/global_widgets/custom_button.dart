@@ -171,7 +171,7 @@ class CustomButton extends HookConsumerWidget {
             margin: EdgeInsets.only(
                 left: borderWidth,
                 right: borderWidth,
-                bottom: isPressed.value ? borderWidth : 4,
+                bottom: isPressed.value ? borderWidth : borderWidth + 4,
                 top: isPressed.value ? borderWidth + 4 : borderWidth),
             decoration: BoxDecoration(
               borderRadius: buttonBackgroundAndForegroundBorderRadius,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teneffus/constants.dart';
 
 class AnimatedScoreText extends StatelessWidget {
   const AnimatedScoreText({
@@ -24,7 +25,7 @@ class AnimatedScoreText extends StatelessWidget {
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: textColor,
             ),
           ),
         );

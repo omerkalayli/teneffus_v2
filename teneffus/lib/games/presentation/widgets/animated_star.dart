@@ -53,7 +53,7 @@ class _AnimatedStarState extends State<AnimatedStar>
       turns: _rotationAnimation,
       child: ScaleTransition(
         scale: _scaleAnimation,
-        child: const Icon(Icons.star, color: Colors.yellow, size: 32),
+        child: const Icon(Icons.star, color: Colors.yellow, size: 28),
       ),
     );
   }

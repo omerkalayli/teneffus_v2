@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:teneffus/constants.dart';
 import 'package:teneffus/games/presentation/play_audio.dart';
 import 'package:teneffus/games/presentation/widgets/animated_score_text.dart';
 import 'package:teneffus/games/presentation/widgets/custom_progress_bar.dart';
@@ -168,17 +170,22 @@ class ListeningGamePage extends HookConsumerWidget {
 
     return CustomScaffold(
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
         backgroundColor: Colors.transparent,
         title: Text(
           "Dinleme",
           style: GoogleFonts.montserrat(
-              color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
+              color: textColor, fontSize: 24, fontWeight: FontWeight.w800),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.chevron_left_rounded,
             size: 30,
-            color: Colors.white,
+            color: textColor,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -193,27 +200,35 @@ class ListeningGamePage extends HookConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GameHeader(
-                  isAllUnitsSelected: isAllUnitsSelected,
-                  selectedUnit: selectedUnit,
-                  isAllLessonsSelected: isAllLessonsSelected,
-                  selectedLessons: selectedLessons),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  children: [
-                    StepCounter(
-                      current: currentProgress,
-                      length: length,
+              Column(
+                children: [
+                  GameHeader(
+                      isAllUnitsSelected: isAllUnitsSelected,
+                      selectedUnit: selectedUnit,
+                      isAllLessonsSelected: isAllLessonsSelected,
+                      selectedLessons: selectedLessons),
+                  const Gap(32),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      children: [
+                        StepCounter(
+                          current: currentProgress,
+                          length: length,
+                        ),
+                        const Spacer(),
+                        AnimatedScoreText(
+                          score: score,
+                        ),
+                      ],
                     ),
-                    const Spacer(),
-                    AnimatedScoreText(
-                      score: score,
-                    ),
-                  ],
-                ),
+                  ),
+                  const Gap(32),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: CustomProgressBar(progress: progress)),
+                ],
               ),
-              CustomProgressBar(progress: progress),
               const Text("Duyduğun kelimeyi seç."),
               Padding(
                 padding: const EdgeInsets.all(16.0),
