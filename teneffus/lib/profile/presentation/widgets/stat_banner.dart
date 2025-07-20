@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:teneffus/gen/assets.gen.dart';
 
 class StatBanner extends StatelessWidget {
@@ -12,6 +13,7 @@ class StatBanner extends StatelessWidget {
     this.icon,
     this.padding = const EdgeInsets.all(8.0),
     this.isEmpty = false,
+    this.isLoading = false,
   });
 
   final String value;
@@ -20,68 +22,72 @@ class StatBanner extends StatelessWidget {
   final String title;
   final AssetGenImage? icon;
   final int? count;
+  final bool isLoading;
 
   final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
-    Widget child = Stack(
-      children: [
-        Card(
-          shadowColor: color,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Padding(
-              padding: padding,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  const Gap(4),
-                  if (icon != null) ...[
-                    icon!.image(width: 24, height: 24),
-                    const Gap(8)
-                  ],
-                  Text(
-                    title,
-                    style: TextStyle(fontSize: 14, color: color),
-                  ),
-                  const Spacer(),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        border: Border.all(width: 2, color: color),
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Text(
-                      isEmpty ? "Tanımlanmadı" : value,
+    Widget child = Skeletonizer(
+      enabled: isLoading,
+      child: Stack(
+        children: [
+          Card(
+            shadowColor: color,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: padding,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const Gap(4),
+                    if (icon != null) ...[
+                      icon!.image(width: 24, height: 24),
+                      const Gap(8)
+                    ],
+                    Text(
+                      title,
                       style: TextStyle(fontSize: 14, color: color),
                     ),
-                  ),
-                  const Gap(4),
-                ],
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(width: 2, color: color),
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Text(
+                        isEmpty ? "Tanımlanmadı" : value,
+                        style: TextStyle(fontSize: 14, color: color),
+                      ),
+                    ),
+                    const Gap(4),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        if (count != null) ...[
-          Positioned(
-            top: 4,
-            left: 4,
-            child: RoundedCornerTriangle(color: color, size: 20),
-          ),
-          const Positioned(
-            top: 5,
-            left: 9,
-            child: const Text(
-              "i",
-              style: TextStyle(color: Colors.white, fontSize: 8),
+          if (count != null) ...[
+            Positioned(
+              top: 4,
+              left: 4,
+              child: RoundedCornerTriangle(color: color, size: 20),
             ),
-          )
-        ]
-      ],
+            const Positioned(
+              top: 5,
+              left: 9,
+              child: const Text(
+                "i",
+                style: TextStyle(color: Colors.white, fontSize: 8),
+              ),
+            )
+          ]
+        ],
+      ),
     );
     return count != null
         ? Tooltip(

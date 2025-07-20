@@ -128,6 +128,7 @@ class _HomeworksWidgetState extends ConsumerState<HomeworksWidget> {
                               ),
                             )
                           : Column(children: <Widget>[
+                              const Gap(16),
                               Center(
                                 child: Text(
                                     "--- ${widget.filteredHomeworks.length} Görev ---",
@@ -188,7 +189,7 @@ class _HomeworksWidgetState extends ConsumerState<HomeworksWidget> {
                                           lesson: lesson,
                                           myScore: myScore,
                                           minScore: minScore),
-                                      const Gap(24),
+                                      const Gap(16),
                                     ],
                                   ),
                                 );
@@ -210,7 +211,7 @@ class _HomeworksWidgetState extends ConsumerState<HomeworksWidget> {
   SliverAppBar _appBar(double percentScrolled) {
     return SliverAppBar(
       pinned: true,
-      expandedHeight: 340.0,
+      expandedHeight: 336.0,
       toolbarHeight: 56,
       shadowColor: homeworksColor.withValues(alpha: .2),
       backgroundColor: const Color(0xfff5f5f5),
@@ -251,7 +252,19 @@ class _HomeworksWidgetState extends ConsumerState<HomeworksWidget> {
           ),
         ),
         background: Container(
-            color: const Color(0xfff5f5f5),
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    const Color(0xFFFF7C9E).withValues(alpha: .8),
+                    const Color(0xFFFF306D).withValues(alpha: .8),
+                  ],
+                )),
             alignment: Alignment.bottomLeft,
             padding: const EdgeInsets.only(
               bottom: 4,
@@ -260,22 +273,26 @@ class _HomeworksWidgetState extends ConsumerState<HomeworksWidget> {
               opacity: 1.0 - percentScrolled,
               child: Column(
                 children: [
-                  const Gap(120),
-                  Text(
-                    "ÖDEVLERİM",
-                    style: GoogleFonts.balooChettan2(
-                      color: textColor,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "ÖDEVLERİM",
+                        style: GoogleFonts.balooChettan2(
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
-                  const Gap(96),
                   Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           CustomDropdown(
+                            baseColor: Colors.white,
                             items: widget.dropdownItems,
                             selectedIndex: widget.selectedDropdownIndex.value,
                             onSelected: (index) {
@@ -294,7 +311,7 @@ class _HomeworksWidgetState extends ConsumerState<HomeworksWidget> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 8, vertical: 4),
                               decoration: BoxDecoration(
-                                color: homeworksColor,
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Row(
@@ -303,14 +320,14 @@ class _HomeworksWidgetState extends ConsumerState<HomeworksWidget> {
                                     "Tarih",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
+                                        color: homeworksColor, fontSize: 12),
                                   ),
                                   const Gap(2),
                                   Icon(
                                     widget.showEarliestFirst.value
                                         ? Icons.arrow_upward_rounded
                                         : Icons.arrow_downward_rounded,
-                                    color: Colors.white,
+                                    color: homeworksColor,
                                     size: 16,
                                   ),
                                 ],
@@ -326,24 +343,30 @@ class _HomeworksWidgetState extends ConsumerState<HomeworksWidget> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.info_outline,
-                                  color: textColor.withValues(alpha: 0.8),
+                                  color: Colors.white,
                                   size: 20,
                                 ),
                                 const Gap(4),
                                 Text(
                                     "Kartlara tıklayarak hızlıca sınava girebilirsin.",
                                     style: GoogleFonts.montserrat(
-                                        color: textColor,
+                                        color: Colors.white,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600)),
                               ],
                             ),
                           ),
+                          const Gap(4),
+                          Text("Yenilemek için aşağı çek.",
+                              style: GoogleFonts.montserrat(
+                                  color: Colors.grey[200],
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600)),
                         ],
                       ),
-                      const Gap(8),
+                      const Gap(4),
                     ],
                   ),
                 ],

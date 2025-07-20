@@ -15,6 +15,7 @@ import 'package:teneffus/main/presentation/widgets/main_unit_button.dart';
 import 'package:teneffus/main/presentation/widgets/sarfia_animation.dart';
 import 'package:teneffus/main/presentation/widgets/user_badge.dart';
 import 'package:teneffus/quiz/presentation/quiz_page.dart';
+import 'package:teneffus/settings/presentation/pages/settings_page.dart';
 
 /// [MainPage], is the main page of the application.
 
@@ -32,80 +33,116 @@ class MainPage extends HookConsumerWidget {
     });
     final selectedUnitNumber = useState(0);
     final selectedLessonNumber = useState(0);
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            const Gap(32),
-            const SarfiaAnimation(),
-            const Gap(32),
-            const UserBadge(),
-            DailyContainer(dayStreak: user?.dayStreak ?? 1),
-            const Gap(16),
-            DailyWordContainer(word: randomWord),
-            const Gap(40),
-            Column(
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(16),
+                bottomRight: Radius.circular(16),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xff4DD0E1).withValues(alpha: .8),
+                  const Color(0xff69AAFF).withValues(alpha: .8),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: Column(
               children: [
+                Gap(MediaQuery.of(context).padding.top),
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.2),
-                  child: CustomTextButton(
-                      buttonPalette: ButtonPalette.blue(),
-                      borderWidth: 1,
-                      textStyle:
-                          const TextStyle(fontSize: 16, color: Colors.white),
-                      text: "Quize Başla",
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => QuizPage(
-                              selectedUnit: units[(selectedUnitNumber.value == 0
-                                      ? 1
-                                      : selectedUnitNumber.value) -
-                                  1],
-                              selectedLesson: units[
-                                      (selectedUnitNumber.value == 0
-                                              ? 1
-                                              : selectedUnitNumber.value) -
-                                          1]
-                                  .lessons[(selectedLessonNumber.value == 0
-                                      ? 2
-                                      : selectedLessonNumber.value) -
-                                  1],
-                              isAllLessonsSelected:
-                                  selectedLessonNumber.value == 0,
-                              isAllUnitsSelected: selectedUnitNumber.value == 0,
-                            ),
-                          ),
-                        );
-                      }),
+                  padding: const EdgeInsets.all(16.0),
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SettingsPage(),
+                              ));
+                        },
+                        child: const Icon(
+                          Icons.settings_rounded,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                      )),
                 ),
-                Container(
-                  width: 2,
-                  height: 24,
-                  color: Colors.black,
-                ),
-                MainUnitButton(
-                  onTapped: () {
-                    showUnitAndLessonSelectionModal(context, selectedUnitNumber,
-                        selectedLessonNumber, units);
-                  },
-                  lessonName: selectedLessonNumber.value == 0
-                      ? "Tüm Dersler"
-                      : units[selectedUnitNumber.value - 1]
-                          .lessons[selectedLessonNumber.value - 1]
-                          .nameTr,
-                  unitName: selectedUnitNumber.value == 0
-                      ? "Tüm Üniteler"
-                      : units[selectedUnitNumber.value - 1].nameTr,
-                  unitNumber: selectedUnitNumber.value - 1,
-                ),
+                const SarfiaAnimation(),
+                const Gap(20),
+                const UserBadge(),
               ],
             ),
-            const Gap(64)
-          ],
-        ),
+          ),
+          DailyContainer(dayStreak: user?.dayStreak ?? 1),
+          DailyWordContainer(word: randomWord),
+          Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.2),
+                child: CustomTextButton(
+                    buttonPalette: ButtonPalette.blue(),
+                    borderWidth: 1,
+                    textStyle:
+                        const TextStyle(fontSize: 16, color: Colors.white),
+                    text: "Quize Başla",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => QuizPage(
+                            selectedUnit: units[(selectedUnitNumber.value == 0
+                                    ? 1
+                                    : selectedUnitNumber.value) -
+                                1],
+                            selectedLesson: units[(selectedUnitNumber.value == 0
+                                        ? 1
+                                        : selectedUnitNumber.value) -
+                                    1]
+                                .lessons[(selectedLessonNumber.value == 0
+                                    ? 2
+                                    : selectedLessonNumber.value) -
+                                1],
+                            isAllLessonsSelected:
+                                selectedLessonNumber.value == 0,
+                            isAllUnitsSelected: selectedUnitNumber.value == 0,
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+              Container(
+                width: 2,
+                height: 24,
+                color: Colors.black,
+              ),
+              MainUnitButton(
+                onTapped: () {
+                  showUnitAndLessonSelectionModal(
+                      context, selectedUnitNumber, selectedLessonNumber, units);
+                },
+                lessonName: selectedLessonNumber.value == 0
+                    ? "Tüm Dersler"
+                    : units[selectedUnitNumber.value - 1]
+                        .lessons[selectedLessonNumber.value - 1]
+                        .nameTr,
+                unitName: selectedUnitNumber.value == 0
+                    ? "Tüm Üniteler"
+                    : units[selectedUnitNumber.value - 1].nameTr,
+                unitNumber: selectedUnitNumber.value - 1,
+              ),
+            ],
+          ),
+          const Gap(96)
+        ],
       ),
     );
   }

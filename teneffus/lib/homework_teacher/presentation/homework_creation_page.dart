@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/arabic/getter/getter.dart';
+
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/auth/domain/entities/teacher_information.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
@@ -18,6 +19,7 @@ import 'package:teneffus/global_widgets/custom_snackbar.dart';
 import 'package:teneffus/global_widgets/student_search_bar.dart';
 import 'package:teneffus/homeworks/domain/entities/homework.dart';
 import 'package:teneffus/homeworks/presentation/notifiers/homeworks_notifier.dart';
+import 'package:teneffus/students/presentation/students_notifier.dart';
 import 'package:teneffus/time.dart';
 import 'package:uuid/uuid.dart';
 
@@ -44,7 +46,7 @@ class HomeworkCreationPage extends HookConsumerWidget {
     }, []);
 
     final teacher = ref.watch(teacherInformationProvider);
-    List<StudentInformation> students = teacher?.students ?? [];
+    final students = ref.watch(studentsProvider);
     final textEditingController = useTextEditingController();
     final filteredStudents = useState<List<StudentInformation>>(students);
 
@@ -93,7 +95,6 @@ class HomeworkCreationPage extends HookConsumerWidget {
         final info = await ref
             .read(authNotifierProvider.notifier)
             .getTeacherInformation();
-        students = info?.students ?? [];
       },
       child: NotificationListener(
         onNotification: (notification) {
@@ -138,131 +139,145 @@ class HomeworkCreationPage extends HookConsumerWidget {
                   filteredStudents: filteredStudents,
                   students: students)
               : null,
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                SliverAppBar(
-                  shadowColor: profileColor.withValues(alpha: .2),
-                  pinned: true,
-                  backgroundColor: const Color(0xfff5f5f5),
-                  expandedHeight: 250,
-                  toolbarHeight: 56,
-                  flexibleSpace: FlexibleSpaceBar(
-                    titlePadding: EdgeInsets.zero,
-                    collapseMode: CollapseMode.pin,
-                    title: AnimatedContainer(
+          body: CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              SliverAppBar(
+                shadowColor: profileColor.withValues(alpha: .2),
+                pinned: true,
+                backgroundColor: const Color(0xfff5f5f5),
+                expandedHeight: 340,
+                toolbarHeight: 56,
+                flexibleSpace: FlexibleSpaceBar(
+                  titlePadding: EdgeInsets.zero,
+                  collapseMode: CollapseMode.pin,
+                  title: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    height: 56 - (1.0 - percentScrolled) * 56,
+                    color: const Color(0xfff5f5f5),
+                    child: AnimatedOpacity(
+                      opacity: percentScrolled,
                       duration: const Duration(milliseconds: 300),
-                      height: 56 - (1.0 - percentScrolled) * 56,
-                      color: const Color(0xfff5f5f5),
-                      child: AnimatedOpacity(
-                        opacity: percentScrolled,
-                        duration: const Duration(milliseconds: 300),
-                        child: Row(
-                          children: [
-                            const Gap(16),
-                            Text("Ödev Oluştur",
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 18,
-                                    color: textColor,
-                                    fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            InkWell(
-                              borderRadius: BorderRadius.circular(24),
-                              onTap: () {
-                                scrollController.animateTo(
-                                  0,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeInOut,
-                                );
-                              },
-                              child: const Icon(
-                                Icons.keyboard_double_arrow_up_rounded,
-                                color: textColor,
-                              ),
+                      child: Row(
+                        children: [
+                          const Gap(16),
+                          Text("Ödev Oluştur",
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 18,
+                                  color: textColor,
+                                  fontWeight: FontWeight.bold)),
+                          const Spacer(),
+                          InkWell(
+                            borderRadius: BorderRadius.circular(24),
+                            onTap: () {
+                              scrollController.animateTo(
+                                0,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                            child: const Icon(
+                              Icons.keyboard_double_arrow_up_rounded,
+                              color: textColor,
                             ),
-                            const Gap(16),
-                          ],
-                        ),
+                          ),
+                          const Gap(16),
+                        ],
                       ),
                     ),
-                    background: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      color: const Color(0xfff5f5f5),
-                      alignment: Alignment.bottomLeft,
-                      padding: const EdgeInsets.only(
-                        bottom: 4,
-                      ),
-                      child: Opacity(
-                        opacity: 1.0 - percentScrolled,
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Gap(16),
-                              Text("ÖDEV OLUŞTUR",
-                                  style: GoogleFonts.balooChettan2(
-                                    color: textColor,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ],
-                          ),
+                  ),
+                  background: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(16),
+                          bottomRight: Radius.circular(16),
+                        ),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            const Color(0xFFFF7C9E).withValues(alpha: .8),
+                            const Color(0xFFFF306D).withValues(alpha: .8),
+                          ],
+                        )),
+                    alignment: Alignment.bottomLeft,
+                    padding: const EdgeInsets.only(
+                      bottom: 4,
+                    ),
+                    child: Opacity(
+                      opacity: 1.0 - percentScrolled,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Gap(16),
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text("ÖDEV OLUŞTUR",
+                                    style: GoogleFonts.balooChettan2(
+                                      color: Colors.white,
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                            ),
+                            _homeworkInfoHeader(
+                                selectedGradeIndex,
+                                selectedUnitNumber,
+                                selectedLessonNumber,
+                                units,
+                                minScoreTextEditingController,
+                                lessons,
+                                context,
+                                dueDate),
+                            const Gap(8),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  _homeworkInfoHeader(
-                      selectedGradeIndex,
-                      selectedUnitNumber,
-                      selectedLessonNumber,
-                      units,
-                      minScoreTextEditingController,
-                      lessons,
-                      context,
-                      dueDate),
-                  Gap(8),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Görev Atanacak Öğrenciler",
-                      style: TextStyle(fontSize: 16),
-                    ),
+              ),
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                const Gap(8),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+                  child: Text(
+                    "Görev Atanacak Öğrenciler",
+                    style: TextStyle(fontSize: 16),
                   ),
-                  const Gap(4),
-                  StudentSearchBar(
-                    textEditingController: textEditingController,
-                    selectedStudentGrade: selectedStudentGrade,
-                    onSelectionChanged: (index) {
-                      selectedStudentGrade.value =
-                          index + 8; // 9th grade is index 0
-                      filteredStudents.value = students.where((student) {
-                        final matchesName = student.name.toLowerCase().contains(
-                                textEditingController.text.toLowerCase()) ||
-                            textEditingController.text.isEmpty;
-                        final matchesGrade =
-                            index == 8 || student.grade == index;
-                        return matchesName && matchesGrade;
-                      }).toList();
-                    },
-                  ),
-                  const Gap(16),
-                  ...studentSelection(
-                    textEditingController,
-                    selectedStudentGrade,
-                    filteredStudents,
-                    students,
-                    selectedStudentEmails,
-                  ),
-                  const Gap(500)
-                ])),
-              ],
-            ),
+                ),
+                const Gap(4),
+                StudentSearchBar(
+                  baseColor: textColor,
+                  textEditingController: textEditingController,
+                  selectedStudentGrade: selectedStudentGrade,
+                  onSelectionChanged: (index) {
+                    selectedStudentGrade.value =
+                        index + 8; // 9th grade is index 0
+                    filteredStudents.value = students.where((student) {
+                      final matchesName = student.name.toLowerCase().contains(
+                              textEditingController.text.toLowerCase()) ||
+                          textEditingController.text.isEmpty;
+                      final matchesGrade = index == 8 || student.grade == index;
+                      return matchesName && matchesGrade;
+                    }).toList();
+                  },
+                ),
+                const Gap(16),
+                ...studentSelection(
+                  textEditingController,
+                  selectedStudentGrade,
+                  filteredStudents,
+                  students,
+                  selectedStudentEmails,
+                ),
+                const Gap(500)
+              ])),
+            ],
           ),
         ),
       ),
@@ -294,53 +309,56 @@ class HomeworkCreationPage extends HookConsumerWidget {
       ];
     } else {
       return List.generate(filteredStudents.value.length, (index) {
-        return InkWell(
-          overlayColor: const WidgetStatePropertyAll(Colors.transparent),
-          onTap: () {
-            bool value = selectedStudentEmails.value
-                .contains(filteredStudents.value[index].email);
-            if (!value) {
-              List<String> emails = [...selectedStudentEmails.value];
-              emails.add(filteredStudents.value[index].email);
-              selectedStudentEmails.value = emails;
-            } else {
-              List<String> emails = [...selectedStudentEmails.value];
-              emails.remove(filteredStudents.value[index].email);
-              selectedStudentEmails.value = emails;
-            }
-          },
-          child: Card(
-            margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
-            child: ListTile(
-              dense: true,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-              title: Text(
-                "${filteredStudents.value[index].name} ${filteredStudents.value[index].surname}",
-                style: const TextStyle(color: textColor, fontSize: 14),
-              ),
-              subtitle: Text(
-                "${filteredStudents.value[index].grade}. Sınıf",
-                style: const TextStyle(fontSize: 12, color: textColor),
-              ),
-              trailing: Checkbox(
-                side: const BorderSide(color: textColor, width: 2),
-                fillColor: WidgetStatePropertyAll(selectedStudentEmails.value
-                        .contains(filteredStudents.value[index].email)
-                    ? homeworksColor
-                    : Colors.transparent),
-                value: selectedStudentEmails.value
-                    .contains(filteredStudents.value[index].email),
-                onChanged: (value) {
-                  if (value == true) {
-                    List<String> emails = [...selectedStudentEmails.value];
-                    emails.add(filteredStudents.value[index].email);
-                    selectedStudentEmails.value = emails;
-                  } else {
-                    List<String> emails = [...selectedStudentEmails.value];
-                    emails.remove(filteredStudents.value[index].email);
-                    selectedStudentEmails.value = emails;
-                  }
-                },
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: InkWell(
+            overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+            onTap: () {
+              bool value = selectedStudentEmails.value
+                  .contains(filteredStudents.value[index].email);
+              if (!value) {
+                List<String> emails = [...selectedStudentEmails.value];
+                emails.add(filteredStudents.value[index].email);
+                selectedStudentEmails.value = emails;
+              } else {
+                List<String> emails = [...selectedStudentEmails.value];
+                emails.remove(filteredStudents.value[index].email);
+                selectedStudentEmails.value = emails;
+              }
+            },
+            child: Card(
+              margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
+              child: ListTile(
+                dense: true,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                title: Text(
+                  "${filteredStudents.value[index].name} ${filteredStudents.value[index].surname}",
+                  style: const TextStyle(color: textColor, fontSize: 14),
+                ),
+                subtitle: Text(
+                  "${filteredStudents.value[index].grade}. Sınıf",
+                  style: const TextStyle(fontSize: 12, color: textColor),
+                ),
+                trailing: Checkbox(
+                  side: const BorderSide(color: textColor, width: 2),
+                  fillColor: WidgetStatePropertyAll(selectedStudentEmails.value
+                          .contains(filteredStudents.value[index].email)
+                      ? homeworksColor
+                      : Colors.transparent),
+                  value: selectedStudentEmails.value
+                      .contains(filteredStudents.value[index].email),
+                  onChanged: (value) {
+                    if (value == true) {
+                      List<String> emails = [...selectedStudentEmails.value];
+                      emails.add(filteredStudents.value[index].email);
+                      selectedStudentEmails.value = emails;
+                    } else {
+                      List<String> emails = [...selectedStudentEmails.value];
+                      emails.remove(filteredStudents.value[index].email);
+                      selectedStudentEmails.value = emails;
+                    }
+                  },
+                ),
               ),
             ),
           ),
@@ -349,7 +367,7 @@ class HomeworkCreationPage extends HookConsumerWidget {
     }
   }
 
-  Column _homeworkInfoHeader(
+  Widget _homeworkInfoHeader(
       ValueNotifier<int> selectedGradeIndex,
       ValueNotifier<int> selectedUnitNumber,
       ValueNotifier<int> selectedLessonNumber,
@@ -358,160 +376,198 @@ class HomeworkCreationPage extends HookConsumerWidget {
       List<Lesson> lessons,
       BuildContext context,
       ValueNotifier<DateTime> dueDate) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 8.0, bottom: 4),
-                  child: Text("Sınıf"),
-                ),
-                CustomDropdown(
-                    baseColor: textColor,
-                    width: 120,
-                    items: const [
-                      "9. Sınıf",
-                      "10. Sınıf",
-                      "11. Sınıf",
-                      "12. Sınıf"
-                    ],
-                    selectedIndex: selectedGradeIndex.value,
-                    onSelected: (index) {
-                      selectedGradeIndex.value = index;
-                      selectedUnitNumber.value = 0;
-                      selectedLessonNumber.value = 0;
-                    },
-                    disabled: false)
-              ],
-            ),
-            const Spacer(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 8.0, bottom: 4),
-                  child: Text("Ünite"),
-                ),
-                CustomDropdown(
-                    items: List.generate(units.length, (context) {
-                      return "${units[context].number}. ${units[context].nameTr}";
-                    }),
-                    selectedIndex: selectedUnitNumber.value,
-                    onSelected: (index) {
-                      selectedUnitNumber.value = index;
-                      selectedLessonNumber.value = 0;
-                    },
-                    disabled: false)
-              ],
-            )
-          ],
-        ),
-        const Gap(8),
-        Row(
-          children: [
-            Expanded(
-              child: Column(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(left: 8.0, bottom: 4),
                     child: Text(
-                        "Geçme Notu"), // TODO: gecme notu yerine dogru yuzdesi ya da sayisi olmlaı bence
+                      "Sınıf",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
-                  SizedBox(
-                    height: 30,
-                    width: 120,
-                    child: TextField(
-                      controller: minScoreTextEditingController,
-                      cursorColor: textColor,
-                      style: const TextStyle(color: textColor, fontSize: 12),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.only(left: 8),
-                        hintStyle: TextStyle(
-                            color: textColor.withValues(alpha: .8),
-                            fontSize: 12),
-                        filled: true,
-                        fillColor: textColor.withValues(alpha: 0.2),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
+                  CustomDropdown(
+                      baseColor: Colors.white,
+                      width: 120,
+                      items: const [
+                        "9. Sınıf",
+                        "10. Sınıf",
+                        "11. Sınıf",
+                        "12. Sınıf"
+                      ],
+                      selectedIndex: selectedGradeIndex.value,
+                      onSelected: (index) {
+                        selectedGradeIndex.value = index;
+                        selectedUnitNumber.value = 0;
+                        selectedLessonNumber.value = 0;
+                      },
+                      disabled: false)
+                ],
+              ),
+              const Spacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8.0, bottom: 4),
+                    child: Text(
+                      "Ünite",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  CustomDropdown(
+                      baseColor: Colors.white,
+                      items: List.generate(units.length, (context) {
+                        return "${units[context].number}. ${units[context].nameTr}";
+                      }),
+                      selectedIndex: selectedUnitNumber.value,
+                      onSelected: (index) {
+                        selectedUnitNumber.value = index;
+                        selectedLessonNumber.value = 0;
+                      },
+                      disabled: false)
+                ],
+              )
+            ],
+          ),
+          const Gap(8),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 8.0, bottom: 4),
+                      child: Text(
+                        "Geçme Notu",
+                        style: TextStyle(color: Colors.white),
+                      ), // TODO: gecme notu yerine dogru yuzdesi ya da sayisi olmlaı bence
+                    ),
+                    SizedBox(
+                      height: 30,
+                      width: 120,
+                      child: TextField(
+                        controller: minScoreTextEditingController,
+                        cursorColor: Colors.white,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 12),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(left: 8),
+                          hintStyle: TextStyle(
+                              color: Colors.white.withValues(alpha: .8),
+                              fontSize: 12),
+                          filled: true,
+                          fillColor: Colors.white.withValues(alpha: 0.2),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide.none,
+                          ),
                         ),
                       ),
                     ),
+                  ],
+                ),
+              ),
+              const Gap(8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8.0, bottom: 4),
+                    child: Text(
+                      "Konu",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
+                  CustomDropdown(
+                      baseColor: Colors.white,
+                      items: List.generate(lessons.length, (context) {
+                        return "${lessons[context].number}. ${lessons[context].nameTr}";
+                      }),
+                      selectedIndex: selectedLessonNumber.value,
+                      onSelected: (index) {
+                        selectedLessonNumber.value = index;
+                      },
+                      disabled: false)
                 ],
               ),
-            ),
-            const Gap(8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 8.0, bottom: 4),
-                  child: Text("Konu"),
+            ],
+          ),
+          const Gap(8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 8.0, bottom: 4),
+                child: Text(
+                  "Bitiş Tarihi",
+                  style: TextStyle(color: Colors.white),
                 ),
-                CustomDropdown(
-                    items: List.generate(lessons.length, (context) {
-                      return "${lessons[context].number}. ${lessons[context].nameTr}";
-                    }),
-                    selectedIndex: selectedLessonNumber.value,
-                    onSelected: (index) {
-                      selectedLessonNumber.value = index;
+              ),
+              InkWell(
+                onTap: () {
+                  showDatePicker(
+                    locale: const Locale("tr", "TR"),
+                    context: context,
+                    initialDate: dueDate.value,
+                    firstDate: dueDate.value,
+                    lastDate: DateTime(2100),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: const ColorScheme.light(
+                            primary: homeworksColor,
+                            onPrimary: Colors.white,
+                            onSurface: Colors.black,
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              foregroundColor: homeworksColor,
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
                     },
-                    disabled: false)
-              ],
-            ),
-          ],
-        ),
-        const Gap(8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 8.0, bottom: 4),
-              child: Text("Bitiş Tarihi"),
-            ),
-            InkWell(
-              onTap: () {
-                showDatePicker(
-                  locale: const Locale("tr", "TR"),
-                  context: context,
-                  initialDate: dueDate.value,
-                  firstDate: dueDate.value,
-                  lastDate: DateTime(2100),
-                ).then((selectedDate) {
-                  if (selectedDate != null) {
-                    dueDate.value = selectedDate;
-                  }
-                });
-              },
-              child: Container(
-                width: 120,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: textColor.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${dueDate.value.day}/${dueDate.value.month}/${dueDate.value.year}",
-                    style: const TextStyle(
-                      color: textColor,
-                      fontSize: 12,
+                  ).then((selectedDate) {
+                    if (selectedDate != null) {
+                      dueDate.value = selectedDate;
+                    }
+                  });
+                },
+                child: Container(
+                  width: 120,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "${dueDate.value.day}/${dueDate.value.month}/${dueDate.value.year}",
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.8),
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

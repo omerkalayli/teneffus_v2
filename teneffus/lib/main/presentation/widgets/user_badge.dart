@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gradient_borders/gradient_borders.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/avatars.dart';
@@ -18,119 +17,104 @@ class UserBadge extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userInfo = ref.watch(studentInformationProvider);
-    return Column(
-      children: [
-        Card(
-          margin: const EdgeInsets.all(16),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-                border: GradientBoxBorder(
-                  width: 2,
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.lightBlueAccent.withValues(alpha: 0.5),
-                      buttonForegroundColorBlue.withValues(alpha: 0.5),
-                    ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
+    return Card(
+      margin: const EdgeInsets.all(16),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+            border: Border.all(width: 2, color: Colors.white),
+            borderRadius: BorderRadius.circular(12),
+            gradient: const LinearGradient(
+              colors: [buttonForegroundColorBlue, buttonForegroundColorBlue],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            )),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(99),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
                   ),
-                ),
-                borderRadius: BorderRadius.circular(12),
-                gradient: LinearGradient(
-                  colors: [
-                    buttonForegroundColorBlue.withValues(alpha: 0.5),
-                    buttonForegroundColorBlue.withValues(alpha: 0.2),
-                  ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                )),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(99),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white.withValues(alpha: 0.2),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                    color: Colors.white,
-                  ),
-                  child: shuffledAvatars[userInfo?.avatarId]
-                      ?.image
-                      .image(width: 80, height: 80, color: Colors.black),
-                ),
-                const Gap(4),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          "${userInfo?.name} ${userInfo?.surname}"),
-                      Text(
-                        "${userInfo?.grade}. Sınıf",
-                        style: GoogleFonts.montserrat(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(99),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white.withValues(alpha: 0.2),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    children: [
-                      const Gap(8),
-                      Text(
-                        userInfo?.starCount.toString() ?? "0",
-                        style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.orange),
-                      ),
-                      ClipRect(
-                        child: Align(
-                          alignment: Alignment.center,
-                          widthFactor: 0.6,
-                          heightFactor: 0.6,
-                          child: Assets.animations.star.lottie(
-                            width: 64,
-                            height: 64,
-                            fit: BoxFit.contain,
-                            alignment: Alignment.center,
-                            repeat: true,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+                color: Colors.white,
+              ),
+              child: shuffledAvatars[userInfo?.avatarId]
+                  ?.image
+                  .image(width: 64, height: 64, color: Colors.black),
             ),
-          ),
+            const Gap(4),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      style: GoogleFonts.montserrat(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      "${userInfo?.name} ${userInfo?.surname}"),
+                  Text(
+                    "${userInfo?.grade}. Sınıf",
+                    style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Spacer(),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(99),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+                color: Colors.white,
+              ),
+              child: Row(
+                children: [
+                  const Gap(8),
+                  Text(
+                    userInfo?.starCount.toString() ?? "0",
+                    style: GoogleFonts.montserrat(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.orange),
+                  ),
+                  ClipRect(
+                    child: Align(
+                      alignment: Alignment.center,
+                      widthFactor: 0.6,
+                      heightFactor: 0.6,
+                      child: Assets.animations.star.lottie(
+                        width: 64,
+                        height: 64,
+                        fit: BoxFit.contain,
+                        alignment: Alignment.center,
+                        repeat: true,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

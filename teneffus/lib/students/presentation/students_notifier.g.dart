@@ -6,7 +6,7 @@ part of 'students_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$studentsNotifierHash() => r'bc4ef37fb7a617dc9a26626e26dfa753efa17757';
+String _$studentsNotifierHash() => r'f123e8659db0fe5900971daea4cfae5c6dc8a965';
 
 /// See also [StudentsNotifier].
 @ProviderFor(StudentsNotifier)

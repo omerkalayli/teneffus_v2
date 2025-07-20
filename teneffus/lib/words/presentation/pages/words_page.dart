@@ -4,10 +4,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:teneffus/arabic/getter/getter.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/constants.dart';
-import 'package:teneffus/games/presentation/pages/listening_game_page.dart';
 import 'package:teneffus/games/presentation/widgets/custom_dropdown.dart';
 import 'package:teneffus/games/presentation/widgets/lesson_selection_container.dart';
 import 'package:teneffus/games/presentation/widgets/unit_selection_bar.dart';
@@ -16,9 +16,8 @@ import 'package:teneffus/global_entities/lesson.dart';
 import 'package:teneffus/global_entities/unit.dart';
 import 'package:teneffus/global_entities/word.dart';
 import 'package:teneffus/global_entities/word_stat.dart';
-import 'package:teneffus/global_widgets/custom_circular_progress_indicator.dart';
 import 'package:teneffus/students/presentation/students_notifier.dart';
-import 'package:teneffus/words/presentation/widgets/card_top_container.dart';
+import 'package:teneffus/words/presentation/widgets/word_card.dart';
 
 class WordsPage extends HookConsumerWidget {
   const WordsPage({super.key});
@@ -178,15 +177,13 @@ class WordsPage extends HookConsumerWidget {
               isAllLessonsSelected,
               lessons),
           isLoading.value
-              ? const SliverToBoxAdapter(
-                  child: Center(
-                  child: SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: CustomCircularProgressIndicator(
-                      disableBackgroundColor: true,
-                    ),
-                  ),
+              ? SliverToBoxAdapter(
+                  child: Column(
+                  children: List.generate(5, (index) {
+                    return Skeletonizer(
+                        containersColor: Colors.white,
+                        child: WordCard(stat: WordStat.empty(), total: 0));
+                  }),
                 ))
               : stats.value.isEmpty
                   ? SliverToBoxAdapter(
@@ -218,66 +215,7 @@ class WordsPage extends HookConsumerWidget {
                           final total = (stat.correctCount +
                               stat.incorrectCount +
                               stat.passedCount);
-                          return Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      CardTopContainer(
-                                        type: StatType.correct,
-                                        count: stat.correctCount,
-                                        all: total.toDouble(),
-                                      ),
-                                      CardTopContainer(
-                                        type: StatType.total,
-                                        value: total.toString(),
-                                      ),
-                                      CardTopContainer(
-                                        type: StatType.date,
-                                        value: stat.lastStudied
-                                            .toLocal()
-                                            .toString()
-                                            .split(" ")[0],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Card(
-                                  margin: const EdgeInsets.only(bottom: 16),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                        color:
-                                            Colors.black.withValues(alpha: .05),
-                                      ),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 8),
-                                    child: Row(
-                                      children: [
-                                        Text(stat.word.tr,
-                                            style: const TextStyle(
-                                                color: Colors.black87)),
-                                        const Spacer(),
-                                        Text(stat.word.ar,
-                                            style: const TextStyle(
-                                                color: Colors.black87)),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
+                          return WordCard(stat: stat, total: total);
                         },
                         childCount: stats.value.length,
                       ),
@@ -302,13 +240,13 @@ class WordsPage extends HookConsumerWidget {
       shadowColor: wordsColor.withValues(alpha: .2),
       pinned: true,
       backgroundColor: const Color(0xfff5f5f5),
-      expandedHeight: 388,
+      expandedHeight: 352,
       toolbarHeight: 56,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: EdgeInsets.zero,
         collapseMode: CollapseMode.pin,
         title: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 00),
           height: 56 - (1.0 - percentScrolled) * 56,
           color: const Color(0xfff5f5f5),
           child: AnimatedOpacity(
@@ -343,92 +281,109 @@ class WordsPage extends HookConsumerWidget {
           ),
         ),
         background: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          color: const Color(0xfff5f5f5),
+          margin: const EdgeInsets.only(bottom: 16),
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(16),
+                bottomRight: Radius.circular(16),
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  const Color(0xFFC58BE2).withValues(alpha: .9),
+                  const Color(0xFF993EB3).withValues(alpha: .9),
+                ],
+              )),
           alignment: Alignment.bottomLeft,
           padding: const EdgeInsets.only(
             bottom: 4,
           ),
           child: Opacity(
             opacity: 1.0 - percentScrolled,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text("KELİMELER",
-                    style: GoogleFonts.balooChettan2(
-                      color: textColor,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                    )),
-                const Gap(
-                  90,
-                ),
-                UnitSelectionBar(
-                  color: wordsColor,
-                  units: units,
-                  selectedUnitNumber: selectedUnitNumber,
-                  onTap: (i) {
-                    selectedUnitNumber.value = i;
-                    selectedLesson.value = 0;
-                  },
-                ),
-                const Gap(16),
-                Row(
-                  children: [
-                    CustomDropdown(
-                      items: const [
-                        "Başarı Oranına Göre",
-                        "Tarihe Göre",
-                        "Toplam Sayıya Göre"
-                      ],
-                      selectedIndex: sortTypeIndex.value,
-                      onSelected: (index) {
-                        sortTypeIndex.value = index;
-                      },
-                      disabled: false,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text("KELİMELER",
+                          style: GoogleFonts.balooChettan2(
+                            color: Colors.white,
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                          )),
                     ),
-                    const Spacer(),
-                    InkWell(
-                      onTap: () {
-                        sortIncreasing.value = !sortIncreasing.value;
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: wordsColor,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              sortIncreasing.value ? "Artan" : "Azalan",
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 12),
-                            ),
-                            const Gap(2),
-                            Icon(
-                              sortIncreasing.value
-                                  ? Icons.arrow_upward_rounded
-                                  : Icons.arrow_downward_rounded,
-                              color: Colors.white,
-                              size: 16,
-                            ),
-                          ],
-                        ),
+                  ),
+                  UnitSelectionBar(
+                    color: wordsColor,
+                    units: units,
+                    selectedUnitNumber: selectedUnitNumber,
+                    onTap: (i) {
+                      selectedUnitNumber.value = i;
+                      selectedLesson.value = 0;
+                    },
+                  ),
+                  const Gap(16),
+                  Row(
+                    children: [
+                      CustomDropdown(
+                        baseColor: Colors.white,
+                        items: const [
+                          "Başarı Oranına Göre",
+                          "Tarihe Göre",
+                          "Toplam Sayıya Göre"
+                        ],
+                        selectedIndex: sortTypeIndex.value,
+                        onSelected: (index) {
+                          sortTypeIndex.value = index;
+                        },
+                        disabled: false,
                       ),
-                    )
-                  ],
-                ),
-                const Gap(8),
-                LessonSelectionContainer(
-                  color: wordsColor,
-                  isAllLessonsSelected: isAllLessonsSelected,
-                  lessons: lessons,
-                  selectedLesson: selectedLesson,
-                ),
-                const Gap(8),
-              ],
+                      const Spacer(),
+                      InkWell(
+                        onTap: () {
+                          sortIncreasing.value = !sortIncreasing.value;
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                sortIncreasing.value ? "Artan" : "Azalan",
+                                style: const TextStyle(
+                                    color: wordsColor, fontSize: 12),
+                              ),
+                              const Gap(2),
+                              Icon(
+                                sortIncreasing.value
+                                    ? Icons.arrow_upward_rounded
+                                    : Icons.arrow_downward_rounded,
+                                color: wordsColor,
+                                size: 16,
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  const Gap(8),
+                  LessonSelectionContainer(
+                    color: wordsColor,
+                    isAllLessonsSelected: isAllLessonsSelected,
+                    lessons: lessons,
+                    selectedLesson: selectedLesson,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

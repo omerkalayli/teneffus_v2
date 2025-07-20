@@ -9,24 +9,25 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:flutter/material.dart' as _i8;
+import 'package:auto_route/auto_route.dart' as _i6;
+import 'package:flutter/material.dart' as _i9;
 import 'package:teneffus/auth/presentation/pages/auth_page.dart' as _i1;
-import 'package:teneffus/global_entities/lesson.dart' as _i6;
-import 'package:teneffus/global_entities/unit.dart' as _i7;
+import 'package:teneffus/global_entities/lesson.dart' as _i7;
+import 'package:teneffus/global_entities/unit.dart' as _i8;
 import 'package:teneffus/main/main_layout.dart' as _i2;
 import 'package:teneffus/quiz/presentation/quiz_page.dart' as _i3;
-import 'package:teneffus/splash_page.dart' as _i4;
+import 'package:teneffus/settings/presentation/pages/settings_page.dart' as _i4;
+import 'package:teneffus/splash_page.dart' as _i5;
 
 /// generated route for
 /// [_i1.AuthPage]
-class AuthRoute extends _i5.PageRouteInfo<void> {
-  const AuthRoute({List<_i5.PageRouteInfo>? children})
+class AuthRoute extends _i6.PageRouteInfo<void> {
+  const AuthRoute({List<_i6.PageRouteInfo>? children})
     : super(AuthRoute.name, initialChildren: children);
 
   static const String name = 'AuthRoute';
 
-  static _i5.PageInfo page = _i5.PageInfo(
+  static _i6.PageInfo page = _i6.PageInfo(
     name,
     builder: (data) {
       return const _i1.AuthPage();
@@ -36,13 +37,13 @@ class AuthRoute extends _i5.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.MainLayoutPage]
-class MainLayoutRoute extends _i5.PageRouteInfo<void> {
-  const MainLayoutRoute({List<_i5.PageRouteInfo>? children})
+class MainLayoutRoute extends _i6.PageRouteInfo<void> {
+  const MainLayoutRoute({List<_i6.PageRouteInfo>? children})
     : super(MainLayoutRoute.name, initialChildren: children);
 
   static const String name = 'MainLayoutRoute';
 
-  static _i5.PageInfo page = _i5.PageInfo(
+  static _i6.PageInfo page = _i6.PageInfo(
     name,
     builder: (data) {
       return const _i2.MainLayoutPage();
@@ -52,17 +53,17 @@ class MainLayoutRoute extends _i5.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.QuizPage]
-class QuizRoute extends _i5.PageRouteInfo<QuizRouteArgs> {
+class QuizRoute extends _i6.PageRouteInfo<QuizRouteArgs> {
   QuizRoute({
-    required _i6.Lesson selectedLesson,
-    required _i7.Unit selectedUnit,
+    required _i7.Lesson selectedLesson,
+    required _i8.Unit selectedUnit,
     bool isAllLessonsSelected = false,
     bool isAllUnitsSelected = false,
     bool isHomework = false,
     String? homeworkId,
     int? minScore,
-    _i8.Key? key,
-    List<_i5.PageRouteInfo>? children,
+    _i9.Key? key,
+    List<_i6.PageRouteInfo>? children,
   }) : super(
          QuizRoute.name,
          args: QuizRouteArgs(
@@ -80,7 +81,7 @@ class QuizRoute extends _i5.PageRouteInfo<QuizRouteArgs> {
 
   static const String name = 'QuizRoute';
 
-  static _i5.PageInfo page = _i5.PageInfo(
+  static _i6.PageInfo page = _i6.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<QuizRouteArgs>();
@@ -110,9 +111,9 @@ class QuizRouteArgs {
     this.key,
   });
 
-  final _i6.Lesson selectedLesson;
+  final _i7.Lesson selectedLesson;
 
-  final _i7.Unit selectedUnit;
+  final _i8.Unit selectedUnit;
 
   final bool isAllLessonsSelected;
 
@@ -124,7 +125,7 @@ class QuizRouteArgs {
 
   final int? minScore;
 
-  final _i8.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -133,17 +134,33 @@ class QuizRouteArgs {
 }
 
 /// generated route for
-/// [_i4.SplashPage]
-class SplashRoute extends _i5.PageRouteInfo<void> {
-  const SplashRoute({List<_i5.PageRouteInfo>? children})
+/// [_i4.SettingsPage]
+class SettingsRoute extends _i6.PageRouteInfo<void> {
+  const SettingsRoute({List<_i6.PageRouteInfo>? children})
+    : super(SettingsRoute.name, initialChildren: children);
+
+  static const String name = 'SettingsRoute';
+
+  static _i6.PageInfo page = _i6.PageInfo(
+    name,
+    builder: (data) {
+      return const _i4.SettingsPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i5.SplashPage]
+class SplashRoute extends _i6.PageRouteInfo<void> {
+  const SplashRoute({List<_i6.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i5.PageInfo page = _i5.PageInfo(
+  static _i6.PageInfo page = _i6.PageInfo(
     name,
     builder: (data) {
-      return const _i4.SplashPage();
+      return const _i5.SplashPage();
     },
   );
 }

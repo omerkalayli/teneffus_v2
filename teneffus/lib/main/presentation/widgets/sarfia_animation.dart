@@ -88,12 +88,12 @@ class _SarfiaAnimationState extends State<SarfiaAnimation>
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Align(
-                widthFactor: 0.4,
-                heightFactor: 0.3,
+                widthFactor: 0.5,
+                heightFactor: 0.25,
                 alignment: Alignment.center,
                 child: Assets.images.header.image(
                   width: MediaQuery.of(context).size.width * 0.8,
-                  height: 200,
+                  height: 250,
                 ),
               ),
             ),

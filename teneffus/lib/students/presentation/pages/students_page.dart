@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/auth/domain/entities/teacher_information.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
@@ -19,12 +20,25 @@ class StudentsPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final teacher = ref.watch(teacherInformationProvider);
-    List<StudentInformation> students = teacher?.students ?? [];
-    final isLoading = useState(false);
+    List<StudentInformation> students = ref.watch(studentsProvider);
+    final isLoading = useState(true);
     final selectedGrade = useState<int>(8);
     final textEditingController = useTextEditingController();
     final filteredStudents = useState<List<StudentInformation>>(students);
     final isAscending = useState<bool>(true);
+
+    useEffect(() {
+      Future.microtask(() async {
+        isLoading.value = true;
+        Future.delayed(const Duration(milliseconds: 1000), () {});
+        textEditingController.clear();
+        await ref.read(studentsNotifierProvider.notifier).getStudents();
+        filteredStudents.value = ref.watch(studentsProvider);
+        isLoading.value = false;
+      });
+      return;
+    }, []);
+
     useEffect(() {
       textEditingController.addListener(() {
         List<StudentInformation> filtered = students.where((student) {
@@ -55,8 +69,8 @@ class StudentsPage extends HookConsumerWidget {
     }, [
       textEditingController.text,
       selectedGrade.value,
-      isLoading.value,
       students,
+      isLoading.value,
       isAscending.value,
     ]);
 
@@ -90,10 +104,7 @@ class StudentsPage extends HookConsumerWidget {
         await Future.delayed(const Duration(milliseconds: 500), () {});
         isLoading.value = true;
         textEditingController.clear();
-        final info = await ref
-            .read(authNotifierProvider.notifier)
-            .getTeacherInformation();
-        students = info?.students ?? [];
+        await ref.read(studentsNotifierProvider.notifier).getStudents();
         isLoading.value = false;
       },
       child: NotificationListener(
@@ -132,89 +143,121 @@ class StudentsPage extends HookConsumerWidget {
               shadowColor: profileColor.withValues(alpha: .2),
               pinned: true,
               backgroundColor: const Color(0xfff5f5f5),
-              expandedHeight: 250,
+              expandedHeight: 338,
               toolbarHeight: 56,
-              flexibleSpace: appBar(percentScrolled, scrollController),
+              flexibleSpace: appBar(
+                  percentScrolled,
+                  scrollController,
+                  isAscending,
+                  textEditingController,
+                  selectedGrade,
+                  filteredStudents,
+                  students),
             ),
             SliverList(
-                delegate: SliverChildListDelegate(students.isEmpty
-                    ? _noStudentWidget
-                    : [
-                        _header(isAscending, textEditingController,
-                            selectedGrade, filteredStudents, students),
-                        const Gap(16),
-                        if (filteredStudents.value.isEmpty)
-                          Center(
-                            child: Column(
-                              children: [
-                                const Gap(32),
-                                Assets.images.noUser.image(
-                                  width: 32,
-                                  height: 32,
-                                  color: textColor,
+                delegate:
+                    SliverChildListDelegate(students.isEmpty && !isLoading.value
+                        ? _noStudentWidget
+                        : [
+                            const Gap(16),
+                            if (filteredStudents.value.isEmpty &&
+                                !isLoading.value)
+                              Center(
+                                child: Column(
+                                  children: [
+                                    const Gap(32),
+                                    Assets.images.noUser.image(
+                                      width: 32,
+                                      height: 32,
+                                      color: textColor,
+                                    ),
+                                    const Gap(4),
+                                    const Text(
+                                      "Öğrenci bulunamadı.",
+                                      style: TextStyle(color: textColor),
+                                    ),
+                                  ],
                                 ),
-                                const Gap(4),
-                                const Text(
-                                  "Öğrenci bulunamadı.",
-                                  style: TextStyle(color: textColor),
-                                ),
-                              ],
-                            ),
-                          )
-                        else
-                          ...List.generate(
-                            filteredStudents.value.length,
-                            (index) {
-                              return GestureDetector(
-                                onLongPress: () {
-                                  _deleteStudentDialog(context, ref,
-                                      filteredStudents, index, teacher);
-                                },
-                                child: Card(
+                              )
+                            else if (isLoading.value)
+                              Column(
+                                  children: List.generate(5, (index) {
+                                return Skeletonizer(
+                                    child: Card(
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 4),
                                   child: ListTile(
-                                    dense: true,
-                                    title: Text(
-                                      "${filteredStudents.value[index].name} ${filteredStudents.value[index].surname}",
-                                      style: const TextStyle(
-                                          color: textColor, fontSize: 14),
+                                    leading: const CircleAvatar(
+                                      radius: 20,
+                                      backgroundColor: Colors.white,
                                     ),
-                                    subtitle: Text(
-                                      "${filteredStudents.value[index].grade}. Sınıf",
-                                      style: const TextStyle(
-                                          color: textColor, fontSize: 12),
+                                    title: Container(
+                                      height: 16,
+                                      width: 100,
+                                      color: Colors.white,
                                     ),
-                                    trailing: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 2),
-                                          child: Text(
-                                            filteredStudents
-                                                .value[index].starCount
-                                                .toString(),
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              color: textColor,
-                                            ),
-                                          ),
-                                        ),
-                                        const Gap(4),
-                                        Assets.images.star.image(
-                                            width: 18,
-                                            height: 18,
-                                            color: textColor),
-                                      ],
+                                    subtitle: Container(
+                                      height: 12,
+                                      width: 80,
+                                      color: Colors.white,
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        const Gap(1000)
-                      ])),
+                                ));
+                              }))
+                            else
+                              ...List.generate(
+                                filteredStudents.value.length,
+                                (index) {
+                                  return GestureDetector(
+                                    onLongPress: () {
+                                      _deleteStudentDialog(context, ref,
+                                          filteredStudents, index, teacher);
+                                    },
+                                    child: Card(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 4),
+                                      child: ListTile(
+                                        dense: true,
+                                        title: Text(
+                                          "${filteredStudents.value[index].name} ${filteredStudents.value[index].surname}",
+                                          style: const TextStyle(
+                                              color: textColor, fontSize: 14),
+                                        ),
+                                        subtitle: Text(
+                                          "${filteredStudents.value[index].grade}. Sınıf",
+                                          style: const TextStyle(
+                                              color: textColor, fontSize: 12),
+                                        ),
+                                        trailing: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 2),
+                                              child: Text(
+                                                filteredStudents
+                                                    .value[index].starCount
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: textColor,
+                                                ),
+                                              ),
+                                            ),
+                                            const Gap(4),
+                                            Assets.images.star.image(
+                                                width: 18,
+                                                height: 18,
+                                                color: textColor),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            const Gap(1000)
+                          ])),
           ],
         ),
       ),
@@ -277,7 +320,7 @@ class StudentsPage extends HookConsumerWidget {
       ValueNotifier<List<StudentInformation>> filteredStudents,
       List<StudentInformation> students) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: StudentSearchBar(
         isAscending: isAscending,
         textEditingController: textEditingController,
@@ -319,7 +362,14 @@ class StudentsPage extends HookConsumerWidget {
   }
 
   FlexibleSpaceBar appBar(
-      double percentScrolled, ScrollController scrollController) {
+    double percentScrolled,
+    ScrollController scrollController,
+    ValueNotifier<bool> isAscending,
+    TextEditingController textEditingController,
+    ValueNotifier<int> selectedGrade,
+    ValueNotifier<List<StudentInformation>> filteredStudents,
+    List<StudentInformation> students,
+  ) {
     return FlexibleSpaceBar(
       titlePadding: EdgeInsets.zero,
       collapseMode: CollapseMode.pin,
@@ -359,8 +409,19 @@ class StudentsPage extends HookConsumerWidget {
         ),
       ),
       background: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        color: const Color(0xfff5f5f5),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16),
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                const Color(0xFFC58BE2).withValues(alpha: .9),
+                const Color(0xFF993EB3).withValues(alpha: .9),
+              ],
+            )),
         alignment: Alignment.bottomLeft,
         padding: const EdgeInsets.only(
           bottom: 4,
@@ -373,12 +434,20 @@ class StudentsPage extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Gap(16),
-                Text("ÖĞRENCİLERİM",
-                    style: GoogleFonts.balooChettan2(
-                      color: textColor,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                    )),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text("ÖĞRENCİLERİM",
+                        style: GoogleFonts.balooChettan2(
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ),
+                ),
+                _header(isAscending, textEditingController, selectedGrade,
+                    filteredStudents, students),
+                const Gap(8),
               ],
             ),
           ),

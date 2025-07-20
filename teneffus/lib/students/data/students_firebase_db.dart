@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/failure.dart';
 import 'package:teneffus/global_entities/student_stat.dart';
@@ -17,6 +18,7 @@ abstract interface class StudentsDataSource {
       StudentInformation student, String teacherEmail);
   Future<Either<Failure, void>> deleteStudent(String uid);
   Future<Either<Failure, List<StudentInformation>>> getStudents();
+  Future<Either<Failure, List<StudentInformation>>> getAllStudents();
   Future<Either<Failure, void>> removeStudent(
       StudentInformation student, String teacherEmail);
   Future<Either<Failure, void>> updateWordStats(
@@ -96,7 +98,7 @@ class StudentsFirebaseDb implements StudentsDataSource {
   }
 
   @override
-  Future<Either<Failure, List<StudentInformation>>> getStudents() async {
+  Future<Either<Failure, List<StudentInformation>>> getAllStudents() async {
     try {
       final snapshot = await FirebaseFirestore.instance
           .collection("users")
@@ -106,6 +108,28 @@ class StudentsFirebaseDb implements StudentsDataSource {
 
       final students = snapshot.docs.map((doc) {
         final data = doc.data();
+        return StudentInformation.fromJson(data);
+      }).toList();
+
+      return right(students);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<StudentInformation>>> getStudents() async {
+    try {
+      final currentUid = FirebaseAuth.instance.currentUser!.uid;
+
+      final snapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .where("teacherUid", isEqualTo: currentUid)
+          .get();
+
+      final students = snapshot.docs.map((doc) {
+        final data = doc.data();
+        data['uid'] = doc.id;
         return StudentInformation.fromJson(data);
       }).toList();
 

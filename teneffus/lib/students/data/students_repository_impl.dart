@@ -1,4 +1,5 @@
 import 'package:fpdart/src/either.dart';
+
 import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/failure.dart';
 import 'package:teneffus/global_entities/student_stat.dart';
@@ -36,6 +37,15 @@ class StudentsRepositoryImpl implements StudentsRepository {
       return left(Failure("Data source is null"));
     } else {
       return studentsDataSource!.getStudents();
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<StudentInformation>>> getAllStudents() async {
+    if (studentsDataSource == null) {
+      return left(Failure("Data source is null"));
+    } else {
+      return studentsDataSource!.getAllStudents();
     }
   }
 

@@ -21,8 +21,10 @@ class UnitSelectionBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color selectedUnitColor = color ?? Colors.blue;
-    Color unSelectedUnitColor = Colors.grey.shade400;
-    Color selectedBorderColor = const Color(0xfff5f5f5);
+    Color unSelectedUnitColor = Colors.white;
+    Color selectedBorderColor = Colors.white;
+    Color selectedTextColor = Colors.black;
+    Color unSelectedTextColor = Colors.white;
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -30,7 +32,7 @@ class UnitSelectionBar extends StatelessWidget {
           height: 6,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 219, 219, 219),
+            color: Colors.white,
             borderRadius: BorderRadius.circular(16),
           ),
         ),
@@ -50,14 +52,14 @@ class UnitSelectionBar extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                   decoration: BoxDecoration(
-                    color: selectedUnitNumber.value == i
+                    color: selectedUnitNumber.value != i
                         ? selectedUnitColor
                         : unSelectedUnitColor,
                     border: Border.all(
                         width: 2,
-                        color: selectedUnitNumber.value != i
-                            ? selectedBorderColor
-                            : selectedUnitColor),
+                        color: selectedUnitNumber.value == i
+                            ? Colors.white
+                            : selectedBorderColor),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Center(
@@ -69,7 +71,14 @@ class UnitSelectionBar extends StatelessWidget {
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
-                      child: Text("${i + 1}. Ünite"),
+                      child: Text(
+                        "${i + 1}. Ünite",
+                        style: TextStyle(
+                          color: selectedUnitNumber.value == i
+                              ? selectedTextColor
+                              : unSelectedTextColor,
+                        ),
+                      ),
                     ),
                   ),
                 ),

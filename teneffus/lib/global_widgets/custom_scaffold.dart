@@ -30,6 +30,7 @@ class CustomScaffold extends StatelessWidget {
         ),
       ),
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         resizeToAvoidBottomInset: false,
         floatingActionButton: flotingActionButton,

@@ -47,7 +47,6 @@ class GamesPage extends HookConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                const Gap(16),
                 GameContainer(
                   backgroundColor: listeningBackgroundColor,
                   foregroundColor: listeningForegroundColor,
@@ -153,7 +152,7 @@ class GamesPage extends HookConsumerWidget {
                     );
                   },
                 ),
-                const Gap(100),
+                const Gap(120),
               ]),
             ),
           )
@@ -179,44 +178,72 @@ class GamesPage extends HookConsumerWidget {
         collapseMode: CollapseMode.pin,
         background: Container(
           alignment: Alignment.bottomLeft,
-          padding: const EdgeInsets.only(left: 16, bottom: 0, right: 16),
           child: Center(
             child: Column(
               children: [
-                const Gap(120),
-                Text(
-                  "OYUNLAR",
-                  style: GoogleFonts.balooChettan2(
-                    color: textColor,
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  width: double.infinity,
+                  height: 386,
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16),
+                      ),
+                      gradient: LinearGradient(
+                        colors: [
+                          const Color(0xFF6EC8FF).withValues(alpha: .8),
+                          const Color(0xFF335CFF).withValues(alpha: .8)
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      )),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 16, bottom: 0, right: 16),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "OYUNLAR",
+                              style: GoogleFonts.balooChettan2(
+                                color: Colors.white,
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "${selectedUnit.number}. Ünite - ${selectedUnit.nameTr}",
+                          style: GoogleFonts.montserrat(
+                            fontSize: 12,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const Gap(16),
+                        UnitSelectionBar(
+                          color: gamesColor,
+                          units: units,
+                          selectedUnitNumber: selectedUnitNumber,
+                          onTap: (i) {
+                            selectedUnitNumber.value = i;
+                            selectedLesson.value = 0;
+                          },
+                        ),
+                        const Gap(4),
+                        LessonSelectionContainer(
+                          color: gamesColor,
+                          isAllLessonsSelected: isAllLessonsSelected,
+                          lessons: lessons,
+                          selectedLesson: selectedLesson,
+                        ),
+                        const Gap(8),
+                      ],
+                    ),
                   ),
-                ),
-                const Gap(90),
-                Text(
-                  "${selectedUnit.number}. Ünite - ${selectedUnit.nameTr}",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 12,
-                    color: textColor,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const Gap(16),
-                UnitSelectionBar(
-                  color: gamesColor,
-                  units: units,
-                  selectedUnitNumber: selectedUnitNumber,
-                  onTap: (i) {
-                    selectedUnitNumber.value = i;
-                    selectedLesson.value = 0;
-                  },
-                ),
-                const Gap(4),
-                LessonSelectionContainer(
-                  color: gamesColor,
-                  isAllLessonsSelected: isAllLessonsSelected,
-                  lessons: lessons,
-                  selectedLesson: selectedLesson,
                 ),
               ],
             ),

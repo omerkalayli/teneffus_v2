@@ -22,6 +22,7 @@ class LessonSelectionContainer extends StatelessWidget {
     return Row(
       children: [
         CustomDropdown(
+          baseColor: Colors.white,
           disabled: isAllLessonsSelected.value,
           items: lessons
               .map(
@@ -42,12 +43,13 @@ class LessonSelectionContainer extends StatelessWidget {
           child: const Text(
             "Tüm \nKonular",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12),
+            style: TextStyle(fontSize: 12, color: Colors.white),
           ),
         ),
         Checkbox(
-            activeColor: color ?? Colors.blue,
-            side: const BorderSide(color: textColor, width: 2),
+            activeColor: Colors.white,
+            checkColor: color ?? Colors.blue,
+            side: const BorderSide(color: Colors.white, width: 2),
             value: isAllLessonsSelected.value,
             onChanged: (val) {
               isAllLessonsSelected.value = val ?? false;

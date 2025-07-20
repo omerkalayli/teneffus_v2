@@ -44,4 +44,14 @@ class WordStat {
       lastStudied: lastStudied,
     );
   }
+
+  static WordStat empty() {
+    return WordStat(
+      word: Word(tr: "", ar: ""),
+      correctCount: 0,
+      incorrectCount: 0,
+      passedCount: 0,
+      lastStudied: DateTime.now(),
+    );
+  }
 }

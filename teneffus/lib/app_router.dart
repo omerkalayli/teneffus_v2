@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:teneffus/app_router.gr.dart';
-import 'package:teneffus/quiz/presentation/quiz_page.dart';
 
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
@@ -9,6 +8,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: SplashRoute.page, initial: true),
         AutoRoute(page: AuthRoute.page),
         AutoRoute(page: MainLayoutRoute.page),
-        AutoRoute(page: QuizRoute.page)
+        AutoRoute(page: QuizRoute.page),
+        AutoRoute(page: SettingsRoute.page),
       ];
 }

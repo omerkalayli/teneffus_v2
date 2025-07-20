@@ -13,9 +13,6 @@ _$TeacherInformationImpl _$$TeacherInformationImplFromJson(
       name: json['name'] as String,
       surname: json['surname'] as String,
       email: json['email'] as String,
-      students: (json['students'] as List<dynamic>)
-          .map((e) => StudentInformation.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$$TeacherInformationImplToJson(
@@ -25,5 +22,4 @@ Map<String, dynamic> _$$TeacherInformationImplToJson(
       'name': instance.name,
       'surname': instance.surname,
       'email': instance.email,
-      'students': instance.students,
     };

@@ -297,6 +297,9 @@ class $AssetsImagesGen {
   AssetGenImage get loading =>
       const AssetGenImage('assets/images/loading.webp');
 
+  /// File path: assets/images/logout.webp
+  AssetGenImage get logout => const AssetGenImage('assets/images/logout.webp');
+
   /// File path: assets/images/matching.webp
   AssetGenImage get matching =>
       const AssetGenImage('assets/images/matching.webp');
@@ -307,6 +310,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/no_user.webp
   AssetGenImage get noUser => const AssetGenImage('assets/images/no_user.webp');
+
+  /// File path: assets/images/options.webp
+  AssetGenImage get options =>
+      const AssetGenImage('assets/images/options.webp');
 
   /// File path: assets/images/overrall_success.webp
   AssetGenImage get overrallSuccess =>
@@ -339,6 +346,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/students.webp
   AssetGenImage get students =>
       const AssetGenImage('assets/images/students.webp');
+
+  /// File path: assets/images/teacher.webp
+  AssetGenImage get teacher =>
+      const AssetGenImage('assets/images/teacher.webp');
 
   /// File path: assets/images/words.webp
   AssetGenImage get words => const AssetGenImage('assets/images/words.webp');
@@ -390,9 +401,11 @@ class $AssetsImagesGen {
     listening2,
     listening,
     loading,
+    logout,
     matching,
     noHomework,
     noUser,
+    options,
     overrallSuccess,
     profile,
     send,
@@ -402,6 +415,7 @@ class $AssetsImagesGen {
     star3,
     star,
     students,
+    teacher,
     words,
     writing,
     yellowStar,

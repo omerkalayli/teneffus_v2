@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:teneffus/auth/domain/entities/student_information.dart';
 import 'package:teneffus/auth/domain/entities/user_information.dart';
 
 part 'teacher_information.freezed.dart';
@@ -12,7 +11,6 @@ class TeacherInformation extends UserInformation with _$TeacherInformation {
     required String name,
     required String surname,
     required String email,
-    required List<StudentInformation> students,
   }) = _TeacherInformation;
 
   factory TeacherInformation.fromJson(Map<String, dynamic> json) =>

@@ -13,6 +13,10 @@ final allStudentsProvider = StateProvider<List<StudentInformation>>((ref) {
   return [];
 });
 
+final studentsProvider = StateProvider<List<StudentInformation>>((ref) {
+  return [];
+});
+
 @Riverpod(keepAlive: true)
 class StudentsNotifier extends _$StudentsNotifier {
   late final StudentsRepository _studentsRepository;
@@ -48,13 +52,24 @@ class StudentsNotifier extends _$StudentsNotifier {
     );
   }
 
+  Future<void> getAllStudents() async {
+    state = const AsyncValue.loading();
+    final result = await _studentsRepository.getAllStudents();
+    state = result.fold(
+        (failure) => AsyncValue.data(StudentsState.error(failure.message)),
+        (students) {
+      ref.read(allStudentsProvider.notifier).state = students;
+      return const AsyncValue.data(StudentsState.success());
+    });
+  }
+
   Future<void> getStudents() async {
     state = const AsyncValue.loading();
     final result = await _studentsRepository.getStudents();
     state = result.fold(
         (failure) => AsyncValue.data(StudentsState.error(failure.message)),
         (students) {
-      ref.read(allStudentsProvider.notifier).state = students;
+      ref.read(studentsProvider.notifier).state = students;
       return const AsyncValue.data(StudentsState.success());
     });
   }

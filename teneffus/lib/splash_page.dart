@@ -7,6 +7,7 @@ import 'package:teneffus/app_router.gr.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/global_widgets/custom_circular_progress_indicator.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
+import 'package:teneffus/students/presentation/students_notifier.dart';
 import 'package:teneffus/time.dart';
 
 @RoutePage()
@@ -55,9 +56,14 @@ class SplashPage extends HookConsumerWidget {
               }
             }
           } else {
-            await ref
+            final res = await ref
                 .read(authNotifierProvider.notifier)
                 .getTeacherInformation();
+            await ref.read(studentsNotifierProvider.notifier).getStudents();
+            if (res == null) {
+              context.replaceRoute(const AuthRoute());
+              return;
+            }
           }
 
           context.replaceRoute(const AuthRoute());

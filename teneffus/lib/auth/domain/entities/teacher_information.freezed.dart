@@ -24,7 +24,6 @@ mixin _$TeacherInformation {
   String get name => throw _privateConstructorUsedError;
   String get surname => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  List<StudentInformation> get students => throw _privateConstructorUsedError;
 
   /// Serializes this TeacherInformation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,12 +41,7 @@ abstract class $TeacherInformationCopyWith<$Res> {
           TeacherInformation value, $Res Function(TeacherInformation) then) =
       _$TeacherInformationCopyWithImpl<$Res, TeacherInformation>;
   @useResult
-  $Res call(
-      {String uid,
-      String name,
-      String surname,
-      String email,
-      List<StudentInformation> students});
+  $Res call({String uid, String name, String surname, String email});
 }
 
 /// @nodoc
@@ -69,7 +63,6 @@ class _$TeacherInformationCopyWithImpl<$Res, $Val extends TeacherInformation>
     Object? name = null,
     Object? surname = null,
     Object? email = null,
-    Object? students = null,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
@@ -88,10 +81,6 @@ class _$TeacherInformationCopyWithImpl<$Res, $Val extends TeacherInformation>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      students: null == students
-          ? _value.students
-          : students // ignore: cast_nullable_to_non_nullable
-              as List<StudentInformation>,
     ) as $Val);
   }
 }
@@ -104,12 +93,7 @@ abstract class _$$TeacherInformationImplCopyWith<$Res>
       __$$TeacherInformationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String uid,
-      String name,
-      String surname,
-      String email,
-      List<StudentInformation> students});
+  $Res call({String uid, String name, String surname, String email});
 }
 
 /// @nodoc
@@ -129,7 +113,6 @@ class __$$TeacherInformationImplCopyWithImpl<$Res>
     Object? name = null,
     Object? surname = null,
     Object? email = null,
-    Object? students = null,
   }) {
     return _then(_$TeacherInformationImpl(
       uid: null == uid
@@ -148,10 +131,6 @@ class __$$TeacherInformationImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      students: null == students
-          ? _value._students
-          : students // ignore: cast_nullable_to_non_nullable
-              as List<StudentInformation>,
     ));
   }
 }
@@ -163,9 +142,7 @@ class _$TeacherInformationImpl implements _TeacherInformation {
       {required this.uid,
       required this.name,
       required this.surname,
-      required this.email,
-      required final List<StudentInformation> students})
-      : _students = students;
+      required this.email});
 
   factory _$TeacherInformationImpl.fromJson(Map<String, dynamic> json) =>
       _$$TeacherInformationImplFromJson(json);
@@ -178,17 +155,10 @@ class _$TeacherInformationImpl implements _TeacherInformation {
   final String surname;
   @override
   final String email;
-  final List<StudentInformation> _students;
-  @override
-  List<StudentInformation> get students {
-    if (_students is EqualUnmodifiableListView) return _students;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_students);
-  }
 
   @override
   String toString() {
-    return 'TeacherInformation(uid: $uid, name: $name, surname: $surname, email: $email, students: $students)';
+    return 'TeacherInformation(uid: $uid, name: $name, surname: $surname, email: $email)';
   }
 
   @override
@@ -199,14 +169,12 @@ class _$TeacherInformationImpl implements _TeacherInformation {
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.surname, surname) || other.surname == surname) &&
-            (identical(other.email, email) || other.email == email) &&
-            const DeepCollectionEquality().equals(other._students, _students));
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, name, surname, email,
-      const DeepCollectionEquality().hash(_students));
+  int get hashCode => Object.hash(runtimeType, uid, name, surname, email);
 
   /// Create a copy of TeacherInformation
   /// with the given fields replaced by the non-null parameter values.
@@ -227,12 +195,10 @@ class _$TeacherInformationImpl implements _TeacherInformation {
 
 abstract class _TeacherInformation implements TeacherInformation {
   const factory _TeacherInformation(
-          {required final String uid,
-          required final String name,
-          required final String surname,
-          required final String email,
-          required final List<StudentInformation> students}) =
-      _$TeacherInformationImpl;
+      {required final String uid,
+      required final String name,
+      required final String surname,
+      required final String email}) = _$TeacherInformationImpl;
 
   factory _TeacherInformation.fromJson(Map<String, dynamic> json) =
       _$TeacherInformationImpl.fromJson;
@@ -245,8 +211,6 @@ abstract class _TeacherInformation implements TeacherInformation {
   String get surname;
   @override
   String get email;
-  @override
-  List<StudentInformation> get students;
 
   /// Create a copy of TeacherInformation
   /// with the given fields replaced by the non-null parameter values.

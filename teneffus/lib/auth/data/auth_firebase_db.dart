@@ -149,11 +149,6 @@ class AuthFirebaseDb implements AuthDataSource {
         name: user.get("name"),
         surname: user.get("surname"),
         email: auth.currentUser!.email!,
-        students: user.get("students") != null
-            ? List<StudentInformation>.from(user
-                .get("students")
-                .map((student) => StudentInformation.fromJson(student)))
-            : [],
       ));
     } on FirebaseAuthException catch (e) {
       return left(Failure(e.code.toString()));
@@ -252,7 +247,6 @@ class AuthFirebaseDb implements AuthDataSource {
                 name: userSubInformation.name,
                 surname: userSubInformation.surname,
                 email: userCredential.user!.email!,
-                students: userSubInformation.students,
               );
               return right(AuthResult(
                 userInfo: userInformation,
@@ -323,7 +317,6 @@ class AuthFirebaseDb implements AuthDataSource {
           name: userSubInformation.name,
           surname: userSubInformation.surname,
           email: userCredential.user!.email!,
-          students: userSubInformation.students,
         );
         return right(AuthResult(
           userInfo: userInformation,
@@ -472,7 +465,6 @@ class AuthFirebaseDb implements AuthDataSource {
           name: name,
           surname: surname,
           email: email,
-          students: [],
         );
 
         await firestore
@@ -497,7 +489,6 @@ class AuthFirebaseDb implements AuthDataSource {
           name: name,
           surname: surname,
           email: auth.currentUser!.email!,
-          students: [],
         );
 
         await firestore.collection("teachers").doc(auth.currentUser!.uid).set({
