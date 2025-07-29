@@ -279,7 +279,8 @@ class ListeningGamePage extends HookConsumerWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+                padding:
+                    const EdgeInsets.only(bottom: 8.0, right: 16, left: 16),
                 child: _getFooter(
                     selectedWord: selectedWord,
                     player: player,
@@ -313,72 +314,78 @@ class ListeningGamePage extends HookConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CustomButton(
-          buttonPalette: ButtonPalette.gray(),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              children: [
-                Text("Pas Geç",
-                    style: TextStyle(color: Colors.black, fontSize: 12)),
-                Gap(4),
-                Icon(
-                  Icons.double_arrow_rounded,
-                  size: 20,
-                ),
-              ],
+        Expanded(
+          child: CustomButton(
+            buttonPalette: ButtonPalette.gray(),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Pas Geç",
+                      style: TextStyle(color: Colors.black, fontSize: 12)),
+                  Gap(4),
+                  Icon(
+                    Icons.double_arrow_rounded,
+                    size: 20,
+                  ),
+                ],
+              ),
             ),
-          ),
-          onPressed: () async {
-            if (isPassed.value) {
-              return;
-            }
-            isPassed.value = true;
-            await playAudio(selectedWord.value.audioUrl, player);
-            updateWordStat(StatType.passed, selectedWord.value, wordStats);
+            onPressed: () async {
+              if (isPassed.value) {
+                return;
+              }
+              isPassed.value = true;
+              await playAudio(selectedWord.value.audioUrl, player);
+              updateWordStat(StatType.passed, selectedWord.value, wordStats);
 
-            int correctIndex = options.value
-                .indexWhere((element) => element.id == selectedWord.value.id);
-            selectedChoice.value = correctIndex;
-            if (selectedWordIndex.value < numberOfQuestions - 1) {
-              Future.delayed(const Duration(seconds: 2), () {
-                selectedWordIndex.value += 1;
-                isPassed.value = false;
-              });
-            } else if (isInQuiz ?? false) {
-              Future.delayed(const Duration(seconds: 2), () {
-                isPassed.value = false;
-                onFinished?.call(score);
-              });
-            } else {
-              Future.delayed(const Duration(seconds: 2), () {
-                isPassed.value = false;
-                selectedWordIndex.value += 1;
-              });
-            }
-          },
+              int correctIndex = options.value
+                  .indexWhere((element) => element.id == selectedWord.value.id);
+              selectedChoice.value = correctIndex;
+              if (selectedWordIndex.value < numberOfQuestions - 1) {
+                Future.delayed(const Duration(seconds: 2), () {
+                  selectedWordIndex.value += 1;
+                  isPassed.value = false;
+                });
+              } else if (isInQuiz ?? false) {
+                Future.delayed(const Duration(seconds: 2), () {
+                  isPassed.value = false;
+                  onFinished?.call(score);
+                });
+              } else {
+                Future.delayed(const Duration(seconds: 2), () {
+                  isPassed.value = false;
+                  selectedWordIndex.value += 1;
+                });
+              }
+            },
+          ),
         ),
         const Gap(16),
-        CustomButton(
-          buttonPalette: ButtonPalette.teal(),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              children: [
-                Text("Tekrar Dinle",
-                    style: TextStyle(color: Colors.white, fontSize: 12)),
-                Gap(4),
-                Icon(
-                  Icons.replay,
-                  size: 20,
-                  color: Colors.white,
-                ),
-              ],
+        Expanded(
+          child: CustomButton(
+            buttonPalette: ButtonPalette.teal(),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Tekrar Dinle",
+                      style: TextStyle(color: Colors.white, fontSize: 12)),
+                  Gap(4),
+                  Icon(
+                    Icons.replay,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
             ),
+            onPressed: () async {
+              await playAudio(selectedWord.value.audioUrl, player);
+            },
           ),
-          onPressed: () async {
-            await playAudio(selectedWord.value.audioUrl, player);
-          },
         ),
       ],
     );

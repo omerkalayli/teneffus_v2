@@ -198,14 +198,7 @@ class ProfilePage extends HookConsumerWidget {
                 ),
                 background: Container(
                   decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xFFFFCBA2),
-                          Color(0xFFFF9D52),
-                        ],
-                      ),
+                      color: profileColor,
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(16),
                         bottomRight: Radius.circular(16),
@@ -221,6 +214,7 @@ class ProfilePage extends HookConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          Gap(MediaQuery.of(context).padding.top),
                           Expanded(
                             child: Align(
                               alignment: Alignment.center,

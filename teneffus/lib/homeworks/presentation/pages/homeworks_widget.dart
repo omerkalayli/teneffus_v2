@@ -252,19 +252,12 @@ class _HomeworksWidgetState extends ConsumerState<HomeworksWidget> {
           ),
         ),
         background: Container(
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(16),
                   bottomRight: Radius.circular(16),
                 ),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    const Color(0xFFFF7C9E).withValues(alpha: .8),
-                    const Color(0xFFFF306D).withValues(alpha: .8),
-                  ],
-                )),
+                color: homeworksColor),
             alignment: Alignment.bottomLeft,
             padding: const EdgeInsets.only(
               bottom: 4,
@@ -273,6 +266,7 @@ class _HomeworksWidgetState extends ConsumerState<HomeworksWidget> {
               opacity: 1.0 - percentScrolled,
               child: Column(
                 children: [
+                  Gap(MediaQuery.of(context).padding.top),
                   Expanded(
                     child: Align(
                       alignment: Alignment.center,

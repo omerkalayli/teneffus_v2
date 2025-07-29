@@ -26,19 +26,11 @@ class AvatarSelectionPage extends HookConsumerWidget {
           children: [
             Container(
               decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
-                ),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFFFFA69E),
-                    Color(0xFFFF686B),
-                  ],
-                ),
-              ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                  color: avatarPageColor),
               child: Column(
                 children: [
                   Gap(MediaQuery.of(context).padding.top + 16),
@@ -131,7 +123,7 @@ class AvatarSelectionPage extends HookConsumerWidget {
             const Gap(32),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
                 child: SingleChildScrollView(
                   child: Wrap(
                       crossAxisAlignment: WrapCrossAlignment.start,
@@ -147,14 +139,13 @@ class AvatarSelectionPage extends HookConsumerWidget {
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: selectedAvatarIndex.value == index
-                                    ? const Color(0xFFFF686B)
+                                    ? avatarPageColor
                                     : Colors.transparent,
                                 width: 2,
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: const Color(0xFFFF686B)
-                                      .withValues(alpha: .2),
+                                  color: avatarPageColor.withValues(alpha: .2),
                                   blurRadius: 4,
                                   offset: const Offset(0, 2),
                                 ),

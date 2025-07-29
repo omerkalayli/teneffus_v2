@@ -152,7 +152,8 @@ class StudentsPage extends HookConsumerWidget {
                   textEditingController,
                   selectedGrade,
                   filteredStudents,
-                  students),
+                  students,
+                  context),
             ),
             SliverList(
                 delegate:
@@ -245,10 +246,10 @@ class StudentsPage extends HookConsumerWidget {
                                               ),
                                             ),
                                             const Gap(4),
-                                            Assets.images.star.image(
-                                                width: 18,
-                                                height: 18,
-                                                color: textColor),
+                                            Assets.images.star2.image(
+                                              width: 18,
+                                              height: 18,
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -348,6 +349,7 @@ class StudentsPage extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Gap(32),
             Assets.images.noUser.image(
               width: 32,
               height: 32,
@@ -369,6 +371,7 @@ class StudentsPage extends HookConsumerWidget {
     ValueNotifier<int> selectedGrade,
     ValueNotifier<List<StudentInformation>> filteredStudents,
     List<StudentInformation> students,
+    BuildContext context,
   ) {
     return FlexibleSpaceBar(
       titlePadding: EdgeInsets.zero,
@@ -409,19 +412,12 @@ class StudentsPage extends HookConsumerWidget {
         ),
       ),
       background: Container(
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(16),
               bottomRight: Radius.circular(16),
             ),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                const Color(0xFFC58BE2).withValues(alpha: .9),
-                const Color(0xFF993EB3).withValues(alpha: .9),
-              ],
-            )),
+            color: gamesColor),
         alignment: Alignment.bottomLeft,
         padding: const EdgeInsets.only(
           bottom: 4,
@@ -433,7 +429,7 @@ class StudentsPage extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Gap(16),
+                Gap(MediaQuery.of(context).padding.top),
                 Expanded(
                   child: Align(
                     alignment: Alignment.center,

@@ -175,7 +175,8 @@ class WordsPage extends HookConsumerWidget {
               sortTypeIndex,
               sortIncreasing,
               isAllLessonsSelected,
-              lessons),
+              lessons,
+              context),
           isLoading.value
               ? SliverToBoxAdapter(
                   child: Column(
@@ -235,7 +236,8 @@ class WordsPage extends HookConsumerWidget {
       ValueNotifier<int> sortTypeIndex,
       ValueNotifier<bool> sortIncreasing,
       ValueNotifier<bool> isAllLessonsSelected,
-      List<Lesson> lessons) {
+      List<Lesson> lessons,
+      BuildContext context) {
     return SliverAppBar(
       shadowColor: wordsColor.withValues(alpha: .2),
       pinned: true,
@@ -282,19 +284,13 @@ class WordsPage extends HookConsumerWidget {
         ),
         background: Container(
           margin: const EdgeInsets.only(bottom: 16),
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-              ),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  const Color(0xFFC58BE2).withValues(alpha: .9),
-                  const Color(0xFF993EB3).withValues(alpha: .9),
-                ],
-              )),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16),
+            ),
+            color: wordsColor,
+          ),
           alignment: Alignment.bottomLeft,
           padding: const EdgeInsets.only(
             bottom: 4,
@@ -306,6 +302,7 @@ class WordsPage extends HookConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Gap(MediaQuery.of(context).padding.top),
                   Expanded(
                     child: Align(
                       alignment: Alignment.center,

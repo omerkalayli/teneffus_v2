@@ -146,8 +146,10 @@ const Color matchingForegroundColor = Color(0xFF78909C); // BlueGrey 400
 
 const Color textColor = Color(0xff212121);
 
-const Color homeworksColor = Color(0xFFEF476F); // canlı pembe-kırmızı
-const Color gamesColor = Color(0xFF3A86FF);
-const Color wordsColor = Color(0xFF8E44AD);
-const Color homeColor = Color(0xFF41B7FC); // sakin mavi
-const Color profileColor = Color(0xFFF4A261);
+const Color homeworksColor = Color(0xFF8DAECB);
+const Color gamesColor = Color(0xFF9CBFA7);
+const Color wordsColor = Color(0xFFB38A94);
+const Color homeColor = Color(0xFF8AAFC3);
+const Color profileColor = Color(0xFFD9C07F);
+const Color avatarPageColor = Color(0xFFFFA07A);
+const Color settingPageColor = Color(0xFF9E7B6C);

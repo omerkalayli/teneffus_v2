@@ -8,6 +8,7 @@ class MainUnitButton extends StatelessWidget {
     required this.unitName,
     required this.unitNumber,
     required this.lessonName,
+    required this.color,
     super.key,
   });
 
@@ -15,6 +16,7 @@ class MainUnitButton extends StatelessWidget {
   final String unitName;
   final int unitNumber;
   final String lessonName;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class MainUnitButton extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
-                  color: buttonForegroundColorBlue,
+                  color: color,
                   border: Border.all(
                     color: Colors.black,
                     width: 1,

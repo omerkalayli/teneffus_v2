@@ -6,6 +6,7 @@ class CustomScaffold extends StatelessWidget {
     this.appBar,
     this.body,
     this.flotingActionButton,
+    this.backgroundColor = const Color(0xffF5F5F5),
     super.key,
   });
 
@@ -13,21 +14,14 @@ class CustomScaffold extends StatelessWidget {
   final AppBar? appBar;
   final Widget? bottomNavigationBar;
   final Widget? flotingActionButton;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            // Color(0xff4DD0E1),
-            // Color(0xff69AAFF),
-            Color(0xffF5F5F5),
-            Color(0xffF5F5F5),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      decoration: BoxDecoration(
+        color: backgroundColor,
       ),
       child: Scaffold(
         extendBodyBehindAppBar: true,

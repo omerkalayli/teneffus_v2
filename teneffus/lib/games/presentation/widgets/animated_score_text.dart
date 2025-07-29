@@ -18,14 +18,14 @@ class AnimatedScoreText extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
-              color: Colors.blue.withValues(alpha: 0.5),
+              color: buttonForegroundColorTeal.withValues(alpha: 0.7),
               borderRadius: BorderRadius.circular(8)),
           child: Text(
             "Puan: $value",
             style: const TextStyle(
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: textColor,
+              color: Colors.white,
             ),
           ),
         );

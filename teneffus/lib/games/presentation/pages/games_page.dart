@@ -42,6 +42,7 @@ class GamesPage extends HookConsumerWidget {
             units: units,
             isAllLessonsSelected: isAllLessonsSelected,
             lessons: lessons,
+            context: context,
           ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
@@ -168,6 +169,7 @@ class GamesPage extends HookConsumerWidget {
     required List<Unit> units,
     required ValueNotifier<bool> isAllLessonsSelected,
     required List<Lesson> lessons,
+    required BuildContext context,
   }) {
     return SliverAppBar(
       pinned: true,
@@ -184,24 +186,18 @@ class GamesPage extends HookConsumerWidget {
                 Container(
                   width: double.infinity,
                   height: 386,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(16),
                         bottomRight: Radius.circular(16),
                       ),
-                      gradient: LinearGradient(
-                        colors: [
-                          const Color(0xFF6EC8FF).withValues(alpha: .8),
-                          const Color(0xFF335CFF).withValues(alpha: .8)
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      )),
+                      color: gamesColor),
                   child: Padding(
                     padding:
                         const EdgeInsets.only(left: 16, bottom: 0, right: 16),
                     child: Column(
                       children: [
+                        Gap(MediaQuery.of(context).padding.top),
                         Expanded(
                           child: Align(
                             alignment: Alignment.center,

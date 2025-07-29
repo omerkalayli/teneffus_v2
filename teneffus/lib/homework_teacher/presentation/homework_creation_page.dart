@@ -187,19 +187,12 @@ class HomeworkCreationPage extends HookConsumerWidget {
                     ),
                   ),
                   background: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(16),
                           bottomRight: Radius.circular(16),
                         ),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            const Color(0xFFFF7C9E).withValues(alpha: .8),
-                            const Color(0xFFFF306D).withValues(alpha: .8),
-                          ],
-                        )),
+                        color: homeworksColor),
                     alignment: Alignment.bottomLeft,
                     padding: const EdgeInsets.only(
                       bottom: 4,
@@ -211,7 +204,7 @@ class HomeworkCreationPage extends HookConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Gap(16),
+                            Gap(MediaQuery.of(context).padding.top),
                             Expanded(
                               child: Align(
                                 alignment: Alignment.center,
@@ -449,7 +442,7 @@ class HomeworkCreationPage extends HookConsumerWidget {
                       child: Text(
                         "Geçme Notu",
                         style: TextStyle(color: Colors.white),
-                      ), // TODO: gecme notu yerine dogru yuzdesi ya da sayisi olmlaı bence
+                      ),
                     ),
                     SizedBox(
                       height: 30,

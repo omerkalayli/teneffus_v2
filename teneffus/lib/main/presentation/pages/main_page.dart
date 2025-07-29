@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/arabic/getter/getter.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
+import 'package:teneffus/constants.dart';
 import 'package:teneffus/games/presentation/widgets/custom_dropdown.dart';
 import 'package:teneffus/global_entities/button_type.dart';
 import 'package:teneffus/global_entities/unit.dart';
@@ -39,20 +40,12 @@ class MainPage extends HookConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-              ),
-              gradient: LinearGradient(
-                colors: [
-                  const Color(0xff4DD0E1).withValues(alpha: .8),
-                  const Color(0xff69AAFF).withValues(alpha: .8),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
+                ),
+                color: homeColor),
             child: Column(
               children: [
                 Gap(MediaQuery.of(context).padding.top),
@@ -89,7 +82,10 @@ class MainPage extends HookConsumerWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.2),
                 child: CustomTextButton(
-                    buttonPalette: ButtonPalette.blue(),
+                    buttonPalette: ButtonPalette.custom(
+                      backgroundColor: const Color.fromARGB(255, 98, 121, 132),
+                      foregroundColor: const Color.fromARGB(255, 117, 168, 195),
+                    ),
                     borderWidth: 1,
                     textStyle:
                         const TextStyle(fontSize: 16, color: Colors.white),
@@ -125,6 +121,7 @@ class MainPage extends HookConsumerWidget {
                 color: Colors.black,
               ),
               MainUnitButton(
+                color: const Color.fromARGB(255, 117, 168, 195),
                 onTapped: () {
                   showUnitAndLessonSelectionModal(
                       context, selectedUnitNumber, selectedLessonNumber, units);

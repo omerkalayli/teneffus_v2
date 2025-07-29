@@ -23,19 +23,11 @@ class SettingsPage extends HookConsumerWidget {
               height: 330,
               width: double.infinity,
               decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
-                ),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFFC2F9BB), // Açık nane yeşili
-                    Color(0xFF7BD389), // Doğal zeytin yeşili
-                  ],
-                ),
-              ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                  color: settingPageColor),
               child: Stack(
                 children: [
                   SafeArea(
@@ -112,7 +104,8 @@ class SettingsPage extends HookConsumerWidget {
                     },
                     child: Card(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 8),
                         child: Row(
                           children: [
                             const Gap(4),
@@ -121,7 +114,10 @@ class SettingsPage extends HookConsumerWidget {
                               height: 28,
                             ),
                             const Gap(16),
-                            const Text("Çıkış Yap")
+                            const Text(
+                              "Çıkış Yap",
+                              style: TextStyle(fontSize: 16),
+                            )
                           ],
                         ),
                       ),
