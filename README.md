@@ -25,7 +25,7 @@ Bu uygulama, lise düzeyindeki öğrenciler için **Arapça öğrenimini destekl
 - **Provider / Riverpod** – State management  
 - **SharedPreferences** – Lokal veri saklama
 - **Figma** – Arayüz tasarımı  
-- **Firabse, Firestore**
+- **Firebase, Firestore**
 
 ---
 
