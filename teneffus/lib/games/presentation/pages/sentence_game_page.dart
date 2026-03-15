@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -151,27 +152,37 @@ class SentenceGamePage extends HookConsumerWidget {
           ? Colors.grey
           : const Color.fromARGB(111, 255, 255, 255);
     } else {
-      dragTargetColor = const Color.fromARGB(111, 255, 255, 255);
+      dragTargetColor = Colors.teal.withValues(alpha: .3);
     }
 
     return CustomScaffold(
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
         backgroundColor: Colors.transparent,
         title: Text(
           "Cümle Kurma",
           style: GoogleFonts.montserrat(
-              color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
+              color: textColor, fontSize: 24, fontWeight: FontWeight.w800),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left_rounded,
-              size: 30, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.chevron_left_rounded,
+            size: 30,
+            color: textColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         centerTitle: true,
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(32.0),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,7 +212,7 @@ class SentenceGamePage extends HookConsumerWidget {
                   currentSentence.tr,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.montserrat(
-                    color: Colors.white,
+                    color: textColor,
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                   ),
@@ -218,13 +229,16 @@ class SentenceGamePage extends HookConsumerWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: isCorrect.value == true || isPassed.value == true
-                          ? Text(
-                              currentSentence.ar,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 24,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                          ? Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                currentSentence.ar,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  color: textColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             )
                           : Wrap(
@@ -288,95 +302,103 @@ class SentenceGamePage extends HookConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    CustomButton(
-                      buttonPalette: ButtonPalette.gray(),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Row(
-                          children: [
-                            Text("Pas Geç",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 12)),
-                            Icon(
-                              Icons.double_arrow_rounded,
-                              size: 20,
-                            ),
-                          ],
+                    Expanded(
+                      child: CustomButton(
+                        buttonPalette: ButtonPalette.gray(),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Pas Geç",
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 12)),
+                              Icon(
+                                Icons.double_arrow_rounded,
+                                size: 20,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      onPressed: () async {
-                        for (Word word
-                            in shuffledSentences[selectedSentenceIndex.value]
-                                .words) {
-                          updateWordStat(StatType.passed, word, wordStats);
-                        }
-                        if (isPassed.value ?? false) {
-                          return;
-                        }
-                        isPassed.value = true;
-                        await Future.delayed(const Duration(seconds: 3), () {
-                          isPassed.value = null;
-                        });
-                        if (selectedSentenceIndex.value <
-                            numberOfQuestions - 1) {
-                          selectedSentenceIndex.value++;
-                        } else {
-                          updateStat(GameType.sentenceMaking, wordStats, ref);
-                          if (isInQuiz == true) {
-                            onFinished?.call(score.value);
-                          } else {
-                            await showGameOverDialog(context, score.value, ref);
-                            Navigator.pop(context);
+                        onPressed: () async {
+                          for (Word word
+                              in shuffledSentences[selectedSentenceIndex.value]
+                                  .words) {
+                            updateWordStat(StatType.passed, word, wordStats);
                           }
-                        }
-                        droppedWords.value = [];
-                        if (selectedSentenceIndex.value <
-                            shuffledSentences.length) {
-                          availableWords.value = List.from(
-                            generateWordOptions(
-                              shuffledSentences[selectedSentenceIndex.value],
-                              shuffledSentences,
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                    CustomButton(
-                      disableSound: true,
-                      buttonPalette: ButtonPalette.teal(),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Row(
-                          children: [
-                            Text("Geri Al",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12)),
-                            Gap(4),
-                            Icon(
-                              Icons.undo_rounded,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                          ],
-                        ),
+                          if (isPassed.value ?? false) {
+                            return;
+                          }
+                          isPassed.value = true;
+                          await Future.delayed(const Duration(seconds: 3), () {
+                            isPassed.value = null;
+                          });
+                          if (selectedSentenceIndex.value <
+                              numberOfQuestions - 1) {
+                            selectedSentenceIndex.value++;
+                          } else {
+                            updateStat(GameType.sentenceMaking, wordStats, ref);
+                            if (isInQuiz == true) {
+                              onFinished?.call(score.value);
+                            } else {
+                              await showGameOverDialog(
+                                  context, score.value, ref);
+                              Navigator.pop(context);
+                            }
+                          }
+                          droppedWords.value = [];
+                          if (selectedSentenceIndex.value <
+                              shuffledSentences.length) {
+                            availableWords.value = List.from(
+                              generateWordOptions(
+                                shuffledSentences[selectedSentenceIndex.value],
+                                shuffledSentences,
+                              ),
+                            );
+                          }
+                        },
                       ),
-                      onPressed: () async {
-                        playDropWordSound(dropWordPlayer);
-                        if (droppedWords.value.isNotEmpty) {
-                          final firstWord = droppedWords.value.first;
-                          droppedWords.value = [...droppedWords.value]
-                            ..removeAt(0);
-                          availableWords.value = [
-                            ...availableWords.value,
-                            firstWord
-                          ];
-                        }
-                      },
+                    ),
+                    const Gap(8),
+                    Expanded(
+                      child: CustomButton(
+                        disableSound: true,
+                        buttonPalette: ButtonPalette.teal(),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Geri Al",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12)),
+                              Gap(4),
+                              Icon(
+                                Icons.undo_rounded,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                        onPressed: () async {
+                          playDropWordSound(dropWordPlayer);
+                          if (droppedWords.value.isNotEmpty) {
+                            final firstWord = droppedWords.value.first;
+                            droppedWords.value = [...droppedWords.value]
+                              ..removeAt(0);
+                            availableWords.value = [
+                              ...availableWords.value,
+                              firstWord
+                            ];
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),
                 CustomTextButton(
-                  buttonPalette: ButtonPalette.burntSienna(),
+                  buttonPalette: ButtonPalette.blue(),
                   textStyle: const TextStyle(
                     color: Color.fromARGB(255, 255, 255, 255),
                     fontSize: 16,

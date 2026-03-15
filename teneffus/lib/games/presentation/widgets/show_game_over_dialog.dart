@@ -35,7 +35,11 @@ Future<void> showGameOverDialog(
         children: [
           AlertDialog(
             backgroundColor: Colors.transparent,
-            title: const Center(child: Text("Tebrikler!")),
+            title: const Center(
+                child: Text(
+              "Tebrikler!",
+              style: TextStyle(color: Colors.white),
+            )),
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
