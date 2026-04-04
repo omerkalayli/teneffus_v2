@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "943116106298-80cm1hmfm3rhaenhcs2pgnbe3epkv20m.apps.googleusercontent.com",
+          "client_id": "943116106298-098s1sfetk8kt37t4h0gdc2lfe4d9d0f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.omerkalayli.teneffus",
-            "certificate_hash": "1a46f12ac3937f8780944471dddb4d94b5abb395"
+            "certificate_hash": "513f8e7edf61bb5574e67e0fb463823fb58c3efb"
           }
         },
         {

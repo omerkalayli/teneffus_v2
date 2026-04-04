@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -181,88 +182,105 @@ class AuthFirebaseDb implements AuthDataSource {
       throw Exception(e.toString() == "Exception: User not found"
           ? "wrong-user-type"
           : e.toString());
-    }
-  }
-
-  @override
-  Future<Either<Failure, AuthResult>> signInWithGoogle() async {
-    try {
-      final googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
-        return left(Failure("Google sign in cancelled"));
-      }
-      final googleAuth = await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      final userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-
-      if (userCredential.user == null) {
-        return left(Failure("User not found"));
+    } 
+      
       }
 
-      final userType = await getUserType(uid: userCredential.user!.uid);
+@override
+Future<Either<Failure, AuthResult>> signInWithGoogle() async {
+  try {
+    final GoogleSignIn googleSignIn = GoogleSignIn.instance;
 
-      return userType.fold(
-        (failure) {
-          if (failure.message == "user-not-found") {
-            return left(Failure("user-not-found"));
-          } else {
-            return left(Failure(failure.message));
-          }
-        },
-        (userType) async {
-          if (userType == "user-not-found") {
-            return left(
-                Failure("user-not-found")); // To redirect to register page.
-          } else {
-            if (userType == "student") {
-              StudentSubInformation userSubInformation =
-                  await getStudentSubInformation(uid: userCredential.user!.uid);
-              StudentInformation userInformation = StudentInformation(
-                uid: userCredential.user!.uid,
-                name: userSubInformation.name,
-                surname: userSubInformation.surname,
-                email: userCredential.user!.email!,
-                grade: userSubInformation.grade,
-                rank: userSubInformation.rank,
-                starCount: userSubInformation.starCount,
-                teacherUid: userSubInformation.teacherUid,
-                avatarId: userSubInformation.avatarId,
-                dayStreak: userSubInformation.dayStreak,
-                lastLogin: await getCurrentTime(),
-              );
-              return right(AuthResult(
-                userInfo: userInformation,
-                userType: userType,
-              ));
-            } else {
-              TeacherSubInformation userSubInformation =
-                  await getTeacherSubInformation(uid: userCredential.user!.uid);
-              TeacherInformation userInformation = TeacherInformation(
-                uid: userCredential.user!.uid,
-                name: userSubInformation.name,
-                surname: userSubInformation.surname,
-                email: userCredential.user!.email!,
-              );
-              return right(AuthResult(
-                userInfo: userInformation,
-                userType: userType,
-              ));
-            }
-          }
-        },
-      );
-    } on FirebaseAuthException catch (e) {
-      return left(Failure(e.code.toString()));
-    } on Exception catch (e) {
-      return left(Failure(e.toString()));
+    await googleSignIn.initialize(
+      serverClientId:
+          dotenv.env['GOOGLE_WEB_CLIENT_ID']!,
+    );
+
+    await googleSignIn.signOut();
+
+    final googleUser = await googleSignIn.authenticate();
+
+    final auth = await googleUser.authorizationClient
+        .authorizeScopes(['email']);
+
+    final idToken = googleUser.authentication.idToken;
+    final accessToken = auth.accessToken;
+
+    if (idToken == null || accessToken == null) {
+      return left(Failure("missing-google-token"));
     }
-  }
 
+    final credential = GoogleAuthProvider.credential(
+      idToken: idToken,
+      accessToken: accessToken,
+    );
+
+    final userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    final user = userCredential.user;
+
+    if (user == null) {
+      return left(Failure("firebase-user-null"));
+    }
+
+    final userTypeResult = await getUserType(uid: user.uid);
+
+    return await userTypeResult.fold(
+      (failure) async => left(failure),
+      (userType) async {
+        if (userType == "user-not-found") {
+          return left(Failure("user-not-found"));
+        }
+
+        if (userType == "student") {
+          final sub =
+              await getStudentSubInformation(uid: user.uid);
+
+          final info = StudentInformation(
+            uid: user.uid,
+            name: sub.name,
+            surname: sub.surname,
+            email: user.email!,
+            grade: sub.grade,
+            rank: sub.rank,
+            starCount: sub.starCount,
+            teacherUid: sub.teacherUid,
+            avatarId: sub.avatarId,
+            dayStreak: sub.dayStreak,
+            lastLogin: await getCurrentTime(),
+          );
+
+          return right(AuthResult(
+            userInfo: info,
+            userType: userType,
+          ));
+        }
+
+        final sub =
+            await getTeacherSubInformation(uid: user.uid);
+
+        final info = TeacherInformation(
+          uid: user.uid,
+          name: sub.name,
+          surname: sub.surname,
+          email: user.email!,
+        );
+
+        return right(AuthResult(
+          userInfo: info,
+          userType: userType,
+        ));
+      },
+    );
+  } on FirebaseAuthException catch (e) {
+    return left(Failure("firebase-auth: ${e.code}"));
+  } catch (e) {
+    return left(Failure("unknown-error: $e"));
+  }
+}
+
+  
   @override
   Future<Either<Failure, AuthResult>> signInWithEmail({
     required String email,
