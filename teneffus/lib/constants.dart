@@ -70,11 +70,11 @@ const Color buttonBackgroundColorMaroon = Color(0xff6A1B9A);
 const Color buttonForegroundColorMaroon = Color(0xffCE93D8);
 
 /// Textfield colors
-const Color textFieldTextColor = Color(0xff333333);
-const Color textFieldEnabledBorderColor = Color(0xff058595);
+const Color textFieldTextColor = Colors.white;
+const Color textFieldEnabledBorderColor = Colors.white;
 const Color textFieldErrorBorderColor = Color(0xFFE57373);
-const Color textFieldFocusedBorderColor = Color(0xff333333);
-const Color textFieldColor = Color(0xffADE8F4);
+const Color textFieldFocusedBorderColor = Colors.white;
+const Color textFieldColor = Colors.transparent;
 
 // Snackbar colors
 
@@ -149,7 +149,7 @@ const Color textColor = Color(0xff212121);
 const Color homeworksColor = Color(0xFF8DAECB);
 const Color gamesColor = Color(0xFF9CBFA7);
 const Color wordsColor = Color(0xFFB38A94);
-const Color homeColor = Color(0xFF8AAFC3);
+const Color homeColor = Color(0xff64B5F6);
 const Color profileColor = Color(0xFFD9C07F);
 const Color avatarPageColor = Color(0xFFFFA07A);
 const Color settingPageColor = Color(0xFF9E7B6C);

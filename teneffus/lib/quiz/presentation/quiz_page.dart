@@ -11,6 +11,7 @@ import 'package:teneffus/games/presentation/pages/writing_game_page.dart';
 import 'package:teneffus/global_entities/lesson.dart';
 import 'package:teneffus/global_entities/unit.dart';
 import 'package:teneffus/quiz/presentation/show_quiz_finished_dialog.dart';
+import 'package:uuid/uuid.dart';
 
 @RoutePage()
 class QuizPage extends HookConsumerWidget {
@@ -22,6 +23,7 @@ class QuizPage extends HookConsumerWidget {
     this.isHomework = false,
     this.homeworkId,
     this.minScore,
+    this.startIndex = 0,
     super.key,
   })  : assert(
           !isHomework || (homeworkId != null && minScore != null),
@@ -32,13 +34,14 @@ class QuizPage extends HookConsumerWidget {
           "homeworkId and minScore must be null if isHomework is false",
         );
 
-  final Lesson selectedLesson;
+  final Lesson? selectedLesson;
   final Unit selectedUnit;
   final bool isAllLessonsSelected;
   final bool isAllUnitsSelected;
   final bool isHomework;
   final String? homeworkId;
   final int? minScore;
+  final int startIndex;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,16 +50,18 @@ class QuizPage extends HookConsumerWidget {
     final selectedLessons = isAllLessonsSelected
         ? units
             .expand((unit) => unit.lessons)
-            .where((lesson) => lesson.number == selectedLesson.number)
             .toList()
         : [selectedLesson];
 
     final quizPhase = useState(0);
     final totalScore = useState(0);
 
+    final quizId = useMemoized(() => const Uuid().v4());
+
     switch (quizPhase.value) {
       case 0:
         return SentenceGamePage(
+          quizId: quizId,
           isInQuiz: true,
           quizLength: 4,
           quizScore: totalScore.value,
@@ -67,12 +72,16 @@ class QuizPage extends HookConsumerWidget {
           isAllLessonsSelected: isAllLessonsSelected,
           isAllUnitsSelected: isAllUnitsSelected,
           onFinished: (score) {
+             WidgetsBinding.instance.addPostFrameCallback((_) {
             quizPhase.value = 1;
             totalScore.value = score;
+             });
           },
+          startIndex: startIndex
         );
       case 1:
         return ListeningGamePage(
+          quizId: quizId,
           isInQuiz: true,
           quizLength: 4,
           quizScore: totalScore.value,

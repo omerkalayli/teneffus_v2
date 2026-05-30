@@ -21,6 +21,7 @@ import 'package:teneffus/global_entities/word.dart';
 import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/global_widgets/custom_button.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
+import 'package:teneffus/quiz/domain/quiz_progress.dart';
 
 /// [ListeningGamePage], is the "Dinleme" game page.
 /// It is a game where the user listens to a word and selects the correct option from the given options.
@@ -30,6 +31,7 @@ class ListeningGamePage extends HookConsumerWidget {
     required this.selectedLessons,
     required this.selectedUnit,
     required this.selectedUnitNumber,
+    required this.quizId,
     this.isAllLessonsSelected = false,
     this.isAllUnitsSelected = false,
     this.isInQuiz,
@@ -37,6 +39,7 @@ class ListeningGamePage extends HookConsumerWidget {
     this.quizStep,
     this.quizLength,
     this.onFinished,
+    this.startIndex = 0,
     super.key,
   });
 
@@ -44,31 +47,33 @@ class ListeningGamePage extends HookConsumerWidget {
   final bool isAllUnitsSelected;
   final Unit selectedUnit;
   final int selectedUnitNumber;
-  final List<Lesson> selectedLessons;
+  final List<Lesson?> selectedLessons;
   final bool? isInQuiz;
   final int? quizScore;
   final int? quizStep;
   final int? quizLength;
   final Function(int)? onFinished;
+  final int startIndex;
+  final String quizId;
 
   List<WordStat> wordStats = [];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const numberOfQuestions = 2;
+    const numberOfQuestions = 10;
 
     final player = ref.watch(listeningPlayerProvider);
     final sfxPlayer = ref.watch(sfxPlayerProvider);
     final shuffledWords = useMemoized(() {
       final allWords =
-          selectedLessons.expand((lesson) => lesson.words).toList();
+          selectedLessons.expand((lesson) => lesson?.words ?? []).toList();
       allWords.shuffle();
       final list = allWords.take(numberOfQuestions).toList();
       return list;
     });
 
     final score = useState(quizScore ?? 0);
-    final selectedWordIndex = useState(0);
+    final selectedWordIndex = useState(startIndex);
     final selectedChoice = useState(-1);
     final isPassed = useState(false);
     bool isDone = selectedWordIndex.value == shuffledWords.length;
@@ -80,6 +85,7 @@ class ListeningGamePage extends HookConsumerWidget {
           onFinished?.call(score.value);
         });
       } else {
+         clearProgress();
         selectedWordIndex.value -= 1;
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           if (!isPassed.value) {
@@ -90,7 +96,26 @@ class ListeningGamePage extends HookConsumerWidget {
       }
     }
 
-    final selectedWord = useState(shuffledWords[selectedWordIndex.value]);
+    
+    useEffect(() {
+      saveProgress(
+        QuizProgress(
+          progressType: ProgressType.listening,
+          unitNumber: selectedUnit.number,
+          quizId: quizId,
+          questionIndex: selectedWordIndex.value,
+          isCompleted: false,
+          totalQuestions: numberOfQuestions,
+          lessonNumber: isAllLessonsSelected
+              ? -1
+              : selectedLessons.first?.number ?? 0, // if all lessons are selected, set lessonNumber to 0
+        ),
+      );  
+
+      return null;
+    }, [selectedWordIndex.value]);
+
+    final selectedWord = useState<Word>(shuffledWords[selectedWordIndex.value]);
 
     const replayDuration = Duration(milliseconds: 500);
     const playDuration = Duration(seconds: 2);
@@ -112,14 +137,17 @@ class ListeningGamePage extends HookConsumerWidget {
       }
       selectedWord.value = shuffledWords[selectedWordIndex.value];
       final allWords =
-          selectedLessons.expand((lesson) => lesson.words).toList();
+          selectedLessons.expand((lesson) => lesson?.words ?? []).toList();
       final remaining = allWords
           .where((word) => word != selectedWord.value)
           .toList()
         ..shuffle();
 
       final others = remaining.take(3).toList();
-      final allOptions = [...others, selectedWord.value]..shuffle();
+      final List<Word> allOptions = [
+  ...others,
+  selectedWord.value,
+]..shuffle();
 
       options.value = allOptions;
 

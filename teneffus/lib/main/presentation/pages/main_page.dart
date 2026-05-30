@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
@@ -5,16 +6,19 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:teneffus/arabic/getter/getter.dart';
 import 'package:teneffus/auth/presentation/auth_notifier.dart';
 import 'package:teneffus/constants.dart';
+import 'package:teneffus/games/presentation/pages/listening_game_page.dart';
 import 'package:teneffus/games/presentation/widgets/custom_dropdown.dart';
 import 'package:teneffus/global_entities/button_type.dart';
 import 'package:teneffus/global_entities/unit.dart';
 import 'package:teneffus/global_entities/word.dart';
 import 'package:teneffus/global_widgets/custom_text_button.dart';
+import 'package:teneffus/main/presentation/widgets/continue_quiz_card.dart';
 import 'package:teneffus/main/presentation/widgets/daily_container.dart';
 import 'package:teneffus/main/presentation/widgets/daily_word_container.dart';
 import 'package:teneffus/main/presentation/widgets/main_unit_button.dart';
 import 'package:teneffus/main/presentation/widgets/sarfia_animation.dart';
 import 'package:teneffus/main/presentation/widgets/user_badge.dart';
+import 'package:teneffus/quiz/domain/quiz_progress.dart';
 import 'package:teneffus/quiz/presentation/quiz_page.dart';
 import 'package:teneffus/settings/presentation/pages/settings_page.dart';
 
@@ -34,61 +38,67 @@ class MainPage extends HookConsumerWidget {
     });
     final selectedUnitNumber = useState(0);
     final selectedLessonNumber = useState(0);
+    
+    final progressFuture = useMemoized(() => loadProgress());
+final progressSnapshot = useFuture(progressFuture);
+
+final progress = progressSnapshot.data;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
-                ),
-                color: homeColor),
-            child: Column(
-              children: [
-                Gap(MediaQuery.of(context).padding.top),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Align(
-                      alignment: Alignment.centerRight,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SettingsPage(),
-                              ));
-                        },
-                        child: const Icon(
-                          Icons.settings_rounded,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                      )),
-                ),
-                const SarfiaAnimation(),
-                const Gap(20),
-                const UserBadge(),
-              ],
-            ),
-          ),
+          const Gap(8),
+          const UserBadge(),
           DailyContainer(dayStreak: user?.dayStreak ?? 1),
           DailyWordContainer(word: randomWord),
+          if (progress != null)
+            ContinueQuizCard(progress: progress, totalQuestions: progress.totalQuestions, onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context){
+                    switch(progress.progressType) {
+                 
+                      case ProgressType.listening:
+                        return ListeningGamePage(
+                          quizId: progress.quizId,
+                          selectedUnitNumber: progress.unitNumber,
+                        selectedLessons: progress.lessonNumber == -1
+                      ? units
+                          .expand((unit) => unit.lessons)
+                          .toList()
+                      : [   units[progress.unitNumber - 1].lessons.firstWhereOrNull((lesson) => lesson.number == progress.lessonNumber)]
+                    ,
+                    selectedUnit: units[progress.unitNumber - 1],
+                    isAllLessonsSelected: progress.lessonNumber == -1,
+                    isAllUnitsSelected: false,
+                    startIndex: progress.questionIndex,
+                        );
+                             default :
+                        return QuizPage(
+                         selectedLesson:
+                      units[progress.unitNumber - 1].lessons.firstWhereOrNull((lesson) => lesson.number == progress.lessonNumber),
+                    selectedUnit: units[progress.unitNumber - 1],
+                    isAllLessonsSelected: progress.lessonNumber == -1,
+                    isAllUnitsSelected: false,
+                    startIndex: progress.questionIndex,
+                        );
+                    }
+                  } 
+                ),
+              );
+            }),
           Column(
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.2),
                 child: CustomTextButton(
-                    buttonPalette: ButtonPalette.custom(
-                      backgroundColor: const Color.fromARGB(255, 98, 121, 132),
-                      foregroundColor: const Color.fromARGB(255, 117, 168, 195),
-                    ),
+                    buttonPalette: ButtonPalette.blue(),
                     borderWidth: 1,
-                    textStyle:
-                        const TextStyle(fontSize: 16, color: Colors.white),
+                    textStyle:TextStyle(fontSize: 16, color: Colors.white),
                     text: "Quize Başla",
                     onPressed: () {
                       Navigator.push(
@@ -116,12 +126,12 @@ class MainPage extends HookConsumerWidget {
                     }),
               ),
               Container(
-                width: 2,
+                width: 1,
                 height: 24,
                 color: Colors.black,
               ),
               MainUnitButton(
-                color: const Color.fromARGB(255, 117, 168, 195),
+                color: const Color(0xff64B5F6),
                 onTapped: () {
                   showUnitAndLessonSelectionModal(
                       context, selectedUnitNumber, selectedLessonNumber, units);

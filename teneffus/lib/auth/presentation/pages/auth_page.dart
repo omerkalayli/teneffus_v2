@@ -68,42 +68,48 @@ class AuthPage extends HookConsumerWidget {
                       : Container(),
                   backgroundColor: Colors.transparent,
                 ),
-                body: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 24.0, right: 24, top: 24),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      StrokedText(
-                        "TENEFFÜS",
-                        strokeWidth: 6,
-                        style: GoogleFonts.luckiestGuy(
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(
-                          fontSize: 48,
-                          shadows: [headerShadow],
-                        )),
-                      ),
-                      Expanded(
-                        child: CarouselSlider(
-                          carouselController: carouselController,
-                          options: CarouselOptions(
-                            initialPage:
-                                authState.value == const AuthState.register()
-                                    ? 1
-                                    : 0,
-                            height: double.infinity,
-                            enableInfiniteScroll: false,
-                            viewportFraction: 1,
-                          ),
-                          items: const [AuthLoginPage(), AuthRegisterPage()],
+                body: Container(
+                 decoration: const BoxDecoration(
+color: Color(0xff1E293B)
+  ),             
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 24.0, right: 24, top: 80),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        StrokedText(
+                          "SARFIA",
+                          strokeWidth: 6,
+                          style: GoogleFonts.luckiestGuy(
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(
+                            fontSize: 48,
+                            shadows: [headerShadow],
+                            color: Colors.white,
+                          )),
                         ),
-                      ),
-                      const Gap(16),
-                    ],
+                        Expanded(
+                          child: CarouselSlider(
+                            carouselController: carouselController,
+                            options: CarouselOptions(
+                              initialPage:
+                                  authState.value == const AuthState.register()
+                                      ? 1
+                                      : 0,
+                              height: double.infinity,
+                              enableInfiniteScroll: false,
+                              viewportFraction: 1,
+                            ),
+                            items: const [AuthLoginPage(), AuthRegisterPage()],
+                          ),
+                        ),
+                        const Gap(16),
+                      ],
+                    ),
                   ),
                 ),
               ),

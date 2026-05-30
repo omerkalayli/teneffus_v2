@@ -42,7 +42,7 @@ class SplashPage extends HookConsumerWidget {
               if (dayDifference == 1) {
                 await ref
                     .read(authNotifierProvider.notifier)
-                    .updateDayStreak(studentInfo?.dayStreak ?? 1 + 1);
+                    .updateDayStreak((studentInfo?.dayStreak ?? 0) + 1);
                 await ref
                     .read(authNotifierProvider.notifier)
                     .updateLastLoginDate();

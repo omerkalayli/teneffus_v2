@@ -29,15 +29,15 @@ class CustomTextField extends StatelessWidget {
     bool? obscureText,
     TextStyle? textStyle,
     super.key,
-  })  : borderRadius = borderRadius ?? BorderRadius.circular(12),
+  })  : borderRadius = borderRadius ?? BorderRadius.circular(16),
         color = color ?? textFieldColor,
         enabledBorderColor = enabledBorderColor ?? textFieldEnabledBorderColor,
         errorBorderColor = errorBorderColor ?? textFieldErrorBorderColor,
         focusedBorderColor = focusedBorderColor ?? textFieldFocusedBorderColor,
-        borderWidth = borderWidth ?? 2,
+        borderWidth = borderWidth ?? 1.5,
         textDirection = textDirection ?? TextDirection.ltr,
         textStyle = textStyle?.copyWith(color: textFieldTextColor) ??
-            const TextStyle(color: textFieldTextColor, fontSize: 16),
+            const TextStyle(color: textFieldTextColor, fontSize: 14),
         obscureText = obscureText ?? false;
 
   final BorderRadius borderRadius;

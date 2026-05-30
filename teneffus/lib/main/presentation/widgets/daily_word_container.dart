@@ -22,8 +22,19 @@ class DailyWordContainer extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final isPlaying = useState(false);
     final player = useMemoized(() => AudioPlayer(), []);
+
+    useEffect(() {
+      final sub = player.playerStateStream.listen((state) {
+        if (state.processingState == ProcessingState.completed) {
+          isPlaying.value = false;
+        }
+      });
+
+      return sub.cancel;
+    }, [player]);
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Padding(

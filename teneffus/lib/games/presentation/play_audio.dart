@@ -24,8 +24,13 @@ final dropWordPlayerProvider = Provider<AudioPlayer>((ref) {
 });
 
 Future<void> playDropWordSound(AudioPlayer player) async {
-  await player.stop();
-  await player.play();
+  Future.microtask(() async {
+    await player
+        .setAsset(dropWordSoundPath);
+    await player.seek(Duration.zero);
+    await player.play();
+  });
+
 }
 
 final listeningPlayerProvider = Provider<AudioPlayer>((ref) {

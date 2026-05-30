@@ -14,7 +14,7 @@ class GameHeader extends StatelessWidget {
   final Unit selectedUnit;
   final bool isAllLessonsSelected;
   final bool isAllUnitsSelected;
-  final List<Lesson> selectedLessons;
+  final List<Lesson?> selectedLessons;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class GameHeader extends StatelessWidget {
           ),
         ] else ...[
           Text(
-            selectedLessons[0].nameTr,
+            selectedLessons[0]?.nameTr ?? "",
             style: const TextStyle(fontSize: 12),
           ),
         ],

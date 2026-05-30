@@ -24,6 +24,7 @@ import 'package:teneffus/global_entities/word_stat.dart';
 import 'package:teneffus/global_widgets/custom_button.dart';
 import 'package:teneffus/global_widgets/custom_scaffold.dart';
 import 'package:teneffus/global_widgets/custom_text_button.dart';
+import 'package:teneffus/quiz/domain/quiz_progress.dart';
 
 /// [SentenceGamePage], is the "Cümle Kurma" game page.
 /// It is a game where the user listens to a word and selects the correct option from the given options.
@@ -33,6 +34,7 @@ class SentenceGamePage extends HookConsumerWidget {
     required this.selectedLessons,
     required this.selectedUnit,
     required this.selectedUnitNumber,
+    required this.quizId,
     this.isAllLessonsSelected = false,
     this.isAllUnitsSelected = false,
     this.isInQuiz,
@@ -40,47 +42,70 @@ class SentenceGamePage extends HookConsumerWidget {
     this.quizStep,
     this.quizLength,
     this.onFinished,
+    this.startIndex = 0,
     super.key,
   });
 
+  final String quizId;
   final bool isAllLessonsSelected;
   final bool isAllUnitsSelected;
   final Unit selectedUnit;
   final int selectedUnitNumber;
-  final List<Lesson> selectedLessons;
+  final List<Lesson?> selectedLessons;
   final bool? isInQuiz;
   final int? quizScore;
   final int? quizStep;
   final int? quizLength;
   final Function(int)? onFinished;
+  final int startIndex;
 
   List<WordStat> wordStats = [];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const numberOfQuestions = 2;
+    const numberOfQuestions = 10;
 
     final sfxPlayer = ref.watch(sfxPlayerProvider);
     final wordSoundPlayer = useMemoized(() => AudioPlayer());
     final isControlling = useState(false);
     final List<Sentence> shuffledSentences = useMemoized(() {
       final list = selectedLessons
-          .expand((lesson) => (lesson.sentences ?? []) as List<Sentence>)
+          .expand((lesson) => (lesson?.sentences ?? []) as List<Sentence>)
           .toList();
       list.shuffle();
       return list.take(numberOfQuestions).toList();
     });
     final score = useState(quizScore ?? 0);
-    final takeBackDone = useState(true);
 
-    final selectedSentenceIndex = useState(0);
+   final selectedSentenceIndex = useState(startIndex);
     bool isDone = selectedSentenceIndex.value == shuffledSentences.length;
     // TODO: quizde dogru ile bitirdigimde bir sonraki alistirmaya gecmiyor
+
+    useEffect(() {
+      saveProgress(
+        QuizProgress(
+          progressType: ProgressType.sentence,
+          unitNumber: selectedUnit.number,
+          quizId: quizId,
+          questionIndex: selectedSentenceIndex.value,
+          isCompleted: false,
+          totalQuestions: numberOfQuestions,
+          lessonNumber: isAllLessonsSelected
+              ? -1
+              : selectedLessons.first?.number ?? 0, // if all lessons are selected, set lessonNumber to 0
+        ),
+      );  
+
+      return null;
+    }, [selectedSentenceIndex.value]);
+
+ 
     if (isDone) {
       updateStat(GameType.sentenceMaking, wordStats, ref);
       if (isInQuiz == true) {
         onFinished?.call(score.value);
       } else {
+        clearProgress();
         selectedSentenceIndex.value -= 1;
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           await showGameOverDialog(context, score.value, ref);
@@ -127,7 +152,7 @@ class SentenceGamePage extends HookConsumerWidget {
     final options = useMemoized(
       () {
         final list = selectedLessons
-            .expand((lesson) => (lesson.sentences ?? []) as List<Sentence>)
+            .expand((lesson) => (lesson?.sentences ?? []) as List<Sentence>)
             .toList();
         list.shuffle();
         return generateWordOptions(currentSentence, list);
@@ -191,7 +216,7 @@ class SentenceGamePage extends HookConsumerWidget {
                   isAllUnitsSelected: isAllUnitsSelected,
                   selectedUnit: selectedUnit,
                   isAllLessonsSelected: isAllLessonsSelected,
-                  selectedLessons: selectedLessons,
+                  selectedLessons: selectedLessons ?? [],
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),

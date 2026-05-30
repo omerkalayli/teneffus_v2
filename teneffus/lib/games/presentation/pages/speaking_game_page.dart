@@ -66,7 +66,7 @@ class SpeakingGamePage extends HookConsumerWidget {
   final bool isAllUnitsSelected;
   final Unit selectedUnit;
   final int selectedUnitNumber;
-  final List<Lesson> selectedLessons;
+  final List<Lesson?> selectedLessons;
   final bool? isInQuiz;
   final int? quizScore;
   final int? quizStep;
@@ -81,7 +81,7 @@ class SpeakingGamePage extends HookConsumerWidget {
 
     final shuffledWords = useMemoized(() {
       final allWords =
-          selectedLessons.expand((lesson) => lesson.words).toList();
+          selectedLessons.expand((lesson) => lesson?.words ?? []).toList();
       allWords.shuffle();
       final list = allWords.take(numberOfQuestions).toList();
       return list;

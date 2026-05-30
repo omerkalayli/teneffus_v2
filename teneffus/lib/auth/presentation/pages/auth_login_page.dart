@@ -29,12 +29,13 @@ class AuthLoginPage extends HookConsumerWidget {
     final emailTextEditingController = useTextEditingController(
         text: kDebugMode ? "omerkalayli.4@gmail.com" : "");
     final passwordTextEditingController = useTextEditingController();
-    double textFieldHeight = 60;
-    double iconButtonSize = 60;
+    double textFieldHeight = 48;
+    double iconButtonSize = 48;
     final isStudent = ref.watch(userTypeProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      backgroundColor: Colors.transparent,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(4.0),
@@ -43,13 +44,12 @@ class AuthLoginPage extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Center(
-                  child: StrokedText(
-                    "Teneffüs'e giriş yap.",
-                    strokeWidth: 2.5,
+                  child: Text(
+                    "Sarfia'ya giriş yap.",
                     style: Theme.of(context)
                         .textTheme
-                        .headlineSmall!
-                        .copyWith(shadows: [textShadowSmall]),
+                        .headlineSmall?.copyWith(color: Colors.white)
+                        ,
                   ),
                 ),
                 const Gap(16),
@@ -57,14 +57,10 @@ class AuthLoginPage extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 4.0),
-                      child: StrokedText(
+                      padding: const EdgeInsets.only(left: 12.0, bottom: 4),
+                      child: Text(
                         "Mail Adresi",
-                        strokeWidth: 2,
-                        strokeColor: const Color(0xff4A4A4A),
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          shadows: [textShadowSmall],
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white  )                      
                       ),
                     ),
                     CustomTextField(
@@ -72,14 +68,10 @@ class AuthLoginPage extends HookConsumerWidget {
                     ),
                     const Gap(16),
                     Padding(
-                      padding: const EdgeInsets.only(left: 4.0),
-                      child: StrokedText(
+                      padding: const EdgeInsets.only(left: 12.0, bottom: 4),
+                      child: Text(
                         "Şifre",
-                        strokeWidth: 2,
-                        strokeColor: const Color(0xff4A4A4A),
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          shadows: [textShadowSmall],
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white  )
                       ),
                     ),
                     SizedBox(
@@ -121,10 +113,12 @@ class AuthLoginPage extends HookConsumerWidget {
                           }
                         },
                         child: const Padding(
-                          padding: EdgeInsets.only(right: 4),
+                          padding: EdgeInsets.only(right: 4, top: 4),
                           child: IntrinsicWidth(
                             child: Text(
+                              maxLines: 1,
                                 style: TextStyle(
+                                  color: Colors.white,
                                     decoration: TextDecoration.underline,
                                     decorationColor: Colors.white,
                                     decorationThickness: 2),
@@ -137,10 +131,10 @@ class AuthLoginPage extends HookConsumerWidget {
                 ),
                 const Gap(32),
                 SizedBox(
-                  height: 48,
+                  height: 36,
                   width: 200,
                   child: CustomTextButton(
-                    buttonPalette: ButtonPalette.midnightBlue(),
+                    buttonPalette: ButtonPalette.deepOrange(),
                     text: "Giriş Yap",
                     onPressed: () async {
                       await _signInWithEmail(
@@ -161,20 +155,19 @@ class AuthLoginPage extends HookConsumerWidget {
                       children: [
                         Expanded(
                           child: Container(
-                            height: 1,
+                            height: 1.4,
                             width: double.maxFinite,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ),
                         const Gap(8),
-                        const StrokedText("Diğer Giriş Seçenekleri",
-                            strokeWidth: 1.5),
+                        const Text("Diğer Giriş Seçenekleri", style: TextStyle(color: Colors.white),),
                         const Gap(8),
                         Expanded(
                           child: Container(
-                            height: 1,
+                            height: 1.4,
                             width: double.maxFinite,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -191,7 +184,7 @@ class AuthLoginPage extends HookConsumerWidget {
                             onPressed: () {},
                             child: Icon(
                               Icons.apple,
-                              size: iconButtonSize - 20,
+                              size: iconButtonSize - 16,
                             ),
                           ),
                         ),
@@ -207,8 +200,8 @@ class AuthLoginPage extends HookConsumerWidget {
                                   .signInWithGoogle();
                             },
                             child: Assets.images.google.image(
-                                width: iconButtonSize * .53,
-                                height: iconButtonSize * .53),
+                                width: iconButtonSize * .46,
+                                height: iconButtonSize * .46),
                           ),
                         ),
                       ],

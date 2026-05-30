@@ -21,7 +21,7 @@ class UserTypeSelectionContainer extends StatelessWidget {
       decoration: BoxDecoration(
           color: !isStudent ? Colors.cyan.shade700 : Colors.blue,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(width: 2, color: Colors.white)),
+          border: Border.all(width: 1.5, color: Colors.white)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -33,7 +33,6 @@ class UserTypeSelectionContainer extends StatelessWidget {
               children: [
                 const Text(
                   "Öğrenciyim",
-                  style: TextStyle(shadows: [textShadowSmall]),
                 ),
                 Checkbox(
                     activeColor: Colors.black45,
@@ -53,7 +52,6 @@ class UserTypeSelectionContainer extends StatelessWidget {
               children: [
                 const Text(
                   "Öğretmenim",
-                  style: TextStyle(shadows: [textShadowSmall]),
                 ),
                 Checkbox(
                     activeColor: Colors.black45,

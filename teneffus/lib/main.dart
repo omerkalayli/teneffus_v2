@@ -10,6 +10,7 @@ import 'package:teneffus/app_router.dart';
 import 'package:teneffus/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:teneffus/firebase_options.dart';
+import 'package:teneffus/sound_manager.dart';
 
 final restartAppProvider = Provider<void Function()>(
   (ref) => throw UnimplementedError(),
@@ -17,6 +18,7 @@ final restartAppProvider = Provider<void Function()>(
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SoundManager.instance.init();
   await dotenv.load(fileName: ".env"); 
   final session = await AudioSession.instance;
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, // TODO: düzelt,

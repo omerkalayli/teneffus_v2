@@ -69,12 +69,11 @@ class CustomTextButton extends StatelessWidget {
                 text,
                 style: textStyle,
               )
-            : StrokedText(
+            : Text(
                 text,
-                strokeWidth: 2,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyLarge!
+                    .bodyMedium!
                     .copyWith(color: Colors.white, fontSize: fontSize),
               ),
       ),

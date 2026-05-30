@@ -24,7 +24,7 @@ class UserBadge extends HookConsumerWidget {
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: Colors.white),
             borderRadius: BorderRadius.circular(12),
-            color: buttonForegroundColorMidnightBlue),
+            color: homeColor),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

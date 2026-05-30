@@ -37,6 +37,7 @@ class AuthRegisterPage extends HookConsumerWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      backgroundColor: Colors.transparent,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(4.0),
@@ -45,16 +46,13 @@ class AuthRegisterPage extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Center(
-                  child: StrokedText(
+                  child: Text(
                     signedInWithGoogle
                         ? "Seni tanıyalım."
-                        : "Teneffüs'e kaydol.",
-                    strokeWidth: 2.5,
-                    style: Theme.of(context)
+                        : "Sarfia'ya kaydol.",
+                style: Theme.of(context)
                         .textTheme
-                        .headlineSmall!
-                        .copyWith(shadows: [textShadowSmall]),
-                  ),
+                        .headlineSmall?.copyWith(color: Colors.white))
                 ),
                 const Gap(16),
                 Column(
@@ -71,31 +69,23 @@ class AuthRegisterPage extends HookConsumerWidget {
                           }),
                       const Gap(16),
                       Padding(
-                        padding: const EdgeInsets.only(left: 4.0),
-                        child: StrokedText(
+                        padding: const EdgeInsets.only(left: 12.0, bottom: 4),
+                        child: Text(
                           "Mail Adresi",
-                          strokeWidth: 2,
-                          strokeColor: const Color(0xff4A4A4A),
                           style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            shadows: [textShadowSmall],
-                          ),
+                              Theme.of(context).textTheme.bodyMedium
                         ),
                       ),
                       CustomTextField(
                         controller: emailTextEditingController,
                       ),
-                      const Gap(4),
+                      const Gap(8),
                       Padding(
-                        padding: const EdgeInsets.only(left: 4.0),
-                        child: StrokedText(
+                        padding: const EdgeInsets.only(left: 12.0, bottom: 4),
+                        child: Text(
                           "Şifre",
-                          strokeWidth: 2,
-                          strokeColor: const Color(0xff4A4A4A),
                           style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            shadows: [textShadowSmall],
-                          ),
+                              Theme.of(context).textTheme.bodyMedium
                         ),
                       ),
                       CustomTextField(
@@ -103,37 +93,29 @@ class AuthRegisterPage extends HookConsumerWidget {
                         controller: passwordTextEditingController,
                       ),
                     ],
-                    const Gap(4),
+                    const Gap(8),
                     Padding(
-                      padding: const EdgeInsets.only(left: 4.0),
-                      child: StrokedText(
+                      padding: const EdgeInsets.only(left: 12.0, bottom: 4),
+                      child: Text(
                         "Adın",
-                        strokeWidth: 2,
-                        strokeColor: const Color(0xff4A4A4A),
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          shadows: [textShadowSmall],
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium
                       ),
                     ),
                     CustomTextField(
                       controller: nameTextEditingController,
                     ),
-                    const Gap(4),
+                    const Gap(8),
                     Padding(
-                      padding: const EdgeInsets.only(left: 4.0),
-                      child: StrokedText(
+                      padding: const EdgeInsets.only(left: 12.0, bottom: 4),
+                      child: Text(
                         "Soyadın",
-                        strokeWidth: 2,
-                        strokeColor: const Color(0xff4A4A4A),
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          shadows: [textShadowSmall],
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium
                       ),
                     ),
                     CustomTextField(
                       controller: surnameTextEditingController,
                     ),
-                    const Gap(4),
+                    const Gap(8),
                     !(isStudent.value)
                         ? const SizedBox.shrink()
                         : Column(
@@ -141,17 +123,13 @@ class AuthRegisterPage extends HookConsumerWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 4.0),
-                                  child: StrokedText(
+                                  padding: const EdgeInsets.only(left: 12.0, bottom: 4),
+                                  child: Text(
                                     "Sınıfın",
-                                    strokeWidth: 2,
-                                    strokeColor: const Color(0xff4A4A4A),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                      shadows: [textShadowSmall],
-                                    ),
+                                        .bodyMedium!
+                                        
                                   ),
                                 ),
                               ),
@@ -162,7 +140,7 @@ class AuthRegisterPage extends HookConsumerWidget {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(16),
                                       border: Border.all(
-                                          color: Colors.white60, width: 3),
+                                          color: Colors.white, width: 2),
                                       color: Colors.transparent),
                                   child: CustomPicker(
                                     labels: const ["9", "10", "11", "12"],
@@ -177,9 +155,9 @@ class AuthRegisterPage extends HookConsumerWidget {
                           ),
                   ],
                 ),
-                Gap(signedInWithGoogle ? 32 : 16),
+                Gap(signedInWithGoogle ? 48 : 32),
                 SizedBox(
-                  height: 48,
+                  height: 36,
                   width: 200,
                   child: CustomTextButton(
                     buttonPalette: ButtonPalette.midnightBlue(),

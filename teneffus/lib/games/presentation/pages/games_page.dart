@@ -16,6 +16,7 @@ import 'package:teneffus/games/presentation/widgets/lesson_selection_container.d
 import 'package:teneffus/games/presentation/widgets/unit_selection_bar.dart';
 import 'package:teneffus/global_entities/lesson.dart';
 import 'package:teneffus/global_entities/unit.dart';
+import 'package:uuid/uuid.dart';
 
 class GamesPage extends HookConsumerWidget {
   const GamesPage({super.key});
@@ -58,6 +59,7 @@ class GamesPage extends HookConsumerWidget {
                       context,
                       MaterialPageRoute(
                         builder: (_) => ListeningGamePage(
+                          quizId: const Uuid().v4(),
                           isAllLessonsSelected: isAllLessonsSelected.value,
                           selectedUnit: selectedUnit,
                           selectedUnitNumber: selectedUnitNumber.value,
@@ -79,6 +81,7 @@ class GamesPage extends HookConsumerWidget {
                       context,
                       MaterialPageRoute(
                         builder: (_) => SentenceGamePage(
+                          quizId: const Uuid().v4(),
                           isAllLessonsSelected: isAllLessonsSelected.value,
                           selectedUnit: selectedUnit,
                           selectedUnitNumber: selectedUnitNumber.value,

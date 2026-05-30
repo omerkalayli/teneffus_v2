@@ -14,6 +14,7 @@ import 'package:teneffus/global_widgets/custom_circular_progress_indicator.dart'
 import 'package:teneffus/homeworks/presentation/notifiers/homeworks_notifier.dart';
 import 'package:teneffus/profile/presentation/pages/avatar_selection_page.dart';
 import 'package:teneffus/profile/presentation/widgets/stat_banner.dart';
+import 'package:teneffus/settings/presentation/pages/settings_page.dart';
 import 'package:teneffus/students/presentation/students_notifier.dart';
 
 import '../../../gen/assets.gen.dart';
@@ -215,6 +216,26 @@ class ProfilePage extends HookConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Gap(MediaQuery.of(context).padding.top),
+                            Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SettingsPage(),
+                              ));
+                        },
+                        child: const Icon(
+                          Icons.settings_rounded,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                      )),
+                ),
+                          
                           Expanded(
                             child: Align(
                               alignment: Alignment.center,
